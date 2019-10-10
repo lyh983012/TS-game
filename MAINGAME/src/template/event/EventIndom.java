@@ -39,16 +39,6 @@ public class EventIndom extends EventBase{
 		 * 在下面进行dataPack的处理
 		 *******************************************/
 		/*		START OF YOUR CODE		*/	
-		if (oldDataPack.time==8 || oldDataPack.time==10) { //只在特定时间可以去上课
-			oldDataPack.stateA="上早上课"; 				   //判断上午还是下午
-			oldDataPack.stateB="classtime";				   //用于判断是否显示按钮
-		}else if(oldDataPack.time==13 || oldDataPack.time==15){
-			oldDataPack.stateA="上下午课"; 				   //同理
-			oldDataPack.stateB="classtime";
-		}else{
-			oldDataPack.stateA="自习";
-			oldDataPack.stateB="othertime";
-		}		
 		Random r = new Random();
 		int randomValue = r.nextInt(8) + 1;
 		int randomTime = r.nextInt(2) + 1;
@@ -80,6 +70,16 @@ public class EventIndom extends EventBase{
 				oldDataPack.characterStrength-=randomValue-2;
 				break;
 		}
+		if (oldDataPack.time==8 || oldDataPack.time==10) { //只在特定时间可以去上课
+			oldDataPack.stateA="上早上课"; 				   //判断上午还是下午
+			oldDataPack.stateB="classtime";				   //用于判断是否显示按钮
+		}else if(oldDataPack.time==13 || oldDataPack.time==15){
+			oldDataPack.stateA="上下午课"; 				   //同理
+			oldDataPack.stateB="classtime";
+		}else{
+			oldDataPack.stateA="自习";
+			oldDataPack.stateB="othertime";
+		}		
 		if (oldDataPack.characterHealth<=0)
 			JOptionPane.showMessageDialog(null, "你猝死了", "", JOptionPane.ERROR_MESSAGE);//弹出猝死界面
 		/*		END OF YOUR CODE		*/
