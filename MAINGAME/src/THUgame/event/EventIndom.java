@@ -21,6 +21,10 @@ import THUgame.datapack.DataPack;
  *	 计数器更换为时间，更合理
  *   完善注释
  *   增加了主要循环的事件分支，完善了 上午课-下午课-睡觉的主要循环
+ * 
+ * update:20191010
+ * 更新：
+ * 	 加入对话逻辑，使用notification存储对话的信息 
  * */
 
 public class EventIndom extends EventBase{

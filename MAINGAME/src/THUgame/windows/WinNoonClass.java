@@ -320,7 +320,7 @@ public class WinNoonClass extends WinBase{
 		dialogContent.setEditable(false);
 		dialogContent.setBounds(6, 34, 677, 149);
 		dialogPanel.add(dialogContent);
-		if (!dataPackage.stateA.equals(""))
+		if (!dataPackage.notification.equals(""))
 			dialogContent.setText(dataPackage.notification);
 		else
 			dialogContent.setText("来上课了……");

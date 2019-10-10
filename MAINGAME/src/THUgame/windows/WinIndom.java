@@ -36,6 +36,9 @@ import javax.swing.JTextField;
  * 加入了时钟（简陋）
  * 鼠标事件响应不需要再写set game了，使用方法和dataPack的传递一样
  * 
+ * update:20191010 18:30
+ * 加入对话框
+ * 加入对话的逻辑
  **/
 	/*************************************************************	
 	 *
@@ -295,10 +298,10 @@ public class WinIndom extends WinBase{
 		dialogContent.setEditable(false);
 		dialogContent.setBounds(6, 34, 677, 149);
 		dialogPanel.add(dialogContent);
-		if (!dataPackage.stateA.equals(""))
+		if (!dataPackage.notification.equals(""))//设置对话内容
 			dialogContent.setText(dataPackage.notification);
 		else
-			dialogContent.setText("宿舍……");
+			dialogContent.setText("宿舍……");//设置默认对话内容
 		dialogContent.setColumns(10);
 		/*************************************************************	
 		 * 【镶待办事项】

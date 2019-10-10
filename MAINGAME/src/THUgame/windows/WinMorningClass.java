@@ -329,10 +329,10 @@ public class WinMorningClass extends WinBase{
 		dialogContent.setEditable(false);
 		dialogContent.setBounds(6, 34, 677, 149);
 		dialogPanel.add(dialogContent);
-		if (!dataPackage.stateA.equals(""))
+		if (!dataPackage.notification.equals(""))//设置对话内容
 			dialogContent.setText(dataPackage.notification);
 		else
-			dialogContent.setText("来上课了……");
+			dialogContent.setText("来上课了……");//设置默认显示的对话内容
 		dialogContent.setColumns(10);
 		
 		/*************************************************************	
