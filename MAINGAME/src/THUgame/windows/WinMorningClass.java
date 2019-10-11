@@ -137,11 +137,11 @@ public class WinMorningClass extends WinBase{
 		backgroundPanel.setLayout(null);
 		
 		/*************************************************************	
-		 * 小事件
+		 * 【小事件】
 		 *************************************************************/
 		JPanel EventPanel = new JPanel();//将来可以用它来放临时小事件
 		EventPanel.setBackground(new Color(255, 255, 204));
-		EventPanel.setBounds(225, 129, 536, 398);
+		EventPanel.setBounds(253, 129, 536, 398);
 		backgroundPanel.add(EventPanel);
 		EventPanel.setLayout(null);
 		EventPanel.setVisible(dataPackage.trigSubEvent);
@@ -162,7 +162,7 @@ public class WinMorningClass extends WinBase{
 		EventPanel.setVisible(dataPackage.trigSubEvent);
 		
 		/*************************************************************	
-		 * 基本按钮
+		 * 【基本按钮】
 		 *************************************************************/
 		JButton btnNewButton = new JButton();
 		btnNewButton.setBorderPainted(false);
@@ -190,7 +190,8 @@ public class WinMorningClass extends WinBase{
 			backgroundPanel.add(btnNewButton_2);
 		}
 		/************************************************************	
-		 * 镶属性 这一部分按照流程做的话就会自然消失的
+		 * 【镶属性】
+		 *  这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
 
 		JPanel panel = new JPanel();
@@ -314,24 +315,21 @@ public class WinMorningClass extends WinBase{
 		/*************************************************************	
 		 * 镶待办事项 这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
-		JPanel imagePanel = new JPanel();
-		imagePanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		
-		imagePanel.setLayout(null);
-		imagePanel.setBounds(752, 248, 263, 189);
-		backgroundPanel.add(imagePanel);
-		
-		JLabel label = new JLabel("待办事项");
-		label.setBounds(6, 6, 61, 16);
-		imagePanel.add(label);
-		
-		JPanel dbsxBackgruond = new ImagePanel("imgsrc//dbsx.jpg",0, 0, 263, 189);
-		dbsxBackgruond.setBounds(0, 0, 263, 189);
-		imagePanel.add(dbsxBackgruond);
-		/*************************************************************	
-		 * 【镶对话框】
-		 *  这一部分按照流程做的话就会自然消失的
-		 *************************************************************/
+		JPanel todoList = new JPanel();
+		todoList.setLayout(null);
+		todoList.setBounds(752, 248, 263, 189);
+			
+				JLabel label = new JLabel("待办事项");
+				label.setForeground(Color.WHITE);
+				label.setBounds(20, 25, 100, 18);
+				todoList.add(label);
+				label.setFont(new Font("STFangsong", Font.PLAIN, 18));
+			
+			JPanel dbsxBackgruond = new ImagePanel("imgsrc//todoList.png",0, 0, 263, 189);
+			dbsxBackgruond.setBounds(0, 0, 263, 189);
+			todoList.add(dbsxBackgruond);
+			dbsxBackgruond.setLayout(null);
+		backgroundPanel.add(todoList);
 		/*************************************************************	
 		 * 【镶对话框】
 		 * 		建立一个带背景的Panel的流程设setBounds(x, y, 宽, 高);
@@ -362,12 +360,13 @@ public class WinMorningClass extends WinBase{
 			
 			JLabel dialogContent = new JLabel();
 			dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			dialogName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 			dialogContent.setBounds(15, 42, 677, 141);
 			dialogPanel.add(dialogContent);
 			if (!dataPackage.notification.equals(""))//设置对话内容
 				dialogContent.setText(dataPackage.notification);
 			else
-				dialogContent.setText("宿舍……");//设置默认对话内容
+				dialogContent.setText("啊，早课……");//设置默认对话内容
 		
 		dialogPack.add(dialogPanel);
 		dialogPack.add(dialogBackgoundPanel);

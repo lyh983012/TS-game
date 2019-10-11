@@ -304,6 +304,16 @@ public class WinIndom extends WinBase{
 		backgroundPanel.add(coursePanel);
 		coursePanel.setLayout(null);
 
+		
+		JPanel sxBackground = new ImagePanel("imgsrc//shuxing.jpg",0, 0, 197, 267);
+		sxBackground.setBounds(0, 0, 197, 267);
+		sxPanel.add(sxBackground);
+		sxBackground.setOpaque(false);
+		sxBackground.setLayout(null);
+		/*************************************************************	
+		 * 【镶课程表框】
+		 *************************************************************/
+		
 		JLabel lblNewLabel = new JLabel("课程表");
 		lblNewLabel.setBounds(6, 6, 61, 16);
 		coursePanel.add(lblNewLabel);
@@ -324,57 +334,54 @@ public class WinIndom extends WinBase{
 		dialogPack.setOpaque(false);//注意要设成透明的
 		dialogPack.setLayout(null);
 		
-			JPanel dialogPanel = new JPanel();
-			dialogPanel.setBounds(0, 0, 689, 189);
+			JPanel dialogPanel = new JPanel();//第1个subPanel，放控件
+			dialogPanel.setBounds(0, 0, 689, 189);//(0, 0, 宽, 高);
 			
-			JPanel dialogBackgoundPanel = new ImagePanel("imgsrc//Dialog.png",0, 0, 689, 189);	
-														//因为图片会遮住控件，所以另外加一个图层放背景
-			dialogBackgoundPanel.setBounds(0, 0, 689, 189);
+			JPanel dialogBackgoundPanel = new ImagePanel("imgsrc//Dialog.png",0, 0, 689, 189);	//第2个subPanel，放图
+																								//(0, 0, 宽, 高);
+			dialogBackgoundPanel.setBounds(0, 0, 689, 189);//(0, 0, 宽, 高);
 			dialogBackgoundPanel.setOpaque(false);//注意要设成透明的
-			dialogPanel.setOpaque(false);//注意要设成透明的
+			dialogPanel.setOpaque(false);		//注意要设成透明的
 			dialogPanel.setLayout(null);
 			
 			JLabel dialogName = new JLabel();
 			dialogName.setBounds(17, 6, 89, 40);
 			dialogPanel.add(dialogName);
 			dialogName.setText("独白");
-			
 			JLabel dialogContent = new JLabel();
+			dialogName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 			dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 			dialogContent.setBounds(15, 42, 677, 141);
 			dialogPanel.add(dialogContent);
+			
 			if (!dataPackage.notification.equals(""))//设置对话内容
 				dialogContent.setText(dataPackage.notification);
 			else
-				dialogContent.setText("宿舍……");//设置默认对话内容
+				dialogContent.setText("回到了宿舍～");//设置默认对话内容
 		
-		dialogPack.add(dialogPanel);
+		dialogPack.add(dialogPanel);		//注意：先放的在上层，所以先放带控件的
 		dialogPack.add(dialogBackgoundPanel);
 		backgroundPanel.add(dialogPack);
-		
 		/*************************************************************	
-		 * 【镶待办事项】
-		 *  	这一部分按照流程做的话就会自然消失的
+		 * 镶待办事项 这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
-		JPanel imagePanel = new JPanel();
-		imagePanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		imagePanel.setLayout(null);
-		imagePanel.setBounds(752, 248, 263, 189);
-		backgroundPanel.add(imagePanel);
-		
-		JLabel label = new JLabel("待办事项");
-		label.setBounds(6, 6, 61, 16);
-		imagePanel.add(label);
-		
-		JPanel dbsxBackgruond = new ImagePanel("imgsrc//dbsx.jpg",0, 0, 263, 189);
-		dbsxBackgruond.setBounds(0, 0, 263, 189);
-		imagePanel.add(dbsxBackgruond);
-		
-		JPanel sxBackground = new ImagePanel("imgsrc//shuxing.jpg",0, 0, 197, 267);
-		sxBackground.setBounds(0, 0, 197, 267);
-		sxPanel.add(sxBackground);
-		sxBackground.setOpaque(false);
-		sxBackground.setLayout(null);
+		JPanel todoList = new JPanel();
+		todoList.setLayout(null);
+		todoList.setOpaque(false);	
+		todoList.setBounds(752, 248, 263, 189);
+			
+				JLabel label = new JLabel("待办事项");
+				label.setForeground(Color.WHITE);
+				label.setBounds(20, 25, 100, 18);
+				todoList.add(label);
+				label.setFont(new Font("STFangsong", Font.PLAIN, 18));
+			
+			JPanel dbsxBackgruond = new ImagePanel("imgsrc//todoList.png",0, 0, 263, 189);
+			dbsxBackgruond.setOpaque(false);	
+			dbsxBackgruond.setBounds(0, 0, 263, 189);
+			todoList.add(dbsxBackgruond);
+			dbsxBackgruond.setLayout(null);
+		backgroundPanel.add(todoList);
 		/*************************************************************	
 		 * 【放背景图】
 		 * 		最后放。
