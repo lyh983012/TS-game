@@ -203,18 +203,31 @@ public class WinIndom extends WinBase{
 		 * 		不需要修改
 		 * 		简而言之就是显示一个Table
 		 *************************************************************/
-		JPanel timePanel = new JPanel();
-		timePanel.setBorder(new LineBorder(new Color(204, 153, 255), 3));
-		timePanel.setBackground(new Color(204, 204, 255));
-		timePanel.setBounds(66, 32, 195, 63);
-		backgroundPanel.add(timePanel);
-		timePanel.setLayout(null);
-		JLabel timeText = new JLabel("当前时间为："+String.valueOf(dataPackage.time)+" 时");
-		timeText.setBounds(6, 35, 172, 16);
-		timePanel.add(timeText);
-		JLabel dateText = new JLabel("当前日期为：第"+String.valueOf(dataPackage.term)+"学期"+String.valueOf(dataPackage.date)+"日");
-		dateText.setBounds(6, 10, 172, 16);
-		timePanel.add(dateText);
+		JPanel timePack = new JPanel();
+		timePack.setLayout(null);
+		timePack.setOpaque(false);//注意要设成透明的
+		timePack.setBounds(66, 32, 195, 90);
+		
+			JPanel timePanel = new JPanel();
+			timePanel.setBounds(0, 0, 195, 90);
+			JPanel timeBackgoundPanel = new ImagePanel("imgsrc//taili.png",0, 0, 195, 90);	
+			timeBackgoundPanel.setBounds(0, 0, 195, 90);
+			
+			timeBackgoundPanel.setOpaque(false);//注意要设成透明的
+			timePanel.setOpaque(false);//注意要设成透明的
+			timePanel.setLayout(null);
+			
+			JLabel timeText = new JLabel("当前时间为："+String.valueOf(dataPackage.time)+" 时");
+			timeText.setBounds(6, 60, 172, 16);
+			timePanel.add(timeText);
+			
+			JLabel dateText = new JLabel("当前日期为：第"+String.valueOf(dataPackage.term)+"学期"+String.valueOf(dataPackage.date)+"日");
+			dateText.setBounds(6, 35, 172, 16);
+			timePanel.add(dateText);
+			
+		timePack.add(timePanel);
+		timePack.add(timeBackgoundPanel);
+		backgroundPanel.add(timePack);
 		/*************************************************************	
 		 * 【镶属性】
 		 *************************************************************/
@@ -300,38 +313,45 @@ public class WinIndom extends WinBase{
 		coursePanel.add(kcbBackground);
 		/*************************************************************	
 		 * 【镶对话框】
-		 * 		建立一个带背景的Panel的流程
-		 *  	1.建一个Panel	(可以不用，但是这样方便整体移动，此处就没有）
-		 * 		2.Panel里建两个subPanel
+		 * 		建立一个带背景的Panel的流程设setBounds(x, y, 宽, 高);
+		 *  	1.建一个Panel	
+		 * 		2.Panel里建两个subPanel，全部都设成setBounds(0, 0, 宽, 高);
 		 * 		3.底下的用imagePanel工具类放图片，上面的放控件
 		 * 		4.设置两个Panel为透明这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
+		JPanel dialogPack = new JPanel();
+		dialogPack.setBounds(66, 475, 689, 189);
+		dialogPack.setOpaque(false);//注意要设成透明的
+		dialogPack.setLayout(null);
 		
-		JPanel dialogPanel = new JPanel();
-		dialogPanel.setBounds(66, 475, 689, 189);
+			JPanel dialogPanel = new JPanel();
+			dialogPanel.setBounds(0, 0, 689, 189);
+			
+			JPanel dialogBackgoundPanel = new ImagePanel("imgsrc//Dialog.png",0, 0, 689, 189);	
+														//因为图片会遮住控件，所以另外加一个图层放背景
+			dialogBackgoundPanel.setBounds(0, 0, 689, 189);
+			dialogBackgoundPanel.setOpaque(false);//注意要设成透明的
+			dialogPanel.setOpaque(false);//注意要设成透明的
+			dialogPanel.setLayout(null);
+			
+			JLabel dialogName = new JLabel();
+			dialogName.setBounds(17, 6, 89, 40);
+			dialogPanel.add(dialogName);
+			dialogName.setText("独白");
+			
+			JLabel dialogContent = new JLabel();
+			dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			dialogContent.setBounds(15, 42, 677, 141);
+			dialogPanel.add(dialogContent);
+			if (!dataPackage.notification.equals(""))//设置对话内容
+				dialogContent.setText(dataPackage.notification);
+			else
+				dialogContent.setText("宿舍……");//设置默认对话内容
 		
-		JPanel dialogBackgoundPanel = new ImagePanel("imgsrc//Dialog.png",0, 0, 689, 189);	
-													//因为图片会遮住控件，所以另外加一个图层放背景
-		dialogBackgoundPanel.setBounds(66, 475, 689, 189);
-		dialogBackgoundPanel.setOpaque(false);//注意要设成透明的
-		dialogPanel.setOpaque(false);//注意要设成透明的
-		dialogPanel.setLayout(null);
-		backgroundPanel.add(dialogPanel);
-		backgroundPanel.add(dialogBackgoundPanel);
+		dialogPack.add(dialogPanel);
+		dialogPack.add(dialogBackgoundPanel);
+		backgroundPanel.add(dialogPack);
 		
-		JLabel dialogName = new JLabel();
-		dialogName.setBounds(17, 6, 89, 40);
-		dialogPanel.add(dialogName);
-		dialogName.setText("独白");
-		
-		JLabel dialogContent = new JLabel();
-		dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		dialogContent.setBounds(15, 42, 677, 141);
-		dialogPanel.add(dialogContent);
-		if (!dataPackage.notification.equals(""))//设置对话内容
-			dialogContent.setText(dataPackage.notification);
-		else
-			dialogContent.setText("宿舍……");//设置默认对话内容
 		/*************************************************************	
 		 * 【镶待办事项】
 		 *  	这一部分按照流程做的话就会自然消失的
