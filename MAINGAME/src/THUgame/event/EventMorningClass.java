@@ -64,8 +64,8 @@ public class EventMorningClass extends EventBase{
 		if(oldDataPack.characterEnergy<30) {
 			oldDataPack.characterHealth-=1;
 		}
-
-		oldDataPack.trigSubEvent=true; 		//到达下课时间！
+		if (oldDataPack.time==12)
+			oldDataPack.trigSubEvent=true; 		//到达下课时间！
 		if (oldDataPack.characterHealth<=0)
 			JOptionPane.showMessageDialog(null, "你猝死了", "", JOptionPane.ERROR_MESSAGE);
 		return;
