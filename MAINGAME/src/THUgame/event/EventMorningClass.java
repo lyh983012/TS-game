@@ -49,11 +49,19 @@ public class EventMorningClass extends EventBase{
 				oldDataPack.notification="回答了一个问题，不管有没有答对，智商和社交力都产生了变化！有些开心，也有些疲惫。";
 				break;
 			case "ask":
-				oldDataPack.characterIQ+=a;
-				oldDataPack.characterEQ-=a;
-				oldDataPack.characterEnergy-=3-a;
-				oldDataPack.notification="有些困惑，问了个问题，智商和社交力都产生了变化！也有些疲惫。";
-				break;
+				if(oldDataPack.characterEnergy<5) {
+					oldDataPack.notification="我没有力气站起来提问。";
+					break;
+				}else if(oldDataPack.characterIQ<0){
+					oldDataPack.notification="我的学力似乎不支持我听懂任何人说话。";
+					break;
+				}else {
+					oldDataPack.characterIQ+=a;
+					oldDataPack.characterEQ-=a;
+					oldDataPack.characterEnergy-=3-a;
+					oldDataPack.notification="有些困惑，问了个问题，智商和社交力都产生了变化！也有些疲惫。";
+					break;
+				}
 			case "next":
 				oldDataPack.characterIQ+=a-4;
 				oldDataPack.characterHappiness-=3;

@@ -197,7 +197,17 @@ public class WinIndom extends WinBase{
 		EventPanel.setBounds(225, 129, 575, 425);
 		backgroundPanel.add(EventPanel);
 		EventPanel.setLayout(null);
-		EventPanel.setVisible(dataPackage.trigSubEvent);
+		EventPanel.setVisible(false);
+		
+		JLabel label_1 = new JLabel("你被舍友的呼噜吵醒了，睡眠质量大跌");
+		label_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		label_1.setBounds(95, 130, 388, 16);
+		EventPanel.add(label_1);
+		
+		JLabel label_2 = new JLabel("健康下降、心情下降、社交力下降、体力下降");
+		label_2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		label_2.setBounds(95, 173, 388, 16);
+		EventPanel.add(label_2);
 		/*************************************************************	
 		 * 【镶时钟】
 		 * 		不需要修改
@@ -348,6 +358,7 @@ public class WinIndom extends WinBase{
 			dialogName.setBounds(17, 6, 89, 40);
 			dialogPanel.add(dialogName);
 			dialogName.setText("独白");
+			
 			JLabel dialogContent = new JLabel();
 			dialogName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 			dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
@@ -449,6 +460,4 @@ public class WinIndom extends WinBase{
     	frame.setVisible(true);
     	//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 	}
-	
-
 }
