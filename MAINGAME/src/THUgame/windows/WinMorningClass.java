@@ -333,7 +333,6 @@ public class WinMorningClass extends WinBase{
 		dialogName.setText("独白");
 		
 		JLabel dialogContent = new JLabel();
-		dialogName.setOpaque(false);
 		dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		dialogContent.setBounds(15, 42, 677, 141);
 		dialogPanel.add(dialogContent);

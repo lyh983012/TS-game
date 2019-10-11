@@ -24,33 +24,44 @@ import javax.swing.SwingConstants;
 /*
  * template version 1.3
  * 可视化界面模板
+ * 
  * update:20190930 18:30
- * 跟新：解决了界面闪烁的问题
+ * 更新：解决了界面闪烁的问题
  * 		跟新了一些类的结构和注释的问题
  * 		注释中：//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥***¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
  * 			表示最重要的事情
  * 		蓝色的部分则是表示对代码块的解释
  * 		细节用单句注释阐述
  * 		推荐收起后再看代码
+ * 		推荐看WinInDom.java的注释
  * 
- * 	推荐看WinInDom.java的注释
- * 
- * 可视化界面模板
  * update:20191006 18:30
- * 加入了按钮的可见／不可见
- * 加入了时钟（简陋）
- * 鼠标事件响应不需要再写set game了，使用方法和dataPack的传递一样
+ * 		加入了按钮的可见／不可见
+ * 		加入了时钟（简陋）
+ * 		鼠标事件响应不需要再写set game了，使用方法和dataPack的传递一样
  * 
  * update:20191010 18:30
- * 加入对话框
- * 加入对话的逻辑
+ * 		加入对话框
+ * 		加入对话的逻辑
+ * 
+ * update:20191010 18:30
+ * 		加入了UI及使用方法
+ * 			对于镶板的背景，流程为：
+ * 				1.建一个Panel	
+ * 				2.Panel里建两个subPanel
+ * 				3.底下的用imagePanel工具类放图片，上面的放控件
+ * 				4.设置两个Panel为透明
+ * 			对于按钮的背景，流程为
+ * 				1.创建按钮
+ * 				2.取消默认的边框	
+ * 				3.设置坐标和大小
+ * 				4.设置一下两种状态的图片，调用的是虚基类里的接口
+ * 				5.把按钮加入panel里
+ * 		更新了按钮的UI和对话框的UI
+ * 			设置UI的方法可以看本类中【按钮】和【对话框】的部分
+ * 
+ * 
  **/
-	/*************************************************************	
-	 *
-	 * 推荐直接复制粘贴pureDmoe使用，直接使用JFrame生成的窗口不太符合我们的需求
-	 * 界面的实现可以参考这个文件
-	 * 
-	 *************************************************************/
 
 
 public class WinIndom extends WinBase{
@@ -58,9 +69,9 @@ public class WinIndom extends WinBase{
 	/*************************************************************	
 	 *
 	 *【内部的事件响应类】
-	 * 这里只写了鼠标的动作，如果之后熟悉了可以加入键盘的操作
-	 * 写成类内部的类是为了防止别的分支事件访问到它，所以可以乱命名
-	 * 所有必要实现的接口都实现了。
+	 * 		这里只写了鼠标的动作，如果之后熟悉了可以加入键盘的操作
+	 * 		写成类内部的类是为了防止别的分支事件访问到它，所以可以乱命名
+	 * 		所有必要实现的接口都实现了。
 	 * 
 	 *************************************************************/
 	static private class demoMouseListener extends BaseMouseListener{
@@ -122,35 +133,33 @@ public class WinIndom extends WinBase{
 	/*************************************************************
 	 * 	
 	 * 【构造函数】
-	 * 不要新建JFrame窗口对象，而是把上层传进来的窗口对象里面的东西扔了，重新添加
+	 * 		不要新建JFrame窗口对象，而是把上层传进来的窗口对象里面的东西扔了，重新添加
 	 * 
 	 *************************************************************/
 	public WinIndom(EventManager mainGame,JFrame frame) {
 		
-		//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+		//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		this.mainGame=mainGame;
-		//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-		
+		//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		/*************************************************************	
 		 *【背景镶板】
-		 * 所有的组件都在里面，两个按钮直接用插件拖进去的
-		 * 这一部分按照流程做的话就会自然消失的，推荐直接在可视化界面编辑属性 
+		 * 		所有的组件都在里面，两个按钮直接用插件拖进去的
+		 * 		这一部分按照流程做的话就会自然消失的，推荐直接在可视化界面编辑属性 
 		 *************************************************************/
 		JPanel backgroundPanel=new JPanel();
 		backgroundPanel.setBackground(Color.WHITE);
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
-		
 		/*************************************************************	
 		 *【按钮】
-		 *	按钮设置流程：
-		 *	1.创建按钮
-		 *	2.取消默认的边框
-		 *	3.设置坐标和大小
-		 *	4.设置一下两种状态的图片，调用的是虚基类里的接口
-		 *	5.把按钮加入panel里
+		 *		按钮设置流程：
+		 *		1.创建按钮
+		 *		2.取消默认的边框
+		 *		3.设置坐标和大小
+		 *		4.设置一下两种状态的图片，调用的是虚基类里的接口
+		 *		5.把按钮加入panel里
 		 *************************************************************/
 		JButton sleepButton = new JButton();
 		sleepButton.setBorderPainted(false);
@@ -182,36 +191,30 @@ public class WinIndom extends WinBase{
 		/*************************************************************	
 		 * 【小事件】 
 		 *  	这一部分需要用dataPackage.trigSubEvent决定是否绘制
-		 *  	具体用法间MorninigClass窗口
+		 *  	具体用法见MorninigClass窗口
 		 *************************************************************/
-		
-		JPanel EventPanel = new JPanel();				//将来可以用它来放临时小事件，目前没有需要
+		JPanel EventPanel = new JPanel();	
 		EventPanel.setBounds(225, 129, 575, 425);
 		backgroundPanel.add(EventPanel);
 		EventPanel.setLayout(null);
 		EventPanel.setVisible(dataPackage.trigSubEvent);
-		
 		/*************************************************************	
 		 * 【镶时钟】
 		 * 		不需要修改
 		 * 		简而言之就是显示一个Table
 		 *************************************************************/
-		
 		JPanel timePanel = new JPanel();
 		timePanel.setBorder(new LineBorder(new Color(204, 153, 255), 3));
 		timePanel.setBackground(new Color(204, 204, 255));
 		timePanel.setBounds(66, 32, 195, 63);
 		backgroundPanel.add(timePanel);
 		timePanel.setLayout(null);
-		
 		JLabel timeText = new JLabel("当前时间为："+String.valueOf(dataPackage.time)+" 时");
 		timeText.setBounds(6, 35, 172, 16);
 		timePanel.add(timeText);
-		
 		JLabel dateText = new JLabel("当前日期为：第"+String.valueOf(dataPackage.term)+"学期"+String.valueOf(dataPackage.date)+"日");
 		dateText.setBounds(6, 10, 172, 16);
 		timePanel.add(dateText);
-		
 		/*************************************************************	
 		 * 【镶属性】
 		 *************************************************************/
@@ -297,15 +300,21 @@ public class WinIndom extends WinBase{
 		coursePanel.add(kcbBackground);
 		/*************************************************************	
 		 * 【镶对话框】
-		 *  这一部分按照流程做的话就会自然消失的
+		 * 		建立一个带背景的Panel的流程
+		 *  	1.建一个Panel	(可以不用，但是这样方便整体移动，此处就没有）
+		 * 		2.Panel里建两个subPanel
+		 * 		3.底下的用imagePanel工具类放图片，上面的放控件
+		 * 		4.设置两个Panel为透明这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
 		
 		JPanel dialogPanel = new JPanel();
 		dialogPanel.setBounds(66, 475, 689, 189);
-		JPanel dialogBackgoundPanel = new ImagePanel("imgsrc//Dialog.png",0, 0, 689, 189);//因为图片会遮住控件，所以另外加一个图层放背景
+		
+		JPanel dialogBackgoundPanel = new ImagePanel("imgsrc//Dialog.png",0, 0, 689, 189);	
+													//因为图片会遮住控件，所以另外加一个图层放背景
 		dialogBackgoundPanel.setBounds(66, 475, 689, 189);
-		dialogBackgoundPanel.setOpaque(false);
-		dialogPanel.setOpaque(false);
+		dialogBackgoundPanel.setOpaque(false);//注意要设成透明的
+		dialogPanel.setOpaque(false);//注意要设成透明的
 		dialogPanel.setLayout(null);
 		backgroundPanel.add(dialogPanel);
 		backgroundPanel.add(dialogBackgoundPanel);
@@ -316,7 +325,6 @@ public class WinIndom extends WinBase{
 		dialogName.setText("独白");
 		
 		JLabel dialogContent = new JLabel();
-		dialogName.setOpaque(false);
 		dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		dialogContent.setBounds(15, 42, 677, 141);
 		dialogPanel.add(dialogContent);
@@ -326,7 +334,7 @@ public class WinIndom extends WinBase{
 			dialogContent.setText("宿舍……");//设置默认对话内容
 		/*************************************************************	
 		 * 【镶待办事项】
-		 *  这一部分按照流程做的话就会自然消失的
+		 *  	这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
 		JPanel imagePanel = new JPanel();
 		imagePanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -349,6 +357,7 @@ public class WinIndom extends WinBase{
 		sxBackground.setLayout(null);
 		/*************************************************************	
 		 * 【放背景图】
+		 * 		最后放。
 		 *************************************************************/
 		
 		JPanel Background=new ImagePanel("imgsrc//Windom/dom.jpg",0, 0, 1080, 720);
