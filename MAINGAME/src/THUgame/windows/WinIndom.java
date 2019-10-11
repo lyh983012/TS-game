@@ -9,6 +9,9 @@ import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Insets;
+
 import javax.swing.border.LineBorder;
 
 import THUgame.datapack.DataPack;
@@ -16,6 +19,8 @@ import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
 
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 /*
  * template version 1.3
  * 可视化界面模板
@@ -36,6 +41,9 @@ import javax.swing.JTextField;
  * 加入了时钟（简陋）
  * 鼠标事件响应不需要再写set game了，使用方法和dataPack的传递一样
  * 
+ * update:20191010 18:30
+ * 加入对话框
+ * 加入对话的逻辑
  **/
 	/*************************************************************	
 	 *
@@ -46,8 +54,6 @@ import javax.swing.JTextField;
 
 
 public class WinIndom extends WinBase{
-		private JTextField dialogName;
-		private JTextField dialogContent;
 	
 	/*************************************************************	
 	 *
@@ -137,28 +143,46 @@ public class WinIndom extends WinBase{
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
 		
-		JButton sleepButton = new JButton("继续睡觉");
-		sleepButton.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		sleepButton.setBounds(812, 544, 155, 55);
+		/*************************************************************	
+		 *【按钮】
+		 *	按钮设置流程：
+		 *	1.创建按钮
+		 *	2.取消默认的边框
+		 *	3.设置坐标和大小
+		 *	4.设置一下两种状态的图片，调用的是虚基类里的接口
+		 *	5.把按钮加入panel里
+		 *************************************************************/
+		JButton sleepButton = new JButton();
+		sleepButton.setBorderPainted(false);
+		sleepButton.setBounds(819, 544, 150, 50);
+		setIcon("/imgsrc/Windom/sleep.png",sleepButton);
+		setSelectedIcon("/imgsrc/Windom/sleepUn.png",sleepButton);
 		backgroundPanel.add(sleepButton);
 
-		JButton selfstudyButton = new JButton("自习");
-		selfstudyButton.setBounds(812, 477, 155, 55);
-		selfstudyButton.setText("自习");
+		JButton selfstudyButton = new JButton();
+		selfstudyButton.setBorderPainted(false);
+		selfstudyButton.setBounds(819, 477, 150, 50);
+		setIcon("/imgsrc/Windom/study.png",selfstudyButton);
+		setSelectedIcon("/imgsrc/Windom/studyUn.png",selfstudyButton);
 		backgroundPanel.add(selfstudyButton);
-		selfstudyButton.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		
-		JButton btnNewButton_2 = new JButton("");
-		btnNewButton_2.setBounds(819, 611, 148, 55);
-		btnNewButton_2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		
-		if (dataPackage.stateB.equals("classtime")) {	//仅仅在符合“classtime”状态的时候显示这个按钮
+		JButton btnNewButton_2 = new JButton();
+		btnNewButton_2.setBorderPainted(false);
+		btnNewButton_2.setBounds(819, 611, 150, 50);
+		if (dataPackage.stateB.equals("classtime")) {	//高级应用：仅仅在符合“classtime”状态的时候显示这个按钮
+			if(dataPackage.stateA.equals("上早上课")){   //高级应用：图标也对应有不同
+				setIcon("/imgsrc/Windom/Morning.png",btnNewButton_2);
+				setSelectedIcon("/imgsrc/Windom/MorningUn.png",btnNewButton_2);
+			}else {
+				setIcon("/imgsrc/Windom/afternoon.png",btnNewButton_2);
+				setSelectedIcon("/imgsrc/Windom/afternoonUn.png",btnNewButton_2);
+			}
 			backgroundPanel.add(btnNewButton_2);
-			btnNewButton_2.setText(dataPackage.stateA);
 		}
 		/*************************************************************	
 		 * 【小事件】 
 		 *  	这一部分需要用dataPackage.trigSubEvent决定是否绘制
+		 *  	具体用法间MorninigClass窗口
 		 *************************************************************/
 		
 		JPanel EventPanel = new JPanel();				//将来可以用它来放临时小事件，目前没有需要
@@ -169,6 +193,8 @@ public class WinIndom extends WinBase{
 		
 		/*************************************************************	
 		 * 【镶时钟】
+		 * 		不需要修改
+		 * 		简而言之就是显示一个Table
 		 *************************************************************/
 		
 		JPanel timePanel = new JPanel();
@@ -273,40 +299,37 @@ public class WinIndom extends WinBase{
 		 * 【镶对话框】
 		 *  这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
-		JPanel dialogPanel = new JPanel();
-		dialogPanel.setBackground(new Color(255, 204, 153));
-		dialogPanel.setBounds(66, 475, 689, 189);
-		backgroundPanel.add(dialogPanel);
-		dialogPanel.setLayout(null);
 		
-		dialogName = new JTextField();
-		dialogName.setEditable(false);
-		dialogName.setBounds(6, 6, 130, 26);
+		JPanel dialogPanel = new JPanel();
+		dialogPanel.setBounds(66, 475, 689, 189);
+		JPanel dialogBackgoundPanel = new ImagePanel("imgsrc//Dialog.png",0, 0, 689, 189);//因为图片会遮住控件，所以另外加一个图层放背景
+		dialogBackgoundPanel.setBounds(66, 475, 689, 189);
+		dialogBackgoundPanel.setOpaque(false);
+		dialogPanel.setOpaque(false);
+		dialogPanel.setLayout(null);
+		backgroundPanel.add(dialogPanel);
+		backgroundPanel.add(dialogBackgoundPanel);
+		
+		JLabel dialogName = new JLabel();
+		dialogName.setBounds(17, 6, 89, 40);
 		dialogPanel.add(dialogName);
 		dialogName.setText("独白");
-		dialogName.setColumns(10);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(659, 36, -642, 147);
-		dialogPanel.add(textPane);
-		
-		dialogContent = new JTextField();
+		JLabel dialogContent = new JLabel();
+		dialogName.setOpaque(false);
 		dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		dialogContent.setEditable(false);
-		dialogContent.setBounds(6, 34, 677, 149);
+		dialogContent.setBounds(15, 42, 677, 141);
 		dialogPanel.add(dialogContent);
-		if (!dataPackage.stateA.equals(""))
+		if (!dataPackage.notification.equals(""))//设置对话内容
 			dialogContent.setText(dataPackage.notification);
 		else
-			dialogContent.setText("宿舍……");
-		dialogContent.setColumns(10);
+			dialogContent.setText("宿舍……");//设置默认对话内容
 		/*************************************************************	
 		 * 【镶待办事项】
 		 *  这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
 		JPanel imagePanel = new JPanel();
 		imagePanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		
 		imagePanel.setLayout(null);
 		imagePanel.setBounds(752, 248, 263, 189);
 		backgroundPanel.add(imagePanel);
@@ -328,7 +351,7 @@ public class WinIndom extends WinBase{
 		 * 【放背景图】
 		 *************************************************************/
 		
-		JPanel Background=new ImagePanel("imgsrc//dom.jpg",0, 0, 1080, 720);
+		JPanel Background=new ImagePanel("imgsrc//Windom/dom.jpg",0, 0, 1080, 720);
 		Background.setBounds(0, 0, 1080, 720);
 		backgroundPanel.add(Background);
 		Background.setLayout(null);
@@ -377,7 +400,6 @@ public class WinIndom extends WinBase{
     	sleepButton.addMouseListener(clicksleep);//0号事件是 睡觉按钮 被点击
 		selfstudyButton.addMouseListener(clickselfstudy);//1号事件是 去自习按钮 被点击
 		btnNewButton_2.addMouseListener(clickgotoclass);//2号事件是 去上课按钮 被点击
-
 		/*		END OF YOUR CODE		*/
     	    	
     	/*****************************************************************				
@@ -391,4 +413,6 @@ public class WinIndom extends WinBase{
     	frame.setVisible(true);
     	//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 	}
+	
+
 }

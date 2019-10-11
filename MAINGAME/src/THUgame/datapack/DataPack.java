@@ -101,6 +101,7 @@ public class DataPack {
 		trigSubEvent = false;
 		nextStep="";
 		stateInEvent="";
+		count=0;
 	}
 	public DataPack(String type){
 		if(type.equals("demo")) {

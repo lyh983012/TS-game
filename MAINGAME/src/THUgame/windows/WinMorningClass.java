@@ -164,16 +164,26 @@ public class WinMorningClass extends WinBase{
 		/*************************************************************	
 		 * 基本按钮
 		 *************************************************************/
-		JButton btnNewButton = new JButton("提问");
-		btnNewButton.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		JButton btnNewButton = new JButton();
+		btnNewButton.setBorderPainted(false);
 		btnNewButton.setBounds(824, 545, 155, 55);
-		JButton btnNewButton_2 = new JButton("下一题");
-		btnNewButton_2.setBounds(824, 478, 155, 55);
-		if (!dataPackage.stateA.equals(""))
-			btnNewButton_2.setText(dataPackage.stateA);
-		JButton btnNewButton_1 = new JButton("回答问题");
-		btnNewButton_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		btnNewButton_1.setBounds(824, 609, 155, 55);
+		setIcon("/imgsrc/WinMorningClass/answerUn.png",btnNewButton);
+		setSelectedIcon("/imgsrc/WinMorningClass/answer.png",btnNewButton);
+		
+		
+		JButton btnNewButton_1 = new JButton();
+		btnNewButton_1.setBorderPainted(false);
+		btnNewButton_1.setBounds(824, 478, 155, 55);
+		setIcon("/imgsrc/WinMorningClass/askUn.png",btnNewButton_1);
+		setSelectedIcon("/imgsrc/WinMorningClass/ask.png",btnNewButton_1);
+		
+		
+		JButton btnNewButton_2 = new JButton();
+		btnNewButton_2.setBorderPainted(false);
+		btnNewButton_2.setBounds(824, 609, 155, 55);
+		setIcon("/imgsrc/WinMorningClass/nextUn.png",btnNewButton);
+		setSelectedIcon("/imgsrc/WinMorningClass/next.png",btnNewButton);
+		
 		if(!dataPackage.trigSubEvent){				//仅在未触发事件时添加按钮
 			backgroundPanel.add(btnNewButton);	
 			backgroundPanel.add(btnNewButton_1);
@@ -308,37 +318,34 @@ public class WinMorningClass extends WinBase{
 		 *  这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
 		JPanel dialogPanel = new JPanel();
-		dialogPanel.setBackground(new Color(255, 204, 153));
 		dialogPanel.setBounds(66, 475, 689, 189);
-		backgroundPanel.add(dialogPanel);
+		JPanel dialogBackgoundPanel = new ImagePanel("imgsrc//Dialog.png",0, 0, 689, 189);//因为图片会遮住控件，所以另外加一个图层放背景
+		dialogBackgoundPanel.setBounds(66, 475, 689, 189);
+		dialogBackgoundPanel.setOpaque(false);
+		dialogPanel.setOpaque(false);
 		dialogPanel.setLayout(null);
+		backgroundPanel.add(dialogPanel);
+		backgroundPanel.add(dialogBackgoundPanel);
 		
-		dialogName = new JTextField();
-		dialogName.setEditable(false);
-		dialogName.setBounds(6, 6, 130, 26);
+		JLabel dialogName = new JLabel();
+		dialogName.setBounds(17, 6, 89, 40);
 		dialogPanel.add(dialogName);
 		dialogName.setText("独白");
-		dialogName.setColumns(10);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(659, 36, -642, 147);
-		dialogPanel.add(textPane);
-		
-		dialogContent = new JTextField();
+		JLabel dialogContent = new JLabel();
+		dialogName.setOpaque(false);
 		dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		dialogContent.setEditable(false);
-		dialogContent.setBounds(6, 34, 677, 149);
+		dialogContent.setBounds(15, 42, 677, 141);
 		dialogPanel.add(dialogContent);
-		if (!dataPackage.stateA.equals(""))
+		if (!dataPackage.notification.equals(""))//设置对话内容
 			dialogContent.setText(dataPackage.notification);
 		else
-			dialogContent.setText("来上课了……");
-		dialogContent.setColumns(10);
+			dialogContent.setText("啊，早课……");//设置默认对话内容
 		
 		/*************************************************************	
 		 * 【放背景图】
 		 *************************************************************/
-		JPanel Background=new ImagePanel("imgsrc//class.jpg",0, 0, 1080, 720);
+		JPanel Background=new ImagePanel("imgsrc//WinMorningClass/class.jpg",0, 0, 1080, 720);
 		Background.setBounds(0, 0, 1080, 720);
 		backgroundPanel.add(Background);
 		Background.setLayout(null);
