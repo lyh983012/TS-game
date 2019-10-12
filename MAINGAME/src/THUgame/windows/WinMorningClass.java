@@ -181,8 +181,8 @@ public class WinMorningClass extends WinBase{
 		JButton btnNewButton_2 = new JButton();
 		btnNewButton_2.setBorderPainted(false);
 		btnNewButton_2.setBounds(824, 609, 155, 55);
-		setIcon("/imgsrc/WinMorningClass/nextUn.png",btnNewButton);
-		setSelectedIcon("/imgsrc/WinMorningClass/next.png",btnNewButton);
+		setIcon("/imgsrc/WinMorningClass/nextUn.png",btnNewButton_2);
+		setSelectedIcon("/imgsrc/WinMorningClass/next.png",btnNewButton_2);
 		
 		if(!dataPackage.trigSubEvent){				//仅在未触发事件时添加按钮
 			backgroundPanel.add(btnNewButton);	
@@ -318,6 +318,7 @@ public class WinMorningClass extends WinBase{
 		JPanel todoList = new JPanel();
 		todoList.setLayout(null);
 		todoList.setBounds(752, 248, 263, 189);
+		todoList.setOpaque(false);//注意要设成透明的
 			
 				JLabel label = new JLabel("待办事项");
 				label.setForeground(Color.WHITE);
@@ -326,6 +327,7 @@ public class WinMorningClass extends WinBase{
 				label.setFont(new Font("STFangsong", Font.PLAIN, 18));
 			
 			JPanel dbsxBackgruond = new ImagePanel("imgsrc//todoList.png",0, 0, 263, 189);
+			dbsxBackgruond.setOpaque(false);//注意要设成透明的
 			dbsxBackgruond.setBounds(0, 0, 263, 189);
 			todoList.add(dbsxBackgruond);
 			dbsxBackgruond.setLayout(null);
