@@ -43,6 +43,9 @@ public class EventIndom extends EventBase{
 		 * 在下面进行dataPack的处理
 		 *******************************************/
 		/*		START OF YOUR CODE		*/	
+		if(oldDataPack.characterHealth<0) {
+			oldDataPack.notification="我死了。";
+		}
 		Random r = new Random();
 		int randomValue = r.nextInt(8) + 1;
 		int randomTime = r.nextInt(2) + 1;
@@ -64,20 +67,28 @@ public class EventIndom extends EventBase{
 				oldDataPack.characterEnergy+=5;
 				break;
 			case "selfstudy":
-				oldDataPack.time+=1;		//自习需要耗时，时间+1（原本的版本是计数器+1）
-				if(oldDataPack.time>=24) {  //看是否变成下一天
-					oldDataPack.time%=24;
-					oldDataPack.date+=1;
+				if(oldDataPack.characterEnergy<5) {
+					oldDataPack.notification="我没有力气读书了。";
+					break;
+				}else if(oldDataPack.characterIQ<0){
+					oldDataPack.notification="我的学力似乎不支持我看懂书上的字。";
+					break;
+				}else {
+					oldDataPack.time+=1;		//自习需要耗时，时间+1（原本的版本是计数器+1）
+					if(oldDataPack.time>=24) {  //看是否变成下一天
+						oldDataPack.time%=24;
+						oldDataPack.date+=1;
+					}
+					oldDataPack.notification="再写会儿作业，身体变得有些疲劳，微微有些不适";
+					oldDataPack.characterIQ+=randomValue;
+					if(oldDataPack.characterEnergy>10)
+						oldDataPack.characterEnergy-=8;
+					else
+						oldDataPack.characterHealth-=5;
+					oldDataPack.characterEnergy-=5;
+					oldDataPack.characterHappiness-=2;
+					break;
 				}
-				oldDataPack.notification="再写会儿作业，身体变得有些疲劳，微微有些不适";
-				oldDataPack.characterIQ+=randomValue;
-				if(oldDataPack.characterEnergy>10)
-					oldDataPack.characterEnergy-=8;
-				else
-					oldDataPack.characterHealth-=5;
-				oldDataPack.characterEnergy-=5;
-				oldDataPack.characterHappiness-=2;
-				break;
 		}
 		if (oldDataPack.time==8 || oldDataPack.time==10) { //只在特定时间可以去上课
 			oldDataPack.stateA="上早上课"; 				   //判断上午还是下午

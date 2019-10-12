@@ -137,11 +137,11 @@ public class WinMorningClass extends WinBase{
 		backgroundPanel.setLayout(null);
 		
 		/*************************************************************	
-		 * 小事件
+		 * 【小事件】
 		 *************************************************************/
 		JPanel EventPanel = new JPanel();//将来可以用它来放临时小事件
 		EventPanel.setBackground(new Color(255, 255, 204));
-		EventPanel.setBounds(225, 129, 536, 398);
+		EventPanel.setBounds(253, 129, 536, 398);
 		backgroundPanel.add(EventPanel);
 		EventPanel.setLayout(null);
 		EventPanel.setVisible(dataPackage.trigSubEvent);
@@ -162,25 +162,36 @@ public class WinMorningClass extends WinBase{
 		EventPanel.setVisible(dataPackage.trigSubEvent);
 		
 		/*************************************************************	
-		 * 基本按钮
+		 * 【基本按钮】
 		 *************************************************************/
-		JButton btnNewButton = new JButton("提问");
-		btnNewButton.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		JButton btnNewButton = new JButton();
+		btnNewButton.setBorderPainted(false);
 		btnNewButton.setBounds(824, 545, 155, 55);
-		JButton btnNewButton_2 = new JButton("下一题");
-		btnNewButton_2.setBounds(824, 478, 155, 55);
-		if (!dataPackage.stateA.equals(""))
-			btnNewButton_2.setText(dataPackage.stateA);
-		JButton btnNewButton_1 = new JButton("回答问题");
-		btnNewButton_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		btnNewButton_1.setBounds(824, 609, 155, 55);
+		setIcon("/imgsrc/WinMorningClass/answerUn.png",btnNewButton);
+		setSelectedIcon("/imgsrc/WinMorningClass/answer.png",btnNewButton);
+		
+		
+		JButton btnNewButton_1 = new JButton();
+		btnNewButton_1.setBorderPainted(false);
+		btnNewButton_1.setBounds(824, 478, 155, 55);
+		setIcon("/imgsrc/WinMorningClass/askUn.png",btnNewButton_1);
+		setSelectedIcon("/imgsrc/WinMorningClass/ask.png",btnNewButton_1);
+		
+		
+		JButton btnNewButton_2 = new JButton();
+		btnNewButton_2.setBorderPainted(false);
+		btnNewButton_2.setBounds(824, 609, 155, 55);
+		setIcon("/imgsrc/WinMorningClass/nextUn.png",btnNewButton_2);
+		setSelectedIcon("/imgsrc/WinMorningClass/next.png",btnNewButton_2);
+		
 		if(!dataPackage.trigSubEvent){				//仅在未触发事件时添加按钮
 			backgroundPanel.add(btnNewButton);	
 			backgroundPanel.add(btnNewButton_1);
 			backgroundPanel.add(btnNewButton_2);
 		}
 		/************************************************************	
-		 * 镶属性 这一部分按照流程做的话就会自然消失的
+		 * 【镶属性】
+		 *  这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
 
 		JPanel panel = new JPanel();
@@ -253,25 +264,40 @@ public class WinMorningClass extends WinBase{
 		sxBackground.setBounds(0, 0, 197, 267);
 		sxBackground.setOpaque(false);
 		panel.add(sxBackground);
+		/*************************************************************	
+		 * 【镶时钟】
+		 * 		不需要修改
+		 * 		简而言之就是显示一个Table
+		 *************************************************************/
+		JPanel timePack = new JPanel();
+		timePack.setLayout(null);
+		timePack.setOpaque(false);//注意要设成透明的
+		timePack.setBounds(66, 32, 195, 90);
 		
+			JPanel timePanel = new JPanel();
+			timePanel.setBounds(0, 0, 195, 90);
+			JPanel timeBackgoundPanel = new ImagePanel("imgsrc//taili.png",0, 0, 195, 90);	
+			timeBackgoundPanel.setBounds(0, 0, 195, 90);
+			
+			timeBackgoundPanel.setOpaque(false);//注意要设成透明的
+			timePanel.setOpaque(false);//注意要设成透明的
+			timePanel.setLayout(null);
+			
+			JLabel timeText = new JLabel("当前时间为："+String.valueOf(dataPackage.time)+" 时");
+			timeText.setBounds(6, 60, 172, 16);
+			timePanel.add(timeText);
+			
+			JLabel dateText = new JLabel("当前日期为：第"+String.valueOf(dataPackage.term)+"学期"+String.valueOf(dataPackage.date)+"日");
+			dateText.setBounds(6, 35, 172, 16);
+			timePanel.add(dateText);
+			
+		timePack.add(timePanel);
+		timePack.add(timeBackgoundPanel);
+		backgroundPanel.add(timePack);
 		/*************************************************************	
 		 * 镶课程表 这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new LineBorder(new Color(204, 153, 255), 3));
-		panel_2.setBackground(new Color(204, 204, 255));
-		panel_2.setBounds(66, 32, 195, 63);
-		backgroundPanel.add(panel_2);
-		panel_2.setLayout(null);
-		
-		JLabel label_1 = new JLabel("当前时间为："+String.valueOf(dataPackage.time)+" 时");
-		label_1.setBounds(6, 35, 172, 16);
-		panel_2.add(label_1);
-		
-		JLabel label_2 = new JLabel("当前日期为：第"+String.valueOf(dataPackage.term)+"学期"+String.valueOf(dataPackage.date)+"日");
-		label_2.setBounds(6, 10, 172, 16);
-		panel_2.add(label_2);
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panel_1.setBounds(752, 35, 263, 160);
@@ -289,56 +315,69 @@ public class WinMorningClass extends WinBase{
 		/*************************************************************	
 		 * 镶待办事项 这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
-		JPanel imagePanel = new JPanel();
-		imagePanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		
-		imagePanel.setLayout(null);
-		imagePanel.setBounds(752, 248, 263, 189);
-		backgroundPanel.add(imagePanel);
-		
-		JLabel label = new JLabel("待办事项");
-		label.setBounds(6, 6, 61, 16);
-		imagePanel.add(label);
-		
-		JPanel dbsxBackgruond = new ImagePanel("imgsrc//dbsx.jpg",0, 0, 263, 189);
-		dbsxBackgruond.setBounds(0, 0, 263, 189);
-		imagePanel.add(dbsxBackgruond);
+		JPanel todoList = new JPanel();
+		todoList.setLayout(null);
+		todoList.setBounds(752, 248, 263, 189);
+		todoList.setOpaque(false);//注意要设成透明的
+			
+				JLabel label = new JLabel("待办事项");
+				label.setForeground(Color.WHITE);
+				label.setBounds(20, 25, 100, 18);
+				todoList.add(label);
+				label.setFont(new Font("STFangsong", Font.PLAIN, 18));
+			
+			JPanel dbsxBackgruond = new ImagePanel("imgsrc//todoList.png",0, 0, 263, 189);
+			dbsxBackgruond.setOpaque(false);//注意要设成透明的
+			dbsxBackgruond.setBounds(0, 0, 263, 189);
+			todoList.add(dbsxBackgruond);
+			dbsxBackgruond.setLayout(null);
+		backgroundPanel.add(todoList);
 		/*************************************************************	
 		 * 【镶对话框】
-		 *  这一部分按照流程做的话就会自然消失的
+		 * 		建立一个带背景的Panel的流程设setBounds(x, y, 宽, 高);
+		 *  	1.建一个Panel	
+		 * 		2.Panel里建两个subPanel，全部都设成setBounds(0, 0, 宽, 高);
+		 * 		3.底下的用imagePanel工具类放图片，上面的放控件
+		 * 		4.设置两个Panel为透明这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
-		JPanel dialogPanel = new JPanel();
-		dialogPanel.setBackground(new Color(255, 204, 153));
-		dialogPanel.setBounds(66, 475, 689, 189);
-		backgroundPanel.add(dialogPanel);
-		dialogPanel.setLayout(null);
+		JPanel dialogPack = new JPanel();
+		dialogPack.setBounds(66, 475, 689, 189);
+		dialogPack.setOpaque(false);//注意要设成透明的
+		dialogPack.setLayout(null);
 		
-		dialogName = new JTextField();
-		dialogName.setEditable(false);
-		dialogName.setBounds(6, 6, 130, 26);
-		dialogPanel.add(dialogName);
-		dialogName.setText("独白");
-		dialogName.setColumns(10);
+			JPanel dialogPanel = new JPanel();
+			dialogPanel.setBounds(0, 0, 689, 189);
+			
+			JPanel dialogBackgoundPanel = new ImagePanel("imgsrc//Dialog.png",0, 0, 689, 189);	
+														//因为图片会遮住控件，所以另外加一个图层放背景
+			dialogBackgoundPanel.setBounds(0, 0, 689, 189);
+			dialogBackgoundPanel.setOpaque(false);//注意要设成透明的
+			dialogPanel.setOpaque(false);//注意要设成透明的
+			dialogPanel.setLayout(null);
+			
+			JLabel dialogName = new JLabel();
+			dialogName.setBounds(17, 6, 89, 40);
+			dialogPanel.add(dialogName);
+			dialogName.setText("独白");
+			
+			JLabel dialogContent = new JLabel();
+			dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			dialogName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			dialogContent.setBounds(15, 42, 677, 141);
+			dialogPanel.add(dialogContent);
+			if (!dataPackage.notification.equals(""))//设置对话内容
+				dialogContent.setText(dataPackage.notification);
+			else
+				dialogContent.setText("啊，早课……");//设置默认对话内容
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(659, 36, -642, 147);
-		dialogPanel.add(textPane);
-		
-		dialogContent = new JTextField();
-		dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		dialogContent.setEditable(false);
-		dialogContent.setBounds(6, 34, 677, 149);
-		dialogPanel.add(dialogContent);
-		if (!dataPackage.notification.equals(""))//设置对话内容
-			dialogContent.setText(dataPackage.notification);
-		else
-			dialogContent.setText("来上课了……");//设置默认显示的对话内容
-		dialogContent.setColumns(10);
+		dialogPack.add(dialogPanel);
+		dialogPack.add(dialogBackgoundPanel);
+		backgroundPanel.add(dialogPack);
 		
 		/*************************************************************	
 		 * 【放背景图】
 		 *************************************************************/
-		JPanel Background=new ImagePanel("imgsrc//class.jpg",0, 0, 1080, 720);
+		JPanel Background=new ImagePanel("imgsrc//WinMorningClass/class.jpg",0, 0, 1080, 720);
 		Background.setBounds(0, 0, 1080, 720);
 		backgroundPanel.add(Background);
 		Background.setLayout(null);
