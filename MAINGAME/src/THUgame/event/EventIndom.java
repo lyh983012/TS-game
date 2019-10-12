@@ -53,10 +53,6 @@ public class EventIndom extends EventBase{
 			case "sleep":
 				if(oldDataPack.time<24 && oldDataPack.time>6){
 					oldDataPack.time+=1;		//小憩一会儿，时间+1（原本的版本是计数器+1）
-					if(oldDataPack.time>=24) {	//看是否变成下一天，记得查bug
-						oldDataPack.time%=24;
-						oldDataPack.date+=1;
-					}
 				}else {
 					oldDataPack.time=7+randomTime;	//睡大觉，有机率睡爆，时间等于7点+0～2（原本的版本是计数器+1） 
 				}
@@ -75,10 +71,6 @@ public class EventIndom extends EventBase{
 					break;
 				}else {
 					oldDataPack.time+=1;		//自习需要耗时，时间+1（原本的版本是计数器+1）
-					if(oldDataPack.time>=24) {  //看是否变成下一天
-						oldDataPack.time%=24;
-						oldDataPack.date+=1;
-					}
 					oldDataPack.notification="再写会儿作业，身体变得有些疲劳，微微有些不适";
 					oldDataPack.characterIQ+=randomValue;
 					if(oldDataPack.characterEnergy>10)
@@ -90,10 +82,10 @@ public class EventIndom extends EventBase{
 					break;
 				}
 		}
-		if (oldDataPack.time==8 || oldDataPack.time==10) { //只在特定时间可以去上课
+		if (oldDataPack.time>=8 && oldDataPack.time<=10) { //只在特定时间可以去上课
 			oldDataPack.stateA="上早上课"; 				   //判断上午还是下午
 			oldDataPack.stateB="classtime";				   //用于判断是否显示按钮
-		}else if(oldDataPack.time==13 || oldDataPack.time==15){
+		}else if(oldDataPack.time>=13 && oldDataPack.time<=15){
 			oldDataPack.stateA="上下午课"; 				   //同理
 			oldDataPack.stateB="classtime";
 		}else{

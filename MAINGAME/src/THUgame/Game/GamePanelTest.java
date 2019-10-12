@@ -1,13 +1,19 @@
 package THUgame.Game;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import THUgame.Game.AnimatePanel.Bullet;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -18,7 +24,7 @@ import javax.swing.JButton;
 
 public class GamePanelTest{
 	
-	private JFrame frame;
+	JFrame frame;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -54,8 +60,8 @@ public class GamePanelTest{
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
 
-		JPanel EventPanel = new AnimatePanel(100);//将来可以用它来放临时小事件
-		EventPanel.setBackground(new Color(255, 255, 204));
+		JPanel EventPanel = new AnimatePanel(20);//将来可以用它来放临时小事件
+		EventPanel.setBackground(new Color(255, 255, 255));
 		EventPanel.setBounds(254, 134, 536, 398);
 		backgroundPanel.add(EventPanel);
 		EventPanel.setLayout(null);
@@ -69,64 +75,185 @@ public class GamePanelTest{
 
 
 class AnimatePanel extends JPanel implements MouseListener,MouseMotionListener{
-    
+	
+	
     private JButton HeroNewButton;
-    private JButton EnemyNewButton;
-    int score=0;
-
-    public AnimatePanel( int delay) {
-
-        Timer timer = new Timer(delay, new TimerListener());
-        timer.start();
-        addMouseListener(this);   
-        addMouseMotionListener(this); 
-        
-        this.HeroNewButton = new JButton("Hero");
-		this.HeroNewButton.setBounds(240, 266, 50, 50);
-		this.add(HeroNewButton);
-		
-		this.EnemyNewButton = new JButton("Enemy");
-		this.EnemyNewButton.setBounds(10, 10, 50, 50);
-		this.add(EnemyNewButton);
-		
-		this.setVisible(true);
-
-		
-    }
-    private boolean checkHit(int ex,int ey,int hx,int hy) {
-    	if(Math.abs(ex-hx)<50 && Math.abs(ey-hy)<50)
-    		return true;
-    	else
-    		return false;
-    }
+    public int score=0;
+    public int timeLeft=300;
+    public int count;
+    public int delay;
+    public int Ex,Ey;
+    public int Hx,Hy;
     
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        int Ex=this.EnemyNewButton.getX();
-        int Ey=this.EnemyNewButton.getY();
-        int Hx=this.HeroNewButton.getX();
-        int Hy=this.HeroNewButton.getY();
-        Random r = new Random();
-        if(checkHit(Ex,Ey,Hx,Hy)) {
-        	score+=1;
-        	while(true) {
-        		Ex = r.nextInt(536) + 1;
-        		Ey = r.nextInt(298) + 1;
-        		if(!checkHit(Ex,Ey,Hx,Hy))
-        			break;
-        	}
-        }
-        this.EnemyNewButton.setBounds(Ex,Ey, 50, 50);
-        g.drawString(String.valueOf(score),10,10);
-    }
+    public int Ew,Eh;
+    public int Hw,Hh;
+    
+    public Timer timer;
+    public ArrayList<Bullet> Bullets;
 
     class TimerListener implements ActionListener {
         /** Handle ActionEvent */
         public void actionPerformed(ActionEvent e) {
-            repaint();
-        }
+        	repaint();
+        	}
     }
 
+	class Bullet extends JButton{
+		
+		boolean correct;
+		int dx,dy;
+		
+		public Bullet(){
+			Random r = new Random();
+			dx = r.nextInt(8) - 4;
+			dy = r.nextInt(3) + 1;
+			
+			int a = r.nextInt(10) - 4;
+			int b = r.nextInt(10) + 1;
+			int answer;
+			int tub=r.nextInt(10) - 10;
+			if(r.nextInt(2)==1)
+				this.correct=true;
+			else
+				this.correct=false;
+			switch(r.nextInt(4)) {
+				case 0:
+					answer=a+b;
+					if(!this.correct) 
+						answer+=tub;
+					this.setText(String.valueOf(a)+"+"+String.valueOf(b)+"="+String.valueOf(answer));
+					break;
+				case 1:
+					answer=a-b;
+					if(!this.correct) 
+						answer+=tub;
+					this.setText(String.valueOf(a)+"-"+String.valueOf(b)+"="+String.valueOf(answer));
+					break;
+				case 2:
+					answer=a*b;
+					if(!this.correct) 
+						answer+=tub;
+					this.setText(String.valueOf(a)+"*"+String.valueOf(b)+"="+String.valueOf(answer));
+					break;
+				case 3:
+					double answer2=a/b;
+					if(!this.correct) 
+						answer2+=tub;
+					this.setText(String.valueOf(a)+"/"+String.valueOf(b)+"="+String.valueOf(answer2));
+					break;
+			}
+		}
+	}
+
+    public AnimatePanel(int delay) {
+    	this.delay=delay;
+    	this.Bullets=new ArrayList<Bullet>();
+        addMouseListener(this);   
+        addMouseMotionListener(this); 
+		
+		Ew=100;Eh=20;
+		Hw=40;Hh=40;
+		
+        this.HeroNewButton = new JButton("你");
+		this.HeroNewButton.setBounds(240, 266, Hw, Hh);
+		
+		JButton HeroNewButton2 = new JButton("老师");
+		HeroNewButton2.setBounds(240, 10, Hw, Hh);
+		this.add(HeroNewButton2);
+		this.add(HeroNewButton);
+		
+		this.setVisible(true);
+	    this.timer = new Timer(delay,new TimerListener());
+	    this.timer.start();
+	    
+	    
+    }
+
+    public void paintComponent(Graphics g) {
+    	/************************************
+    	 * 我发现在这里写延时比较靠谱
+    	 ***********************************/
+    	
+    	try {
+			Thread.sleep(this.delay);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+    	/************************************
+    	 * 计数器和计时器
+    	 ***********************************/
+    	count+=1;
+    	if(count==100/delay) {
+    		this.timeLeft-=1;
+    		count=0;
+    	}
+    	
+    	/************************************
+    	 * 时间耗尽就停止绘图更新，否则按逻辑更新
+    	 ***********************************/
+    	if(this.timeLeft==0) {
+    		this.removeAll();
+    		super.paintComponent(g);
+        	g.drawString("游戏结束，你的得分："+String.valueOf(score),230,200);
+        	this.timer.stop();
+        }else {
+        	super.paintComponent(g);
+			this.HeroNewButton.setBounds(Hx,Hy,Hw,Hh);
+			/************************************
+	    	 * 判断是否加入新的子弹
+	    	 ***********************************/
+			Random r = new Random();
+			int randomValue = r.nextInt(100);
+	        if(Bullets.size()<8 && randomValue<20) {
+	        	Bullet newBullet=new Bullet();
+	        	Bullets.add(newBullet);
+	        	this.add(newBullet);
+	        	newBullet.setBounds(250,10,Ew,Eh);
+	        }
+	        
+	        /************************************
+	    	 * 便利子弹判断是否撞击／出界
+	    	 ***********************************/
+	        Iterator<Bullet> iter = Bullets.iterator();
+	        while (iter.hasNext()) {
+	        	Bullet word = iter.next();
+	        	Ex=word.getX();
+	        	Ey=word.getY();
+	        	if(checkHit(Ex,Ey,Hx,Hy)) {
+	        		if(word.correct==true) {
+	        			score+=1;
+	        		}else {
+	        			score-=2;
+	        		}
+	        		this.remove(word);
+	        		iter.remove();
+	            }else {
+	            	word.setBounds(Ex+word.dx,Ey+word.dy,Ew,Eh);
+	            	if(Ex>536 || Ex<0 || Ey>398) {
+	            		this.remove(word);
+	            		iter.remove();
+	            	}
+	            }
+	        }
+	        g.drawString("你的得分："+String.valueOf(score),10,10);
+	        g.drawString("剩余时间："+String.valueOf(this.timeLeft/10)+"."+String.valueOf(this.timeLeft%10)+"s",10,30);
+        }
+    }
+    
+    private boolean checkHit(int Ex,int Ey,int Hx,int Hy) {
+    	if( Ex<Hx && Ex+Ew<Hx )
+    		return false;
+    	if( Hx<Ex && Hx+Hw<Ex)
+    		return false;
+    	if( Ey<Hy && Ey+Eh<Hy )
+    		return false;
+    	if( Hy<Ey && Hy+Hh<Ey)
+    		return false;
+    	
+    	return true;
+    		
+    }
+    
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -136,7 +263,9 @@ class AnimatePanel extends JPanel implements MouseListener,MouseMotionListener{
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-		this.HeroNewButton.setBounds(e.getX()-25,e.getY()-50, 50, 50);
+		Hx=e.getX()-Hw/2;
+        Hy=e.getY()-Hh/2;
+        
 	}
 
 	@Override
@@ -169,4 +298,5 @@ class AnimatePanel extends JPanel implements MouseListener,MouseMotionListener{
 		
 	}
 }
+
 

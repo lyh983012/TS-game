@@ -84,6 +84,7 @@ public class WinIndom extends WinBase{
 		public demoMouseListener(int i){
 			this.mode=i;
 		}
+		
 		public void setFrame(JFrame frame) {
 			this.frame=frame;
 		}
@@ -164,6 +165,7 @@ public class WinIndom extends WinBase{
 		JButton sleepButton = new JButton();
 		sleepButton.setBorderPainted(false);
 		sleepButton.setBounds(819, 544, 150, 50);
+		sleepButton.setContentAreaFilled(false);
 		setIcon("/imgsrc/Windom/sleep.png",sleepButton);
 		setSelectedIcon("/imgsrc/Windom/sleepUn.png",sleepButton);
 		backgroundPanel.add(sleepButton);
@@ -180,13 +182,18 @@ public class WinIndom extends WinBase{
 		btnNewButton_2.setBounds(819, 611, 150, 50);
 		if (dataPackage.stateB.equals("classtime")) {	//高级应用：仅仅在符合“classtime”状态的时候显示这个按钮
 			if(dataPackage.stateA.equals("上早上课")){   //高级应用：图标也对应有不同
-				setIcon("/imgsrc/Windom/Morning.png",btnNewButton_2);
-				setSelectedIcon("/imgsrc/Windom/MorningUn.png",btnNewButton_2);
+				if(!dataPackage.todayMorningClass.equals("----")) {
+					setIcon("/imgsrc/Windom/Morning.png",btnNewButton_2);
+					setSelectedIcon("/imgsrc/Windom/MorningUn.png",btnNewButton_2);
+					backgroundPanel.add(btnNewButton_2);
+				}
 			}else {
-				setIcon("/imgsrc/Windom/afternoon.png",btnNewButton_2);
-				setSelectedIcon("/imgsrc/Windom/afternoonUn.png",btnNewButton_2);
+				if(!dataPackage.todayAfternoonClass.equals("----")) {
+					setIcon("/imgsrc/Windom/afternoon.png",btnNewButton_2);
+					setSelectedIcon("/imgsrc/Windom/afternoonUn.png",btnNewButton_2);
+					backgroundPanel.add(btnNewButton_2);
+				}
 			}
-			backgroundPanel.add(btnNewButton_2);
 		}
 		/*************************************************************	
 		 * 【小事件】 
@@ -231,7 +238,7 @@ public class WinIndom extends WinBase{
 			timeText.setBounds(6, 60, 172, 16);
 			timePanel.add(timeText);
 			
-			JLabel dateText = new JLabel("当前日期为：第"+String.valueOf(dataPackage.term)+"学期"+String.valueOf(dataPackage.date)+"日");
+			JLabel dateText = new JLabel("今天是：第"+String.valueOf(dataPackage.term)+"学期"+String.valueOf(dataPackage.week)+"周"+String.valueOf(dataPackage.date)+"日");
 			dateText.setBounds(6, 35, 172, 16);
 			timePanel.add(dateText);
 			
@@ -306,13 +313,7 @@ public class WinIndom extends WinBase{
 		IDshow.setBounds(70, 78, 78, 24);
 		sxPanel.add(IDshow);
 		IDshow.setEditable(false);
-		IDshow.setText(dataPackage.name);//显示名字
-		
-		JPanel coursePanel = new JPanel();
-		coursePanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		coursePanel.setBounds(752, 35, 263, 160);
-		backgroundPanel.add(coursePanel);
-		coursePanel.setLayout(null);
+		IDshow.setText(dataPackage.name);
 
 		
 		JPanel sxBackground = new ImagePanel("imgsrc//shuxing.jpg",0, 0, 197, 267);
@@ -320,17 +321,6 @@ public class WinIndom extends WinBase{
 		sxPanel.add(sxBackground);
 		sxBackground.setOpaque(false);
 		sxBackground.setLayout(null);
-		/*************************************************************	
-		 * 【镶课程表框】
-		 *************************************************************/
-		
-		JLabel lblNewLabel = new JLabel("课程表");
-		lblNewLabel.setBounds(6, 6, 61, 16);
-		coursePanel.add(lblNewLabel);
-		
-		JPanel kcbBackground = new ImagePanel("imgsrc//kcb.jpg",0, 0, 263, 160);
-		kcbBackground.setBounds(0, 0, 263, 160);
-		coursePanel.add(kcbBackground);
 		/*************************************************************	
 		 * 【镶对话框】
 		 * 		建立一个带背景的Panel的流程设setBounds(x, y, 宽, 高);
@@ -379,26 +369,50 @@ public class WinIndom extends WinBase{
 		JPanel todoList = new JPanel();
 		todoList.setLayout(null);
 		todoList.setOpaque(false);	
-		todoList.setBounds(752, 248, 263, 189);
+		todoList.setBounds(752, 35, 263, 189);
 			
-				JLabel label = new JLabel("待办事项");
-				label.setForeground(Color.WHITE);
-				label.setBounds(20, 25, 100, 18);
-				todoList.add(label);
-				label.setFont(new Font("STFangsong", Font.PLAIN, 18));
+			JLabel label = new JLabel("待办事项");
+			label.setForeground(Color.WHITE);
+			label.setBounds(20, 25, 100, 18);
+			todoList.add(label);
+			label.setFont(new Font("STFangsong", Font.PLAIN, 16));
+				
+			JLabel label2 = new JLabel("1.上午课:"+dataPackage.todayMorningClass);
+			label2.setForeground(Color.WHITE);
+			label2.setBounds(20, 55, 200, 18);
+			todoList.add(label2);
+			label2.setFont(new Font("STFangsong", Font.PLAIN, 16));
+				
+			JLabel label3 = new JLabel("2.下午课:"+dataPackage.todayAfternoonClass);
+			label3.setForeground(Color.WHITE);
+			label3.setBounds(20, 85, 200, 18);
+			todoList.add(label3);
+			label3.setFont(new Font("STFangsong", Font.PLAIN, 16));
+				
+			JLabel label4 = new JLabel("3.");
+			label4.setForeground(Color.WHITE);
+			label4.setBounds(20, 115, 100, 18);
+			todoList.add(label4);
+			label4.setFont(new Font("STFangsong", Font.PLAIN, 16));
 			
 			JPanel dbsxBackgruond = new ImagePanel("imgsrc//todoList.png",0, 0, 263, 189);
 			dbsxBackgruond.setOpaque(false);	
 			dbsxBackgruond.setBounds(0, 0, 263, 189);
-			todoList.add(dbsxBackgruond);
-			dbsxBackgruond.setLayout(null);
+		
+		todoList.add(dbsxBackgruond);
+		dbsxBackgruond.setLayout(null);
 		backgroundPanel.add(todoList);
 		/*************************************************************	
 		 * 【放背景图】
 		 * 		最后放。
 		 *************************************************************/
 		
-		JPanel Background=new ImagePanel("imgsrc//Windom/dom.jpg",0, 0, 1080, 720);
+		JPanel Background=new ImagePanel("imgsrc//Windom/dom3.jpg",0, 0, 1080, 720);
+		if(dataPackage.choiceA.equals("sleep")) {
+			Background=new ImagePanel("imgsrc//Windom/dom2.jpg",0, 0, 1080, 720);
+		}else if(dataPackage.choiceA.equals("selfstudy")) {
+			Background=new ImagePanel("imgsrc//Windom/dom1.jpg",0, 0, 1080, 720);
+		}
 		Background.setBounds(0, 0, 1080, 720);
 		backgroundPanel.add(Background);
 		Background.setLayout(null);
@@ -436,7 +450,7 @@ public class WinIndom extends WinBase{
 		demoMouseListener.dataPackage=dataPackage;//数据包注册，不需要改
 		demoMouseListener.mainGame=mainGame;
 		
-		demoMouseListener clicksleep=new demoMouseListener(0);//设置鼠标监听器，发生1号事件
+		demoMouseListener clicksleep=new demoMouseListener(0);//设置鼠标监听器，发生0号事件
 		demoMouseListener clickselfstudy=new demoMouseListener(1);//设置鼠标监听器，发生0号事件
 		demoMouseListener clickgotoclass=new demoMouseListener(2);//设置鼠标监听器，发生1号事件
 

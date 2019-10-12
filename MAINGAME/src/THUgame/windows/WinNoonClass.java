@@ -276,50 +276,53 @@ public class WinNoonClass extends WinBase{
 			timeText.setBounds(6, 60, 172, 16);
 			timePanel.add(timeText);
 			
-			JLabel dateText = new JLabel("当前日期为：第"+String.valueOf(dataPackage.term)+"学期"+String.valueOf(dataPackage.date)+"日");
+			JLabel dateText = new JLabel("今天是：第"+String.valueOf(dataPackage.term)+"学期"+String.valueOf(dataPackage.week)+"周"+String.valueOf(dataPackage.date)+"日");
 			dateText.setBounds(6, 35, 172, 16);
 			timePanel.add(dateText);
 			
 		timePack.add(timePanel);
 		timePack.add(timeBackgoundPanel);
 		backgroundPanel.add(timePack);
-		/*************************************************************	
-		 * 镶课程表 这一部分按照流程做的话就会自然消失的
-		 *************************************************************/
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		panel_1.setBounds(752, 35, 263, 160);
-		backgroundPanel.add(panel_1);
-		panel_1.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("课程表");
-		lblNewLabel.setBounds(6, 6, 61, 16);
-		panel_1.add(lblNewLabel);
-		
-		JPanel kcbBackground = new ImagePanel("imgsrc//kcb.jpg",0, 0, 263, 160);
-		kcbBackground.setBounds(0, 0, 263, 160);
-		panel_1.add(kcbBackground);
 		
 		/*************************************************************	
 		 * 镶待办事项 这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
 		JPanel todoList = new JPanel();
 		todoList.setLayout(null);
-		todoList.setBounds(752, 248, 263, 189);
-		todoList.setOpaque(false);//注意要设成透明的
+		todoList.setOpaque(false);	
+		todoList.setBounds(752, 35, 263, 189);
 			
-				JLabel label = new JLabel("待办事项");
-				label.setForeground(Color.WHITE);
-				label.setBounds(20, 25, 100, 18);
-				todoList.add(label);
-				label.setFont(new Font("STFangsong", Font.PLAIN, 18));
+			JLabel label = new JLabel("待办事项");
+			label.setForeground(Color.WHITE);
+			label.setBounds(20, 25, 100, 18);
+			todoList.add(label);
+			label.setFont(new Font("STFangsong", Font.PLAIN, 16));
+				
+			JLabel label2 = new JLabel("1.上午课:"+dataPackage.todayMorningClass);
+			label2.setForeground(Color.WHITE);
+			label2.setBounds(20, 55, 200, 18);
+			todoList.add(label2);
+			label2.setFont(new Font("STFangsong", Font.PLAIN, 16));
+				
+			JLabel label3 = new JLabel("2.下午课:"+dataPackage.todayAfternoonClass);
+			label3.setForeground(Color.WHITE);
+			label3.setBounds(20, 85, 200, 18);
+			todoList.add(label3);
+			label3.setFont(new Font("STFangsong", Font.PLAIN, 16));
+				
+			JLabel label4 = new JLabel("3.");
+			label4.setForeground(Color.WHITE);
+			label4.setBounds(20, 115, 100, 18);
+			todoList.add(label4);
+			label4.setFont(new Font("STFangsong", Font.PLAIN, 16));
 			
 			JPanel dbsxBackgruond = new ImagePanel("imgsrc//todoList.png",0, 0, 263, 189);
-			dbsxBackgruond.setOpaque(false);//注意要设成透明的
+			dbsxBackgruond.setOpaque(false);	
 			dbsxBackgruond.setBounds(0, 0, 263, 189);
-			todoList.add(dbsxBackgruond);
-			dbsxBackgruond.setLayout(null);
+		
+		todoList.add(dbsxBackgruond);
+		dbsxBackgruond.setLayout(null);
 		backgroundPanel.add(todoList);
 		/*************************************************************	
 		 * 【镶对话框】

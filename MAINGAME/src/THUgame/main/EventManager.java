@@ -7,6 +7,7 @@ import THUgame.event.EventIndom;
 import THUgame.event.EventMorningClass;
 import THUgame.event.EventNoonClass;
 import THUgame.event.EventStart;
+import THUgame.event.EventTimeManager;
 
 public class EventManager extends Thread{
 	
@@ -51,8 +52,6 @@ public class EventManager extends Thread{
     		}
     		/*		END OF YOUR CODE		*/
     		pushForward.actOn(dataPackage);
-    		
-    		
     		/*********************************		
     		 * 
     		 * 在数据包被处理完之后，判断是否发生分支事件转移
@@ -87,6 +86,13 @@ public class EventManager extends Thread{
 	        		}
 	        		dataPackage.clearEventState();//复原状态，以免别人的分支出问题
     		}
+    		
+    		
+    		/*临时的时间和课程刷新*/
+    		pushForward = new EventTimeManager();
+    		pushForward.actOn(dataPackage);
+    		
+    		
 		    GUI.repaint();//每次更新完数据包，用新的数据包重新绘制窗口界面
 		    synchronized(this){
 		   		try {
@@ -98,3 +104,5 @@ public class EventManager extends Thread{
     	}
 	}
 }
+
+
