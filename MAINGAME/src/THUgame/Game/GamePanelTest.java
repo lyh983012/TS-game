@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import THUgame.Game.AnimatePanel.Bullet;
+import THUgame.tool.ImagePanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +20,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import javax.swing.JButton;
+import javax.swing.JTextPane;
 
 
 
@@ -59,12 +61,27 @@ public class GamePanelTest{
 		backgroundPanel.setBackground(new Color(0, 0, 0));
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
+		
+		
+		JPanel EventPack = new JPanel();//将来可以用它来放临时小事件
+		EventPack.setBounds(254, 134, 536, 398);
+		EventPack.setLayout(null);
+		EventPack.setOpaque(false);//注意要设成透明的
+		
+			JPanel EventPanel = new AnimatePanel(20);//将来可以用它来放临时小事件
+			EventPanel.setBounds(0, 0, 536, 398);
+			EventPanel.setOpaque(false);//注意要设成透明的
+			EventPanel.setLayout(null);
+			
+			JPanel EventBackgound = new ImagePanel("imgsrc//eb.png",0, 0, 536, 398);	
+			EventBackgound.setBounds(0, 0, 536, 398);
+			EventBackgound.setOpaque(false);//注意要设成透明的
+			EventBackgound.setLayout(null);
+			
+		EventPack.add(EventPanel);
+		EventPack.add(EventBackgound);
+		backgroundPanel.add(EventPack);
 
-		JPanel EventPanel = new AnimatePanel(20);//将来可以用它来放临时小事件
-		EventPanel.setBackground(new Color(255, 255, 255));
-		EventPanel.setBounds(254, 134, 536, 398);
-		backgroundPanel.add(EventPanel);
-		EventPanel.setLayout(null);
 
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(backgroundPanel);
@@ -87,6 +104,7 @@ class AnimatePanel extends JPanel implements MouseListener,MouseMotionListener{
     
     public int Ew,Eh;
     public int Hw,Hh;
+    public boolean started=false;
     
     public Timer timer;
     public ArrayList<Bullet> Bullets;
@@ -94,8 +112,10 @@ class AnimatePanel extends JPanel implements MouseListener,MouseMotionListener{
     class TimerListener implements ActionListener {
         /** Handle ActionEvent */
         public void actionPerformed(ActionEvent e) {
-        	repaint();
+        	if (timeLeft>=0 && started) {
+        		repaint();
         	}
+        }
     }
 
 	class Bullet extends JButton{
@@ -150,25 +170,70 @@ class AnimatePanel extends JPanel implements MouseListener,MouseMotionListener{
     	this.Bullets=new ArrayList<Bullet>();
         addMouseListener(this);   
         addMouseMotionListener(this); 
-		
-		Ew=100;Eh=20;
+        Ew=100;Eh=20;
 		Hw=40;Hh=40;
-		
+        
+        this.HeroNewButton = new JButton("开始课堂小游戏");
+        this.HeroNewButton.setBounds(245, 266, 100, 20);
+        this.HeroNewButton.addActionListener(new ActionListener(){
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			InitGame();
+    			}
+    		});
+        this.add(HeroNewButton);
+        
+        JTextPane txtpnshi = new JTextPane();
+		txtpnshi.setBounds(175, 100, 220, 70);
+		txtpnshi.setOpaque(false);
+		txtpnshi.setEditable(false);
+		this.add(txtpnshi);
+		txtpnshi.setText("课堂游戏规则：控制你的人物接受正确的表达式，正确得1分，错误减2分，总得分影响智力增加");
+        
+	    
+    }
+
+    public void InitGame() {
+    	this.removeAll();
         this.HeroNewButton = new JButton("你");
-		this.HeroNewButton.setBounds(240, 266, Hw, Hh);
+		this.HeroNewButton.setBounds(268-Hw/2, 266, Hw, Hh);
 		
 		JButton HeroNewButton2 = new JButton("老师");
-		HeroNewButton2.setBounds(240, 10, Hw, Hh);
+		HeroNewButton2.setBounds(268-Hw/2, 10, Hw, Hh);
 		this.add(HeroNewButton2);
 		this.add(HeroNewButton);
 		
 		this.setVisible(true);
 	    this.timer = new Timer(delay,new TimerListener());
+	    this.timer.setInitialDelay(1000);
 	    this.timer.start();
-	    
-	    
-    }
 
+	    this.repaint();
+    	this.started=true;
+    }
+    
+    public void endGame() {
+		this.removeAll();
+    	JTextPane txtpnshi = new JTextPane();
+		txtpnshi.setBounds(175, 100, 200, 50);
+		txtpnshi.setOpaque(false);
+		txtpnshi.setEditable(false);
+		this.add(txtpnshi);
+		txtpnshi.setText("游戏结束，你的得分："+String.valueOf(score));
+		JPanel hh=this;
+
+		this.HeroNewButton = new JButton("结束");
+        this.HeroNewButton.setBounds(245, 266, 100, 20);
+        this.HeroNewButton.addActionListener(new ActionListener(){
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			hh.setVisible(false);
+    			}
+    		});
+        this.add(HeroNewButton);
+    }
+    	
+    
     public void paintComponent(Graphics g) {
     	/************************************
     	 * 我发现在这里写延时比较靠谱
@@ -192,11 +257,12 @@ class AnimatePanel extends JPanel implements MouseListener,MouseMotionListener{
     	 * 时间耗尽就停止绘图更新，否则按逻辑更新
     	 ***********************************/
     	if(this.timeLeft==0) {
-    		this.removeAll();
-    		super.paintComponent(g);
-        	g.drawString("游戏结束，你的得分："+String.valueOf(score),230,200);
+        	this.endGame();
         	this.timer.stop();
-        }else {
+        	this.started=false;
+        	super.paintComponent(g);
+        	
+        }else if(this.started){
         	super.paintComponent(g);
 			this.HeroNewButton.setBounds(Hx,Hy,Hw,Hh);
 			/************************************
@@ -208,7 +274,7 @@ class AnimatePanel extends JPanel implements MouseListener,MouseMotionListener{
 	        	Bullet newBullet=new Bullet();
 	        	Bullets.add(newBullet);
 	        	this.add(newBullet);
-	        	newBullet.setBounds(250,10,Ew,Eh);
+	        	newBullet.setBounds(250,10+Hh,Ew,Eh);
 	        }
 	        
 	        /************************************
@@ -235,8 +301,8 @@ class AnimatePanel extends JPanel implements MouseListener,MouseMotionListener{
 	            	}
 	            }
 	        }
-	        g.drawString("你的得分："+String.valueOf(score),10,10);
-	        g.drawString("剩余时间："+String.valueOf(this.timeLeft/10)+"."+String.valueOf(this.timeLeft%10)+"s",10,30);
+	        g.drawString("你的得分："+String.valueOf(score),50,40);
+	        g.drawString("剩余时间："+String.valueOf(this.timeLeft/10)+"."+String.valueOf(this.timeLeft%10)+"s",50,60);
         }
     }
     
