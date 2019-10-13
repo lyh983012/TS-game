@@ -69,14 +69,14 @@ public class GamePanelTest{
 
 
 class AnimatePanel extends JPanel implements MouseListener,MouseMotionListener{
-    
+	Timer timer;
     private JButton HeroNewButton;
     private JButton EnemyNewButton;
     int score=0;
 
     public AnimatePanel( int delay) {
 
-        Timer timer = new Timer(delay, new TimerListener());
+        timer = new Timer(delay, new TimerListener());
         timer.start();
         addMouseListener(this);   
         addMouseMotionListener(this); 
@@ -102,6 +102,7 @@ class AnimatePanel extends JPanel implements MouseListener,MouseMotionListener{
     
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+  
         int Ex=this.EnemyNewButton.getX();
         int Ey=this.EnemyNewButton.getY();
         int Hx=this.HeroNewButton.getX();
@@ -118,6 +119,7 @@ class AnimatePanel extends JPanel implements MouseListener,MouseMotionListener{
         }
         this.EnemyNewButton.setBounds(Ex,Ey, 50, 50);
         g.drawString(String.valueOf(score),10,10);
+
     }
 
     class TimerListener implements ActionListener {

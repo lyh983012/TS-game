@@ -1,10 +1,18 @@
 package THUgame.windows;
 
+import java.awt.Image;
 import java.awt.event.MouseListener;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
+import THUgame.tool.ImagePanel;
 
 
 /*
@@ -35,4 +43,18 @@ import THUgame.main.EventManager;
 				this.mainGame=mainGame;
 			}
 	}
+		public void setIcon(String file,JButton com){ 
+	        ImageIcon ico=new ImageIcon(getClass().getResource(file)); 
+	        Image temp=ico.getImage().getScaledInstance(com.getWidth(),com.getHeight(),ico.getImage().SCALE_DEFAULT);
+	        ico=new ImageIcon(temp); 
+	        com.setIcon(ico); 
+	    } 
+		
+		public void setSelectedIcon(String file,JButton com){ 
+	        ImageIcon ico=new ImageIcon(getClass().getResource(file)); 
+	        Image temp=ico.getImage().getScaledInstance(com.getWidth(),com.getHeight(),ico.getImage().SCALE_DEFAULT);
+	        ico=new ImageIcon(temp); 
+	        com.setSelectedIcon(ico); 
+	    } 
+		
 }
