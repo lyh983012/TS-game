@@ -11,6 +11,7 @@ import javax.swing.JProgressBar;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
 
+import THUgame.Game.ShootGame;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
@@ -97,7 +98,6 @@ public class WinMorningClass extends WinBase{
 			}
 			/*		END OF YOUR CODE		*/
 			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-			EventManager.dataPackage=dataPackage;
 			synchronized(mainGame) {
 				mainGame.notify();
 			}//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
@@ -137,29 +137,59 @@ public class WinMorningClass extends WinBase{
 		backgroundPanel.setLayout(null);
 		
 		/*************************************************************	
-		 * 【小事件】
+		 * 【小事件，这里分成两类，一类是结束提示，一类是游戏】
+		 * 	游戏比较特殊，相当于执行了按钮的事件后附加了一个事件
+		 * 		用之前，把mainGame和datapackage传给游戏
+		 * 		这样游戏才可以从内部控制外部窗口的刷新	
+		 * 		使用游戏的人不需要关注游戏内部的实现，只需要传参数进去就可以；
+		 * 
 		 *************************************************************/
-		JPanel EventPanel = new JPanel();//将来可以用它来放临时小事件
-		EventPanel.setBackground(new Color(255, 255, 204));
-		EventPanel.setBounds(253, 129, 536, 398);
-		backgroundPanel.add(EventPanel);
-		EventPanel.setLayout(null);
-		EventPanel.setVisible(dataPackage.trigSubEvent);
+		JPanel exitPanel = new JPanel();//将来可以用它来放临时小事件
+		exitPanel.setBackground(new Color(255, 255, 204));
+		exitPanel.setBounds(253, 129, 536, 398);
+		exitPanel.setLayout(null);
 	
-		JLabel lblNewLabel_1 = new JLabel("已经下课了！");
-		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		lblNewLabel_1.setBounds(226, 107, 220, 68);
-		EventPanel.add(lblNewLabel_1);
+			JLabel lblNewLabel_1 = new JLabel("已经下课了！");
+			lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+			lblNewLabel_1.setBounds(226, 107, 220, 68);
+			exitPanel.add(lblNewLabel_1);
+			
+			JButton btnNewButton_3 = new JButton("不学了，回宿舍");
+			btnNewButton_3.setBounds(87, 242, 190, 47);
+			exitPanel.add(btnNewButton_3);
+			
+			JButton btnNewButton_4 = new JButton("还能学，上下午的课");
+			btnNewButton_4.setBounds(289, 242, 190, 47);
+			exitPanel.add(btnNewButton_4);
 		
-		JButton btnNewButton_3 = new JButton("不学了，回宿舍");
-		btnNewButton_3.setBounds(87, 242, 190, 47);
-		EventPanel.add(btnNewButton_3);
+		JPanel gamePack = new JPanel();//将来可以用它来放临时小事件
+		gamePack.setBounds(254, 134, 536, 398);
+		gamePack.setLayout(null);
+		gamePack.setOpaque(false);//注意要设成透明的
 		
-		JButton btnNewButton_4 = new JButton("还能学，上下午的课");
-		btnNewButton_4.setBounds(289, 242, 190, 47);
-		EventPanel.add(btnNewButton_4);
+			ShootGame.mainGame=mainGame;//注意这里！不然没办法结束游戏！
+			ShootGame.dataPackage=dataPackage;//注意这里！不然没办法结束游戏！
+			JPanel gamePanel = new ShootGame(20);//将来可以用它来放临时小事件
+			gamePanel.setBounds(0, 0, 536, 398);
+			gamePanel.setOpaque(false);//注意要设成透明的
+			gamePanel.setLayout(null);
+				
+			JPanel EventBackgound = new ImagePanel("imgsrc//eb.png",0, 0, 536, 398);	
+			EventBackgound.setBounds(0, 0, 536, 398);
+			EventBackgound.setOpaque(false);//注意要设成透明的
+			EventBackgound.setLayout(null);
+			
+		gamePack.add(gamePanel);
+		gamePack.add(EventBackgound);
 		
-		EventPanel.setVisible(dataPackage.trigSubEvent);
+		
+		if (dataPackage.trigSubEvent) {
+			if(dataPackage.time==12) {
+				backgroundPanel.add(exitPanel);
+			}else  {
+				backgroundPanel.add(gamePack);
+			}
+		}
 		
 		/*************************************************************	
 		 * 【基本按钮】
