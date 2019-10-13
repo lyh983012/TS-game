@@ -51,13 +51,22 @@ public class EventIndom extends EventBase{
 		int randomTime = r.nextInt(2) + 1;
 		switch(oldDataPack.choiceA) {
 			case "sleep":
-				if(oldDataPack.time<24 && oldDataPack.time>6){
+				if(oldDataPack.time<24 && oldDataPack.time>6){ // 24点之前睡
 					oldDataPack.time+=1;		//小憩一会儿，时间+1（原本的版本是计数器+1）
 					if(oldDataPack.time>=24) {	//看是否变成下一天，记得查bug
 						oldDataPack.time%=24;
 						oldDataPack.date+=1;
 					}
-				}else {
+				}else if(oldDataPack.date == 2 && oldDataPack.time == 0) { // 学期第二天0点睡觉，触发被呼噜打醒
+					oldDataPack.time=3;	//3点被打醒
+					oldDataPack.notification="";
+					oldDataPack.characterHappiness -= 2;
+					oldDataPack.characterEnergy -= 2;
+					
+					oldDataPack.trigSubEvent = true;
+					break;
+				}else { // 正常24点睡觉，然后睡醒
+					oldDataPack.trigSubEvent = false;  // 吵醒之后睡着，取消子事件
 					oldDataPack.time=7+randomTime;	//睡大觉，有机率睡爆，时间等于7点+0～2（原本的版本是计数器+1） 
 				}
 				oldDataPack.notification="睡醒了呢！头脑有些不清醒，但是健康和体力都增加了，人的心情也变好了。";
@@ -65,8 +74,10 @@ public class EventIndom extends EventBase{
 				oldDataPack.characterHealth+=2;
 				oldDataPack.characterHappiness+=5;
 				oldDataPack.characterEnergy+=5;
+				
 				break;
 			case "selfstudy":
+				oldDataPack.trigSubEvent = false;  // 吵醒之后自习，取消子事件
 				if(oldDataPack.characterEnergy<5) {
 					oldDataPack.notification="我没有力气读书了。";
 					break;
@@ -89,17 +100,48 @@ public class EventIndom extends EventBase{
 					oldDataPack.characterHappiness-=2;
 					break;
 				}
+			case "wakehimup":
+				oldDataPack.trigSubEvent = false;  // 吵醒之后叫醒，取消子事件
+				oldDataPack.time=7+randomTime;	//睡大觉，有机率睡爆，时间等于7点+0～2（原本的版本是计数器+1） 
+				oldDataPack.notification="虽然感觉安静了些，但还是觉得有些尴尬，社交力和心情稍稍下降了";
+				oldDataPack.characterHappiness -= 1;
+				oldDataPack.characterEQ -= 1;
+				
+				oldDataPack.characterIQ -= randomValue;
+				oldDataPack.characterHealth += 2;
+				oldDataPack.characterHappiness += 3;
+				oldDataPack.characterEnergy += 3;
+				break;
+				
+			case "stayup":
+				oldDataPack.trigSubEvent = false;  // 吵醒之后待着，取消子事件
+				oldDataPack.time=7+randomTime;	//睡大觉，有机率睡爆，时间等于7点+0～2（原本的版本是计数器+1） 
+				oldDataPack.notification = "后面睡得都不太好，白天告诉了舍友，舍友非常抱歉，社交力上升了";
+				oldDataPack.characterEQ += 1;
+				
+				oldDataPack.characterIQ -= randomValue;
+				oldDataPack.characterHealth += 1;
+				oldDataPack.characterHappiness += 4;
+				oldDataPack.characterEnergy += 2;	
+				break;
 		}
+		
+		// 发生动作后的状态转移判定
 		if (oldDataPack.time==8 || oldDataPack.time==10) { //只在特定时间可以去上课
 			oldDataPack.stateA="上早上课"; 				   //判断上午还是下午
 			oldDataPack.stateB="classtime";				   //用于判断是否显示按钮
 		}else if(oldDataPack.time==13 || oldDataPack.time==15){
 			oldDataPack.stateA="上下午课"; 				   //同理
 			oldDataPack.stateB="classtime";
-		}else{
+		}
+		else if(oldDataPack.trigSubEvent){				   //如果触发被吵醒子事件
+			oldDataPack.stateA="被吵醒";
+			oldDataPack.stateB="othertime";
+		}else {
 			oldDataPack.stateA="自习";
 			oldDataPack.stateB="othertime";
-		}		
+		}
+		
 		if (oldDataPack.characterHealth<=0)
 			JOptionPane.showMessageDialog(null, "你猝死了", "", JOptionPane.ERROR_MESSAGE);//弹出猝死界面
 		/*		END OF YOUR CODE		*/
