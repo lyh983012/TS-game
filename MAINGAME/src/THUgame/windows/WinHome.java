@@ -1,5 +1,4 @@
 package THUgame.windows;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.event.MouseEvent;
@@ -13,6 +12,8 @@ import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
 import THUgame.windows.WinBase.BaseMouseListener;
 import java.awt.Font;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
 
 
 /*
@@ -34,9 +35,9 @@ import java.awt.Font;
 	 * 
 	 *************************************************************/
 
-public class WinChoice extends WinBase{
-	
 
+
+public class WinHome extends WinBase{
 		
 		
 		/*************************************************************	
@@ -110,7 +111,7 @@ public class WinChoice extends WinBase{
 	 * 【构造函数】
 	 * 不要新建JFrame窗口对象，而是把上层传进来的窗口对象里面的东西扔了，重新添加
 	 *************************************************************/
-	public WinChoice(EventManager mainGame,JFrame frame) {
+	public WinHome(EventManager mainGame,JFrame frame) {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		this.mainGame=mainGame;
@@ -121,22 +122,22 @@ public class WinChoice extends WinBase{
 		 * 这一部分按照流程做的话就会自然消失的，推荐直接在可视化界面编辑属性
 		 * 最后放一下背景
 		 *************************************************************/
-		
-		
 		JPanel backgroundPanel=new JPanel();
-		backgroundPanel.setBackground(Color.GRAY);
+		backgroundPanel.setBackground(new Color(147, 112, 219));
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
 		
 		JPanel textpanel = new JPanel();
+		textpanel.setBackground(new Color(169, 169, 169));
+		textpanel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		textpanel.setBounds(146, 125, 811, 226);
 		backgroundPanel.add(textpanel);
 		textpanel.setLayout(null);
 		
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
-		textArea.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		textArea.setBounds(200, 50, 400, 100);
+		textArea.setFont(new Font("Dialog", Font.PLAIN, 75));
+		textArea.setBounds(100, 50, 600, 100);
 		textpanel.add(textArea);
 		
 		JPanel panela = new JPanel();
@@ -189,72 +190,15 @@ public class WinChoice extends WinBase{
 		choicee.setBounds(24, 5, 141, 49);
 		panele.add(choicee);
 		
-		switch(dataPackage.count) {
-		case 0:
-			paneld.setVisible(false);
-			panele.setVisible(false);
-			textArea.setText("你在高中的时候睡觉时间大致是？");
-			choicea.setText("12点之前");
-			choiceb.setText("0am-1am");
-			choicec.setText("1点以后");
-			break;
-		case 1:
-			panelc.setVisible(false);
-			paneld.setVisible(false);
-			panele.setVisible(false);
-			textArea.setText("你是否见过凌晨4点（除了拉练）的北京？");
-			choicea.setText("是");
-			choiceb.setText("否");
-			break;
-		case 2:
-			paneld.setVisible(false);
-			panele.setVisible(false);
-			textArea.setText("你期望将来的学位高度是？");
-			choicea.setText("本科");
-			choiceb.setText("硕士");
-			choicec.setText("博士");
-			break;
-		case 3:
-			panele.setVisible(false);
-			textArea.setText("你最喜欢以下哪个场景？");
-			choicea.setText("紫操奔跑");
-			choiceb.setText("游戏界面");
-			choicec.setText("实验室设备");
-			choiced.setText("志愿者");
-			break;
-		case 4:
-			panele.setVisible(false);
-			textArea.setText("哪一种场景让你很痛苦？");
-			choicea.setText("作业堆积");
-			choiceb.setText("游戏掉段");
-			choicec.setText("凌晨2点的实验室");
-			choiced.setText("开会");
-			break;
-		case 5:
-			panele.setVisible(false);
-			textArea.setText("熄灯之后，你更愿意做什么？");
-			choicea.setText("读论文");
-			choiceb.setText("上分");
-			choicec.setText("马上睡觉");
-			choiced.setText("做没做完的作业");
-			break;
-		case 6:
-			paneld.setVisible(false);
-			panele.setVisible(false);
-			textArea.setText("买了两年多的电脑出了问题，你会？");
-			choicea.setText("赶着工作，送去店里修好");
-			choiceb.setText("重新购买是最方便的选择");
-			choicec.setText("自己买零件修修补补");
-			break;
-		case 7:
-			textArea.setText("回母校招生，你会如何宣传清华？");
-			choicea.setText("清华大学学术水平高，科研经费多");
-			choiceb.setText("清华毕业生收入高");
-			choicec.setText("清华平台广，可以为社会贡献自己的力量");
-			choiced.setText("与应届生一起玩主机游戏");
-			choicee.setText("清华大学体育强，对学生锻炼要求高");
-			break;
-		}
+
+		paneld.setVisible(false);
+		panele.setVisible(false);
+		textArea.setText("Tsinghua Student");
+		choicea.setText("新游戏");
+		choiceb.setText("继续游戏");
+		choicec.setText("帮助");
+
+
 		
 		WinChoiceMouseListener.dataPackage=dataPackage;
 		WinChoiceMouseListener.mainGame=mainGame;
@@ -294,6 +238,5 @@ public class WinChoice extends WinBase{
 		frame.getContentPane().repaint();
 		frame.setVisible(true);
 	}
+
 }
-
-
