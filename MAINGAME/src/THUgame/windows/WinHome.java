@@ -122,27 +122,14 @@ public class WinHome extends WinBase{
 		 * 这一部分按照流程做的话就会自然消失的，推荐直接在可视化界面编辑属性
 		 * 最后放一下背景
 		 *************************************************************/
-		JPanel backgroundPanel=new JPanel();
-		backgroundPanel.setBackground(new Color(147, 112, 219));
+		JPanel backgroundPanel=new ImagePanel("imgsrc//WinHome/home.jpg",0, 0, 1080, 720);
+		
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
 		
-		JPanel textpanel = new JPanel();
-		textpanel.setBackground(new Color(169, 169, 169));
-		textpanel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		textpanel.setBounds(146, 125, 811, 226);
-		backgroundPanel.add(textpanel);
-		textpanel.setLayout(null);
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setEditable(false);
-		textArea.setFont(new Font("Dialog", Font.PLAIN, 75));
-		textArea.setBounds(100, 50, 600, 100);
-		textpanel.add(textArea);
-		
 		JPanel panela = new JPanel();
 		panela.setBackground(Color.LIGHT_GRAY);
-		panela.setBounds(146, 385, 194, 60);
+		panela.setBounds(146, 485, 194, 60);
 		backgroundPanel.add(panela);
 		panela.setLayout(null);
 		
@@ -152,7 +139,7 @@ public class WinHome extends WinBase{
 		
 		JPanel panelb = new JPanel();
 		panelb.setBackground(Color.LIGHT_GRAY);
-		panelb.setBounds(462, 385, 194, 60);
+		panelb.setBounds(462, 485, 194, 60);
 		backgroundPanel.add(panelb);
 		panelb.setLayout(null);
 		
@@ -162,7 +149,7 @@ public class WinHome extends WinBase{
 		
 		JPanel panelc = new JPanel();
 		panelc.setBackground(Color.LIGHT_GRAY);
-		panelc.setBounds(762, 385, 194, 60);
+		panelc.setBounds(762, 485, 194, 60);
 		backgroundPanel.add(panelc);
 		panelc.setLayout(null);
 		
@@ -172,7 +159,7 @@ public class WinHome extends WinBase{
 		
 		JPanel paneld = new JPanel();
 		paneld.setBackground(Color.LIGHT_GRAY);
-		paneld.setBounds(146, 492, 194, 60);
+		paneld.setBounds(146, 592, 194, 60);
 		backgroundPanel.add(paneld);
 		paneld.setLayout(null);
 		
@@ -182,7 +169,7 @@ public class WinHome extends WinBase{
 		
 		JPanel panele = new JPanel();
 		panele.setBackground(Color.LIGHT_GRAY);
-		panele.setBounds(762, 492, 194, 60);
+		panele.setBounds(762, 592, 194, 60);
 		backgroundPanel.add(panele);
 		panele.setLayout(null);
 		
@@ -193,7 +180,6 @@ public class WinHome extends WinBase{
 
 		paneld.setVisible(false);
 		panele.setVisible(false);
-		textArea.setText("Tsinghua Student");
 		choicea.setText("新游戏");
 		choiceb.setText("继续游戏");
 		choicec.setText("帮助");
