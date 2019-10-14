@@ -253,6 +253,7 @@ public class WinNoonClass extends WinBase{
 		sxBackground.setBounds(0, 0, 197, 267);
 		sxBackground.setOpaque(false);
 		panel.add(sxBackground);
+<<<<<<< HEAD
 		/*************************************************************	
 		 * 【镶时钟】
 		 * 		不需要修改
@@ -283,29 +284,55 @@ public class WinNoonClass extends WinBase{
 		timePack.add(timePanel);
 		timePack.add(timeBackgoundPanel);
 		backgroundPanel.add(timePack);
+=======
+>>>>>>> linyh_test
 		/*************************************************************	
-		 * 镶课程表 这一部分按照流程做的话就会自然消失的
+		 * 【镶时钟】
+		 * 		不需要修改
+		 * 		简而言之就是显示一个Table
 		 *************************************************************/
+<<<<<<< HEAD
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panel_1.setBounds(752, 35, 263, 160);
 		backgroundPanel.add(panel_1);
 		panel_1.setLayout(null);
-
-		JLabel lblNewLabel = new JLabel("课程表");
-		lblNewLabel.setBounds(6, 6, 61, 16);
-		panel_1.add(lblNewLabel);
+=======
+		JPanel timePack = new JPanel();
+		timePack.setLayout(null);
+		timePack.setOpaque(false);//注意要设成透明的
+		timePack.setBounds(66, 32, 195, 90);
 		
-		JPanel kcbBackground = new ImagePanel("imgsrc//kcb.jpg",0, 0, 263, 160);
-		kcbBackground.setBounds(0, 0, 263, 160);
-		panel_1.add(kcbBackground);
+			JPanel timePanel = new JPanel();
+			timePanel.setBounds(0, 0, 195, 90);
+			JPanel timeBackgoundPanel = new ImagePanel("imgsrc//taili.png",0, 0, 195, 90);	
+			timeBackgoundPanel.setBounds(0, 0, 195, 90);
+			
+			timeBackgoundPanel.setOpaque(false);//注意要设成透明的
+			timePanel.setOpaque(false);//注意要设成透明的
+			timePanel.setLayout(null);
+			
+			JLabel timeText = new JLabel("当前时间为："+String.valueOf(dataPackage.time)+" 时");
+			timeText.setBounds(6, 60, 172, 16);
+			timePanel.add(timeText);
+			
+			JLabel dateText = new JLabel("今天是：第"+String.valueOf(dataPackage.term)+"学期"+String.valueOf(dataPackage.week)+"周"+String.valueOf(dataPackage.date)+"日");
+			dateText.setBounds(6, 35, 172, 16);
+			timePanel.add(dateText);
+			
+		timePack.add(timePanel);
+		timePack.add(timeBackgoundPanel);
+		backgroundPanel.add(timePack);
+>>>>>>> linyh_test
+
 		
 		/*************************************************************	
 		 * 镶待办事项 这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
 		JPanel todoList = new JPanel();
 		todoList.setLayout(null);
+<<<<<<< HEAD
 		todoList.setBounds(752, 248, 263, 189);
 		todoList.setOpaque(false);//注意要设成透明的
 			
@@ -320,6 +347,41 @@ public class WinNoonClass extends WinBase{
 			dbsxBackgruond.setBounds(0, 0, 263, 189);
 			todoList.add(dbsxBackgruond);
 			dbsxBackgruond.setLayout(null);
+=======
+		todoList.setOpaque(false);	
+		todoList.setBounds(752, 35, 263, 189);
+			
+			JLabel label = new JLabel("待办事项");
+			label.setForeground(Color.WHITE);
+			label.setBounds(20, 25, 100, 18);
+			todoList.add(label);
+			label.setFont(new Font("STFangsong", Font.PLAIN, 16));
+				
+			JLabel label2 = new JLabel("1.上午课:"+dataPackage.todayMorningClass);
+			label2.setForeground(Color.WHITE);
+			label2.setBounds(20, 55, 200, 18);
+			todoList.add(label2);
+			label2.setFont(new Font("STFangsong", Font.PLAIN, 16));
+				
+			JLabel label3 = new JLabel("2.下午课:"+dataPackage.todayAfternoonClass);
+			label3.setForeground(Color.WHITE);
+			label3.setBounds(20, 85, 200, 18);
+			todoList.add(label3);
+			label3.setFont(new Font("STFangsong", Font.PLAIN, 16));
+				
+			JLabel label4 = new JLabel("3.");
+			label4.setForeground(Color.WHITE);
+			label4.setBounds(20, 115, 100, 18);
+			todoList.add(label4);
+			label4.setFont(new Font("STFangsong", Font.PLAIN, 16));
+			
+			JPanel dbsxBackgruond = new ImagePanel("imgsrc//todoList.png",0, 0, 263, 189);
+			dbsxBackgruond.setOpaque(false);	
+			dbsxBackgruond.setBounds(0, 0, 263, 189);
+		
+		todoList.add(dbsxBackgruond);
+		dbsxBackgruond.setLayout(null);
+>>>>>>> linyh_test
 		backgroundPanel.add(todoList);
 		/*************************************************************	
 		 * 【镶对话框】

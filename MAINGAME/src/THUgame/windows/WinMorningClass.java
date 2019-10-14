@@ -11,6 +11,7 @@ import javax.swing.JProgressBar;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
 
+import THUgame.Game.ShootGame;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
@@ -97,7 +98,6 @@ public class WinMorningClass extends WinBase{
 			}
 			/*		END OF YOUR CODE		*/
 			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-			EventManager.dataPackage=dataPackage;
 			synchronized(mainGame) {
 				mainGame.notify();
 			}//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
@@ -137,6 +137,7 @@ public class WinMorningClass extends WinBase{
 		backgroundPanel.setLayout(null);
 		
 		/*************************************************************	
+<<<<<<< HEAD
 		 * 【小事件】
 		 *************************************************************/
 		JPanel EventPanel = new JPanel();//将来可以用它来放临时小事件
@@ -145,21 +146,61 @@ public class WinMorningClass extends WinBase{
 		backgroundPanel.add(EventPanel);
 		EventPanel.setLayout(null);
 		EventPanel.setVisible(dataPackage.trigSubEvent);
+=======
+		 * 【小事件，这里分成两类，一类是结束提示，一类是游戏】
+		 * 	游戏比较特殊，相当于执行了按钮的事件后附加了一个事件
+		 * 		用之前，把mainGame和datapackage传给游戏
+		 * 		这样游戏才可以从内部控制外部窗口的刷新	
+		 * 		使用游戏的人不需要关注游戏内部的实现，只需要传参数进去就可以；
+		 * 
+		 *************************************************************/
+		JPanel exitPanel = new JPanel();//将来可以用它来放临时小事件
+		exitPanel.setBackground(new Color(255, 255, 204));
+		exitPanel.setBounds(253, 129, 536, 398);
+		exitPanel.setLayout(null);
+>>>>>>> linyh_test
 	
-		JLabel lblNewLabel_1 = new JLabel("已经下课了！");
-		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		lblNewLabel_1.setBounds(226, 107, 220, 68);
-		EventPanel.add(lblNewLabel_1);
+			JLabel lblNewLabel_1 = new JLabel("已经下课了！");
+			lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+			lblNewLabel_1.setBounds(226, 107, 220, 68);
+			exitPanel.add(lblNewLabel_1);
+			
+			JButton btnNewButton_3 = new JButton("不学了，回宿舍");
+			btnNewButton_3.setBounds(87, 242, 190, 47);
+			exitPanel.add(btnNewButton_3);
+			
+			JButton btnNewButton_4 = new JButton("还能学，上下午的课");
+			btnNewButton_4.setBounds(289, 242, 190, 47);
+			exitPanel.add(btnNewButton_4);
 		
-		JButton btnNewButton_3 = new JButton("不学了，回宿舍");
-		btnNewButton_3.setBounds(87, 242, 190, 47);
-		EventPanel.add(btnNewButton_3);
+		JPanel gamePack = new JPanel();//将来可以用它来放临时小事件
+		gamePack.setBounds(254, 134, 536, 398);
+		gamePack.setLayout(null);
+		gamePack.setOpaque(false);//注意要设成透明的
 		
-		JButton btnNewButton_4 = new JButton("还能学，上下午的课");
-		btnNewButton_4.setBounds(289, 242, 190, 47);
-		EventPanel.add(btnNewButton_4);
+			ShootGame.mainGame=mainGame;//注意这里！不然没办法结束游戏！
+			ShootGame.dataPackage=dataPackage;//注意这里！不然没办法结束游戏！
+			JPanel gamePanel = new ShootGame(20);//将来可以用它来放临时小事件
+			gamePanel.setBounds(0, 0, 536, 398);
+			gamePanel.setOpaque(false);//注意要设成透明的
+			gamePanel.setLayout(null);
+				
+			JPanel EventBackgound = new ImagePanel("imgsrc//eb.png",0, 0, 536, 398);	
+			EventBackgound.setBounds(0, 0, 536, 398);
+			EventBackgound.setOpaque(false);//注意要设成透明的
+			EventBackgound.setLayout(null);
+			
+		gamePack.add(gamePanel);
+		gamePack.add(EventBackgound);
 		
-		EventPanel.setVisible(dataPackage.trigSubEvent);
+		
+		if (dataPackage.trigSubEvent) {
+			if(dataPackage.time==12) {
+				backgroundPanel.add(exitPanel);
+			}else  {
+				backgroundPanel.add(gamePack);
+			}
+		}
 		
 		/*************************************************************	
 		 * 【基本按钮】
@@ -264,6 +305,7 @@ public class WinMorningClass extends WinBase{
 		sxBackground.setBounds(0, 0, 197, 267);
 		sxBackground.setOpaque(false);
 		panel.add(sxBackground);
+<<<<<<< HEAD
 		/*************************************************************	
 		 * 【镶时钟】
 		 * 		不需要修改
@@ -294,29 +336,55 @@ public class WinMorningClass extends WinBase{
 		timePack.add(timePanel);
 		timePack.add(timeBackgoundPanel);
 		backgroundPanel.add(timePack);
+=======
+>>>>>>> linyh_test
 		/*************************************************************	
-		 * 镶课程表 这一部分按照流程做的话就会自然消失的
+		 * 【镶时钟】
+		 * 		不需要修改
+		 * 		简而言之就是显示一个Table
 		 *************************************************************/
+<<<<<<< HEAD
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panel_1.setBounds(752, 35, 263, 160);
 		backgroundPanel.add(panel_1);
 		panel_1.setLayout(null);
-
-		JLabel lblNewLabel = new JLabel("课程表");
-		lblNewLabel.setBounds(6, 6, 61, 16);
-		panel_1.add(lblNewLabel);
+=======
+		JPanel timePack = new JPanel();
+		timePack.setLayout(null);
+		timePack.setOpaque(false);//注意要设成透明的
+		timePack.setBounds(66, 32, 195, 90);
 		
-		JPanel kcbBackground = new ImagePanel("imgsrc//kcb.jpg",0, 0, 263, 160);
-		kcbBackground.setBounds(0, 0, 263, 160);
-		panel_1.add(kcbBackground);
+			JPanel timePanel = new JPanel();
+			timePanel.setBounds(0, 0, 195, 90);
+			JPanel timeBackgoundPanel = new ImagePanel("imgsrc//taili.png",0, 0, 195, 90);	
+			timeBackgoundPanel.setBounds(0, 0, 195, 90);
+			
+			timeBackgoundPanel.setOpaque(false);//注意要设成透明的
+			timePanel.setOpaque(false);//注意要设成透明的
+			timePanel.setLayout(null);
+			
+			JLabel timeText = new JLabel("当前时间为："+String.valueOf(dataPackage.time)+" 时");
+			timeText.setBounds(6, 60, 172, 16);
+			timePanel.add(timeText);
+			
+			JLabel dateText = new JLabel("今天是：第"+String.valueOf(dataPackage.term)+"学期"+String.valueOf(dataPackage.week)+"周"+String.valueOf(dataPackage.date)+"日");
+			dateText.setBounds(6, 35, 172, 16);
+			timePanel.add(dateText);
+			
+		timePack.add(timePanel);
+		timePack.add(timeBackgoundPanel);
+		backgroundPanel.add(timePack);
+>>>>>>> linyh_test
+
 		
 		/*************************************************************	
 		 * 镶待办事项 这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
 		JPanel todoList = new JPanel();
 		todoList.setLayout(null);
+<<<<<<< HEAD
 		todoList.setBounds(752, 248, 263, 189);
 		todoList.setOpaque(false);//注意要设成透明的
 			
@@ -331,6 +399,41 @@ public class WinMorningClass extends WinBase{
 			dbsxBackgruond.setBounds(0, 0, 263, 189);
 			todoList.add(dbsxBackgruond);
 			dbsxBackgruond.setLayout(null);
+=======
+		todoList.setOpaque(false);	
+		todoList.setBounds(752, 35, 263, 189);
+			
+			JLabel label = new JLabel("待办事项");
+			label.setForeground(Color.WHITE);
+			label.setBounds(20, 25, 100, 18);
+			todoList.add(label);
+			label.setFont(new Font("STFangsong", Font.PLAIN, 16));
+				
+			JLabel label2 = new JLabel("1.上午课:"+dataPackage.todayMorningClass);
+			label2.setForeground(Color.WHITE);
+			label2.setBounds(20, 55, 200, 18);
+			todoList.add(label2);
+			label2.setFont(new Font("STFangsong", Font.PLAIN, 16));
+				
+			JLabel label3 = new JLabel("2.下午课:"+dataPackage.todayAfternoonClass);
+			label3.setForeground(Color.WHITE);
+			label3.setBounds(20, 85, 200, 18);
+			todoList.add(label3);
+			label3.setFont(new Font("STFangsong", Font.PLAIN, 16));
+				
+			JLabel label4 = new JLabel("3.");
+			label4.setForeground(Color.WHITE);
+			label4.setBounds(20, 115, 100, 18);
+			todoList.add(label4);
+			label4.setFont(new Font("STFangsong", Font.PLAIN, 16));
+			
+			JPanel dbsxBackgruond = new ImagePanel("imgsrc//todoList.png",0, 0, 263, 189);
+			dbsxBackgruond.setOpaque(false);	
+			dbsxBackgruond.setBounds(0, 0, 263, 189);
+		
+		todoList.add(dbsxBackgruond);
+		dbsxBackgruond.setLayout(null);
+>>>>>>> linyh_test
 		backgroundPanel.add(todoList);
 		/*************************************************************	
 		 * 【镶对话框】

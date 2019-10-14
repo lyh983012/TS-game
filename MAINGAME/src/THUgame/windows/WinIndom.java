@@ -59,8 +59,15 @@ import javax.swing.SwingConstants;
  * 				5.把按钮加入panel里
  * 		更新了按钮的UI和对话框的UI
  * 			设置UI的方法可以看本类中【按钮】和【对话框】的部分
+<<<<<<< HEAD
  * 
+=======
+>>>>>>> linyh_test
  * 
+ * update:20191014 18:30
+ * 		加入了游戏界面（在morning class的窗口里）
+ * 		游戏panel直接添加就可以运行，但是需要注册一下数据包和控制进程（maingame）具体用法见morning
+ * 		游戏panel在tool里有，在Game里有一个可运行的例程
  **/
 
 
@@ -182,6 +189,7 @@ public class WinIndom extends WinBase{
 		btnNewButton_2.setBounds(819, 611, 150, 50);
 		if (dataPackage.stateB.equals("classtime")) {	//高级应用：仅仅在符合“classtime”状态的时候显示这个按钮
 			if(dataPackage.stateA.equals("上早上课")){   //高级应用：图标也对应有不同
+<<<<<<< HEAD
 				setIcon("/imgsrc/Windom/Morning.png",btnNewButton_2);
 				setSelectedIcon("/imgsrc/Windom/MorningUn.png",btnNewButton_2);
 			}else {
@@ -189,6 +197,20 @@ public class WinIndom extends WinBase{
 				setSelectedIcon("/imgsrc/Windom/afternoonUn.png",btnNewButton_2);
 			}
 			backgroundPanel.add(btnNewButton_2);
+=======
+				if(!dataPackage.todayMorningClass.equals("----")) {
+					setIcon("/imgsrc/Windom/Morning.png",btnNewButton_2);
+					setSelectedIcon("/imgsrc/Windom/MorningUn.png",btnNewButton_2);
+					backgroundPanel.add(btnNewButton_2);
+				}
+			}else {
+				if(!dataPackage.todayAfternoonClass.equals("----")) {
+					setIcon("/imgsrc/Windom/afternoon.png",btnNewButton_2);
+					setSelectedIcon("/imgsrc/Windom/afternoonUn.png",btnNewButton_2);
+					backgroundPanel.add(btnNewButton_2);
+				}
+			}
+>>>>>>> linyh_test
 		}
 		/*************************************************************	
 		 * 【小事件】 
@@ -200,12 +222,21 @@ public class WinIndom extends WinBase{
 		backgroundPanel.add(EventPanel);
 		EventPanel.setLayout(null);
 		EventPanel.setVisible(false);
+<<<<<<< HEAD
 		
 		JLabel label_1 = new JLabel("你被舍友的呼噜吵醒了，睡眠质量大跌");
 		label_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		label_1.setBounds(95, 130, 388, 16);
 		EventPanel.add(label_1);
 		
+=======
+		
+		JLabel label_1 = new JLabel("你被舍友的呼噜吵醒了，睡眠质量大跌");
+		label_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		label_1.setBounds(95, 130, 388, 16);
+		EventPanel.add(label_1);
+		
+>>>>>>> linyh_test
 		JLabel label_2 = new JLabel("健康下降、心情下降、社交力下降、体力下降");
 		label_2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		label_2.setBounds(95, 173, 388, 16);
@@ -233,7 +264,11 @@ public class WinIndom extends WinBase{
 			timeText.setBounds(6, 60, 172, 16);
 			timePanel.add(timeText);
 			
+<<<<<<< HEAD
 			JLabel dateText = new JLabel("当前日期为：第"+String.valueOf(dataPackage.term)+"学期"+String.valueOf(dataPackage.date)+"日");
+=======
+			JLabel dateText = new JLabel("今天是：第"+String.valueOf(dataPackage.term)+"学期"+String.valueOf(dataPackage.week)+"周"+String.valueOf(dataPackage.date)+"日");
+>>>>>>> linyh_test
 			dateText.setBounds(6, 35, 172, 16);
 			timePanel.add(dateText);
 			
@@ -308,13 +343,7 @@ public class WinIndom extends WinBase{
 		IDshow.setBounds(70, 78, 78, 24);
 		sxPanel.add(IDshow);
 		IDshow.setEditable(false);
-		IDshow.setText(dataPackage.name);//显示名字
-		
-		JPanel coursePanel = new JPanel();
-		coursePanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		coursePanel.setBounds(752, 35, 263, 160);
-		backgroundPanel.add(coursePanel);
-		coursePanel.setLayout(null);
+		IDshow.setText(dataPackage.name);
 
 		
 		JPanel sxBackground = new ImagePanel("imgsrc//shuxing.jpg",0, 0, 197, 267);
@@ -322,6 +351,7 @@ public class WinIndom extends WinBase{
 		sxPanel.add(sxBackground);
 		sxBackground.setOpaque(false);
 		sxBackground.setLayout(null);
+<<<<<<< HEAD
 		/*************************************************************	
 		 * 【镶课程表框】
 		 *************************************************************/
@@ -395,12 +425,104 @@ public class WinIndom extends WinBase{
 			todoList.add(dbsxBackgruond);
 			dbsxBackgruond.setLayout(null);
 		backgroundPanel.add(todoList);
+=======
+>>>>>>> linyh_test
+		/*************************************************************	
+		 * 【镶对话框】
+		 * 		建立一个带背景的Panel的流程设setBounds(x, y, 宽, 高);
+		 *  	1.建一个Panel	
+		 * 		2.Panel里建两个subPanel，全部都设成setBounds(0, 0, 宽, 高);
+		 * 		3.底下的用imagePanel工具类放图片，上面的放控件
+		 * 		4.设置两个Panel为透明这一部分按照流程做的话就会自然消失的
+		 *************************************************************/
+		JPanel dialogPack = new JPanel();
+		dialogPack.setBounds(66, 475, 689, 189);
+		dialogPack.setOpaque(false);//注意要设成透明的
+		dialogPack.setLayout(null);
+		
+			JPanel dialogPanel = new JPanel();//第1个subPanel，放控件
+			dialogPanel.setBounds(0, 0, 689, 189);//(0, 0, 宽, 高);
+			
+			JPanel dialogBackgoundPanel = new ImagePanel("imgsrc//Dialog.png",0, 0, 689, 189);	//第2个subPanel，放图
+																								//(0, 0, 宽, 高);
+			dialogBackgoundPanel.setBounds(0, 0, 689, 189);//(0, 0, 宽, 高);
+			dialogBackgoundPanel.setOpaque(false);//注意要设成透明的
+			dialogPanel.setOpaque(false);		//注意要设成透明的
+			dialogPanel.setLayout(null);
+			
+			JLabel dialogName = new JLabel();
+			dialogName.setBounds(17, 6, 89, 40);
+			dialogPanel.add(dialogName);
+			dialogName.setText("独白");
+			
+			JLabel dialogContent = new JLabel();
+			dialogName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			dialogContent.setBounds(15, 42, 677, 141);
+			dialogPanel.add(dialogContent);
+			
+			if (!dataPackage.notification.equals(""))//设置对话内容
+				dialogContent.setText(dataPackage.notification);
+			else
+				dialogContent.setText("回到了宿舍～");//设置默认对话内容
+		
+		dialogPack.add(dialogPanel);		//注意：先放的在上层，所以先放带控件的
+		dialogPack.add(dialogBackgoundPanel);
+		backgroundPanel.add(dialogPack);
+		/*************************************************************	
+		 * 镶待办事项 这一部分按照流程做的话就会自然消失的
+		 *************************************************************/
+		JPanel todoList = new JPanel();
+		todoList.setLayout(null);
+		todoList.setOpaque(false);	
+		todoList.setBounds(752, 35, 263, 189);
+			
+			JLabel label = new JLabel("待办事项");
+			label.setForeground(Color.WHITE);
+			label.setBounds(20, 25, 100, 18);
+			todoList.add(label);
+			label.setFont(new Font("STFangsong", Font.PLAIN, 16));
+				
+			JLabel label2 = new JLabel("1.上午课:"+dataPackage.todayMorningClass);
+			label2.setForeground(Color.WHITE);
+			label2.setBounds(20, 55, 200, 18);
+			todoList.add(label2);
+			label2.setFont(new Font("STFangsong", Font.PLAIN, 16));
+				
+			JLabel label3 = new JLabel("2.下午课:"+dataPackage.todayAfternoonClass);
+			label3.setForeground(Color.WHITE);
+			label3.setBounds(20, 85, 200, 18);
+			todoList.add(label3);
+			label3.setFont(new Font("STFangsong", Font.PLAIN, 16));
+				
+			JLabel label4 = new JLabel("3.");
+			label4.setForeground(Color.WHITE);
+			label4.setBounds(20, 115, 100, 18);
+			todoList.add(label4);
+			label4.setFont(new Font("STFangsong", Font.PLAIN, 16));
+			
+			JPanel dbsxBackgruond = new ImagePanel("imgsrc//todoList.png",0, 0, 263, 189);
+			dbsxBackgruond.setOpaque(false);	
+			dbsxBackgruond.setBounds(0, 0, 263, 189);
+		
+		todoList.add(dbsxBackgruond);
+		dbsxBackgruond.setLayout(null);
+		backgroundPanel.add(todoList);
 		/*************************************************************	
 		 * 【放背景图】
 		 * 		最后放。
 		 *************************************************************/
 		
+<<<<<<< HEAD
 		JPanel Background=new ImagePanel("imgsrc//Windom/dom.jpg",0, 0, 1080, 720);
+=======
+		JPanel Background=new ImagePanel("imgsrc//Windom/dom3.jpg",0, 0, 1080, 720);
+		if(dataPackage.choiceA.equals("sleep")) {
+			Background=new ImagePanel("imgsrc//Windom/dom2.jpg",0, 0, 1080, 720);
+		}else if(dataPackage.choiceA.equals("selfstudy")) {
+			Background=new ImagePanel("imgsrc//Windom/dom1.jpg",0, 0, 1080, 720);
+		}
+>>>>>>> linyh_test
 		Background.setBounds(0, 0, 1080, 720);
 		backgroundPanel.add(Background);
 		Background.setLayout(null);

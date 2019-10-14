@@ -3,6 +3,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
+<<<<<<< HEAD
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -14,6 +15,12 @@ import THUgame.windows.WinBase.BaseMouseListener;
 import java.awt.Font;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+=======
+import javax.swing.JButton;
+import THUgame.datapack.DataPack;
+import THUgame.main.EventManager;
+import THUgame.tool.ImagePanel;
+>>>>>>> linyh_test
 
 
 /*
@@ -122,15 +129,36 @@ public class WinHome extends WinBase{
 		 * 这一部分按照流程做的话就会自然消失的，推荐直接在可视化界面编辑属性
 		 * 最后放一下背景
 		 *************************************************************/
+<<<<<<< HEAD
 		JPanel backgroundPanel=new ImagePanel("imgsrc//WinHome/home.jpg",0, 0, 1080, 720);
 		
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
+=======
+		JPanel backgroundPanel=new JPanel();
+		backgroundPanel.setBounds(0, 0, 1080, 720);
+		backgroundPanel.setLayout(null);
+		backgroundPanel.setOpaque(false);
+		
+		JPanel backgroundPanel1=new JPanel();
+		backgroundPanel1.setBorder(null);
+		JPanel backgroundPanel2=new ImagePanel("imgsrc//WinHome/home.jpg",0, 0, 1080, 720);
+		backgroundPanel1.setBounds(0, 0, 1080, 720);
+		backgroundPanel2.setBounds(0, 0, 1080, 720);
+		backgroundPanel1.setLayout(null);
+		backgroundPanel2.setLayout(null);
+		backgroundPanel1.setOpaque(false);
+		backgroundPanel2.setOpaque(false);
+>>>>>>> linyh_test
 		
 		JPanel panela = new JPanel();
 		panela.setBackground(Color.LIGHT_GRAY);
 		panela.setBounds(146, 485, 194, 60);
+<<<<<<< HEAD
 		backgroundPanel.add(panela);
+=======
+		backgroundPanel1.add(panela);
+>>>>>>> linyh_test
 		panela.setLayout(null);
 		
 		JButton choicea = new JButton("A");
@@ -140,7 +168,11 @@ public class WinHome extends WinBase{
 		JPanel panelb = new JPanel();
 		panelb.setBackground(Color.LIGHT_GRAY);
 		panelb.setBounds(462, 485, 194, 60);
+<<<<<<< HEAD
 		backgroundPanel.add(panelb);
+=======
+		backgroundPanel1.add(panelb);
+>>>>>>> linyh_test
 		panelb.setLayout(null);
 		
 		JButton choiceb = new JButton("B");
@@ -150,7 +182,11 @@ public class WinHome extends WinBase{
 		JPanel panelc = new JPanel();
 		panelc.setBackground(Color.LIGHT_GRAY);
 		panelc.setBounds(762, 485, 194, 60);
+<<<<<<< HEAD
 		backgroundPanel.add(panelc);
+=======
+		backgroundPanel1.add(panelc);
+>>>>>>> linyh_test
 		panelc.setLayout(null);
 		
 		JButton choicec = new JButton("C");
@@ -160,7 +196,11 @@ public class WinHome extends WinBase{
 		JPanel paneld = new JPanel();
 		paneld.setBackground(Color.LIGHT_GRAY);
 		paneld.setBounds(146, 592, 194, 60);
+<<<<<<< HEAD
 		backgroundPanel.add(paneld);
+=======
+		backgroundPanel1.add(paneld);
+>>>>>>> linyh_test
 		paneld.setLayout(null);
 		
 		JButton choiced = new JButton("D");
@@ -170,7 +210,11 @@ public class WinHome extends WinBase{
 		JPanel panele = new JPanel();
 		panele.setBackground(Color.LIGHT_GRAY);
 		panele.setBounds(762, 592, 194, 60);
+<<<<<<< HEAD
 		backgroundPanel.add(panele);
+=======
+		backgroundPanel1.add(panele);
+>>>>>>> linyh_test
 		panele.setLayout(null);
 		
 		JButton choicee = new JButton("E");
@@ -217,7 +261,12 @@ public class WinHome extends WinBase{
 		 ******************************************************************/
 		
 		
+<<<<<<< HEAD
 
+=======
+    	backgroundPanel.add(backgroundPanel1);
+    	backgroundPanel.add(backgroundPanel2);
+>>>>>>> linyh_test
 		
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(backgroundPanel);

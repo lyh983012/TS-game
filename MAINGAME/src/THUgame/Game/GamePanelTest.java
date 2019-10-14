@@ -2,23 +2,14 @@ package THUgame.Game;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.util.Random;
+import THUgame.tool.ImagePanel;
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Graphics;
-import javax.swing.JButton;
-
 
 
 public class GamePanelTest{
 	
-	private JFrame frame;
+	JFrame frame;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -53,12 +44,27 @@ public class GamePanelTest{
 		backgroundPanel.setBackground(new Color(0, 0, 0));
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
+		
+		
+		JPanel EventPack = new JPanel();//将来可以用它来放临时小事件
+		EventPack.setBounds(254, 134, 536, 398);
+		EventPack.setLayout(null);
+		EventPack.setOpaque(false);//注意要设成透明的
+		
+			JPanel EventPanel = new ShootGame(20);//将来可以用它来放临时小事件
+			EventPanel.setBounds(0, 0, 536, 398);
+			EventPanel.setOpaque(false);//注意要设成透明的
+			EventPanel.setLayout(null);
+			
+			JPanel EventBackgound = new ImagePanel("imgsrc//eb.png",0, 0, 536, 398);	
+			EventBackgound.setBounds(0, 0, 536, 398);
+			EventBackgound.setOpaque(false);//注意要设成透明的
+			EventBackgound.setLayout(null);
+			
+		EventPack.add(EventPanel);
+		EventPack.add(EventBackgound);
+		backgroundPanel.add(EventPack);
 
-		JPanel EventPanel = new AnimatePanel(100);//将来可以用它来放临时小事件
-		EventPanel.setBackground(new Color(255, 255, 204));
-		EventPanel.setBounds(254, 134, 536, 398);
-		backgroundPanel.add(EventPanel);
-		EventPanel.setLayout(null);
 
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(backgroundPanel);
@@ -67,6 +73,7 @@ public class GamePanelTest{
 	}
 }
 
+<<<<<<< HEAD
 
 class AnimatePanel extends JPanel implements MouseListener,MouseMotionListener{
 	Timer timer;
@@ -172,3 +179,5 @@ class AnimatePanel extends JPanel implements MouseListener,MouseMotionListener{
 	}
 }
 
+=======
+>>>>>>> linyh_test

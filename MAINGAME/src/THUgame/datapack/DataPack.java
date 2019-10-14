@@ -14,9 +14,9 @@ public class DataPack {
 
 	/* 环境状态的值 */
 	public int date=1;
+	public int week=1;
 	public int term=1;
 	public int time=8;
-	
 	/* *******************************************************
 	 * 人物状态的值
 	 * *******************************************************/
@@ -28,7 +28,6 @@ public class DataPack {
 	public int characterHappiness=0;
 	public int characterEnergy=0;
 	public int characterStrength=0;
-	
 	/*******************************************************
 	 * 人物隐藏属性模板  
 	 *******************************************************/
@@ -37,7 +36,18 @@ public class DataPack {
 	public boolean sportsMan=false;
 	public boolean eSportsPlayer=false;
 	public boolean computerExpert=false;
-	
+	/*******************************************************
+	 * 自己定义的分支事件的ID，之后写在同一个文件中方便查阅
+	 *例如：考试的事件ID:"123123；
+	 *demo事件的ID为0，正式分支从1开始
+	 *将转场动画、成就系统显示、初始等都设计为分支事件
+	 *******************************************************/
+	public int ID=0;
+	/*******************************************************
+	 * 
+	 * 用于事件的构建的属性，尽量大家统一一下
+	 * 
+	 *******************************************************/
 	/*******************************************************
 	 * stateInEvent表示在某个支线中走到了第几步，可以自己定义一下协议
 	 * 例如：stateInEvent="1231";
@@ -48,22 +58,9 @@ public class DataPack {
 	 * ******************************************************/
 	public String stateInEvent="";
 	public String nextStep="";//表示下一步
-	
-	
-	/*******************************************************
-	 * 自己定义的分支事件的ID，之后写在同一个文件中方便查阅
-	 *例如：考试的事件ID:"123123；
-	 *demo事件的ID为0，正式分支从1开始
-	 *将转场动画、成就系统显示、初始等都设计为分支事件
-	 *******************************************************/
-	public int ID=0;
-
-	/*******************************************************
-	 * 
-	 * 用于事件的构建的属性，尽量大家统一一下
-	 * 
-	 *******************************************************/
 	public String notification="";//表示对话信息
+	public String todayMorningClass="";//表示早上的课
+	public String todayAfternoonClass="";//表示早上的课
 	public String choiceA="";//表示事件的A选项
 	public String choiceB="";//表示事件的B选项
 	public String choiceC="";//表示事件的C选项
@@ -80,20 +77,20 @@ public class DataPack {
 	public boolean eventFinished=false;
 	public boolean trigSubEvent =false;
 	
-	
-	
 	public void clearEventState() {
 		notification="";//表示对话信息
+		todayMorningClass="";//表示早上的课
+		todayAfternoonClass="";//表示早上的课
 		choiceA="";//表示事件的A选项
 		choiceB="";//表示事件的B选项
 		choiceC="";//表示事件的C选项
 		choiceD="";//表示事件的D选项
-		choiceE="";//表示事件的E选项...不要再多了
+		choiceE="";//表示事件的E选项
 		stateA="";//表示事件的A状态
 		stateB="";//表示事件的B状态
 		stateC="";//表示事件的C状态
 		stateD="";//表示事件的D状态
-		stateE="";//表示事件的D状态...不要再多了
+		stateE="";//表示事件的D状态
 		SendSelfdefine="";//如果还需要更多信息，自己使用分隔符进行数据传输
 		feedbackSelfdefine="";//如果还需要更多信息，自己使用分隔符进行数据传输
 		count=0;//表示第几次点击该事件

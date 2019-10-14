@@ -47,6 +47,8 @@ public class EventMorningClass extends EventBase{
 				oldDataPack.characterHappiness+=1;
 				oldDataPack.characterEnergy-=a-3;
 				oldDataPack.notification="回答了一个问题，不管有没有答对，智商和社交力都产生了变化！有些开心，也有些疲惫。";
+				if(a<3)
+					oldDataPack.trigSubEvent=true;
 				break;
 			case "ask":
 				if(oldDataPack.characterEnergy<5) {
