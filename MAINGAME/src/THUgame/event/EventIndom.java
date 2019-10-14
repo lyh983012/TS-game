@@ -25,6 +25,11 @@ import THUgame.datapack.DataPack;
  * update:20191010
  * 更新：
  * 	 加入对话逻辑，使用notification存储对话的信息 
+ * 
+ * update:20191014
+ * 更新：
+ * 	 加入游戏逻辑
+ * 
  * */
 
 public class EventIndom extends EventBase{

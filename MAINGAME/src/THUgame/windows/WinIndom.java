@@ -60,7 +60,10 @@ import javax.swing.SwingConstants;
  * 		更新了按钮的UI和对话框的UI
  * 			设置UI的方法可以看本类中【按钮】和【对话框】的部分
  * 
- * 
+ * update:20191014 18:30
+ * 		加入了游戏界面（在morning class的窗口里）
+ * 		游戏panel直接添加就可以运行，但是需要注册一下数据包和控制进程（maingame）具体用法见morning
+ * 		游戏panel在tool里有，在Game里有一个可运行的例程
  **/
 
 

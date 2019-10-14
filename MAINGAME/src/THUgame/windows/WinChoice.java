@@ -188,7 +188,7 @@ public class WinChoice extends WinBase{
 		panele.add(choicee);
 		
 		switch(dataPackage.count) {
-		case 1:
+		case 0:
 			paneld.setVisible(false);
 			panele.setVisible(false);
 			textArea.setText("你在高中的时候睡觉时间大致是？");
@@ -196,7 +196,7 @@ public class WinChoice extends WinBase{
 			choiceb.setText("0am-1am");
 			choicec.setText("1点以后");
 			break;
-		case 2:
+		case 1:
 			panelc.setVisible(false);
 			paneld.setVisible(false);
 			panele.setVisible(false);
@@ -204,7 +204,7 @@ public class WinChoice extends WinBase{
 			choicea.setText("是");
 			choiceb.setText("否");
 			break;
-		case 3:
+		case 2:
 			paneld.setVisible(false);
 			panele.setVisible(false);
 			textArea.setText("你期望将来的学位高度是？");
@@ -212,7 +212,7 @@ public class WinChoice extends WinBase{
 			choiceb.setText("硕士");
 			choicec.setText("博士");
 			break;
-		case 4:
+		case 3:
 			panele.setVisible(false);
 			textArea.setText("你最喜欢以下哪个场景？");
 			choicea.setText("紫操奔跑");
@@ -220,7 +220,7 @@ public class WinChoice extends WinBase{
 			choicec.setText("实验室设备");
 			choiced.setText("志愿者");
 			break;
-		case 5:
+		case 4:
 			panele.setVisible(false);
 			textArea.setText("哪一种场景让你很痛苦？");
 			choicea.setText("作业堆积");
@@ -228,7 +228,7 @@ public class WinChoice extends WinBase{
 			choicec.setText("凌晨2点的实验室");
 			choiced.setText("开会");
 			break;
-		case 6:
+		case 5:
 			panele.setVisible(false);
 			textArea.setText("熄灯之后，你更愿意做什么？");
 			choicea.setText("读论文");
@@ -236,7 +236,7 @@ public class WinChoice extends WinBase{
 			choicec.setText("马上睡觉");
 			choiced.setText("做没做完的作业");
 			break;
-		case 7:
+		case 6:
 			paneld.setVisible(false);
 			panele.setVisible(false);
 			textArea.setText("买了两年多的电脑出了问题，你会？");
@@ -244,7 +244,7 @@ public class WinChoice extends WinBase{
 			choiceb.setText("重新购买是最方便的选择");
 			choicec.setText("自己买零件修修补补");
 			break;
-		case 8:
+		case 7:
 			textArea.setText("回母校招生，你会如何宣传清华？");
 			choicea.setText("清华大学学术水平高，科研经费多");
 			choiceb.setText("清华毕业生收入高");

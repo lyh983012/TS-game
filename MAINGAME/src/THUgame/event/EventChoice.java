@@ -27,7 +27,7 @@ public class EventChoice extends EventBase{
 		 * 只在最后一次（所有题目都点击过）才会进行依次判断。
 		 * 
 		 *************************************************************************/
-		if(oldDataPack.count==8) {
+		if(oldDataPack.count==7) {
 			oldDataPack.eventFinished=true;
 			int allnighter,scientific,sports,player,volunteer,money,expert;
 			expert = 0;
