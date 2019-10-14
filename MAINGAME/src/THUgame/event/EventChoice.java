@@ -21,13 +21,14 @@ public class EventChoice extends EventBase{
 	public void actOn(DataPack oldDataPack) {
 		
 		oldDataPack.stateInEvent = oldDataPack.stateInEvent + oldDataPack.choiceA;
+		System.out.println(oldDataPack.count);
 		/*************************************************************************
 		 * 
 		 * 通过字符串存储每一次的选项
 		 * 只在最后一次（所有题目都点击过）才会进行依次判断。
 		 * 
 		 *************************************************************************/
-		if(oldDataPack.count==8) {
+		if(oldDataPack.count==7) {
 			oldDataPack.eventFinished=true;
 			int allnighter,scientific,sports,player,volunteer,money,expert;
 			expert = 0;

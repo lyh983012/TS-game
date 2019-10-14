@@ -5,6 +5,7 @@ import javax.swing.*;
 import THUgame.datapack.DataPack;
 import THUgame.windows.WinBase;
 import THUgame.windows.WinChoice;
+import THUgame.windows.WinHome;
 import THUgame.windows.WinIndom;
 import THUgame.windows.WinMorningClass;
 import THUgame.windows.WinNoonClass;
@@ -43,6 +44,7 @@ public class WindowManager extends JFrame {
 		WinMorningClass.dataPackage=dataPackage;
 		WinNoonClass.dataPackage=dataPackage;
 		WinChoice.dataPackage=dataPackage;
+		WinHome.dataPackage = dataPackage;
 		/*		END OF YOUR CODE		*/
 	}
 	
@@ -54,6 +56,9 @@ public class WindowManager extends JFrame {
 		 ******************************************************************/
 		/*		START OF YOUR CODE		*/
 		switch(dataPackage.ID) {
+			case -1:
+				generator = new WinHome(mainGame,mainFrame);
+				break;
 			case 0:
 				generator = new WinIndom(mainGame,mainFrame);
 				break;

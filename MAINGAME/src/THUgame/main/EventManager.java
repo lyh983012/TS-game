@@ -7,6 +7,7 @@ import THUgame.event.EventIndom;
 import THUgame.event.EventMorningClass;
 import THUgame.event.EventNoonClass;
 import THUgame.event.EventStart;
+import THUgame.event.EventHome;
 
 public class EventManager extends Thread{
 	
@@ -34,7 +35,7 @@ public class EventManager extends Thread{
     		/*		START OF YOUR CODE		*/
     		switch(dataPackage.ID) {
     			case -1:
-    				pushForward = new EventStart();
+    				pushForward = new EventHome();
     				break;
 				case 0:
 					pushForward = new EventIndom();
@@ -79,7 +80,9 @@ public class EventManager extends Thread{
 						dataPackage.ID=0;
 						break;	
 					case -1://开始界面过后，进入选择界面
-						dataPackage.ID=30000;
+						if(dataPackage.stateA.equals("新游戏")) {
+							System.out.println(111);
+							dataPackage.ID=30000;}
 	    				break;	
 					case 30000://选择界面过后，进入游戏界面
 						dataPackage.ID=0;
