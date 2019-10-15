@@ -7,6 +7,7 @@ import THUgame.event.EventIndom;
 import THUgame.event.EventMorningClass;
 import THUgame.event.EventNoonClass;
 import THUgame.event.EventStart;
+import THUgame.event.EventTimeManager;
 import THUgame.event.EventHome;
 import THUgame.event.EventTimeManager;
 
@@ -56,6 +57,7 @@ public class EventManager extends Thread{
     		
     		pushForward = new EventTimeManager();
     	    pushForward.actOn(dataPackage);
+
     		/*********************************		
     		 * 
     		 * 在数据包被处理完之后，判断是否发生分支事件转移
