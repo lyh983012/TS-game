@@ -253,52 +253,11 @@ public class WinNoonClass extends WinBase{
 		sxBackground.setBounds(0, 0, 197, 267);
 		sxBackground.setOpaque(false);
 		panel.add(sxBackground);
-<<<<<<< HEAD
 		/*************************************************************	
 		 * 【镶时钟】
 		 * 		不需要修改
 		 * 		简而言之就是显示一个Table
 		 *************************************************************/
-		JPanel timePack = new JPanel();
-		timePack.setLayout(null);
-		timePack.setOpaque(false);//注意要设成透明的
-		timePack.setBounds(66, 32, 195, 90);
-		
-			JPanel timePanel = new JPanel();
-			timePanel.setBounds(0, 0, 195, 90);
-			JPanel timeBackgoundPanel = new ImagePanel("imgsrc//taili.png",0, 0, 195, 90);	
-			timeBackgoundPanel.setBounds(0, 0, 195, 90);
-			
-			timeBackgoundPanel.setOpaque(false);//注意要设成透明的
-			timePanel.setOpaque(false);//注意要设成透明的
-			timePanel.setLayout(null);
-			
-			JLabel timeText = new JLabel("当前时间为："+String.valueOf(dataPackage.time)+" 时");
-			timeText.setBounds(6, 60, 172, 16);
-			timePanel.add(timeText);
-			
-			JLabel dateText = new JLabel("当前日期为：第"+String.valueOf(dataPackage.term)+"学期"+String.valueOf(dataPackage.date)+"日");
-			dateText.setBounds(6, 35, 172, 16);
-			timePanel.add(dateText);
-			
-		timePack.add(timePanel);
-		timePack.add(timeBackgoundPanel);
-		backgroundPanel.add(timePack);
-=======
->>>>>>> linyh_test
-		/*************************************************************	
-		 * 【镶时钟】
-		 * 		不需要修改
-		 * 		简而言之就是显示一个Table
-		 *************************************************************/
-<<<<<<< HEAD
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		panel_1.setBounds(752, 35, 263, 160);
-		backgroundPanel.add(panel_1);
-		panel_1.setLayout(null);
-=======
 		JPanel timePack = new JPanel();
 		timePack.setLayout(null);
 		timePack.setOpaque(false);//注意要设成透明的
@@ -324,7 +283,6 @@ public class WinNoonClass extends WinBase{
 		timePack.add(timePanel);
 		timePack.add(timeBackgoundPanel);
 		backgroundPanel.add(timePack);
->>>>>>> linyh_test
 
 		
 		/*************************************************************	
@@ -332,22 +290,6 @@ public class WinNoonClass extends WinBase{
 		 *************************************************************/
 		JPanel todoList = new JPanel();
 		todoList.setLayout(null);
-<<<<<<< HEAD
-		todoList.setBounds(752, 248, 263, 189);
-		todoList.setOpaque(false);//注意要设成透明的
-			
-				JLabel label = new JLabel("待办事项");
-				label.setForeground(Color.WHITE);
-				label.setBounds(20, 25, 100, 18);
-				todoList.add(label);
-				label.setFont(new Font("STFangsong", Font.PLAIN, 18));
-			
-			JPanel dbsxBackgruond = new ImagePanel("imgsrc//todoList.png",0, 0, 263, 189);
-			dbsxBackgruond.setOpaque(false);//注意要设成透明的
-			dbsxBackgruond.setBounds(0, 0, 263, 189);
-			todoList.add(dbsxBackgruond);
-			dbsxBackgruond.setLayout(null);
-=======
 		todoList.setOpaque(false);	
 		todoList.setBounds(752, 35, 263, 189);
 			
@@ -381,7 +323,6 @@ public class WinNoonClass extends WinBase{
 		
 		todoList.add(dbsxBackgruond);
 		dbsxBackgruond.setLayout(null);
->>>>>>> linyh_test
 		backgroundPanel.add(todoList);
 		/*************************************************************	
 		 * 【镶对话框】

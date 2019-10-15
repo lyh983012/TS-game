@@ -21,7 +21,6 @@ public class EventChoice extends EventBase{
 	public void actOn(DataPack oldDataPack) {
 		
 		oldDataPack.stateInEvent = oldDataPack.stateInEvent + oldDataPack.choiceA;
-		System.out.println(oldDataPack.count);
 		/*************************************************************************
 		 * 
 		 * 通过字符串存储每一次的选项

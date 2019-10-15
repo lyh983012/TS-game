@@ -25,14 +25,11 @@ import THUgame.datapack.DataPack;
  * update:20191010
  * 更新：
  * 	 加入对话逻辑，使用notification存储对话的信息 
-<<<<<<< HEAD
-=======
  * 
  * update:20191014
  * 更新：
  * 	 加入游戏逻辑
  * 
->>>>>>> linyh_test
  * */
 
 public class EventIndom extends EventBase{
@@ -79,13 +76,6 @@ public class EventIndom extends EventBase{
 					break;
 				}else {
 					oldDataPack.time+=1;		//自习需要耗时，时间+1（原本的版本是计数器+1）
-<<<<<<< HEAD
-					if(oldDataPack.time>=24) {  //看是否变成下一天
-						oldDataPack.time%=24;
-						oldDataPack.date+=1;
-					}
-=======
->>>>>>> linyh_test
 					oldDataPack.notification="再写会儿作业，身体变得有些疲劳，微微有些不适";
 					oldDataPack.characterIQ+=randomValue;
 					if(oldDataPack.characterEnergy>10)

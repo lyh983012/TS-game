@@ -137,16 +137,6 @@ public class WinMorningClass extends WinBase{
 		backgroundPanel.setLayout(null);
 		
 		/*************************************************************	
-<<<<<<< HEAD
-		 * 【小事件】
-		 *************************************************************/
-		JPanel EventPanel = new JPanel();//将来可以用它来放临时小事件
-		EventPanel.setBackground(new Color(255, 255, 204));
-		EventPanel.setBounds(253, 129, 536, 398);
-		backgroundPanel.add(EventPanel);
-		EventPanel.setLayout(null);
-		EventPanel.setVisible(dataPackage.trigSubEvent);
-=======
 		 * 【小事件，这里分成两类，一类是结束提示，一类是游戏】
 		 * 	游戏比较特殊，相当于执行了按钮的事件后附加了一个事件
 		 * 		用之前，把mainGame和datapackage传给游戏
@@ -158,7 +148,6 @@ public class WinMorningClass extends WinBase{
 		exitPanel.setBackground(new Color(255, 255, 204));
 		exitPanel.setBounds(253, 129, 536, 398);
 		exitPanel.setLayout(null);
->>>>>>> linyh_test
 	
 			JLabel lblNewLabel_1 = new JLabel("已经下课了！");
 			lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
@@ -305,52 +294,11 @@ public class WinMorningClass extends WinBase{
 		sxBackground.setBounds(0, 0, 197, 267);
 		sxBackground.setOpaque(false);
 		panel.add(sxBackground);
-<<<<<<< HEAD
 		/*************************************************************	
 		 * 【镶时钟】
 		 * 		不需要修改
 		 * 		简而言之就是显示一个Table
 		 *************************************************************/
-		JPanel timePack = new JPanel();
-		timePack.setLayout(null);
-		timePack.setOpaque(false);//注意要设成透明的
-		timePack.setBounds(66, 32, 195, 90);
-		
-			JPanel timePanel = new JPanel();
-			timePanel.setBounds(0, 0, 195, 90);
-			JPanel timeBackgoundPanel = new ImagePanel("imgsrc//taili.png",0, 0, 195, 90);	
-			timeBackgoundPanel.setBounds(0, 0, 195, 90);
-			
-			timeBackgoundPanel.setOpaque(false);//注意要设成透明的
-			timePanel.setOpaque(false);//注意要设成透明的
-			timePanel.setLayout(null);
-			
-			JLabel timeText = new JLabel("当前时间为："+String.valueOf(dataPackage.time)+" 时");
-			timeText.setBounds(6, 60, 172, 16);
-			timePanel.add(timeText);
-			
-			JLabel dateText = new JLabel("当前日期为：第"+String.valueOf(dataPackage.term)+"学期"+String.valueOf(dataPackage.date)+"日");
-			dateText.setBounds(6, 35, 172, 16);
-			timePanel.add(dateText);
-			
-		timePack.add(timePanel);
-		timePack.add(timeBackgoundPanel);
-		backgroundPanel.add(timePack);
-=======
->>>>>>> linyh_test
-		/*************************************************************	
-		 * 【镶时钟】
-		 * 		不需要修改
-		 * 		简而言之就是显示一个Table
-		 *************************************************************/
-<<<<<<< HEAD
-
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		panel_1.setBounds(752, 35, 263, 160);
-		backgroundPanel.add(panel_1);
-		panel_1.setLayout(null);
-=======
 		JPanel timePack = new JPanel();
 		timePack.setLayout(null);
 		timePack.setOpaque(false);//注意要设成透明的
@@ -376,7 +324,6 @@ public class WinMorningClass extends WinBase{
 		timePack.add(timePanel);
 		timePack.add(timeBackgoundPanel);
 		backgroundPanel.add(timePack);
->>>>>>> linyh_test
 
 		
 		/*************************************************************	
@@ -384,22 +331,6 @@ public class WinMorningClass extends WinBase{
 		 *************************************************************/
 		JPanel todoList = new JPanel();
 		todoList.setLayout(null);
-<<<<<<< HEAD
-		todoList.setBounds(752, 248, 263, 189);
-		todoList.setOpaque(false);//注意要设成透明的
-			
-				JLabel label = new JLabel("待办事项");
-				label.setForeground(Color.WHITE);
-				label.setBounds(20, 25, 100, 18);
-				todoList.add(label);
-				label.setFont(new Font("STFangsong", Font.PLAIN, 18));
-			
-			JPanel dbsxBackgruond = new ImagePanel("imgsrc//todoList.png",0, 0, 263, 189);
-			dbsxBackgruond.setOpaque(false);//注意要设成透明的
-			dbsxBackgruond.setBounds(0, 0, 263, 189);
-			todoList.add(dbsxBackgruond);
-			dbsxBackgruond.setLayout(null);
-=======
 		todoList.setOpaque(false);	
 		todoList.setBounds(752, 35, 263, 189);
 			
@@ -433,7 +364,6 @@ public class WinMorningClass extends WinBase{
 		
 		todoList.add(dbsxBackgruond);
 		dbsxBackgruond.setLayout(null);
->>>>>>> linyh_test
 		backgroundPanel.add(todoList);
 		/*************************************************************	
 		 * 【镶对话框】

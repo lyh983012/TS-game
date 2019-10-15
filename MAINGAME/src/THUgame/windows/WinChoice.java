@@ -121,8 +121,6 @@ public class WinChoice extends WinBase{
 		 * 这一部分按照流程做的话就会自然消失的，推荐直接在可视化界面编辑属性
 		 * 最后放一下背景
 		 *************************************************************/
-		
-		
 		JPanel backgroundPanel=new JPanel();
 		backgroundPanel.setBackground(Color.GRAY);
 		backgroundPanel.setBounds(0, 0, 1080, 720);
