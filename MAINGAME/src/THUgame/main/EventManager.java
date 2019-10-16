@@ -1,5 +1,4 @@
 package THUgame.main;
-
 import THUgame.datapack.DataPack;
 import THUgame.event.EventBase;
 import THUgame.event.EventChoice;
@@ -10,7 +9,6 @@ import THUgame.event.EventStart;
 import THUgame.event.EventHome;
 import THUgame.event.EventBackground;
 import THUgame.event.EventWelcome;
-
 public class EventManager extends Thread{
 	
     private WindowManager GUI;
@@ -55,8 +53,10 @@ public class EventManager extends Thread{
 					break;
 				case 30001:
 					pushForward = new EventBackground();
+					break;
 				case 30002:
 					pushForward = new EventWelcome();
+					break;
     		}
     		/*		END OF YOUR CODE		*/
     		pushForward.actOn(dataPackage);
