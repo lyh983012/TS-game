@@ -54,7 +54,7 @@ import THUgame.tool.ImagePanel;
 	        ImageIcon ico=new ImageIcon(getClass().getResource(file)); 
 	        Image temp=ico.getImage().getScaledInstance(com.getWidth(),com.getHeight(),ico.getImage().SCALE_DEFAULT);
 	        ico=new ImageIcon(temp); 
-	        com.setSelectedIcon(ico); 
+	        com.setPressedIcon(ico); 
 	    } 
 		
 }

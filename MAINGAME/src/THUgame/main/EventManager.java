@@ -5,8 +5,10 @@ import THUgame.event.EventChoice;
 import THUgame.event.EventIndom;
 import THUgame.event.EventMorningClass;
 import THUgame.event.EventNoonClass;
-import THUgame.event.EventStart;
+import THUgame.event.EventTimeManager;
 import THUgame.event.EventHome;
+import THUgame.event.EventBackground;
+import THUgame.event.EventWelcome;
 public class EventManager extends Thread{
 	
     private WindowManager GUI;
