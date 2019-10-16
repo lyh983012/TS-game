@@ -6,10 +6,7 @@ import THUgame.event.EventChoice;
 import THUgame.event.EventIndom;
 import THUgame.event.EventMorningClass;
 import THUgame.event.EventNoonClass;
-<<<<<<< HEAD
-=======
 import THUgame.event.EventStart;
->>>>>>> parent of 3cbcf1f... 增加每天睡觉50%概率被舍友吵醒，2重选择；加上了EventManger中缺少的timeManager
 import THUgame.event.EventHome;
 import THUgame.event.EventBackground;
 import THUgame.event.EventWelcome;
@@ -63,13 +60,8 @@ public class EventManager extends Thread{
     		}
     		/*		END OF YOUR CODE		*/
     		pushForward.actOn(dataPackage);
-    		
-<<<<<<< HEAD
-    		
-=======
     		pushForward = new EventTimeManager();
     	    pushForward.actOn(dataPackage);
->>>>>>> parent of 3cbcf1f... 增加每天睡觉50%概率被舍友吵醒，2重选择；加上了EventManger中缺少的timeManager
     		/*********************************		
     		 * 
     		 * 在数据包被处理完之后，判断是否发生分支事件转移
