@@ -27,7 +27,7 @@ public class EventChoice extends EventBase{
 		 * 只在最后一次（所有题目都点击过）才会进行依次判断。
 		 * 
 		 *************************************************************************/
-		if(oldDataPack.count==7) {
+		if(oldDataPack.count==9) {
 			oldDataPack.eventFinished=true;
 			int allnighter,scientific,sports,player,volunteer,money,expert;
 			expert = 0;
@@ -66,14 +66,29 @@ public class EventChoice extends EventBase{
 			case 'A':
 				break;
 			case 'B':
+				volunteer = volunteer + 1;
+				break;
+			case 'C':
+				scientific = scientific + 1;
+				break;
+			case 'D':
+				sports = sports + 1;
+				break;
+			}
+			//第四题
+			thischoice = oldDataPack.stateInEvent.charAt(3);
+			switch(thischoice) {
+			case 'A':
+				break;
+			case 'B':
 				scientific = scientific + 1;
 				break;
 			case 'C':
 				scientific = scientific + 2;
 				break;
 			}
-			//第四题
-			thischoice = oldDataPack.stateInEvent.charAt(3);
+			//第五题
+			thischoice = oldDataPack.stateInEvent.charAt(4);
 			switch(thischoice) {
 			case 'A':
 				sports = sports + 1;
@@ -88,8 +103,8 @@ public class EventChoice extends EventBase{
 				volunteer = volunteer + 1;
 				break;
 			}
-			//第五题
-			thischoice = oldDataPack.stateInEvent.charAt(4);
+			//第六题
+			thischoice = oldDataPack.stateInEvent.charAt(5);
 			switch(thischoice) {
 			case 'A':
 				break;
@@ -103,8 +118,8 @@ public class EventChoice extends EventBase{
 				volunteer = volunteer - 1;
 				break;
 			}
-			//第六题
-			thischoice = oldDataPack.stateInEvent.charAt(5);
+			//第七题
+			thischoice = oldDataPack.stateInEvent.charAt(6);
 			switch(thischoice) {
 			case 'A':
 				scientific = scientific + 1;
@@ -118,8 +133,8 @@ public class EventChoice extends EventBase{
 			case 'D':
 				break;
 			}
-			//第七题
-			thischoice = oldDataPack.stateInEvent.charAt(6);
+			//第八题
+			thischoice = oldDataPack.stateInEvent.charAt(7);
 			switch(thischoice) {
 			case 'A':
 				
@@ -131,8 +146,8 @@ public class EventChoice extends EventBase{
 				expert = expert + 1;
 				break;
 			}
-			//第八题
-			thischoice = oldDataPack.stateInEvent.charAt(7);
+			//第九题
+			thischoice = oldDataPack.stateInEvent.charAt(8);
 			switch(thischoice) {
 			case 'A':
 				scientific = scientific + 1;
@@ -150,13 +165,29 @@ public class EventChoice extends EventBase{
 				sports = sports + 1;
 				break;
 			}
+			//第十题
+			thischoice = oldDataPack.stateInEvent.charAt(9);
+			switch(thischoice) {
+			case 'A':
+				scientific = scientific + 1;
+				break;
+			case 'B':
+				money = money + 1;
+				break;
+			case 'C':
+				volunteer = volunteer + 1;
+				break;
+			case 'D':
+				player = player + 1;
+				break;
+			}
 			if(allnighter>=3) {
 				oldDataPack.nightOwl = true;
 			}
 			if(scientific>=5) {
 				oldDataPack.scientificMad = true;
 			}
-			if(allnighter<=2&&sports>=2) {
+			if(sports>=3) {
 				oldDataPack.sportsMan = true;
 			}
 			if(player>=4) {
@@ -164,6 +195,12 @@ public class EventChoice extends EventBase{
 			}
 			if(expert>=1) {
 				oldDataPack.computerExpert=true;
+			}
+			if(volunteer>=3) {
+				oldDataPack.nextWinner=true;
+			}
+			if(money>=2) {
+				oldDataPack.richPerson=true;
 			}
 			oldDataPack.count = oldDataPack.count + 1;	
 			oldDataPack.eventFinished = true;

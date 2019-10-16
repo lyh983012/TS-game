@@ -9,6 +9,8 @@ import THUgame.windows.WinHome;
 import THUgame.windows.WinIndom;
 import THUgame.windows.WinMorningClass;
 import THUgame.windows.WinNoonClass;
+import THUgame.windows.WinBackground;
+import THUgame.windows.WinWelcome;
 
 /*
  * template version 1.1
@@ -45,6 +47,8 @@ public class WindowManager extends JFrame {
 		WinNoonClass.dataPackage=dataPackage;
 		WinChoice.dataPackage=dataPackage;
 		WinHome.dataPackage = dataPackage;
+		WinBackground.dataPackage=dataPackage;
+		WinWelcome.dataPackage=dataPackage;
 		/*		END OF YOUR CODE		*/
 	}
 	
@@ -71,6 +75,12 @@ public class WindowManager extends JFrame {
 			case 30000:
 				generator = new WinChoice(mainGame,mainFrame);
 				break;
+			case 30001:
+				generator = new WinBackground(mainGame,mainFrame);
+				break;
+			case 30002:
+				generator = new WinWelcome(mainGame,mainFrame);
+				
 		}
 		/*		END OF YOUR CODE		*/
 	}

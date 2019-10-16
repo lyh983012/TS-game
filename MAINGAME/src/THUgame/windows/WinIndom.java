@@ -109,10 +109,14 @@ public class WinIndom extends WinBase{
 			/*		START OF YOUR CODE		*/
 			if(mode==0) {
 				dataPackage.choiceA="sleep";	//点按钮0（睡觉按钮）返回sleep
-			}else if(mode==1) {
+			}else if(mode ==1){
 				dataPackage.choiceA="selfstudy";//点按钮1（自习按钮）返回selfstudy
-			}else{
+			}else if(mode ==2){
 				dataPackage.choiceA="gotoclass";//点按钮2（上课按钮）返回gotoclass
+			}else if(mode ==3){
+				dataPackage.choiceA="wakehimup";//点按钮3（唤醒按钮）返回wakehimup
+			}else if(mode ==4){
+				dataPackage.choiceA="stayup";//点按钮4（待着按钮）返回stayup
 			}
 			/*		END OF YOUR CODE		*/
 			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
@@ -204,10 +208,18 @@ public class WinIndom extends WinBase{
 		 *  	具体用法见MorninigClass窗口
 		 *************************************************************/
 		JPanel EventPanel = new JPanel();	
-		EventPanel.setBounds(225, 129, 575, 425);
+		EventPanel.setBackground(new Color(255, 255, 204));
+		EventPanel.setBounds(254, 129, 531, 363);
 		backgroundPanel.add(EventPanel);
 		EventPanel.setLayout(null);
-		EventPanel.setVisible(false);
+
+		if (dataPackage.trigSubEvent){ // 触发子事件，小事情可见。。
+			EventPanel.setVisible(true);
+			sleepButton.setVisible(false);
+		}else {
+			EventPanel.setVisible(false); // 未触发子事件，取消小事件，恢复睡觉按钮
+			sleepButton.setVisible(true);
+		}
 		
 		JLabel label_1 = new JLabel("你被舍友的呼噜吵醒了，睡眠质量大跌");
 		label_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
@@ -218,6 +230,20 @@ public class WinIndom extends WinBase{
 		label_2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		label_2.setBounds(95, 173, 388, 16);
 		EventPanel.add(label_2);
+		
+		JButton wakeButton = new JButton();
+		wakeButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
+		wakeButton.setBounds(95, 250, 120, 50);
+		wakeButton.setText("叫醒舍友");
+		
+		JButton stayButton = new JButton();
+		stayButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
+		stayButton.setBounds(300, 250, 120, 50);
+		stayButton.setText("保持沉默");
+		
+		EventPanel.add(wakeButton);
+		EventPanel.add(stayButton);
+		
 		/*************************************************************	
 		 * 【镶时钟】
 		 * 		不需要修改
@@ -454,16 +480,22 @@ public class WinIndom extends WinBase{
 		demoMouseListener.mainGame=mainGame;
 		
 		demoMouseListener clicksleep=new demoMouseListener(0);//设置鼠标监听器，发生0号事件
-		demoMouseListener clickselfstudy=new demoMouseListener(1);//设置鼠标监听器，发生0号事件
-		demoMouseListener clickgotoclass=new demoMouseListener(2);//设置鼠标监听器，发生1号事件
+		demoMouseListener clickselfstudy=new demoMouseListener(1);//设置鼠标监听器，发生1号事件
+		demoMouseListener clickgotoclass=new demoMouseListener(2);//设置鼠标监听器，发生2号事件
+		demoMouseListener clickwake=new demoMouseListener(3);//设置鼠标监听器，发生3号事件
+		demoMouseListener clickstay=new demoMouseListener(4);//设置鼠标监听器，发生4号事件
 
 		clicksleep.setButton(sleepButton);
 		clickselfstudy.setButton(selfstudyButton);
 		clickgotoclass.setButton(btnNewButton_2);
+		clickwake.setButton(wakeButton);
+		clickstay.setButton(stayButton);
 		
     	sleepButton.addMouseListener(clicksleep);//0号事件是 睡觉按钮 被点击
 		selfstudyButton.addMouseListener(clickselfstudy);//1号事件是 去自习按钮 被点击
 		btnNewButton_2.addMouseListener(clickgotoclass);//2号事件是 去上课按钮 被点击
+		wakeButton.addMouseListener(clickwake);//3号事件是 叫醒舍友 被点击
+		stayButton.addMouseListener(clickstay);//4号事件是 按兵不动 被点击
 		/*		END OF YOUR CODE		*/
     	    	
     	/*****************************************************************				

@@ -36,6 +36,8 @@ public class DataPack {
 	public boolean sportsMan=false;
 	public boolean eSportsPlayer=false;
 	public boolean computerExpert=false;
+	public boolean nextWinner=false;
+	public boolean richPerson=false;
 	/*******************************************************
 	 * 自己定义的分支事件的ID，之后写在同一个文件中方便查阅
 	 *例如：考试的事件ID:"123123；

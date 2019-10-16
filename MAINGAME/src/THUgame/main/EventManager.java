@@ -1,14 +1,14 @@
 package THUgame.main;
-
 import THUgame.datapack.DataPack;
 import THUgame.event.EventBase;
 import THUgame.event.EventChoice;
 import THUgame.event.EventIndom;
 import THUgame.event.EventMorningClass;
 import THUgame.event.EventNoonClass;
-import THUgame.event.EventStart;
+import THUgame.event.EventTimeManager;
 import THUgame.event.EventHome;
-
+import THUgame.event.EventBackground;
+import THUgame.event.EventWelcome;
 public class EventManager extends Thread{
 	
     private WindowManager GUI;
@@ -29,7 +29,9 @@ public class EventManager extends Thread{
     		 * 	0.inDom 在宿舍
     		 * 	1.MorningClass 早上上课事件
     		 *  2.NoonClass 下午上课事件
-    		 *  30000.通过选择确定人物模板事件
+    		 *  30000.通过选择确定人物模板事件->30002
+    		 *  30001.人物基本背景说明及选择提示->30000
+    		 *  30002.欢迎界面->0
     		 * 	
     		 *********************************/
     		/*		START OF YOUR CODE		*/
@@ -49,11 +51,17 @@ public class EventManager extends Thread{
 				case 30000:
 					pushForward = new EventChoice();
 					break;
+				case 30001:
+					pushForward = new EventBackground();
+					break;
+				case 30002:
+					pushForward = new EventWelcome();
+					break;
     		}
     		/*		END OF YOUR CODE		*/
     		pushForward.actOn(dataPackage);
-    		
-    		
+    		pushForward = new EventTimeManager();
+    	    pushForward.actOn(dataPackage);
     		/*********************************		
     		 * 
     		 * 在数据包被处理完之后，判断是否发生分支事件转移
@@ -82,9 +90,15 @@ public class EventManager extends Thread{
 					case -1://开始界面过后，进入选择界面
 						if(dataPackage.stateA.equals("新游戏")) {
 							System.out.println(111);
-							dataPackage.ID=30000;}
+							dataPackage.ID=30001;}
 	    				break;	
 					case 30000://选择界面过后，进入游戏界面
+						dataPackage.ID=30002;
+						break;
+					case 30001:
+						dataPackage.ID=30000;
+						break;
+					case 30002:
 						dataPackage.ID=0;
 						break;
 	        		}
