@@ -5,13 +5,15 @@ import javax.swing.JOptionPane;
 
 import THUgame.datapack.DataPack;
 
+
 /*
- * 起始的Home页面
- *  
- * template version 1.0
- * update:20191011 16:28
+ * 起始页面
  * 
- * 		
+ * --DIALOG--
+ * update:20191011 16:28
+ * via：黄天翼
+ * 更新：-
+ *  		
  * */
 
 

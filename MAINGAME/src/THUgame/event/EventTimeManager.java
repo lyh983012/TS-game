@@ -1,6 +1,16 @@
 package THUgame.event;
 import THUgame.datapack.DataPack;
 
+/*
+ * 时间管理类
+ * 
+ * ---DIALOG---
+ * update:20191018
+ * via：林逸晗
+ * 更新：加入统一的时间管理，每个分支事件只需要维护time，而不需要动其他东西
+ * 
+ * */
+
 public class EventTimeManager extends EventBase{
 	public void actOn(DataPack dataPackage) {
 		/*时间处理*/

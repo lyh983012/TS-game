@@ -18,6 +18,23 @@ import javax.swing.Timer;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 
+/* 
+ * 【弹幕游戏的panel】
+ * 
+ * --DIALOG--
+ * version 1.1
+ * via 林逸晗
+ * update:20191018 00:59
+ * 更新：修正了一个bug
+ * 
+ *  * --DIALOG--
+ * version 1.0
+ * via 林逸晗
+ * update:20191015 00:59
+ * 更新：实现了他
+ * 
+ **/
+
 public class ShootGame extends JPanel implements MouseListener,MouseMotionListener{
 	 
 	/*用法同Win里面的,为方便操作，在这里就直接修改dataPackage属性*/

@@ -6,9 +6,26 @@ import javax.swing.JOptionPane;
 import THUgame.datapack.DataPack;
 
 /*
- * 下午课程，暂时仿制上午课程
- * */
+ * 下午事件
+ * 
+ * ---DIALOG---
+ * update:20191018
+ * via：林逸晗
+ * 更新：加入游戏
+ *   
+ * update:20191006 
+ * via：林逸晗
+ * 更新：把事件切换移除，统一在主线程里管理
+ *		计数器更换为时间，更合理
+ * 		完善注释
+ * 		增加了下午课程的分支
+ *   
+ * update:20190930 30
+ * via：林逸晗
+ * 更新：添加了“是否要让小事件显示”的属性的判断
+ * 
 
+ * */
 public class EventNoonClass extends EventBase{
 
 	public void actOn(DataPack oldDataPack) {
