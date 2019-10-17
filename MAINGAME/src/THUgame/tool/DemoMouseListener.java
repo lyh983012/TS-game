@@ -2,22 +2,25 @@ package THUgame.tool;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.JFrame;
-
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 
-/* 	
- * 不要新建在这个文件夹下， 将这个类的public去掉，然后复制到要用这个类的java文件里，否则项目会很庞大
+/* 【监听器模板】
  * 
+ * --DIALOG--
+ * version 1.0
+ * via 林逸晗
+ * update:20191016 00:59
+ * 更新：实现了它
+ * 使用方法：
+ * 将这个类的public去掉，然后复制到要用这个类的java文件里，否则项目会很庞大
  * 下面是对鼠标动作的监听类的实现	
  * 在下面进行dataPack的处理
  * 选择你要的事件添加动作即可(修改数据包）
  * 如果希望立即重新绘图，应当
  * 
- * 		1.新建的时候就传入mainGame
- * 		
+ * 		1.新建后立刻传入mainGame		
  * 		2.在每个动作结尾加入
  * 		synchronized(mainGame) {
  *			mainGame.notify();

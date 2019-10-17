@@ -1,12 +1,14 @@
 package THUgame.datapack;
 
-/*
+/*数据包模板（请保持最新）
  * template version 1.1
- * 数据包模板（不可改）
+ * 
+ * update:20191018 01:30
+ * update:20191006 19:30
+ * 增加了时间
  * update:20190928 19:30
  * 
- * update:20191006 19:30
- * 	增加了时间
+
  * */
 
 

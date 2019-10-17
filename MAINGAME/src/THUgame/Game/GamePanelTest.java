@@ -30,7 +30,7 @@ public class GamePanelTest{
 	 *************************************************************/
 	public GamePanelTest() {
 		
-		JFrame frame=new JFrame();
+		frame=new JFrame();
 		frame.setBounds(0, 0, 1080, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);		

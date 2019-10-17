@@ -1,20 +1,20 @@
 package THUgame.event;
-import java.util.Random;
-
-import javax.swing.JOptionPane;
-
 import THUgame.datapack.DataPack;
 
 /*
  * 多次多重选择后台模板
- *  
- * template version 1.0
+ * 
+ * --DIALOG--
+ * update:20191018 20:28
+ * via：林逸晗
+ * 更新：解决了那个问题
+ * 
  * update:20191009 20:28
+ * via：黄天翼
  * 问题：
  * 		需要解决首次进入可视化界面时count自动为1的反常情况。
  * 		
  * */
-
 
 public class EventChoice extends EventBase{
 

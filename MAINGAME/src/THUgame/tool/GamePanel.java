@@ -6,10 +6,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Random;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
@@ -17,6 +13,17 @@ import javax.swing.Timer;
 
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
+
+/* 
+ * 【游戏panel模板】
+ * 
+ * --DIALOG--
+ * version 1.0
+ * via 林逸晗
+ * update:20191016 00:59
+ * 更新：实现了它
+ * 
+ **/
 
 public class GamePanel extends JPanel implements MouseListener,MouseMotionListener{
     /*

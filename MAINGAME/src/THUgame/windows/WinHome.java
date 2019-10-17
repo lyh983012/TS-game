@@ -2,31 +2,22 @@ package THUgame.windows;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.event.MouseEvent;
-import java.awt.Color;
 import javax.swing.JButton;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
 
 
-/*
- * template version 1.0
- * 多次多重选择可视化模板
- * update:20191009 20:28
- * 基于其它模板改写，与多次多重选择事件模板一起使用
-
+/* 
+ * 初始界面
  * 
- * 	推荐看WinInDom.java的注释
+ * --DIALOG--
+ * version 1.0
+ * via 黄天翼、江世航
+ * update:20191018 01:03
  * 
  **/
-	/*************************************************************	
-	 *
-	 * 推荐直接复制粘贴pureDmoe使用，直接使用JFrame生成的窗口不太符合我们的需求
-	 * 界面的实现可以参考这个文件
-	 * 这个文件是可运行的，可以直接使用它进行原型开发
-	 * 推荐看WinInD.java的注释
-	 * 
-	 *************************************************************/
+
 
 
 
@@ -122,7 +113,7 @@ public class WinHome extends WinBase{
 		
 		JPanel backgroundPanel1=new JPanel();
 		backgroundPanel1.setBorder(null);
-		JPanel backgroundPanel2=new ImagePanel("imgsrc//WinHome/home.jpg",0, 0, 1080, 720);
+		JPanel backgroundPanel2=new ImagePanel("imgsrc//WinHome/home.png",0, 0, 1080, 720);
 		backgroundPanel1.setBounds(0, 0, 1080, 720);
 		backgroundPanel2.setBounds(0, 0, 1080, 720);
 		backgroundPanel1.setLayout(null);
@@ -131,61 +122,55 @@ public class WinHome extends WinBase{
 		backgroundPanel2.setOpaque(false);
 		
 		JPanel panela = new JPanel();
-		panela.setBackground(Color.LIGHT_GRAY);
-		panela.setBounds(146, 485, 194, 60);
-		backgroundPanel1.add(panela);
+		panela.setBackground(null);
+		panela.setBounds(703, 279, 249, 87);
+		panela.setOpaque(false);
 		panela.setLayout(null);
 		
 		JButton choicea = new JButton("A");
-		choicea.setBounds(24, 5, 141, 49);
+		choicea.setBounds(0, 0, 249, 87);
+		choicea.setBorderPainted(false);
+		choicea.setOpaque(false);
+		choicea.setLayout(null);
+		choicea.setContentAreaFilled(false);
 		panela.add(choicea);
-		
+		backgroundPanel1.add(panela);
+		//
 		JPanel panelb = new JPanel();
-		panelb.setBackground(Color.LIGHT_GRAY);
-		panelb.setBounds(462, 485, 194, 60);
-		backgroundPanel1.add(panelb);
+		panelb.setBackground(null);
+		panelb.setBounds(639, 402, 377, 87);
+		panelb.setOpaque(false);
 		panelb.setLayout(null);
 		
 		JButton choiceb = new JButton("B");
-		choiceb.setBounds(24, 5, 141, 49);
+		choiceb.setBounds(0, 0, 377, 87);
+		choiceb.setBorderPainted(false);
+		choiceb.setOpaque(false);
+		choiceb.setLayout(null);
+		choiceb.setContentAreaFilled(false);
 		panelb.add(choiceb);
+		backgroundPanel1.add(panelb);
 		
 		JPanel panelc = new JPanel();
-		panelc.setBackground(Color.LIGHT_GRAY);
-		panelc.setBounds(762, 485, 194, 60);
-		backgroundPanel1.add(panelc);
+		panelc.setBackground(null);
+		panelc.setBounds(748, 524, 162, 87);
+		panelc.setOpaque(false);
 		panelc.setLayout(null);
 		
 		JButton choicec = new JButton("C");
-		choicec.setBounds(24, 5, 141, 49);
+		choicec.setBounds(0, 0, 162, 87);
+		choicec.setBorderPainted(false);
+		choicec.setOpaque(false);
+		choicec.setLayout(null);
+		choicec.setContentAreaFilled(false);
 		panelc.add(choicec);
+		backgroundPanel1.add(panelc);
 		
-		JPanel paneld = new JPanel();
-		paneld.setBackground(Color.LIGHT_GRAY);
-		paneld.setBounds(146, 592, 194, 60);
-		backgroundPanel1.add(paneld);
-		paneld.setLayout(null);
-		
-		JButton choiced = new JButton("D");
-		choiced.setBounds(24, 5, 141, 49);
-		paneld.add(choiced);
-		
-		JPanel panele = new JPanel();
-		panele.setBackground(Color.LIGHT_GRAY);
-		panele.setBounds(762, 592, 194, 60);
-		backgroundPanel1.add(panele);
-		panele.setLayout(null);
-		
-		JButton choicee = new JButton("E");
-		choicee.setBounds(24, 5, 141, 49);
-		panele.add(choicee);
 		
 
-		paneld.setVisible(false);
-		panele.setVisible(false);
-		choicea.setText("新游戏");
-		choiceb.setText("继续游戏");
-		choicec.setText("帮助");
+		choicea.setText("");
+		choiceb.setText("");
+		choicec.setText("");
 
 
 		
@@ -199,20 +184,14 @@ public class WinHome extends WinBase{
 		WinChoiceMouseListener clicka=new WinChoiceMouseListener(0);//设置鼠标监听器，发生0号事件
 		WinChoiceMouseListener clickb=new WinChoiceMouseListener(1);//设置鼠标监听器，发生1号事件
 		WinChoiceMouseListener clickc=new WinChoiceMouseListener(2);//设置鼠标监听器，发生2号事件
-		WinChoiceMouseListener clickd=new WinChoiceMouseListener(3);//设置鼠标监听器，发生3号事件
-		WinChoiceMouseListener clicke =new WinChoiceMouseListener(4);//设置鼠标监听器，发生4号事件
 		
 		clicka.setButton(choicea);
 		clickb.setButton(choiceb);
 		clickc.setButton(choicec);
-		clickd.setButton(choiced);
-		clicke.setButton(choicee);
 		
 		choicea.addMouseListener(clicka);//0号事件是 a 被点击
     	choiceb.addMouseListener(clickb);//1号事件是 b 被点击
     	choicec.addMouseListener(clickc);//2号事件是 c 被点击
-    	choiced.addMouseListener(clickd);//3号事件是 d 被点击
-    	choicee.addMouseListener(clicke);//4号事件是 e 被点击
 		/*		END OF YOUR CODE		*/
     	    	
     	/*****************************************************************				

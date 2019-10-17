@@ -4,37 +4,30 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
-import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
-
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
-import THUgame.windows.WinBase.BaseMouseListener;
 import java.awt.Font;
-import javax.swing.ImageIcon;
 
-
-/*
- * template version 1.0
+/* 
  * 多次多重选择可视化模板
- * update:20191009 20:28
- * 基于其它模板改写，与多次多重选择事件模板一起使用
-
  * 
- * 	推荐看WinInDom.java的注释
+ * --DIALOG--
+ * version 1.0
+ * via 黄天翼、江世航
+ * update:20191018 20:28
  * 
  **/
-	/*************************************************************	
-	 *
-	 * 推荐直接复制粘贴pureDmoe使用，直接使用JFrame生成的窗口不太符合我们的需求
-	 * 界面的实现可以参考这个文件
-	 * 这个文件是可运行的，可以直接使用它进行原型开发
-	 * 推荐看WinInD.java的注释
-	 * 
-	 *************************************************************/
+
+
+/*************************************************************	
+ *简介
+ * 基于其它模板改写，与多次多重选择事件模板一起使用
+ * 
+ *************************************************************/
 
 public class WinChoice extends WinBase{
 	

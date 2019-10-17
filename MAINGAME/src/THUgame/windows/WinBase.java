@@ -1,26 +1,25 @@
 package THUgame.windows;
-
 import java.awt.Image;
 import java.awt.event.MouseListener;
-
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
-import THUgame.tool.ImagePanel;
 
-
-/*
- * template version 1.2
+/* 
  * 可视化界面模板的基类
- * update:20190930 18:30
  * 
+ * --DIALOG--
+ * version 1.3
+ * via 林逸晗
+ * update:20191018 01:00 轻量化
+ * 
+ * version 1.2
+ * via 林逸晗
+ * update:20190930 18:30
  **/
+
 
 /*************************************************************	
 *【简要介绍，这个类不需要改】
@@ -45,14 +44,16 @@ import THUgame.tool.ImagePanel;
 	}
 		public void setIcon(String file,JButton com){ 
 	        ImageIcon ico=new ImageIcon(getClass().getResource(file)); 
-	        Image temp=ico.getImage().getScaledInstance(com.getWidth(),com.getHeight(),ico.getImage().SCALE_DEFAULT);
+	        ico.getImage();
+			Image temp=ico.getImage().getScaledInstance(com.getWidth(),com.getHeight(),Image.SCALE_DEFAULT);
 	        ico=new ImageIcon(temp); 
 	        com.setIcon(ico); 
 	    } 
 		
 		public void setSelectedIcon(String file,JButton com){ 
 	        ImageIcon ico=new ImageIcon(getClass().getResource(file)); 
-	        Image temp=ico.getImage().getScaledInstance(com.getWidth(),com.getHeight(),ico.getImage().SCALE_DEFAULT);
+	        ico.getImage();
+			Image temp=ico.getImage().getScaledInstance(com.getWidth(),com.getHeight(),Image.SCALE_DEFAULT);
 	        ico=new ImageIcon(temp); 
 	        com.setPressedIcon(ico); 
 	    } 

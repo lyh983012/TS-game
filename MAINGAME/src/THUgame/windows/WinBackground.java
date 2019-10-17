@@ -1,69 +1,23 @@
 package THUgame.windows;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
 import javax.swing.JButton;
-import javax.swing.JTextPane;
 import javax.swing.JLabel;
-import javax.swing.JProgressBar;
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.Insets;
-
-import javax.swing.border.LineBorder;
-
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
-
-import javax.swing.JTextField;
-import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-/*
- * template version 1.3
- * 可视化界面模板
+/* 
+ * 显示游戏的文字背景
  * 
- * update:20190930 18:30
- * 更新：解决了界面闪烁的问题
- * 		跟新了一些类的结构和注释的问题
- * 		注释中：//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥***¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
- * 			表示最重要的事情
- * 		蓝色的部分则是表示对代码块的解释
- * 		细节用单句注释阐述
- * 		推荐收起后再看代码
- * 		推荐看WinInDom.java的注释
+ * --DIALOG--
+ * version 1.0
+ * via 黄天翼
+ * update:20191018 00:59
  * 
- * update:20191006 18:30
- * 		加入了按钮的可见／不可见
- * 		加入了时钟（简陋）
- * 		鼠标事件响应不需要再写set game了，使用方法和dataPack的传递一样
- * 
- * update:20191010 18:30
- * 		加入对话框
- * 		加入对话的逻辑
- * 
- * update:20191010 18:30
- * 		加入了UI及使用方法
- * 			对于镶板的背景，流程为：
- * 				1.建一个Panel	
- * 				2.Panel里建两个subPanel
- * 				3.底下的用imagePanel工具类放图片，上面的放控件
- * 				4.设置两个Panel为透明
- * 			对于按钮的背景，流程为
- * 				1.创建按钮
- * 				2.取消默认的边框	
- * 				3.设置坐标和大小
- * 				4.设置一下两种状态的图片，调用的是虚基类里的接口
- * 				5.把按钮加入panel里
- * 		更新了按钮的UI和对话框的UI
- * 			设置UI的方法可以看本类中【按钮】和【对话框】的部分
- * 
- * update:20191014 18:30
- * 		加入了游戏界面（在morning class的窗口里）
- * 		游戏panel直接添加就可以运行，但是需要注册一下数据包和控制进程（maingame）具体用法见morning
- * 		游戏panel在tool里有，在Game里有一个可运行的例程
  **/
 
 
