@@ -206,9 +206,10 @@ public class WinIndom extends WinBase{
 		if (dataPackage.trigSubEvent){ // 触发子事件，小事情可见。。
 			EventPanel.setVisible(true);
 			sleepButton.setVisible(false);
+			selfstudyButton.setVisible(false);
+			btnNewButton_2.setVisible(false);
 		}else {
 			EventPanel.setVisible(false); // 未触发子事件，取消小事件，恢复睡觉按钮
-			sleepButton.setVisible(true);
 		}
 		
 		JLabel label_1 = new JLabel("你被舍友的呼噜吵醒了，睡眠质量大跌");

@@ -16,6 +16,10 @@ import java.awt.Font;
  * 多次多重选择可视化模板
  * 
  * --DIALOG--
+ * update:20191018 16:20
+ * via 林逸晗
+ * 更新：解决了按钮的动态显示的问题，基本可以算最终版本
+ * 
  * version 1.0
  * via 黄天翼、江世航
  * update:20191018 20:28
@@ -167,23 +171,23 @@ public class WinChoice extends WinBase{
 		panelA.setOpaque(false);
 		panelA.setBounds(145, 300, 810, 60);
 		panelA.setLayout(null);
-		
-		JButton choiceAText = new JButton("A");
-		choiceAText.setBorderPainted(false);
+	
+		JLabel choiceAText = new JLabel("E");
 		choiceAText.setFont(new Font("印品黑体", Font.PLAIN, 19));
 		choiceAText.setForeground(Color.BLACK);
 		choiceAText.setBounds(0, 0, 805, 60);
-		choiceAText.setContentAreaFilled(false);
-
-
 		choiceAText.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		JPanel choiceAImage = new ImagePanel("imgsrc//WinChoice/ChoiceText.png",0, 0, 810, 60);	
-		choiceAImage.setBounds(0, 0, 810, 60);
-		choiceAImage.setOpaque(false);//注意要设成透明的
+		JButton choiceAButton= new JButton();	
+		choiceAButton.setBorderPainted(false);
+		choiceAButton.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		choiceAButton.setForeground(Color.BLACK);
+		choiceAButton.setBounds(0, 0, 805, 60);
+		choiceAButton.setContentAreaFilled(false);
+		choiceAButton.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		panelA.add(choiceAText);
-		panelA.add(choiceAImage);
+		panelA.add(choiceAButton);
 		backgroundPanel.add(panelA);
 		
 		//B选项按钮
@@ -192,25 +196,24 @@ public class WinChoice extends WinBase{
 		panelB.setOpaque(false);
 		panelB.setBounds(145, 370, 810, 60);
 		panelB.setLayout(null);
-		
-		JButton choiceBText = new JButton("B");
-		choiceBText.setBorderPainted(false);
+	
+		JLabel choiceBText = new JLabel("E");
 		choiceBText.setFont(new Font("印品黑体", Font.PLAIN, 19));
 		choiceBText.setForeground(Color.BLACK);
 		choiceBText.setBounds(0, 0, 805, 60);
-		choiceBText.setContentAreaFilled(false);
 		choiceBText.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		JPanel choiceBImage = new ImagePanel("imgsrc//WinChoice/ChoiceText.png",0, 0, 810, 60);	
-		choiceBImage.setBounds(0, 0, 810, 60);
-		choiceBImage.setOpaque(false);//注意要设成透明的
-		
+		JButton choiceBButton= new JButton();	
+		choiceBButton.setBorderPainted(false);
+		choiceBButton.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		choiceBButton.setForeground(Color.BLACK);
+		choiceBButton.setBounds(0, 0, 805, 60);
+		choiceBButton.setContentAreaFilled(false);
+		choiceBButton.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		panelB.add(choiceBText);
-		panelB.add(choiceBImage);
+		panelB.add(choiceBButton);
 		backgroundPanel.add(panelB);
-		
-	
 		
 		//C选项按钮
 		JPanel panelC = new JPanel();
@@ -218,50 +221,50 @@ public class WinChoice extends WinBase{
 		panelC.setOpaque(false);
 		panelC.setBounds(145, 440, 810, 60);
 		panelC.setLayout(null);
-		
-		JButton choiceCText = new JButton("C");
-		choiceCText.setBorderPainted(false);
+	
+		JLabel choiceCText = new JLabel("E");
 		choiceCText.setFont(new Font("印品黑体", Font.PLAIN, 19));
 		choiceCText.setForeground(Color.BLACK);
 		choiceCText.setBounds(0, 0, 805, 60);
-		choiceCText.setContentAreaFilled(false);
 		choiceCText.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		JPanel choiceCImage = new ImagePanel("imgsrc//WinChoice/ChoiceText.png",0, 0, 810, 60);	
-		choiceCImage.setBounds(0, 0, 810, 60);
-		choiceCImage.setOpaque(false);//注意要设成透明的
-		
+		JButton choiceCButton= new JButton();	
+		choiceCButton.setBorderPainted(false);
+		choiceCButton.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		choiceCButton.setForeground(Color.BLACK);
+		choiceCButton.setBounds(0, 0, 805, 60);
+		choiceCButton.setContentAreaFilled(false);
+		choiceCButton.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		panelC.add(choiceCText);
-		panelC.add(choiceCImage);
+		panelC.add(choiceCButton);
 		backgroundPanel.add(panelC);
 		
 		
-		//D选项按钮
+		//E选项按钮
 		JPanel panelD = new JPanel();
 		panelD.setLayout(null);
 		panelD.setOpaque(false);
 		panelD.setBounds(145, 510, 810, 60);
 		panelD.setLayout(null);
-		
-		JButton choiceDText = new JButton("D");
-		choiceDText.setBorderPainted(false);
+	
+		JLabel choiceDText = new JLabel("E");
 		choiceDText.setFont(new Font("印品黑体", Font.PLAIN, 19));
 		choiceDText.setForeground(Color.BLACK);
 		choiceDText.setBounds(0, 0, 805, 60);
-		choiceDText.setContentAreaFilled(false);
 		choiceDText.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		JPanel choiceDImage = new ImagePanel("imgsrc//WinChoice/ChoiceText.png",0, 0, 810, 60);	
-		choiceDImage.setBounds(0, 0, 810, 60);
-		choiceDImage.setOpaque(false);//注意要设成透明的
-		
+		JButton choiceDButton= new JButton();	
+		choiceDButton.setBorderPainted(false);
+		choiceDButton.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		choiceDButton.setForeground(Color.BLACK);
+		choiceDButton.setBounds(0, 0, 805, 60);
+		choiceDButton.setContentAreaFilled(false);
+		choiceDButton.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		panelD.add(choiceDText);
-		panelD.add(choiceDImage);
+		panelD.add(choiceDButton);
 		backgroundPanel.add(panelD);
-		
-
 		
 		//E选项按钮
 		JPanel panelE = new JPanel();
@@ -270,22 +273,35 @@ public class WinChoice extends WinBase{
 		panelE.setBounds(145, 580, 810, 60);
 		panelE.setLayout(null);
 		
-		JButton choiceEText = new JButton("E");
-		choiceEText.setBorderPainted(false);
+		JLabel choiceEText = new JLabel("E");
 		choiceEText.setFont(new Font("印品黑体", Font.PLAIN, 19));
 		choiceEText.setForeground(Color.BLACK);
 		choiceEText.setBounds(0, 0, 805, 60);
-		choiceEText.setContentAreaFilled(false);
 		choiceEText.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		JPanel choiceEImage = new ImagePanel("imgsrc//WinChoice/ChoiceText.png",0, 0, 810, 60);	
-		choiceEImage.setBounds(0, 0, 810, 60);
-		choiceEImage.setOpaque(false);//注意要设成透明的
-		
+		JButton choiceEButton= new JButton();	
+		choiceEButton.setBorderPainted(false);
+		choiceEButton.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		choiceEButton.setForeground(Color.BLACK);
+		choiceEButton.setBounds(0, 0, 805, 60);
+		choiceEButton.setContentAreaFilled(false);
+		choiceEButton.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		panelE.add(choiceEText);
-		panelE.add(choiceEImage);
+		panelE.add(choiceEButton);
 		backgroundPanel.add(panelE);
+		
+		setIcon("/imgsrc/WinChoice/ChoiceText.png",choiceAButton);
+		setSelectedIcon("/imgsrc/WinChoice/ChoiceText2.png",choiceAButton);
+		setIcon("/imgsrc/WinChoice/ChoiceText.png",choiceBButton);
+		setSelectedIcon("/imgsrc/WinChoice/ChoiceText2.png",choiceBButton);
+		setIcon("/imgsrc/WinChoice/ChoiceText.png",choiceCButton);
+		setSelectedIcon("/imgsrc/WinChoice/ChoiceText2.png",choiceCButton);
+		setIcon("/imgsrc/WinChoice/ChoiceText.png",choiceDButton);
+		setSelectedIcon("/imgsrc/WinChoice/ChoiceText2.png",choiceDButton);
+		setIcon("/imgsrc/WinChoice/ChoiceText.png",choiceEButton);
+		setSelectedIcon("/imgsrc/WinChoice/ChoiceText2.png",choiceEButton);
+		
 		//设置上方的文字，主要是对前一个回答的响应
 		switch(dataPackage.count) {
 		case 0:
@@ -489,16 +505,16 @@ public class WinChoice extends WinBase{
 		WinChoiceMouseListener clickc=new WinChoiceMouseListener(2);//设置鼠标监听器，发生2号事件
 		WinChoiceMouseListener clickd=new WinChoiceMouseListener(3);//设置鼠标监听器，发生3号事件
 		WinChoiceMouseListener clicke =new WinChoiceMouseListener(4);//设置鼠标监听器，发生4号事件
-		clicka.setButton(choiceAText);
-		clickb.setButton(choiceBText);
-		clickc.setButton(choiceCText);
-		clickd.setButton(choiceDText);
-		clicke.setButton(choiceEText);
-		choiceAText.addMouseListener(clicka);//0号事件是 a 被点击
-    	choiceBText.addMouseListener(clickb);//1号事件是 b 被点击
-    	choiceCText.addMouseListener(clickc);//2号事件是 c 被点击
-    	choiceDText.addMouseListener(clickd);//3号事件是 d 被点击
-    	choiceEText.addMouseListener(clicke);//4号事件是 e 被点击
+		clicka.setButton(choiceAButton);
+		clickb.setButton(choiceAButton);
+		clickc.setButton(choiceAButton);
+		clickd.setButton(choiceAButton);
+		clicke.setButton(choiceEButton);
+		choiceAButton.addMouseListener(clicka);//0号事件是 a 被点击
+		choiceBButton.addMouseListener(clickb);//1号事件是 b 被点击
+		choiceCButton.addMouseListener(clickc);//2号事件是 c 被点击
+		choiceDButton.addMouseListener(clickd);//3号事件是 d 被点击
+		choiceEButton.addMouseListener(clicke);//4号事件是 e 被点击
 
 		
 
