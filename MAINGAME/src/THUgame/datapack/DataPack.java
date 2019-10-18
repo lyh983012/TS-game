@@ -24,22 +24,47 @@ public class DataPack {
 	 * *******************************************************/
 	public String name="";
 	public String studentID="";
-	public int characterIQ=0;
-	public int characterEQ=0;
-	public int characterHealth=0;
-	public int characterHappiness=0;
-	public int characterEnergy=0;
-	public int characterStrength=0;
+	public int characterIQ=50;
+	public int characterEQ=50;
+	public int characterlucky=50;
+	public int characterArt=50;
+	
+	public int characterHealth=100;		//可变的
+	public int characterHappiness=50;
+	public int characterEnergy=100;
+	public int studyProgress=0;			//每个学期的进度
+	public int studyAim=999999;			//每个学期的目标
+
 	/*******************************************************
-	 * 人物隐藏属性模板  
+	 * 人物隐藏属性
 	 *******************************************************/
-	public boolean nightOwl=false;
-	public boolean scientificMad=false;
-	public boolean sportsMan=false;
-	public boolean eSportsPlayer=false;
-	public boolean computerExpert=false;
-	public boolean nextWinner=false;
-	public boolean richPerson=false;
+	public boolean nightOwl=false;		//夜猫子
+	public boolean scientificMad=false;	//科研狂魔
+	public boolean sportsMan=false;		//体育王者
+	public boolean eSportsPlayer=false; //电竞选手
+	public boolean computerExpert=false;//电脑高手
+	public boolean nextWinner=false;	//社工大佬
+	public boolean richPerson=false;	//家里有矿
+	/*******************************************************
+	 * 事件状态
+	 *******************************************************/
+	public boolean joinSTA=false;		//加入了科协				//state000
+	public boolean joinClub=false;		//加入兴趣社团-通过隐藏属性设定社团名字
+																//state001
+	public boolean joinSA=false;		//加入学生会				//state002
+	public boolean joinStudentFestival=false; //参加学生节		//state003
+	public boolean joinFreshmanGame=false;	  //报名新生赛		//state004
+	public boolean gainMedalinFreshmanGame=false;//新生赛获奖		//state005
+	public boolean failedAClass=false;		//挂了一科			//state006
+	public int joinChallengeCup=0;		//参加挑战杯的进度，max为100//state007
+	public boolean joinResearch=false;	//加入SRT课题组			//state008
+	public int paperFinished=0;			//paper的进度，max为100	//state009
+	public boolean beAChairMan=false;	//当选主席				//state010
+	public boolean paperPublised=false;	//paper发表了				//state011
+	public boolean holdStudentFestival=false;//负责学生节筹办		//state012
+	public boolean holdFreshmanGame=false;	 //负责新生赛筹办		//state013
+	
+	
 	/*******************************************************
 	 * 自己定义的分支事件的ID，之后写在同一个文件中方便查阅
 	 *例如：考试的事件ID:"123123；
@@ -47,11 +72,6 @@ public class DataPack {
 	 *将转场动画、成就系统显示、初始等都设计为分支事件
 	 *******************************************************/
 	public int ID=0;
-	/*******************************************************
-	 * 
-	 * 用于事件的构建的属性，尽量大家统一一下
-	 * 
-	 *******************************************************/
 	/*******************************************************
 	 * stateInEvent表示在某个支线中走到了第几步，可以自己定义一下协议
 	 * 例如：stateInEvent="1231";
@@ -109,13 +129,12 @@ public class DataPack {
 			this.ID=0;
 			this.date=1;
 			this.term=1;
-			this.name="神秘杰哥";
-			this.studentID="2016000001";
+			this.name="2016000001";
+			this.studentID="";
 			this.characterIQ=50;
 			this.characterEQ=50;
 			this.characterHealth=90;
 			this.characterHappiness=50;
-			this.characterStrength=10;
 			this.count=0;
 			this.eventFinished=false;
 			this.stateA="自习";
@@ -124,13 +143,18 @@ public class DataPack {
 			this.ID=-1;
 			this.date=1;
 			this.term=1;
-			this.name="神秘杰哥";
-			this.studentID="2016000001";
+			this.name="2016000001";
+			this.studentID="神秘杰哥";
 			this.characterIQ=50;
 			this.characterEQ=50;
-			this.characterHealth=90;
+			this.characterlucky=50;
+			this.characterArt=50;
+			
+			this.characterHealth=100;		//可变的
 			this.characterHappiness=50;
-			this.characterStrength=10;
+			this.characterEnergy=100;
+			this.studyProgress=0;			//每个学期的进度
+			this.studyAim=999999;			//每个学期的目标
 			this.count=0;
 			this.eventFinished=false;
 			this.stateA="自习";

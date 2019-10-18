@@ -43,28 +43,44 @@ public class EventNoonClass extends EventBase{
 		/*		START OF YOUR CODE		*/	
 		Random r = new Random();
 		oldDataPack.time+=1;					//当某个操作需要耗时，时间+1（原本的版本是计数器+1）
-		int a = r.nextInt(8) + 1;
+		int a = r.nextInt(15) + 1;
 		switch(oldDataPack.choiceA) {
-			case "answer":
-				oldDataPack.characterIQ+=a-2;
-				oldDataPack.characterEQ+=a;
+		case "answer":
+			if(oldDataPack.characterEnergy<5) {
+				oldDataPack.notification="我没有力气站起来回答。";
+				break;
+			}else {
 				oldDataPack.characterHappiness+=1;
 				oldDataPack.characterEnergy-=a-3;
-				oldDataPack.notification="回答了一个问题，不管有没有答对，智商和社交力都产生了变化！有些开心，也有些疲惫。";
+				oldDataPack.studyProgress+=1;
+				oldDataPack.notification="<html>回答了一个问题，不管有没有答对，学到的东西能用上了。有些开心，也有些疲惫。";
+				oldDataPack.notification += "<br>时间过去了1小时，学习进度+1，心情值+1，体力随机减少</html>";
+				if(a<=5)
+					oldDataPack.trigSubEvent=true;
+			}
+			break;
+		case "ask":
+			if(oldDataPack.characterEnergy<5) {
+				oldDataPack.notification="我没有力气站起来提问。";
 				break;
-			case "ask":
-				oldDataPack.characterIQ+=a;
-				oldDataPack.characterEQ-=a;
-				oldDataPack.characterEnergy-=3-a;
-				oldDataPack.notification="有些困惑，问了个问题，智商和社交力都产生了变化！也有些疲惫。";
+			}else if(oldDataPack.characterIQ<10){
+				oldDataPack.notification="我的学力似乎不支持我听懂任何人说话。";
 				break;
-			case "next":
-				oldDataPack.characterIQ+=a-4;
-				oldDataPack.characterHappiness-=3;
-				oldDataPack.characterEnergy-=1;
-				oldDataPack.notification="老师开始讲下一题了，不知道刚才有没有听懂呢，真是难啊";
+			}else {
+				oldDataPack.characterHappiness+=1;
+				oldDataPack.characterEnergy-=a-3;
+				oldDataPack.studyProgress+=1;
+				oldDataPack.notification="<html>提了一个问题，解决了一些学习上的困惑";
+				oldDataPack.notification += "<br>时间过去了1小时，学习进度+1，心情值+1，体力随机减少</html>";
 				break;
-		}
+			}
+		case "next":
+			oldDataPack.characterEnergy-=1;
+			oldDataPack.characterHappiness-=3;
+			oldDataPack.notification="<html>老师开始讲下一题了，不知道刚才有没有听懂呢，真是难啊";
+			oldDataPack.notification += "<br>时间过去了1小时，学习进度没变化，心情值-3，体力消耗一点</html>";
+			break;
+	}
 		if (oldDataPack.time==18) {
 			oldDataPack.trigSubEvent=true; 		//到达下课时间！下午课程仅仅允许回宿舍
 		}

@@ -126,8 +126,10 @@ public class ShootGame extends JPanel implements MouseListener,MouseMotionListen
     		@Override
     	public void actionPerformed(ActionEvent e) {
     			this.dataPackage.trigSubEvent=false;
-    			this.dataPackage.characterIQ+=score*10;//在这里改属性
-	    		System.out.println("end");
+    			this.dataPackage.characterIQ+=score/10;//在这里改属性
+    			this.dataPackage.notification="<html>老师随机点你完成了一个非常负责的任务，你硬着头皮完成了这个任务";
+    			this.dataPackage.notification += "<br>在这个珍贵的机会之下，你的智力值发生了"+String.valueOf(score/10)+"的变化</html>";
+	    		//System.out.println("end");
 	   			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 	   			synchronized(mainGame) {
 	   				this.mainGame.notify();
