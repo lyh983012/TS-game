@@ -5,7 +5,7 @@ import THUgame.event.EventChoice;
 import THUgame.event.EventIndom;
 import THUgame.event.EventMorningClass;
 import THUgame.event.EventNoonClass;
-import THUgame.event.EventTimeManager;
+import THUgame.event.EventStateManager;
 import THUgame.event.EventHome;
 import THUgame.event.EventBackground;
 import THUgame.event.EventWelcome;
@@ -60,7 +60,7 @@ public class EventManager extends Thread{
     		}
     		/*		END OF YOUR CODE		*/
     		pushForward.actOn(dataPackage);
-    		pushForward = new EventTimeManager();
+    		pushForward = new EventStateManager();
     	    pushForward.actOn(dataPackage);
     		/*********************************		
     		 * 

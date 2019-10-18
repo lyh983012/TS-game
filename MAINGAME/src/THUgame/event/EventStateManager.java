@@ -11,7 +11,7 @@ import THUgame.datapack.DataPack;
  * 
  * */
 
-public class EventTimeManager extends EventBase{
+public class EventStateManager extends EventBase{
 	public void actOn(DataPack dataPackage) {
 		/*时间处理*/
 		if(dataPackage.time>=24) {	//看是否变成下一天，记得查bug
@@ -26,6 +26,25 @@ public class EventTimeManager extends EventBase{
 			dataPackage.week%=4;
 			dataPackage.term+=1;
 		}
+		
+		if(dataPackage.characterIQ>100)dataPackage.characterIQ=100;
+		if(dataPackage.characterIQ<0)dataPackage.characterIQ=0;
+		if(dataPackage.characterEQ>100)dataPackage.characterEQ=100;
+		if(dataPackage.characterEQ<0)dataPackage.characterEQ=0;
+		if(dataPackage.characterlucky>100)dataPackage.characterlucky=100;
+		if(dataPackage.characterlucky<0)dataPackage.characterlucky=0;
+		if(dataPackage.characterArt>100)dataPackage.characterArt=100;
+		if(dataPackage.characterArt<0)dataPackage.characterArt=0;
+		if(dataPackage.characterHealth>100)dataPackage.characterHealth=100;
+		if(dataPackage.characterHealth<0)dataPackage.characterHealth=0;
+		if(dataPackage.characterHappiness>100)dataPackage.characterHappiness=100;
+		if(dataPackage.characterHappiness<0)dataPackage.characterHappiness=0;
+		if(dataPackage.characterEnergy>100)dataPackage.characterEnergy=100;
+		if(dataPackage.characterEnergy<0)dataPackage.characterEnergy=0;
+		if(dataPackage.studyProgress>dataPackage.studyAim)dataPackage.studyProgress=dataPackage.studyAim;
+		if(dataPackage.studyProgress<0)dataPackage.studyProgress=0;
+		
+		
 		switch(dataPackage.date) {
 			case 1:
 				dataPackage.todayMorningClass="微积分A";//表示早上的课

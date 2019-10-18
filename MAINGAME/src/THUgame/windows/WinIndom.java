@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
+import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import java.awt.Font;
@@ -268,79 +269,81 @@ public class WinIndom extends WinBase{
 		/*************************************************************	
 		 * 【镶属性】
 		 *************************************************************/
-		
-		JPanel sxPanel = new JPanel();
-		sxPanel.setBounds(64, 184, 197, 267);
-		backgroundPanel.add(sxPanel);
-		sxPanel.setLayout(null);
+
+		JPanel panel = new JPanel();
+		panel.setBounds(64, 140, 197, 290);
+		backgroundPanel.add(panel);
+		panel.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+		panel.setLayout(null);
 		
 		JLabel StudentIDLable = new JLabel("学号");
-		StudentIDLable.setFont(new Font("STFangsong", Font.PLAIN, 13));
-		StudentIDLable.setBounds(26, 82, 32, 16);
-		sxPanel.add(StudentIDLable);
+		StudentIDLable.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		StudentIDLable.setBounds(26, 78, 32, 16);
+		panel.add(StudentIDLable);
 		
 		JTextPane nameShow = new JTextPane();
 		nameShow.setEditable(false);
-		nameShow.setBounds(70, 42, 78, 24);
-		sxPanel.add(nameShow);
+		nameShow.setBounds(84, 42, 73, 20);
+		panel.add(nameShow);
 		
 		JLabel nameLable = new JLabel("姓名");
-		nameLable.setFont(new Font("STFangsong", Font.PLAIN, 13));
+		nameLable.setFont(new Font("Lucida Grande", Font.BOLD, 14));
 		nameLable.setBounds(26, 42, 32, 24);
-		sxPanel.add(nameLable);
-		
-		JProgressBar healthBar = new JProgressBar();
-		healthBar.setBounds(60, 119, 124, 20);
-		sxPanel.add(healthBar);
-		
-		JProgressBar IQBar = new JProgressBar();
-		IQBar.setBounds(60, 139, 124, 20);
-		sxPanel.add(IQBar);
-		
-		JProgressBar StrongBar = new JProgressBar();
-		StrongBar.setBounds(60, 165, 124, 20);
-		sxPanel.add(StrongBar);
-		
-		JProgressBar happyBar = new JProgressBar();
-		happyBar.setBounds(60, 187, 124, 20);
-		sxPanel.add(happyBar);
-		
-		JProgressBar progressBar = new JProgressBar();
-		progressBar.setBounds(60, 211, 124, 20);
-		sxPanel.add(progressBar);
-		
-		JLabel labelIQ = new JLabel("智力值");
-		labelIQ.setBounds(6, 142, 52, 16);
-		sxPanel.add(labelIQ);
-		
-		JLabel labelstrong = new JLabel("体力值");
-		labelstrong.setBounds(6, 166, 52, 16);
-		sxPanel.add(labelstrong);
-		
-		JLabel labelshealth = new JLabel("健康值");
-		labelshealth.setBounds(6, 118, 52, 16);
-		sxPanel.add(labelshealth);
-		
-		JLabel label_happy = new JLabel("心   情");
-		label_happy.setBounds(6, 189, 52, 16);
-		sxPanel.add(label_happy);
-		
-		JLabel label_social = new JLabel("社交力");
-		label_social.setBounds(6, 213, 52, 16);
-		sxPanel.add(label_social);
+		panel.add(nameLable);
 		
 		JTextPane IDshow = new JTextPane();
-		IDshow.setBounds(70, 78, 78, 24);
-		sxPanel.add(IDshow);
 		IDshow.setEditable(false);
-		IDshow.setText(dataPackage.name);
-
+		IDshow.setBounds(84, 76, 73, 20);
+		panel.add(IDshow);
 		
-		JPanel sxBackground = new ImagePanel("imgsrc//shuxing.jpg",0, 0, 197, 267);
-		sxBackground.setBounds(0, 0, 197, 267);
-		sxPanel.add(sxBackground);
-		sxBackground.setOpaque(false);
-		sxBackground.setLayout(null);
+		JProgressBar healthBar = new JProgressBar();
+		healthBar.setBounds(70, 119, 114, 20);
+		panel.add(healthBar);
+		
+		JProgressBar Bar_progress = new JProgressBar();
+		Bar_progress.setBounds(70, 139, 114, 20);
+		panel.add(Bar_progress);
+		
+		JProgressBar Bar_Energy = new JProgressBar();
+		Bar_Energy.setBounds(70, 165, 114, 20);
+		panel.add(Bar_Energy);
+		
+		JProgressBar Bar_happiness = new JProgressBar();
+		Bar_happiness.setBounds(70, 187, 114, 20);
+		panel.add(Bar_happiness);
+		
+		JLabel label_workProgress = new JLabel("学习进度");
+		label_workProgress.setBounds(10, 142, 52, 16);
+		panel.add(label_workProgress);
+		
+		JLabel label_Energy = new JLabel("体力值");
+		label_Energy.setBounds(10, 166, 52, 16);
+		panel.add(label_Energy);
+		
+		JLabel label_health = new JLabel("健康值");
+		label_health.setBounds(10, 118, 52, 16);
+		panel.add(label_health);
+		
+		JLabel label_happy = new JLabel("心   情");
+		label_happy.setBounds(10, 189, 52, 16);
+		panel.add(label_happy);
+		
+		JLabel label_social = new JLabel("社交能力:");
+		label_social.setBounds(10, 219, 92, 16);
+		panel.add(label_social);
+		
+		
+		JLabel label_Art = new JLabel("才艺能力:");
+		label_Art.setBounds(10, 245, 92, 16);
+		panel.add(label_Art);
+		
+		JLabel label_IQ = new JLabel("智商:");
+		label_IQ.setBounds(100, 219, 84, 16);
+		panel.add(label_IQ);
+		
+		JLabel label_lucky = new JLabel("幸运值:");
+		label_lucky.setBounds(100, 245, 84, 16);
+		panel.add(label_lucky);
 		/*************************************************************	
 		 * 【镶对话框】
 		 * 		建立一个带背景的Panel的流程设setBounds(x, y, 宽, 高);
@@ -444,25 +447,26 @@ public class WinIndom extends WinBase{
 		 * 
 		 *****************************************************************/
 		/*		START OF YOUR CODE		*/
-
 		
-		IQBar.setValue(dataPackage.characterIQ);
-		progressBar.setValue(dataPackage.characterEQ);
-		StrongBar.setValue(dataPackage.characterStrength);
-		happyBar.setValue(dataPackage.characterHappiness);
+		Bar_progress.setValue(dataPackage.studyProgress);
+		Bar_Energy.setValue(dataPackage.characterEnergy);
+		Bar_happiness.setValue(dataPackage.characterHappiness);
 		healthBar.setValue(dataPackage.characterHealth);//进度条设置进度
-		IQBar.setStringPainted(true);
-		progressBar.setStringPainted(true);
-		StrongBar.setStringPainted(true);//开启进度条显示字
-		happyBar.setStringPainted(true);
+		Bar_progress.setStringPainted(true);
+		Bar_Energy.setStringPainted(true);//开启进度条显示字
+		Bar_happiness.setStringPainted(true);
 		healthBar.setStringPainted(true);
-		IQBar.setString(String.format("%d",dataPackage.characterIQ));
-		progressBar.setString(String.format("%d",dataPackage.characterEQ));
-		StrongBar.setString(String.format("%d",dataPackage.characterEnergy));
-		happyBar.setString(String.format("%d",dataPackage.characterHappiness));
+		Bar_progress.setString(String.format("%d",dataPackage.studyProgress));
+		Bar_Energy.setString(String.format("%d",dataPackage.characterEnergy));
+		Bar_happiness.setString(String.format("%d",dataPackage.characterHappiness));
 		healthBar.setString(String.format("%d",dataPackage.characterHealth));//进度条显示字
+		IDshow.setText(dataPackage.name);//显示名字
 		nameShow.setText(dataPackage.studentID);//显示学号
 		
+		label_social.setText("社交能力:"+dataPackage.characterEQ);
+		label_Art.setText("才艺能力:"+dataPackage.characterArt);
+		label_IQ.setText("智商:"+dataPackage.characterIQ);
+		label_lucky.setText("幸运值:"+dataPackage.characterlucky);
 
 		/*********************************************			
 		 * 【鼠标动作的设置】
