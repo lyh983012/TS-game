@@ -43,6 +43,7 @@ public class GamePanel extends JPanel implements MouseListener,MouseMotionListen
     private int delay;
     private boolean started=false;
     private Timer timer;
+    
     class TimerListener implements ActionListener {
         /** Handle ActionEvent */
         public void actionPerformed(ActionEvent e) {
@@ -102,9 +103,7 @@ public class GamePanel extends JPanel implements MouseListener,MouseMotionListen
     	this.removeAll();
         addMouseListener(this);   
         addMouseMotionListener(this); 
-        
     	timeLeft=200;
-		
     	/*启动游戏*/
 		this.setVisible(true);
 	    this.timer = new Timer(delay,new TimerListener());

@@ -460,8 +460,8 @@ public class WinIndom extends WinBase{
 		Bar_Energy.setString(String.format("%d",dataPackage.characterEnergy));
 		Bar_happiness.setString(String.format("%d",dataPackage.characterHappiness));
 		healthBar.setString(String.format("%d",dataPackage.characterHealth));//进度条显示字
-		IDshow.setText(dataPackage.name);//显示名字
-		nameShow.setText(dataPackage.studentID);//显示学号
+		IDshow.setText(dataPackage.studentID);//显示学号
+		nameShow.setText(dataPackage.name);//显示名字
 		
 		label_social.setText("社交能力:"+dataPackage.characterEQ);
 		label_Art.setText("才艺能力:"+dataPackage.characterArt);

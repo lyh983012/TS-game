@@ -11,6 +11,7 @@ import javax.swing.JProgressBar;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
 
+import THUgame.Game.ShootGame;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
@@ -124,7 +125,6 @@ public class WinNoonClass extends WinBase{
 		JPanel EventPanel = new JPanel();//将来可以用它来放临时小事件
 		EventPanel.setBackground(new Color(255, 255, 204));
 		EventPanel.setBounds(254, 134, 536, 398);
-		backgroundPanel.add(EventPanel);
 		EventPanel.setLayout(null);
 		EventPanel.setVisible(dataPackage.trigSubEvent);
 		
@@ -136,7 +136,22 @@ public class WinNoonClass extends WinBase{
 		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblNewLabel_1.setBounds(226, 107, 220, 68);
 		EventPanel.add(lblNewLabel_1);
-		EventPanel.setVisible(dataPackage.trigSubEvent);
+
+		
+		ShootGame.mainGame=mainGame;//注意这里！不然没办法结束游戏！
+		ShootGame.dataPackage=dataPackage;//注意这里！不然没办法结束游戏！
+		JPanel gamePack = new ShootGame(254, 134);//将来可以用它来放临时小事件	
+		gamePack.setBounds(254, 134, 536, 398);
+		gamePack.setLayout(null);
+		gamePack.setOpaque(false);//注意要设成透明的
+		
+		if (dataPackage.trigSubEvent) {
+			if(dataPackage.time==18) {
+				backgroundPanel.add(EventPanel);
+			}else  {
+				backgroundPanel.add(gamePack);
+			}
+		}
 		
 		/*************************************************************	
 		 * 基本按钮
@@ -388,8 +403,8 @@ public class WinNoonClass extends WinBase{
 		Bar_Energy.setString(String.format("%d",dataPackage.characterEnergy));
 		Bar_happiness.setString(String.format("%d",dataPackage.characterHappiness));
 		healthBar.setString(String.format("%d",dataPackage.characterHealth));//进度条显示字
-		IDshow.setText(dataPackage.name);//显示名字
-		nameShow.setText(dataPackage.studentID);//显示学号
+		IDshow.setText(dataPackage.studentID);//显示学号
+		nameShow.setText(dataPackage.name);//显示名字
 
 		
 		label_social.setText("社交能力:"+dataPackage.characterEQ);
@@ -408,9 +423,9 @@ public class WinNoonClass extends WinBase{
 		InClassMouseListener clicknext=new InClassMouseListener(2);//设置鼠标监听器，发生2号事件
 		InClassMouseListener clickback=new InClassMouseListener(3);//设置鼠标监听器，发生3号事件
 		
-		btnNewButton_1.addMouseListener(clickanswer);//0号事件是 回答按钮 被点击
-    	btnNewButton.addMouseListener(clickask);//1号事件是 提问按钮 被点击
-		btnNewButton_2.addMouseListener(clicknext);//2号事件是 下一题按钮 被点击
+		btnNewButton_2.addMouseListener(clickanswer);//1号事件是 回答按钮 被点击
+    	btnNewButton.addMouseListener(clickask);//0号事件是 提问按钮 被点击
+		btnNewButton_1.addMouseListener(clicknext);//2号事件是 下一题按钮 被点击
 		btnNewButton_3.addMouseListener(clickback);//3号事件是 回宿舍按钮 被点击
 
 		/*		END OF YOUR CODE		*

@@ -143,8 +143,8 @@ public class DataPack {
 			this.ID=-1;
 			this.date=1;
 			this.term=1;
-			this.name="2016000001";
-			this.studentID="神秘杰哥";
+			this.name="特奖杰哥";
+			this.studentID="2016000001";
 			this.characterIQ=50;
 			this.characterEQ=50;
 			this.characterlucky=50;

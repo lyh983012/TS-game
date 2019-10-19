@@ -17,6 +17,7 @@ import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
 
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 
 /*【早课界面】
@@ -148,27 +149,13 @@ public class WinMorningClass extends WinBase{
 			JButton btnNewButton_4 = new JButton("还能学，上下午的课");
 			btnNewButton_4.setBounds(289, 242, 190, 47);
 			exitPanel.add(btnNewButton_4);
-		
-		JPanel gamePack = new JPanel();//将来可以用它来放临时小事件
+			
+		ShootGame.mainGame=mainGame;//注意这里！不然没办法结束游戏！
+		ShootGame.dataPackage=dataPackage;//注意这里！不然没办法结束游戏！
+		JPanel gamePack = new ShootGame(254, 134);//将来可以用它来放临时小事件	
 		gamePack.setBounds(254, 134, 536, 398);
 		gamePack.setLayout(null);
 		gamePack.setOpaque(false);//注意要设成透明的
-		
-			ShootGame.mainGame=mainGame;//注意这里！不然没办法结束游戏！
-			ShootGame.dataPackage=dataPackage;//注意这里！不然没办法结束游戏！
-			JPanel gamePanel = new ShootGame(20);//将来可以用它来放临时小事件
-			gamePanel.setBounds(0, 0, 536, 398);
-			gamePanel.setOpaque(false);//注意要设成透明的
-			gamePanel.setLayout(null);
-				
-			JPanel EventBackgound = new ImagePanel("imgsrc//eb.png",0, 0, 536, 398);	
-			EventBackgound.setBounds(0, 0, 536, 398);
-			EventBackgound.setOpaque(false);//注意要设成透明的
-			EventBackgound.setLayout(null);
-			
-		gamePack.add(gamePanel);
-		gamePack.add(EventBackgound);
-		
 		
 		if (dataPackage.trigSubEvent) {
 			if(dataPackage.time==12) {
@@ -218,9 +205,9 @@ public class WinMorningClass extends WinBase{
 		panel.setLayout(null);
 		
 		JLabel StudentIDLable = new JLabel("学号");
-		StudentIDLable.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		StudentIDLable.setHorizontalAlignment(SwingConstants.CENTER);
+		StudentIDLable.setFont(new Font("Lucida Grande", Font.BOLD, 14));
 		StudentIDLable.setBounds(26, 78, 32, 16);
-		panel.add(StudentIDLable);
 		
 		JTextPane nameShow = new JTextPane();
 		nameShow.setEditable(false);
@@ -228,6 +215,7 @@ public class WinMorningClass extends WinBase{
 		panel.add(nameShow);
 		
 		JLabel nameLable = new JLabel("姓名");
+		nameLable.setHorizontalAlignment(SwingConstants.CENTER);
 		nameLable.setFont(new Font("Lucida Grande", Font.BOLD, 14));
 		nameLable.setBounds(26, 42, 32, 24);
 		panel.add(nameLable);
@@ -428,8 +416,8 @@ public class WinMorningClass extends WinBase{
 		Bar_Energy.setString(String.format("%d",dataPackage.characterEnergy));
 		Bar_happiness.setString(String.format("%d",dataPackage.characterHappiness));
 		healthBar.setString(String.format("%d",dataPackage.characterHealth));//进度条显示字
-		IDshow.setText(dataPackage.name);//显示名字
-		nameShow.setText(dataPackage.studentID);//显示学号
+		IDshow.setText(dataPackage.studentID);//显示学号
+		nameShow.setText(dataPackage.name);//显示名字
 		
 		label_social.setText("社交能力:"+dataPackage.characterEQ);
 		label_Art.setText("才艺能力:"+dataPackage.characterArt);
