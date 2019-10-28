@@ -42,7 +42,7 @@ public class EventIndom extends EventBase{
 		 * 事件结束
 		 * 		转换一个标记，必要时存储一些信息
 		 *******************************************/
-		if (oldDataPack.choiceA.equals("gotoclass")) {
+		if (oldDataPack.choiceA.equals("gooutside")) {
 			oldDataPack.eventFinished=true;			//并且点击了去上课这个按钮，那么宿舍事件结束
 			return;									//直接返回，避免属性乱变
 		}

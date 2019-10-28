@@ -22,6 +22,11 @@ import javax.swing.JTextField;
 /*【下午课界面】
  * 
  * --DIALOG--
+ * 
+ * update:20191028 01:07
+ * via：林逸晗
+ * 更新：更改了界面UI，使之适配MAP
+ * 
  * update:20191018 01:07
  * via：林逸晗
  * 更新：加入了游戏
@@ -128,7 +133,7 @@ public class WinNoonClass extends WinBase{
 		EventPanel.setLayout(null);
 		EventPanel.setVisible(dataPackage.trigSubEvent);
 		
-		JButton btnNewButton_3 = new JButton("不学了，回宿舍");
+		JButton btnNewButton_3 = new JButton("回到地图");
 		btnNewButton_3.setBounds(185, 242, 190, 47);
 		EventPanel.add(btnNewButton_3);
 		

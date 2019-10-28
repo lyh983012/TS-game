@@ -29,9 +29,11 @@ public class EventManager extends Thread{
     		 * 	0.inDom 在宿舍
     		 * 	1.MorningClass 早上上课事件
     		 *  2.NoonClass 下午上课事件
+    		 *  3.Map 
     		 *  30000.通过选择确定人物模板事件->30002
     		 *  30001.人物基本背景说明及选择提示->30000
     		 *  30002.欢迎界面->0
+    		 *  10000.地图界面
     		 * 	
     		 *********************************/
     		/*		START OF YOUR CODE		*/
@@ -62,48 +64,6 @@ public class EventManager extends Thread{
     		pushForward.actOn(dataPackage);
     		pushForward = new EventStateManager();
     	    pushForward.actOn(dataPackage);
-    		/*********************************		
-    		 * 
-    		 * 在数据包被处理完之后，判断是否发生分支事件转移
-    		 * 	
-    		 *********************************/
-    		
-    		if (dataPackage.eventFinished==true){
-        		switch(dataPackage.ID) {
-	    			case 0://dom界面后进入教室
-	    				if(dataPackage.stateA.equals("上早上课")) {
-	    					dataPackage.ID=1;
-	    				}if(dataPackage.stateA.equals("上下午课")) {
-	    					dataPackage.ID=2;
-	    				}
-	    				break;
-					case 1://上午界面后进入dom
-						if(dataPackage.choiceA.equals("back")){
-	    					dataPackage.ID=0;
-						}else if(dataPackage.choiceA.equals("continue")) {
-	    					dataPackage.ID=2;
-						}
-	    				break;	
-					case 2://下午界面后进入dom
-						dataPackage.ID=0;
-						break;	
-					case -1://开始界面过后，进入选择界面
-						if(dataPackage.stateA.equals("新游戏")) {
-							System.out.println(111);
-							dataPackage.ID=30001;}
-	    				break;	
-					case 30000://选择界面过后，进入游戏界面
-						dataPackage.ID=30002;
-						break;
-					case 30001:
-						dataPackage.ID=30000;
-						break;
-					case 30002:
-						dataPackage.ID=0;
-						break;
-	        		}
-	        		dataPackage.clearEventState();//复原状态，以免别人的分支出问题
-    		}
 		    GUI.repaint();//每次更新完数据包，用新的数据包重新绘制窗口界面
 		    synchronized(this){
 		   		try {

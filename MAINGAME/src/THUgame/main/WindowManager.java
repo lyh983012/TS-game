@@ -6,7 +6,8 @@ import THUgame.datapack.DataPack;
 import THUgame.windows.WinBase;
 import THUgame.windows.WinChoice;
 import THUgame.windows.WinHome;
-import THUgame.windows.WinIndom;
+import THUgame.windows.WinInDom;
+import THUgame.windows.WinMap;
 import THUgame.windows.WinMorningClass;
 import THUgame.windows.WinNoonClass;
 import THUgame.windows.WinBackground;
@@ -42,7 +43,8 @@ public class WindowManager extends JFrame {
 		 * 这样设计是为了使用数据包进行初始化
 		 ******************************************************************/
 		/*		START OF YOUR CODE		*/
-		WinIndom.dataPackage=dataPackage;
+		WinInDom.dataPackage=dataPackage;
+		WinMap.dataPackage=dataPackage;
 		WinMorningClass.dataPackage=dataPackage;
 		WinNoonClass.dataPackage=dataPackage;
 		WinChoice.dataPackage=dataPackage;
@@ -64,7 +66,7 @@ public class WindowManager extends JFrame {
 				generator = new WinHome(mainGame,mainFrame);
 				break;
 			case 0:
-				generator = new WinIndom(mainGame,mainFrame);
+				generator = new WinInDom(mainGame,mainFrame);
 				break;
 			case 1:
 				generator = new WinMorningClass(mainGame,mainFrame);
@@ -72,6 +74,9 @@ public class WindowManager extends JFrame {
 			case 2:
 				generator = new WinNoonClass(mainGame,mainFrame);
 				break;	
+			case 3:
+				generator = new WinMap(mainGame,mainFrame);
+				break;
 			case 30000:
 				generator = new WinChoice(mainGame,mainFrame);
 				break;
