@@ -21,7 +21,11 @@ import THUgame.tool.ImagePanel;
  * 
  *  update:20191029
  *  via：余冬杰
- * 更新：我要开始写招新界面啦
+ *  更新：
+ *  TODO:
+ *      1.接受/拒绝凌艺涵的对话框
+ *      2.招新问卷（按钮、背景素材）
+ *      3.填完问卷如何存储属性
  * 
  **/
 
@@ -120,29 +124,6 @@ public class WinOrganization extends WinBase{
 		backgroundPanel.setBackground(Color.WHITE);
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
-		/*************************************************************	
-		 *【按钮】
-		 *		按钮设置流程：
-		 *		1.创建按钮
-		 *		2.取消默认的边框
-		 *		3.设置坐标和大小
-		 *		4.设置一下两种状态的图片，调用的是虚基类里的接口
-		 *		5.把按钮加入panel里
-		 *************************************************************/
-		JButton sleepButton = new JButton();
-		sleepButton.setBorderPainted(false);
-		sleepButton.setBounds(819, 544, 150, 50);
-		sleepButton.setContentAreaFilled(false);
-		setIcon("/imgsrc/Windom/sleep.png",sleepButton);
-		setSelectedIcon("/imgsrc/Windom/sleepUn.png",sleepButton);
-		backgroundPanel.add(sleepButton);
-
-		JButton selfstudyButton = new JButton();
-		selfstudyButton.setBorderPainted(false);
-		selfstudyButton.setBounds(819, 477, 150, 50);
-		setIcon("/imgsrc/Windom/study.png",selfstudyButton);
-		setSelectedIcon("/imgsrc/Windom/studyUn.png",selfstudyButton);
-		backgroundPanel.add(selfstudyButton);
 		
 		JButton OutButton = new JButton();
 		OutButton.setBorderPainted(false);
@@ -155,19 +136,25 @@ public class WinOrganization extends WinBase{
 			}
 		}
 		/*************************************************************	
-		 * 【小事件】 
-		 *  	这一部分需要用dataPackage.trigSubEvent决定是否绘制
+		 * 【招新问卷】 
+		 *  	
 		 *  	具体用法见MorninigClass窗口
 		 *************************************************************/
-		
-		
-		
-		
+		JPanel enrollPack = new JPanel();
+		enrollPack.setBounds(291, 32, 440, 424);
+		enrollPack.setOpaque(false);//注意要设成透明的
+		enrollPack.setLayout(null);
+			
+			
+			
+			
+		backgroundPanel.add(enrollPack);
 		/*************************************************************	
 		 * 【镶时钟】
 		 * 		不需要修改
 		 * 		简而言之就是显示一个Table
 		 *************************************************************/
+
 		JPanel timePack = new JPanel();
 		timePack.setLayout(null);
 		timePack.setOpaque(false);//注意要设成透明的
@@ -297,7 +284,13 @@ public class WinOrganization extends WinBase{
 			JLabel dialogName = new JLabel();
 			dialogName.setBounds(17, 6, 89, 40);
 			dialogPanel.add(dialogName);
-			dialogName.setText("独白");
+			
+			if (dataPackage.count == 1) {
+				dialogName.setText("凌艺涵");
+			} else {
+				dialogName.setText("独白");
+			}
+			
 			
 			JLabel dialogContent = new JLabel();
 			dialogName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
@@ -406,14 +399,8 @@ public class WinOrganization extends WinBase{
 		demoMouseListener clickselfstudy=new demoMouseListener(1);//设置鼠标监听器，发生1号事件
 		demoMouseListener clickOut=new demoMouseListener(2);//设置鼠标监听器，发生2号事件
 		demoMouseListener clickwake=new demoMouseListener(3);//设置鼠标监听器，发生3号事件
-		demoMouseListener clickstay=new demoMouseListener(4);//设置鼠标监听器，发生4号事件
-
-		clicksleep.setButton(sleepButton);
-		clickselfstudy.setButton(selfstudyButton);
+		demoMouseListener clickstay=new demoMouseListener(4);
 		clickOut.setButton(OutButton);
-		
-    	sleepButton.addMouseListener(clicksleep);//0号事件是 睡觉按钮 被点击
-		selfstudyButton.addMouseListener(clickselfstudy);//1号事件是 去自习按钮 被点击
 		OutButton.addMouseListener(clickOut);//2号事件是 去上课按钮 被点击
 	
 		/*		END OF YOUR CODE		*/
