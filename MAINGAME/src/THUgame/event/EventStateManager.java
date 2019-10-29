@@ -40,6 +40,8 @@ public class EventStateManager extends EventBase{
     			case 0://dom界面后进入教室
     				if(dataPackage.choiceA.equals("gooutside")) {
     					dataPackage.ID=3;
+    				}else if(dataPackage.stateB.equals("enrollOrganization")) {  // dom界面后进入招新界面
+    					dataPackage.ID = 20001; 
     				}
     				break;
 				case 1://上午界面后进入dom
@@ -68,6 +70,9 @@ public class EventStateManager extends EventBase{
 					dataPackage.ID=30000;
 					break;
 				case 30002:
+					dataPackage.ID=0;
+					break;
+				case 20001: // 招新界面结束后，进入宿舍dom界面
 					dataPackage.ID=0;
 					break;
         		}

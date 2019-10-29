@@ -7,35 +7,16 @@ import THUgame.datapack.DataPack;
 
 
 /*
- * 宿舍事件 * 
+ * 招新事件 * 
  * 
  * --DIALOG--
- *  update:20191018
- * via：余冬杰
- * 更新：加入打呼噜
- * 
- * update:20191014
- * via：林逸晗
- * 更新：加入游戏逻辑
- * 
- * update:20191010
- * via：林逸晗
- * 更新：加入对话逻辑，使用notification存储对话的信息 
- * 
- * update:20191006 
- * via：林逸晗
- * 更新：把事件切换移除，统一在主线程里管理
- *	    计数器更换为时间，更合理
- *      完善注释
- *      增加了主要循环的事件分支，完善了 上午课-下午课-睡觉的主要循环
- *  
- * update:20190930 30
- * via：林逸晗
- * 更新：添加了“是否要让小事件显示”的属性的判断
+ *  update:20191029
+ *  via：余冬杰
+ * 更新：我要开始写招新界面啦
  * 
  * */
 
-public class EventIndom extends EventBase{
+public class EventOrganization extends EventBase{
 
 	public void actOn(DataPack oldDataPack) {
 		/*******************************************
@@ -45,9 +26,6 @@ public class EventIndom extends EventBase{
 		if (oldDataPack.choiceA.equals("gooutside")) {
 			oldDataPack.eventFinished=true;			//并且点击了去上课这个按钮，那么宿舍事件结束
 			return;									//直接返回，避免属性乱变
-		}else if(oldDataPack.term == 1 && oldDataPack.week == 1 && oldDataPack.date == 2 && oldDataPack.time == 19){
-			oldDataPack.eventFinished = true;      //第1学期-第1周-第2天-19点，宿舍时间结束，进入社团招新
-			return;								   //直接返回，避免属性乱变
 		}
 		
 		/*******************************************
@@ -103,34 +81,15 @@ public class EventIndom extends EventBase{
 					oldDataPack.notification="我身体很不舒服。";
 					break;
 				}else{
-					oldDataPack.time+=1;		//自习需要耗时，时间+1（原本的版本是计数器+1）
-					oldDataPack.notification="<html>再写会儿作业，身体变得有些疲劳，微微有些不适";
-					oldDataPack.characterEnergy-=5;
-					oldDataPack.characterHappiness-=1;
-					oldDataPack.studyProgress+=1;
-					oldDataPack.notification += "<br>学习进度+1，心情值-1，体力消耗5点</html>";
+					
 					break;
 				}
 			case "wakehimup":
-				oldDataPack.trigSubEvent = false;  // 吵醒之后叫醒，取消子事件
-				oldDataPack.time=7+randomTime;	//睡大觉，有机率睡爆，时间等于7点+0～2（原本的版本是计数器+1） 
-				oldDataPack.notification="<html>虽然感觉安静了些，但还是觉得有些尴尬，社交力和心情稍稍下降了";
-				oldDataPack.characterHappiness -= 2;
-				oldDataPack.characterEQ -= 1;
-				oldDataPack.characterHealth -= 1;
-				oldDataPack.characterEnergy += 5;
-				oldDataPack.notification += "<br>社交力-1，健康值-1，心情值-2，体力回复5点</html>";
+				
 				break;
 				
 			case "stayup":
-				oldDataPack.trigSubEvent = false;  // 吵醒之后待着，取消子事件
-				oldDataPack.time=7+randomTime;	//睡大觉，有机率睡爆，时间等于7点+0～2（原本的版本是计数器+1） 
-				oldDataPack.notification = "<html>后面睡得都不太好，白天告诉了舍友，舍友非常抱歉";
-				oldDataPack.characterEQ += 1;
-				oldDataPack.characterHealth -= 1;
-				oldDataPack.characterHappiness += 3;
-				oldDataPack.characterEnergy += 5;	
-				oldDataPack.notification += "<br>社交力+1，健康值-1，心情值+3，体力回复5点</html>";
+				
 				break;
 		}
 		if (oldDataPack.time>=8 && oldDataPack.time<=10) { //只在特定时间可以去上课
@@ -145,7 +104,7 @@ public class EventIndom extends EventBase{
 		}else{
 			oldDataPack.stateA="自习";
 			oldDataPack.stateB="othertime";
-		}		
+		}	
 		if (oldDataPack.characterHealth<=0)
 			JOptionPane.showMessageDialog(null, "你猝死了", "", JOptionPane.ERROR_MESSAGE);//弹出猝死界面
 		/*		END OF YOUR CODE		*/

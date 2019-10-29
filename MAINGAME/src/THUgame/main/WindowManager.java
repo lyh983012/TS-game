@@ -12,6 +12,7 @@ import THUgame.windows.WinMorningClass;
 import THUgame.windows.WinNoonClass;
 import THUgame.windows.WinBackground;
 import THUgame.windows.WinWelcome;
+import THUgame.windows.WinOrganization;
 
 /*
  * template version 1.1
@@ -85,7 +86,10 @@ public class WindowManager extends JFrame {
 				break;
 			case 30002:
 				generator = new WinWelcome(mainGame,mainFrame);
-				
+				break;
+			case 20001:
+				generator = new WinOrganization(mainGame, mainFrame);
+				break;
 		}
 		/*		END OF YOUR CODE		*/
 	}
