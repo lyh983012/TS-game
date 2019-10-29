@@ -16,6 +16,11 @@ import java.awt.Font;
  * 多次多重选择可视化模板
  * 
  * --DIALOG--
+ * 
+ * update:20191030
+ * via：林逸晗
+ * 更新：加入safeGuardCount
+
  * update:20191018 16:20
  * via 林逸晗
  * 更新：解决了按钮的动态显示的问题，基本可以算最终版本
@@ -76,23 +81,27 @@ public class WinChoice extends WinBase{
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				/*		START OF YOUR CODE		*/
-				if(mode==0) {
-					dataPackage.choiceA="A";
-				}else if(mode==1){
-					dataPackage.choiceA="B";
-				}else if(mode==2){
-					dataPackage.choiceA="C";
-				}else if(mode==3){
-					dataPackage.choiceA="D";
-				}else if(mode==4){
-					dataPackage.choiceA="E";
-				}
-				/*		END OF YOUR CODE		*/
+				if(safeGuardCount==0) {
+					safeGuardCount++;
+					if(mode==0) {
+						dataPackage.choiceA="A";
+					}else if(mode==1){
+						dataPackage.choiceA="B";
+					}else if(mode==2){
+						dataPackage.choiceA="C";
+					}else if(mode==3){
+						dataPackage.choiceA="D";
+					}else if(mode==4){
+						dataPackage.choiceA="E";
+					}
+					/*		END OF YOUR CODE		*/
 				//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-				EventManager.dataPackage=dataPackage;
-				synchronized(mainGame) {
-					mainGame.notify();
-				}//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+					EventManager.dataPackage=dataPackage;
+					synchronized(mainGame) {
+						mainGame.notify();
+					}
+				}
+				//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 				
 			}
 			@Override

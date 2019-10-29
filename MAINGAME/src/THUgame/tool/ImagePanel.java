@@ -30,6 +30,7 @@ public class ImagePanel extends JPanel {
 	private int  height;
 	
 	public ImagePanel(String pathOfImage,int x1,int y1,int width,int height){
+		this.setOpaque(false);
 		this.pathOfImage=pathOfImage;
 		this.x1=0;
 		this.y1=0;

@@ -10,6 +10,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import java.awt.Font;
+
+import THUgame.Game.RememberGame;
+import THUgame.Game.ShootGame;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
@@ -18,6 +21,15 @@ import THUgame.tool.ImagePanel;
  * 【宿舍界面】
  * 
  * --DIALOG--
+ * 
+ * update:20191030
+ * via：林逸晗
+ * 更新：加入safeGuardCount
+ * 
+ * update:20191028 01:07
+ * via：林逸晗
+ * 更新：更改了界面UI，使之适配MAP，加入了游戏
+ * 
  * update:20191018 01:07
  * via：余冬杰
  * 更新：加入了打呼噜的子事件
@@ -57,7 +69,7 @@ import THUgame.tool.ImagePanel;
  **/
 
 
-public class WinIndom extends WinBase{
+public class WinInDom extends WinBase{
 	
 	/*************************************************************	
 	 *
@@ -98,22 +110,25 @@ public class WinIndom extends WinBase{
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			/*		START OF YOUR CODE		*/
-			if(mode==0) {
-				dataPackage.choiceA="sleep";	//点按钮0（睡觉按钮）返回sleep
-			}else if(mode ==1){
-				dataPackage.choiceA="selfstudy";//点按钮1（自习按钮）返回selfstudy
-			}else if(mode ==2){
-				dataPackage.choiceA="gotoclass";//点按钮2（上课按钮）返回gotoclass
-			}else if(mode ==3){
-				dataPackage.choiceA="wakehimup";//点按钮3（唤醒按钮）返回wakehimup
-			}else if(mode ==4){
-				dataPackage.choiceA="stayup";//点按钮4（待着按钮）返回stayup
-			}
-			/*		END OF YOUR CODE		*/
-			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-			EventManager.dataPackage=dataPackage;
-			synchronized(mainGame) {
-				mainGame.notify();
+			if(safeGuardCount==0) {
+				safeGuardCount++;
+				if(mode==0) {
+					dataPackage.choiceA="sleep";	//点按钮0（睡觉按钮）返回sleep
+				}else if(mode ==1){
+					dataPackage.choiceA="selfstudy";//点按钮1（自习按钮）返回selfstudy
+				}else if(mode ==2){
+					dataPackage.choiceA="gooutside";//点按钮2（上课按钮）返回gotoclass
+				}else if(mode ==3){
+					dataPackage.choiceA="wakehimup";//点按钮3（唤醒按钮）返回wakehimup
+				}else if(mode ==4){
+					dataPackage.choiceA="stayup";//点按钮4（待着按钮）返回stayup
+				}
+				/*		END OF YOUR CODE		*/
+				//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+				EventManager.dataPackage=dataPackage;
+				synchronized(mainGame) {
+					mainGame.notify();
+				}
 			}
 			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		}
@@ -135,7 +150,7 @@ public class WinIndom extends WinBase{
 	 * 		不要新建JFrame窗口对象，而是把上层传进来的窗口对象里面的东西扔了，重新添加
 	 * 
 	 *************************************************************/
-	public WinIndom(EventManager mainGame,JFrame frame) {
+	public WinInDom(EventManager mainGame,JFrame frame) {
 		
 		//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -175,53 +190,33 @@ public class WinIndom extends WinBase{
 		setSelectedIcon("/imgsrc/Windom/studyUn.png",selfstudyButton);
 		backgroundPanel.add(selfstudyButton);
 		
-		JButton btnNewButton_2 = new JButton();
-		btnNewButton_2.setBorderPainted(false);
-		btnNewButton_2.setBounds(819, 611, 150, 50);
-		if (dataPackage.stateB.equals("classtime")) {	//高级应用：仅仅在符合“classtime”状态的时候显示这个按钮
-			if(dataPackage.stateA.equals("上早上课")){   //高级应用：图标也对应有不同
-				if(!dataPackage.todayMorningClass.equals("----")) {
-					setIcon("/imgsrc/Windom/Morning.png",btnNewButton_2);
-					setSelectedIcon("/imgsrc/Windom/MorningUn.png",btnNewButton_2);
-					backgroundPanel.add(btnNewButton_2);
-				}
-			}else {
-				if(!dataPackage.todayAfternoonClass.equals("----")) {
-					setIcon("/imgsrc/Windom/afternoon.png",btnNewButton_2);
-					setSelectedIcon("/imgsrc/Windom/afternoonUn.png",btnNewButton_2);
-					backgroundPanel.add(btnNewButton_2);
-				}
-			}
-		}
+		JButton OutButton = new JButton();
+		OutButton.setBorderPainted(false);
+		OutButton.setBounds(819, 611, 150, 50);
+		setIcon("/imgsrc/Windom/out.png",OutButton);
+		setSelectedIcon("/imgsrc/Windom/out_press.png",OutButton);
+		backgroundPanel.add(OutButton);
 		/*************************************************************	
 		 * 【小事件】 
 		 *  	这一部分需要用dataPackage.trigSubEvent决定是否绘制
 		 *  	具体用法见MorninigClass窗口
 		 *************************************************************/
-		JPanel EventPanel = new JPanel();	
-		EventPanel.setBackground(new Color(255, 255, 204));
-		EventPanel.setBounds(254, 129, 531, 363);
-		backgroundPanel.add(EventPanel);
-		EventPanel.setLayout(null);
 
-		if (dataPackage.trigSubEvent){ // 触发子事件，小事情可见。。
-			EventPanel.setVisible(true);
-			sleepButton.setVisible(false);
-			selfstudyButton.setVisible(false);
-			btnNewButton_2.setVisible(false);
-		}else {
-			EventPanel.setVisible(false); // 未触发子事件，取消小事件，恢复睡觉按钮
-		}
+		JPanel SnorePanel = new JPanel();	
+		SnorePanel.setBackground(new Color(255, 255, 204));
+		SnorePanel.setBounds(254, 129, 531, 363);
+		backgroundPanel.add(SnorePanel);
+		SnorePanel.setLayout(null);
 		
 		JLabel label_1 = new JLabel("你被舍友的呼噜吵醒了，睡眠质量大跌");
 		label_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		label_1.setBounds(95, 130, 388, 16);
-		EventPanel.add(label_1);
+		SnorePanel.add(label_1);
 		
 		JLabel label_2 = new JLabel("健康下降、心情下降、社交力下降、体力下降");
 		label_2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		label_2.setBounds(95, 173, 388, 16);
-		EventPanel.add(label_2);
+		SnorePanel.add(label_2);
 		
 		JButton wakeButton = new JButton();
 		wakeButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
@@ -233,8 +228,30 @@ public class WinIndom extends WinBase{
 		stayButton.setBounds(300, 250, 120, 50);
 		stayButton.setText("保持沉默");
 		
-		EventPanel.add(wakeButton);
-		EventPanel.add(stayButton);
+		SnorePanel.add(wakeButton);
+		SnorePanel.add(stayButton);
+		
+		RememberGame.mainGame=mainGame;//注意这里！不然没办法结束游戏！
+		RememberGame.dataPackage=dataPackage;//注意这里！不然没办法结束游戏！
+		JPanel Remember = new RememberGame(254, 134);//将来可以用它来放临时小事件	
+		Remember.setBounds(254, 134, 536, 398);
+		Remember.setLayout(null);
+		Remember.setOpaque(false);//注意要设成透明的
+		backgroundPanel.add(Remember);
+		
+		SnorePanel.setVisible(false); // 未触发子事件，取消小事件，恢复睡觉按钮
+		Remember.setVisible(false); // 未触发子事件，取消小事件，恢复睡觉按钮
+
+		if (dataPackage.trigSubEvent){ // 触发子事件，小事情可见。。
+			if(dataPackage.stateA.equals("game")) {
+				Remember.setVisible(true);
+			}else if(dataPackage.stateA.equals("被吵醒")){
+				SnorePanel.setVisible(true);
+			}
+			sleepButton.setVisible(false);
+			selfstudyButton.setVisible(false);
+			OutButton.setVisible(false);
+		}
 		
 		/*************************************************************	
 		 * 【镶时钟】
@@ -460,8 +477,9 @@ public class WinIndom extends WinBase{
 		Bar_Energy.setString(String.format("%d",dataPackage.characterEnergy));
 		Bar_happiness.setString(String.format("%d",dataPackage.characterHappiness));
 		healthBar.setString(String.format("%d",dataPackage.characterHealth));//进度条显示字
-		IDshow.setText(dataPackage.name);//显示名字
-		nameShow.setText(dataPackage.studentID);//显示学号
+		IDshow.setText(dataPackage.studentID);//显示学号
+		nameShow.setText(dataPackage.name);//显示名字
+
 		
 		label_social.setText("社交能力:"+dataPackage.characterEQ);
 		label_Art.setText("才艺能力:"+dataPackage.characterArt);
@@ -474,21 +492,22 @@ public class WinIndom extends WinBase{
 		demoMouseListener.dataPackage=dataPackage;//数据包注册，不需要改
 		demoMouseListener.mainGame=mainGame;
 		
+		
 		demoMouseListener clicksleep=new demoMouseListener(0);//设置鼠标监听器，发生0号事件
 		demoMouseListener clickselfstudy=new demoMouseListener(1);//设置鼠标监听器，发生1号事件
-		demoMouseListener clickgotoclass=new demoMouseListener(2);//设置鼠标监听器，发生2号事件
+		demoMouseListener clickOut=new demoMouseListener(2);//设置鼠标监听器，发生2号事件
 		demoMouseListener clickwake=new demoMouseListener(3);//设置鼠标监听器，发生3号事件
 		demoMouseListener clickstay=new demoMouseListener(4);//设置鼠标监听器，发生4号事件
 
 		clicksleep.setButton(sleepButton);
 		clickselfstudy.setButton(selfstudyButton);
-		clickgotoclass.setButton(btnNewButton_2);
+		clickOut.setButton(OutButton);
 		clickwake.setButton(wakeButton);
 		clickstay.setButton(stayButton);
 		
     	sleepButton.addMouseListener(clicksleep);//0号事件是 睡觉按钮 被点击
 		selfstudyButton.addMouseListener(clickselfstudy);//1号事件是 去自习按钮 被点击
-		btnNewButton_2.addMouseListener(clickgotoclass);//2号事件是 去上课按钮 被点击
+		OutButton.addMouseListener(clickOut);//2号事件是 去上课按钮 被点击
 		wakeButton.addMouseListener(clickwake);//3号事件是 叫醒舍友 被点击
 		stayButton.addMouseListener(clickstay);//4号事件是 按兵不动 被点击
 		/*		END OF YOUR CODE		*/

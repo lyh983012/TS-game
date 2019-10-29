@@ -43,7 +43,8 @@ public class EventNoonClass extends EventBase{
 		/*		START OF YOUR CODE		*/	
 		Random r = new Random();
 		oldDataPack.time+=1;					//当某个操作需要耗时，时间+1（原本的版本是计数器+1）
-		int a = r.nextInt(15) + 1;
+		int a = r.nextInt(10) + 1;
+		oldDataPack.trigSubEvent=false;
 		switch(oldDataPack.choiceA) {
 		case "answer":
 			if(oldDataPack.characterEnergy<5) {

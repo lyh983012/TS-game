@@ -17,11 +17,20 @@ import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
 
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 
 /*【早课界面】
  * 
  * --DIALOG--
+ * update:20191030
+ * via：林逸晗
+ * 更新：加入safeGuardCount
+ * 
+ * update:20191028 01:07
+ * via：林逸晗
+ * 更新：更改了界面UI，使之适配MAP
+ * 
  * update:20191018 01:07
  * via：林逸晗
  * 更新：加入了游戏
@@ -72,21 +81,22 @@ public class WinMorningClass extends WinBase{
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			/*		START OF YOUR CODE		*/
-			if(mode==0) {
-				dataPackage.choiceA="answer";
-			}else if(mode==1){
-				dataPackage.choiceA="ask";
-			}else if(mode==2){
-				dataPackage.choiceA="next";
-			}else if(mode==3){
-				dataPackage.choiceA="back";
-			}else if(mode==4){
-				dataPackage.choiceA="continue";
-			}
-			/*		END OF YOUR CODE		*/
-			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-			synchronized(mainGame) {
-				mainGame.notify();
+			if(safeGuardCount==0) {
+				safeGuardCount++;
+				if(mode==0) {
+					dataPackage.choiceA="answer";
+				}else if(mode==1){
+					dataPackage.choiceA="ask";
+				}else if(mode==2){
+					dataPackage.choiceA="next";
+				}else if(mode==3){
+					dataPackage.choiceA="back";
+				}
+				/*		END OF YOUR CODE		*/
+				//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+				synchronized(mainGame) {
+					mainGame.notify();
+				}
 			}//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 			
 		}
@@ -141,34 +151,16 @@ public class WinMorningClass extends WinBase{
 			lblNewLabel_1.setBounds(226, 107, 220, 68);
 			exitPanel.add(lblNewLabel_1);
 			
-			JButton btnNewButton_3 = new JButton("不学了，回宿舍");
-			btnNewButton_3.setBounds(87, 242, 190, 47);
+			JButton btnNewButton_3 = new JButton("回到地图……");
+			btnNewButton_3.setBounds(190, 242, 190, 47);
 			exitPanel.add(btnNewButton_3);
 			
-			JButton btnNewButton_4 = new JButton("还能学，上下午的课");
-			btnNewButton_4.setBounds(289, 242, 190, 47);
-			exitPanel.add(btnNewButton_4);
-		
-		JPanel gamePack = new JPanel();//将来可以用它来放临时小事件
+		ShootGame.mainGame=mainGame;//注意这里！不然没办法结束游戏！
+		ShootGame.dataPackage=dataPackage;//注意这里！不然没办法结束游戏！
+		JPanel gamePack = new ShootGame(254, 134);//将来可以用它来放临时小事件	
 		gamePack.setBounds(254, 134, 536, 398);
 		gamePack.setLayout(null);
 		gamePack.setOpaque(false);//注意要设成透明的
-		
-			ShootGame.mainGame=mainGame;//注意这里！不然没办法结束游戏！
-			ShootGame.dataPackage=dataPackage;//注意这里！不然没办法结束游戏！
-			JPanel gamePanel = new ShootGame(20);//将来可以用它来放临时小事件
-			gamePanel.setBounds(0, 0, 536, 398);
-			gamePanel.setOpaque(false);//注意要设成透明的
-			gamePanel.setLayout(null);
-				
-			JPanel EventBackgound = new ImagePanel("imgsrc//eb.png",0, 0, 536, 398);	
-			EventBackgound.setBounds(0, 0, 536, 398);
-			EventBackgound.setOpaque(false);//注意要设成透明的
-			EventBackgound.setLayout(null);
-			
-		gamePack.add(gamePanel);
-		gamePack.add(EventBackgound);
-		
 		
 		if (dataPackage.trigSubEvent) {
 			if(dataPackage.time==12) {
@@ -218,9 +210,10 @@ public class WinMorningClass extends WinBase{
 		panel.setLayout(null);
 		
 		JLabel StudentIDLable = new JLabel("学号");
-		StudentIDLable.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		StudentIDLable.setHorizontalAlignment(SwingConstants.CENTER);
+		StudentIDLable.setFont(new Font("Lucida Grande", Font.BOLD, 14));
+
 		StudentIDLable.setBounds(26, 78, 32, 16);
-		panel.add(StudentIDLable);
 		
 		JTextPane nameShow = new JTextPane();
 		nameShow.setEditable(false);
@@ -228,6 +221,9 @@ public class WinMorningClass extends WinBase{
 		panel.add(nameShow);
 		
 		JLabel nameLable = new JLabel("姓名");
+
+		nameLable.setHorizontalAlignment(SwingConstants.CENTER);
+
 		nameLable.setFont(new Font("Lucida Grande", Font.BOLD, 14));
 		nameLable.setBounds(26, 42, 32, 24);
 		panel.add(nameLable);
@@ -428,8 +424,8 @@ public class WinMorningClass extends WinBase{
 		Bar_Energy.setString(String.format("%d",dataPackage.characterEnergy));
 		Bar_happiness.setString(String.format("%d",dataPackage.characterHappiness));
 		healthBar.setString(String.format("%d",dataPackage.characterHealth));//进度条显示字
-		IDshow.setText(dataPackage.name);//显示名字
-		nameShow.setText(dataPackage.studentID);//显示学号
+		IDshow.setText(dataPackage.studentID);//显示学号
+		nameShow.setText(dataPackage.name);//显示名字
 		
 		label_social.setText("社交能力:"+dataPackage.characterEQ);
 		label_Art.setText("才艺能力:"+dataPackage.characterArt);
@@ -446,13 +442,12 @@ public class WinMorningClass extends WinBase{
 		InClassMouseListener clickanswer=new InClassMouseListener(1);//设置鼠标监听器，发生1号事件
 		InClassMouseListener clicknext=new InClassMouseListener(2);//设置鼠标监听器，发生2号事件
 		InClassMouseListener clickback=new InClassMouseListener(3);//设置鼠标监听器，发生3号事件
-		InClassMouseListener clickcontinue =new InClassMouseListener(4);//设置鼠标监听器，发生4号事件
 		
 		btnNewButton_1.addMouseListener(clickanswer);//0号事件是 回答按钮 被点击
     	btnNewButton.addMouseListener(clickask);//1号事件是 提问按钮 被点击
 		btnNewButton_2.addMouseListener(clicknext);//2号事件是 下一题按钮 被点击
 		btnNewButton_3.addMouseListener(clickback);//3号事件是 回宿舍按钮 被点击
-		btnNewButton_4.addMouseListener(clickcontinue);//4号事件是 下午课按钮 被点击
+
 			
 		/*		END OF YOUR CODE		*/
 		

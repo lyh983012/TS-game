@@ -36,6 +36,8 @@ public class EventMorningClass extends EventBase{
 		 *******************************************/
 		if (oldDataPack.choiceA.equals("back") || oldDataPack.choiceA.equals("continue")) {
 			oldDataPack.eventFinished=true;		//如果选择回宿舍或者去上下午的课，终止
+			if(oldDataPack.choiceA.equals("continue"))
+				oldDataPack.time+=1;	
 			return;								//直接返回，避免属性乱变
 		}
 		/*******************************************

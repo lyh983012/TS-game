@@ -2,7 +2,8 @@ package THUgame.Game;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import THUgame.tool.ImagePanel;
+
+import THUgame.datapack.DataPack;
 import java.awt.Color;
 import java.awt.EventQueue;
 
@@ -44,27 +45,11 @@ public class GamePanelTest{
 		backgroundPanel.setBackground(new Color(0, 0, 0));
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
-		
-		
-		JPanel EventPack = new JPanel();//将来可以用它来放临时小事件
-		EventPack.setBounds(254, 134, 536, 398);
-		EventPack.setLayout(null);
-		EventPack.setOpaque(false);//注意要设成透明的
-		
-			JPanel EventPanel = new ShootGame(20);//将来可以用它来放临时小事件
-			EventPanel.setBounds(0, 0, 536, 398);
-			EventPanel.setOpaque(false);//注意要设成透明的
-			EventPanel.setLayout(null);
-			
-			JPanel EventBackgound = new ImagePanel("imgsrc//eb.png",0, 0, 536, 398);	
-			EventBackgound.setBounds(0, 0, 536, 398);
-			EventBackgound.setOpaque(false);//注意要设成透明的
-			EventBackgound.setLayout(null);
-			
-		EventPack.add(EventPanel);
-		EventPack.add(EventBackgound);
+		DataPack dataPackage=new DataPack("choice demo");
+		ShootGame.dataPackage=dataPackage;
+		/************/
+		JPanel EventPack=new ShootGame(254, 134);
 		backgroundPanel.add(EventPack);
-
 
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(backgroundPanel);
