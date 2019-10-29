@@ -268,7 +268,6 @@ public class WinMap extends WinBase{
 		demoMouseListener clickGoToClassAfternoon=new demoMouseListener(1);//设置鼠标监听器，发生1号事件
 		demoMouseListener clickGoToClassMorning=new demoMouseListener(2);//设置鼠标监听器，发生2号事件
 
-
 		clickbackToDom.setButton(backToDom);
 		clickGoToClassAfternoon.setButton(GoToClassAfternoon);
 		clickGoToClassMorning.setButton(GoToClassMorning);
