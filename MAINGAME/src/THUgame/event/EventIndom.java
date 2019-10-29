@@ -45,10 +45,6 @@ public class EventInDom extends EventBase{
 		if (oldDataPack.choiceA.equals("gooutside")) {
 			oldDataPack.eventFinished=true;			//并且点击了去上课这个按钮，那么宿舍事件结束
 			return;									//直接返回，避免属性乱变
-		}else if(oldDataPack.term == 1 && oldDataPack.week == 1 && oldDataPack.date == 2 && oldDataPack.time == 19){
-			oldDataPack.eventFinished = true;      //第1学期-第1周-第2天-19点，宿舍时间结束，进入社团招新
-			oldDataPack.stateB = "enrollOrganization";
-			return;								   //直接返回，避免属性乱变
 		}
 		oldDataPack.stateA="";//StateC用于触发游戏
 		//StateC用于触发游戏
