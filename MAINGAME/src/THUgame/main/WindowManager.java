@@ -85,6 +85,7 @@ public class WindowManager extends JFrame {
 				break;
 			case 30002:
 				generator = new WinWelcome(mainGame,mainFrame);
+				break;
 				
 		}
 		/*		END OF YOUR CODE		*/

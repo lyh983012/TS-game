@@ -2,7 +2,7 @@ package THUgame.main;
 import THUgame.datapack.DataPack;
 import THUgame.event.EventBase;
 import THUgame.event.EventChoice;
-import THUgame.event.EventIndom;
+import THUgame.event.EventInDom;
 import THUgame.event.EventMorningClass;
 import THUgame.event.EventNoonClass;
 import THUgame.event.EventStateManager;
@@ -42,7 +42,7 @@ public class EventManager extends Thread{
     				pushForward = new EventHome();
     				break;
 				case 0:
-					pushForward = new EventIndom();
+					pushForward = new EventInDom();
 					break;
 				case 1:
 					pushForward = new EventMorningClass();

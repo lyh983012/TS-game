@@ -17,10 +17,6 @@ import THUgame.tool.ImagePanel;
  * update:20191018 01:03
  * 
  **/
-
-
-
-
 public class WinHome extends WinBase{
 		
 		

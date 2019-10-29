@@ -35,7 +35,7 @@ import THUgame.datapack.DataPack;
  * 
  * */
 
-public class EventIndom extends EventBase{
+public class EventInDom extends EventBase{
 
 	public void actOn(DataPack oldDataPack) {
 		/*******************************************
@@ -46,6 +46,10 @@ public class EventIndom extends EventBase{
 			oldDataPack.eventFinished=true;			//并且点击了去上课这个按钮，那么宿舍事件结束
 			return;									//直接返回，避免属性乱变
 		}
+		oldDataPack.stateA="";//StateC用于触发游戏
+		//StateC用于触发游戏
+		//StateA用于判断上午下午
+		//StateB用于判断是否上课
 		
 		/*******************************************
 		 * 在下面进行dataPack的处理
@@ -53,7 +57,6 @@ public class EventIndom extends EventBase{
 			this.characterEQ=50;
 			this.characterlucky=50;
 			this.characterArt=50;
-			
 			this.characterHealth=100;		//可变的
 			this.characterHappiness=50;
 			this.characterEnergy=100;
@@ -68,6 +71,7 @@ public class EventIndom extends EventBase{
 		int randomValue = r.nextInt(8) + 1;
 		int randomTime = r.nextInt(2) + 1;
 		int randomSnore = r.nextInt(10) + 1;  // 生成被吵醒的随机数
+		int randomGame = r.nextInt(10) + 1;  // 生成被吵醒的随机数
 		
 		switch(oldDataPack.choiceA) {
 			case "sleep":
@@ -78,10 +82,10 @@ public class EventIndom extends EventBase{
 					oldDataPack.characterHealth+=1;
 					oldDataPack.characterHappiness+=2;
 					oldDataPack.notification += "<br>过去了1小时，心情值+2，健康值+2，体力回复10点</html>";
-				}else if(randomSnore <= 5 && oldDataPack.time<3 ) { 
-												// 0点睡觉，50%触发被呼噜打醒
+				}else if(randomSnore <= 5 && oldDataPack.time<3 ) {// 0点睡觉，50%触发被呼噜打醒
 					oldDataPack.time=3;			//3点被吵醒
 					oldDataPack.trigSubEvent = true; // 触发子事件
+					oldDataPack.stateA="被吵醒";
 					oldDataPack.notification += "<br>到了三点……</html>";
 				}else { // 正常24点睡觉，然后睡醒
 					oldDataPack.trigSubEvent = false;  // 吵醒之后睡着，取消子事件
@@ -106,6 +110,10 @@ public class EventIndom extends EventBase{
 					oldDataPack.characterHappiness-=1;
 					oldDataPack.studyProgress+=1;
 					oldDataPack.notification += "<br>学习进度+1，心情值-1，体力消耗5点</html>";
+					if(randomGame <= 5) {
+						oldDataPack.stateA="game";	
+						oldDataPack.trigSubEvent = true; // 触发子事件
+					}
 					break;
 				}
 			case "wakehimup":
@@ -131,16 +139,12 @@ public class EventIndom extends EventBase{
 				break;
 		}
 		if (oldDataPack.time>=8 && oldDataPack.time<=10) { //只在特定时间可以去上课
-			oldDataPack.stateA="上早上课"; 				   //判断上午还是下午
 			oldDataPack.stateB="classtime";				   //用于判断是否显示按钮
 		}else if(oldDataPack.time>=13 && oldDataPack.time<=15){
-			oldDataPack.stateA="上下午课"; 				   //同理
 			oldDataPack.stateB="classtime";
-		}else if(oldDataPack.trigSubEvent){				   //如果触发被吵醒子事件
-			oldDataPack.stateA="被吵醒";
+		}else if(oldDataPack.trigSubEvent){				   //如果触发被吵醒子事件	
 			oldDataPack.stateB="othertime";
 		}else{
-			oldDataPack.stateA="自习";
 			oldDataPack.stateB="othertime";
 		}		
 		if (oldDataPack.characterHealth<=0)

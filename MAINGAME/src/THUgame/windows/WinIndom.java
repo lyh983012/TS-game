@@ -10,6 +10,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import java.awt.Font;
+
+import THUgame.Game.RememberGame;
+import THUgame.Game.ShootGame;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
@@ -195,30 +198,21 @@ public class WinInDom extends WinBase{
 		 *  	这一部分需要用dataPackage.trigSubEvent决定是否绘制
 		 *  	具体用法见MorninigClass窗口
 		 *************************************************************/
-		JPanel EventPanel = new JPanel();	
-		EventPanel.setBackground(new Color(255, 255, 204));
-		EventPanel.setBounds(254, 129, 531, 363);
-		backgroundPanel.add(EventPanel);
-		EventPanel.setLayout(null);
-
-		if (dataPackage.trigSubEvent){ // 触发子事件，小事情可见。。
-			EventPanel.setVisible(true);
-			sleepButton.setVisible(false);
-			selfstudyButton.setVisible(false);
-			OutButton.setVisible(false);
-		}else {
-			EventPanel.setVisible(false); // 未触发子事件，取消小事件，恢复睡觉按钮
-		}
+		JPanel SnorePanel = new JPanel();	
+		SnorePanel.setBackground(new Color(255, 255, 204));
+		SnorePanel.setBounds(254, 129, 531, 363);
+		backgroundPanel.add(SnorePanel);
+		SnorePanel.setLayout(null);
 		
 		JLabel label_1 = new JLabel("你被舍友的呼噜吵醒了，睡眠质量大跌");
 		label_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		label_1.setBounds(95, 130, 388, 16);
-		EventPanel.add(label_1);
+		SnorePanel.add(label_1);
 		
 		JLabel label_2 = new JLabel("健康下降、心情下降、社交力下降、体力下降");
 		label_2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		label_2.setBounds(95, 173, 388, 16);
-		EventPanel.add(label_2);
+		SnorePanel.add(label_2);
 		
 		JButton wakeButton = new JButton();
 		wakeButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
@@ -230,8 +224,30 @@ public class WinInDom extends WinBase{
 		stayButton.setBounds(300, 250, 120, 50);
 		stayButton.setText("保持沉默");
 		
-		EventPanel.add(wakeButton);
-		EventPanel.add(stayButton);
+		SnorePanel.add(wakeButton);
+		SnorePanel.add(stayButton);
+		
+		ShootGame.mainGame=mainGame;//注意这里！不然没办法结束游戏！
+		ShootGame.dataPackage=dataPackage;//注意这里！不然没办法结束游戏！
+		JPanel Remember = new RememberGame(254, 134);//将来可以用它来放临时小事件	
+		Remember.setBounds(254, 134, 536, 398);
+		Remember.setLayout(null);
+		Remember.setOpaque(false);//注意要设成透明的
+		backgroundPanel.add(Remember);
+		
+		SnorePanel.setVisible(false); // 未触发子事件，取消小事件，恢复睡觉按钮
+		Remember.setVisible(false); // 未触发子事件，取消小事件，恢复睡觉按钮
+
+		if (dataPackage.trigSubEvent){ // 触发子事件，小事情可见。。
+			if(dataPackage.stateA.equals("game")) {
+				Remember.setVisible(true);
+			}else if(dataPackage.stateA.equals("被吵醒")){
+				SnorePanel.setVisible(true);
+			}
+			sleepButton.setVisible(false);
+			selfstudyButton.setVisible(false);
+			OutButton.setVisible(false);
+		}
 		
 		/*************************************************************	
 		 * 【镶时钟】

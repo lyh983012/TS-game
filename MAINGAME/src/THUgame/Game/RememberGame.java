@@ -50,7 +50,7 @@ public class RememberGame extends JPanel{
 	private Timer timer;
 	private int length;
 	private boolean RememStart;
-	private int turn=5;
+	private int turn=3;
 
 	JPanel EventPanel;
 
@@ -179,7 +179,7 @@ public class RememberGame extends JPanel{
 		txtpnshi.setBounds(170, 100, 220, 70);
 		txtpnshi.setOpaque(false);
 		txtpnshi.setEditable(false);
-		txtpnshi.setText("你开始写作业了！规则：记忆点击顺序，按顺序点击对应的方块，一共有五轮");
+		txtpnshi.setText("你开始写作业了！规则：记忆点击顺序，按顺序点击对应的方块，一共有"+turn+"轮");
 		txtpnshi.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		this.add(txtpnshi);
 		
