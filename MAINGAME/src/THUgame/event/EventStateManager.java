@@ -37,17 +37,17 @@ public class EventStateManager extends EventBase{
 					if(dataPackage.stateA.equals("新游戏")) 
 						dataPackage.ID=30001;
 					break;	
-    			case 0://dom界面后进入教室
+    			case 0://dom界面
     				if(dataPackage.choiceA.equals("gooutside")) {
     					dataPackage.ID=3;
     				}
     				break;
-				case 1://上午界面后进入dom
+				case 1://上午界面
 					if(dataPackage.choiceA.equals("back")){
     					dataPackage.ID=3;
 					}
     				break;	
-				case 2://下午界面后进入dom
+				case 2://下午界面
 					if(dataPackage.choiceA.equals("back")){
     					dataPackage.ID=3;
 					}
@@ -59,7 +59,12 @@ public class EventStateManager extends EventBase{
 						dataPackage.ID=2;
 					}else if(dataPackage.choiceA=="clickGoToClassMorning"){
 						dataPackage.ID=1;
+					}else if(dataPackage.choiceA=="clickGoToSTA"){
+						dataPackage.ID=20016;
 					}
+					break;
+				case 20016://STA
+					dataPackage.ID=3;/*存疑*/
 					break;
 				case 30000://选择界面过后，进入游戏界面
 					dataPackage.ID=30002;

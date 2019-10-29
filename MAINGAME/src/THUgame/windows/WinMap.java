@@ -19,6 +19,11 @@ import THUgame.tool.ImagePanel;
 
 /*
  * 【地图界面】
+ * 
+ * update:20191030
+ * via：林逸晗
+ * 更新：加入safeGuardCount
+ * 
  *  update:20191028 01:07 
  *  via：林逸晗
  *  更新：绘制地图转换以及过场动画
@@ -68,35 +73,40 @@ public class WinMap extends WinBase{
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			/*		START OF YOUR CODE		*/
-			if(mode==0) {
-				dataPackage.choiceA="clickbackToDom";	//点按钮0（睡觉按钮）返回sleep
-			}else if(mode ==1){
-				dataPackage.choiceA="clickGoToClassAfternoon";//点按钮1（自习按钮）返回selfstudy
-			}else if(mode ==2){
-				dataPackage.choiceA="clickGoToClassMorning";//点按钮2（上课按钮）返回gotoclass
-			}		
-	    	
-			timer=new Timer(200,new ActionListener()
-		    	{
-	    			int count=0;
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						count+=1;
-						frame.getContentPane().removeAll();
-						JPanel bc = new ImagePanel("imgsrc//WinMap//"+(count%4+1)+".png",0, 0, 1080, 720);	
-						bc.setBounds(0, 0, 1080, 720);
-						frame.getContentPane().add(bc);
-						frame.getContentPane().repaint();
-						if(count==10) {
-							timer.stop();
-							dataPackage.eventFinished=true;
-							synchronized(mainGame) {
-								mainGame.notify();
+			if(safeGuardCount==0) {
+				safeGuardCount++;
+				if(mode==0) {
+					dataPackage.choiceA="clickbackToDom";	//点按钮0（睡觉按钮）返回sleep
+				}else if(mode ==1){
+					dataPackage.choiceA="clickGoToClassAfternoon";//点按钮1（自习按钮）返回selfstudy
+				}else if(mode ==2){
+					dataPackage.choiceA="clickGoToClassMorning";//点按钮2（上课按钮）返回gotoclass
+				}else if(mode ==3){
+					dataPackage.choiceA="clickGoToSTA";//点按钮2（上课按钮）返回gotoclass
+				}			
+		    	
+				timer=new Timer(200,new ActionListener()
+			    	{
+		    			int count=0;
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							count+=1;
+							frame.getContentPane().removeAll();
+							JPanel bc = new ImagePanel("imgsrc//WinMap//"+(count%4+1)+".png",0, 0, 1080, 720);	
+							bc.setBounds(0, 0, 1080, 720);
+							frame.getContentPane().add(bc);
+							frame.getContentPane().repaint();
+							if(count==10) {
+								timer.stop();
+								dataPackage.eventFinished=true;
+								synchronized(mainGame) {
+									mainGame.notify();
+								}
 							}
 						}
-					}
-		    	});
-	    	timer.start();
+			    	});
+		    	timer.start();
+			}
 		}
 		@Override
 		public void mouseEntered(MouseEvent e) {
@@ -165,6 +175,16 @@ public class WinMap extends WinBase{
 		setSelectedIcon("/imgsrc/WinMap/GoToClassNoon_Press.png",GoToClassAfternoon);
 		if(!dataPackage.todayAfternoonClass.equals("----") && dataPackage.time>=13 && dataPackage.time<=15) {
 			backgroundPanel.add(GoToClassAfternoon);
+		}
+		
+		JButton GoToSTA = new JButton();
+		GoToSTA.setContentAreaFilled(false);
+		GoToSTA.setBorderPainted(false);
+		GoToSTA.setBounds(720, 640, 75, 50);
+		setIcon("/imgsrc/WinMap/GoToSTA.png",GoToSTA);
+		setSelectedIcon("/imgsrc/WinMap/GoToSTA_Press.png",GoToSTA);
+		if(dataPackage.time>=8 && dataPackage.time<=18 ) {
+			backgroundPanel.add(GoToSTA);
 		}
 
 		/*************************************************************	
@@ -245,7 +265,7 @@ public class WinMap extends WinBase{
 		 * 		最后放。
 		 *************************************************************/
 		
-		JPanel Background=new ImagePanel("imgsrc//map.png",0, 0, 1080, 720);
+		JPanel Background=new ImagePanel("imgsrc//WinMap/map.png",0, 0, 1080, 720);
 		Background.setBounds(0, 0, 1080, 720);
 		backgroundPanel.add(Background);
 		Background.setLayout(null);
@@ -267,22 +287,24 @@ public class WinMap extends WinBase{
 		demoMouseListener clickbackToDom=new demoMouseListener(0);//设置鼠标监听器，发生0号事件
 		demoMouseListener clickGoToClassAfternoon=new demoMouseListener(1);//设置鼠标监听器，发生1号事件
 		demoMouseListener clickGoToClassMorning=new demoMouseListener(2);//设置鼠标监听器，发生2号事件
+		demoMouseListener clickGoToSTA=new demoMouseListener(3);//设置鼠标监听器，发生2号事件
 
 		clickbackToDom.setButton(backToDom);
 		clickGoToClassAfternoon.setButton(GoToClassAfternoon);
 		clickGoToClassMorning.setButton(GoToClassMorning);
+		clickGoToSTA.setButton(GoToSTA);
 		
 		backToDom.addMouseListener(clickbackToDom);//0号事件是 睡觉按钮 被点击
 		GoToClassAfternoon.addMouseListener(clickGoToClassAfternoon);//1号事件是 去自习按钮 被点击
 		GoToClassMorning.addMouseListener(clickGoToClassMorning);
-		/*		END OF YOUR CODE		*/
+		GoToSTA.addMouseListener(clickGoToSTA);
+		/*		  END OF YOUR CODE		*/
     	    	
     	/*****************************************************************				
 		 * 【恢复显示】
 		 * 必须存在的四行代码！！！！
 		 ******************************************************************/
 		//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(backgroundPanel);
 		frame.getContentPane().repaint();

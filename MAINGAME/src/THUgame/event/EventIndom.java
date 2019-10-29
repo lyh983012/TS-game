@@ -68,7 +68,6 @@ public class EventInDom extends EventBase{
 			oldDataPack.notification="我死了。";
 		}
 		Random r = new Random();
-		int randomValue = r.nextInt(8) + 1;
 		int randomTime = r.nextInt(2) + 1;
 		int randomSnore = r.nextInt(10) + 1;  // 生成被吵醒的随机数
 		int randomGame = r.nextInt(10) + 1;  // 生成被吵醒的随机数
@@ -105,13 +104,14 @@ public class EventInDom extends EventBase{
 					break;
 				}else{
 					oldDataPack.time+=1;		//自习需要耗时，时间+1（原本的版本是计数器+1）
-					oldDataPack.notification="<html>再写会儿作业，身体变得有些疲劳，微微有些不适";
+					oldDataPack.notification="<html>写会儿作业，身体变得有些疲劳，微微有些不适";
 					oldDataPack.characterEnergy-=5;
 					oldDataPack.characterHappiness-=1;
 					oldDataPack.studyProgress+=1;
 					oldDataPack.notification += "<br>学习进度+1，心情值-1，体力消耗5点</html>";
 					if(randomGame <= 5) {
 						oldDataPack.stateA="game";	
+						oldDataPack.time+=5;
 						oldDataPack.trigSubEvent = true; // 触发子事件
 					}
 					break;

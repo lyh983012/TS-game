@@ -22,9 +22,13 @@ import THUgame.tool.ImagePanel;
  * 
  * --DIALOG--
  * 
+ * update:20191030
+ * via：林逸晗
+ * 更新：加入safeGuardCount
+ * 
  * update:20191028 01:07
  * via：林逸晗
- * 更新：更改了界面UI，使之适配MAP
+ * 更新：更改了界面UI，使之适配MAP，加入了游戏
  * 
  * update:20191018 01:07
  * via：余冬杰
@@ -106,22 +110,25 @@ public class WinInDom extends WinBase{
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			/*		START OF YOUR CODE		*/
-			if(mode==0) {
-				dataPackage.choiceA="sleep";	//点按钮0（睡觉按钮）返回sleep
-			}else if(mode ==1){
-				dataPackage.choiceA="selfstudy";//点按钮1（自习按钮）返回selfstudy
-			}else if(mode ==2){
-				dataPackage.choiceA="gooutside";//点按钮2（上课按钮）返回gotoclass
-			}else if(mode ==3){
-				dataPackage.choiceA="wakehimup";//点按钮3（唤醒按钮）返回wakehimup
-			}else if(mode ==4){
-				dataPackage.choiceA="stayup";//点按钮4（待着按钮）返回stayup
-			}
-			/*		END OF YOUR CODE		*/
-			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-			EventManager.dataPackage=dataPackage;
-			synchronized(mainGame) {
-				mainGame.notify();
+			if(safeGuardCount==0) {
+				safeGuardCount++;
+				if(mode==0) {
+					dataPackage.choiceA="sleep";	//点按钮0（睡觉按钮）返回sleep
+				}else if(mode ==1){
+					dataPackage.choiceA="selfstudy";//点按钮1（自习按钮）返回selfstudy
+				}else if(mode ==2){
+					dataPackage.choiceA="gooutside";//点按钮2（上课按钮）返回gotoclass
+				}else if(mode ==3){
+					dataPackage.choiceA="wakehimup";//点按钮3（唤醒按钮）返回wakehimup
+				}else if(mode ==4){
+					dataPackage.choiceA="stayup";//点按钮4（待着按钮）返回stayup
+				}
+				/*		END OF YOUR CODE		*/
+				//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+				EventManager.dataPackage=dataPackage;
+				synchronized(mainGame) {
+					mainGame.notify();
+				}
 			}
 			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		}
@@ -186,13 +193,9 @@ public class WinInDom extends WinBase{
 		JButton OutButton = new JButton();
 		OutButton.setBorderPainted(false);
 		OutButton.setBounds(819, 611, 150, 50);
-		if (dataPackage.stateB.equals("classtime")) {	//高级应用：仅仅在符合“classtime”状态的时候显示这个按钮
-			if(!dataPackage.todayMorningClass.equals("----")||!dataPackage.todayAfternoonClass.equals("----")) {
-				setIcon("/imgsrc/Windom/out.png",OutButton);
-				setSelectedIcon("/imgsrc/Windom/out_press.png",OutButton);
-				backgroundPanel.add(OutButton);
-			}
-		}
+		setIcon("/imgsrc/Windom/out.png",OutButton);
+		setSelectedIcon("/imgsrc/Windom/out_press.png",OutButton);
+		backgroundPanel.add(OutButton);
 		/*************************************************************	
 		 * 【小事件】 
 		 *  	这一部分需要用dataPackage.trigSubEvent决定是否绘制
@@ -227,8 +230,8 @@ public class WinInDom extends WinBase{
 		SnorePanel.add(wakeButton);
 		SnorePanel.add(stayButton);
 		
-		ShootGame.mainGame=mainGame;//注意这里！不然没办法结束游戏！
-		ShootGame.dataPackage=dataPackage;//注意这里！不然没办法结束游戏！
+		RememberGame.mainGame=mainGame;//注意这里！不然没办法结束游戏！
+		RememberGame.dataPackage=dataPackage;//注意这里！不然没办法结束游戏！
 		JPanel Remember = new RememberGame(254, 134);//将来可以用它来放临时小事件	
 		Remember.setBounds(254, 134, 536, 398);
 		Remember.setLayout(null);

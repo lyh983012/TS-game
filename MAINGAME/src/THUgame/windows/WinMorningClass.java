@@ -23,6 +23,9 @@ import javax.swing.SwingConstants;
 /*【早课界面】
  * 
  * --DIALOG--
+ * update:20191030
+ * via：林逸晗
+ * 更新：加入safeGuardCount
  * 
  * update:20191028 01:07
  * via：林逸晗
@@ -78,19 +81,22 @@ public class WinMorningClass extends WinBase{
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			/*		START OF YOUR CODE		*/
-			if(mode==0) {
-				dataPackage.choiceA="answer";
-			}else if(mode==1){
-				dataPackage.choiceA="ask";
-			}else if(mode==2){
-				dataPackage.choiceA="next";
-			}else if(mode==3){
-				dataPackage.choiceA="back";
-			}
-			/*		END OF YOUR CODE		*/
-			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-			synchronized(mainGame) {
-				mainGame.notify();
+			if(safeGuardCount==0) {
+				safeGuardCount++;
+				if(mode==0) {
+					dataPackage.choiceA="answer";
+				}else if(mode==1){
+					dataPackage.choiceA="ask";
+				}else if(mode==2){
+					dataPackage.choiceA="next";
+				}else if(mode==3){
+					dataPackage.choiceA="back";
+				}
+				/*		END OF YOUR CODE		*/
+				//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+				synchronized(mainGame) {
+					mainGame.notify();
+				}
 			}//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 			
 		}

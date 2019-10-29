@@ -11,6 +11,11 @@ import THUgame.main.EventManager;
  * 可视化界面模板的基类
  * 
  * --DIALOG--
+ * 
+ * update:20191030
+ * via：林逸晗
+ * 更新：加入safeGuardCount
+ * 
  * version 1.3
  * via 林逸晗
  * update:20191018 01:00 轻量化
@@ -34,7 +39,8 @@ import THUgame.main.EventManager;
 		
 		static protected abstract class BaseMouseListener implements MouseListener{
 			private EventManager mainGame;
-			private JFrame frame;		
+			private JFrame frame;	
+			protected int safeGuardCount=0;
 			public void setFrame(JFrame frame) {
 				this.frame=frame;
 			}

@@ -26,6 +26,11 @@ import javax.swing.SwingConstants;
  * 【欢迎界面】
  * 
  * --DIALOG--
+ * 
+ * update:20191030
+ * via：林逸晗
+ * 更新：加入safeGuardCount
+ * 
  * update：20191018 16:30
  * via 林逸晗
  * 更新；解决了按钮的问题，更新了GUI
@@ -127,38 +132,17 @@ public class WinWelcome extends WinBase{
 		backgroundImage.setOpaque(false);
 		backgroundImage.setLayout(null);
 		
-		/*
-		JButton button = new JButton();
-		button.setBorderPainted(false);
-		button.setBounds(850,550,150,50);
-		button.setText("确定");
-		*/
-		JPanel panelbutton = new JPanel();
-		panelbutton.setLayout(null);
-		panelbutton.setOpaque(false);
-		panelbutton.setBounds(850,550,70,70);
-		panelbutton.setLayout(null);
-		
-		JLabel Text = new JLabel("确定");
-		Text.setFont(new Font("印品黑体", Font.PLAIN, 19));
-		Text.setForeground(Color.BLACK);
-		Text.setBounds(0, 0, 70,70);
-		Text.setHorizontalAlignment(SwingConstants.CENTER);
-		
 		JButton button= new JButton();	
 		button.setBorderPainted(false);
-		button.setFont(new Font("印品黑体", Font.PLAIN, 16));
+		button.setFont(new Font("印品黑体", Font.PLAIN, 19));
 		button.setForeground(Color.BLACK);
-		button.setBounds(0, 0, 70,70);
+		button.setBounds(850, 550, 80, 80);
 		button.setContentAreaFilled(false);
 		button.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		setIcon("/imgsrc/WinBackground/ca.png",button);
 		setSelectedIcon("/imgsrc/WinBackground/cb.png",button);
 		
-		panelbutton.add(Text);
-		panelbutton.add(button);
-		backgroundPanel.add(panelbutton);
 		
 		JLabel textLabel = new JLabel();
 		textLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -167,7 +151,7 @@ public class WinWelcome extends WinBase{
 		textLabel.setFont(new Font("印品黑体", Font.PLAIN, 30));
 		textLabel.setBounds(80, 60, 948, 460);
 		
-		backgroundPanel.add(panelbutton);
+		backgroundPanel.add(button);
 		backgroundPanel.add(textLabel);
 		backgroundPanel.add(backgroundImage);
 		

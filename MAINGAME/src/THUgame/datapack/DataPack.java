@@ -1,7 +1,11 @@
 package THUgame.datapack;
+import THUgame.tool.CourseGrade;
 
 /*数据包模板（请保持最新）
  * template version 1.1
+ * update:20191029 01:30
+ * 增加了科协需要的贡献度、科创能力属性
+ * 增加了课程表等成员
  * 
  * update:20191018 01:30
  * update:20191006 19:30
@@ -64,6 +68,8 @@ public class DataPack {
 	public boolean holdStudentFestival=false;//负责学生节筹办		//state012
 	public boolean holdFreshmanGame=false;	 //负责新生赛筹办		//state013
 	
+	public int contibuteSTA=0;		//科协贡献度
+	public int STcap=0;				//科创能力，和新生赛以及挑战杯等有关系
 	
 	/*******************************************************
 	 * 自己定义的分支事件的ID，之后写在同一个文件中方便查阅
@@ -72,6 +78,13 @@ public class DataPack {
 	 *将转场动画、成就系统显示、初始等都设计为分支事件
 	 *******************************************************/
 	public int ID=0;
+
+	/* 与课程有关的属性
+	 * 
+	 * 已修课程成绩单courseGrade:每一门修过的课是CourseGrade类的一个对象
+	 */
+	public CourseGrade[] courseGrade; //已修课程成绩单及本学期选课课程
+	public int courseGradeCount=0; //“已修课程成绩单”数组中有多少个元素
 	/*******************************************************
 	 * stateInEvent表示在某个支线中走到了第几步，可以自己定义一下协议
 	 * 例如：stateInEvent="1231";
@@ -123,6 +136,8 @@ public class DataPack {
 		nextStep="";
 		stateInEvent="";
 		count=0;
+		this.courseGrade=new CourseGrade[100];
+		this.courseGradeCount=0;
 	}
 	public DataPack(String type){
 		if(type.equals("demo")) {
@@ -149,7 +164,6 @@ public class DataPack {
 			this.characterEQ=50;
 			this.characterlucky=50;
 			this.characterArt=50;
-			
 			this.characterHealth=100;		//可变的
 			this.characterHappiness=50;
 			this.characterEnergy=100;
