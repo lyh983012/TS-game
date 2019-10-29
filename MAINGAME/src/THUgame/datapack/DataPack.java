@@ -39,7 +39,6 @@ public class DataPack {
 	public int studyProgress=0;			//每个学期的进度
 	public int studyAim=999999;			//每个学期的目标
 
-
 	/*******************************************************
 	 * 人物隐藏属性
 	 *******************************************************/
@@ -53,7 +52,6 @@ public class DataPack {
 	/*******************************************************
 	 * 事件状态
 	 *******************************************************/
-
 	public boolean joinSTA=false;		//加入了科协				//state000
 	public boolean joinClub=false;		//加入兴趣社团-通过隐藏属性设定社团名字
 																//state001
@@ -69,10 +67,9 @@ public class DataPack {
 	public boolean paperPublised=false;	//paper发表了				//state011
 	public boolean holdStudentFestival=false;//负责学生节筹办		//state012
 	public boolean holdFreshmanGame=false;	 //负责新生赛筹办		//state013
-
+	
 	public int contibuteSTA=0;		//科协贡献度
 	public int STcap=0;				//科创能力，和新生赛以及挑战杯等有关系
-
 	
 	/*******************************************************
 	 * 自己定义的分支事件的ID，之后写在同一个文件中方便查阅
@@ -82,14 +79,12 @@ public class DataPack {
 	 *******************************************************/
 	public int ID=0;
 
-
 	/* 与课程有关的属性
 	 * 
 	 * 已修课程成绩单courseGrade:每一门修过的课是CourseGrade类的一个对象
 	 */
 	public CourseGrade[] courseGrade; //已修课程成绩单及本学期选课课程
 	public int courseGradeCount=0; //“已修课程成绩单”数组中有多少个元素
-
 	/*******************************************************
 	 * stateInEvent表示在某个支线中走到了第几步，可以自己定义一下协议
 	 * 例如：stateInEvent="1231";
@@ -163,18 +158,12 @@ public class DataPack {
 			this.ID=-1;
 			this.date=1;
 			this.term=1;
-
-			this.name="2016000001";
-			this.studentID="神秘杰哥";
-
 			this.name="特奖杰哥";
 			this.studentID="2016000001";
-
 			this.characterIQ=50;
 			this.characterEQ=50;
 			this.characterlucky=50;
 			this.characterArt=50;
-
 			this.characterHealth=100;		//可变的
 			this.characterHappiness=50;
 			this.characterEnergy=100;

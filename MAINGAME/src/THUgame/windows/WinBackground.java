@@ -141,6 +141,8 @@ public class WinBackground extends WinBase{
 		setIcon("/imgsrc/WinBackground/ca.png",button);
 		setSelectedIcon("/imgsrc/WinBackground/cb.png",button);
 		
+		//panelbutton.add(Text);
+		
 	
 		
 
@@ -151,7 +153,7 @@ public class WinBackground extends WinBase{
 		textLabel.setFont(new Font("印品黑体", Font.PLAIN, 30));
 		textLabel.setBounds(80, 60, 948, 460);
 		
-		backgroundPanel.add(panelbutton);
+		backgroundPanel.add(button);
 		backgroundPanel.add(textLabel);
 		backgroundPanel.add(backgroundImage);
 		

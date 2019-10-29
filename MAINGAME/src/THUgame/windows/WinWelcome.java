@@ -26,9 +26,6 @@ import javax.swing.SwingConstants;
  * 【欢迎界面】
  * 
  * --DIALOG--
- * update：20191018 16:30
- * via 林逸晗
- * 更新；解决了按钮的问题，更新了GUI
  * 
  * update:20191030
  * via：林逸晗
@@ -154,7 +151,7 @@ public class WinWelcome extends WinBase{
 		textLabel.setFont(new Font("印品黑体", Font.PLAIN, 30));
 		textLabel.setBounds(80, 60, 948, 460);
 		
-		backgroundPanel.add(panelbutton);
+		backgroundPanel.add(button);
 		backgroundPanel.add(textLabel);
 		backgroundPanel.add(backgroundImage);
 		

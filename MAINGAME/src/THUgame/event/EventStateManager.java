@@ -26,7 +26,61 @@ public class EventStateManager extends EventBase{
 			dataPackage.week%=4;
 			dataPackage.term+=1;
 		}
-		
+		/*********************************		
+		 * 
+		 * 在数据包被处理完之后，判断是否发生分支事件转移
+		 * 	
+		 *********************************/
+		if (dataPackage.eventFinished==true){
+    		switch(dataPackage.ID) {
+				case -1://开始界面过后，进入选择界面
+					if(dataPackage.stateA.equals("新游戏")) 
+						dataPackage.ID=30001;
+					break;	
+    			case 0://dom界面
+    				if(dataPackage.choiceA.equals("gooutside")) {
+    					dataPackage.ID=3;
+    				}
+    				break;
+				case 1://上午界面
+					if(dataPackage.choiceA.equals("back")){
+    					dataPackage.ID=3;
+					}
+    				break;	
+				case 2://下午界面
+					if(dataPackage.choiceA.equals("back")){
+    					dataPackage.ID=3;
+					}
+					break;	
+				case 3://MAP
+					if(dataPackage.choiceA=="clickbackToDom") {
+						dataPackage.ID=0;
+					}else if(dataPackage.choiceA=="clickGoToClassAfternoon"){
+						dataPackage.ID=2;
+					}else if(dataPackage.choiceA=="clickGoToClassMorning"){
+						dataPackage.ID=1;
+					}else if(dataPackage.choiceA=="clickGoToSTA"){
+						dataPackage.ID=20016;
+					}
+					break;
+				case 20016://STA
+					dataPackage.ID=3;/*存疑*/
+					break;
+				case 30000://选择界面过后，进入游戏界面
+					dataPackage.ID=30002;
+					break;
+				case 30001:
+					dataPackage.ID=30000;
+					break;
+				case 30002:
+					dataPackage.ID=0;
+					break;
+        		}
+        		dataPackage.clearEventState();//复原状态，以免别人的分支出问题
+		}
+		/*********************************		
+		 * 属性限制
+		 *********************************/
 		if(dataPackage.characterIQ>100)dataPackage.characterIQ=100;
 		if(dataPackage.characterIQ<0)dataPackage.characterIQ=0;
 		if(dataPackage.characterEQ>100)dataPackage.characterEQ=100;
@@ -43,8 +97,9 @@ public class EventStateManager extends EventBase{
 		if(dataPackage.characterEnergy<0)dataPackage.characterEnergy=0;
 		if(dataPackage.studyProgress>dataPackage.studyAim)dataPackage.studyProgress=dataPackage.studyAim;
 		if(dataPackage.studyProgress<0)dataPackage.studyProgress=0;
-		
-		
+		/*********************************		
+		 * 固定课表
+		 *********************************/
 		switch(dataPackage.date) {
 			case 1:
 				dataPackage.todayMorningClass="微积分A";//表示早上的课

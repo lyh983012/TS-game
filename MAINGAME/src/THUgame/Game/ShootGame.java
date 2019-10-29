@@ -64,90 +64,12 @@ public class ShootGame extends JPanel {
     private int Hw,Hh;
     private Timer timer;
     private ArrayList<Bullet> Bullets;
-
-
-    class TimerListener implements ActionListener {
-        /** Handle ActionEvent */
-        public void actionPerformed(ActionEvent e) {
-        	if (timeLeft>=0 && started) {
-        		repaint();
-        	}
-        }
-    }
-
-	
-    /*敌人生成器*/
-    class Bullet extends JButton{
-		
-		boolean correct;
-		int dx,dy;
-		
-	
-		public Bullet(){
-			Random r = new Random();
-			dx = r.nextInt(8) - 4;
-			dy = r.nextInt(3) + 1;
-			
-			int a = r.nextInt(10) - 4;
-			int b = r.nextInt(10) + 1;
-			int answer;
-			int tub=r.nextInt(10) - 10;
-			if(r.nextInt(2)==1)
-				this.correct=true;
-			else
-				this.correct=false;
-			switch(r.nextInt(4)) {
-				case 0:
-					answer=a+b;
-					if(!this.correct) 
-						answer+=tub;
-					this.setText(String.valueOf(a)+"+"+String.valueOf(b)+"="+String.valueOf(answer));
-					break;
-				case 1:
-					answer=a-b;
-					if(!this.correct) 
-						answer+=tub;
-					this.setText(String.valueOf(a)+"-"+String.valueOf(b)+"="+String.valueOf(answer));
-					break;
-				case 2:
-					answer=a*b;
-					if(!this.correct) 
-						answer+=tub;
-					this.setText(String.valueOf(a)+"*"+String.valueOf(b)+"="+String.valueOf(answer));
-					break;
-				case 3:
-					double answer2=a/b;
-					if(!this.correct) 
-						answer2+=tub;
-					this.setText(String.valueOf(a)+"/"+String.valueOf(b)+"="+String.valueOf(answer2));
-					break;
-			}
-		}
-	}
-
-    class EnderListener implements ActionListener{
-    	
-    	public EventManager mainGame;
-    	public DataPack dataPackage;
-    	
-    	public EnderListener(DataPack dataPackage, EventManager mainGame){
-    		this.mainGame=mainGame;
-    		this.dataPackage=dataPackage;
-    	}
-    		@Override
-    	public void actionPerformed(ActionEvent e) {
-    			this.dataPackage.trigSubEvent=false;
-    			this.dataPackage.characterIQ+=score/10;//在这里改属性
-    			this.dataPackage.notification="<html>老师随机点你完成了一个非常负责的任务，你硬着头皮完成了这个任务";
-    			this.dataPackage.notification += "<br>在这个珍贵的机会之下，你的智力值发生了"+String.valueOf(score/10)+"的变化</html>";
-	    		//System.out.println("end");
-	   			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-	   			synchronized(mainGame) {
-	   				this.mainGame.notify();
-	   			}//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-   			}
-   		}
-
+    private JPanel EventPanel;
+    private JLabel scoreShow;
+    private JLabel scoreTime;
+    private JButton HeroNewButton;
+    private JButton Teacher;
+    private boolean started=false;
     /*初始界面*/
     public ShootGame(int x,int y) {
     	

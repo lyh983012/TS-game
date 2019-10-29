@@ -417,7 +417,6 @@ public class WinNoonClass extends WinBase{
 		IDshow.setText(dataPackage.studentID);//显示学号
 		nameShow.setText(dataPackage.name);//显示名字
 
-
 		
 		label_social.setText("社交能力:"+dataPackage.characterEQ);
 		label_Art.setText("才艺能力:"+dataPackage.characterArt);

@@ -71,7 +71,6 @@ public class EventInDom extends EventBase{
 		int randomTime = r.nextInt(2) + 1;
 		int randomSnore = r.nextInt(10) + 1;  // 生成被吵醒的随机数
 		int randomGame = r.nextInt(10) + 1;  // 生成被吵醒的随机数
-
 		
 		switch(oldDataPack.choiceA) {
 			case "sleep":
@@ -82,7 +81,6 @@ public class EventInDom extends EventBase{
 					oldDataPack.characterHealth+=1;
 					oldDataPack.characterHappiness+=2;
 					oldDataPack.notification += "<br>过去了1小时，心情值+2，健康值+2，体力回复10点</html>";
-
 				}else if(randomSnore <= 5 && oldDataPack.time<3 ) {// 0点睡觉，50%触发被呼噜打醒
 					oldDataPack.time=3;			//3点被吵醒
 					oldDataPack.trigSubEvent = true; // 触发子事件
@@ -106,9 +104,7 @@ public class EventInDom extends EventBase{
 					break;
 				}else{
 					oldDataPack.time+=1;		//自习需要耗时，时间+1（原本的版本是计数器+1）
-
 					oldDataPack.notification="<html>写会儿作业，身体变得有些疲劳，微微有些不适";
-
 					oldDataPack.characterEnergy-=5;
 					oldDataPack.characterHappiness-=1;
 					oldDataPack.studyProgress+=1;

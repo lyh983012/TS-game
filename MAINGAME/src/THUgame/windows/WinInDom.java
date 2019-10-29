@@ -201,7 +201,6 @@ public class WinInDom extends WinBase{
 		 *  	这一部分需要用dataPackage.trigSubEvent决定是否绘制
 		 *  	具体用法见MorninigClass窗口
 		 *************************************************************/
-
 		JPanel SnorePanel = new JPanel();	
 		SnorePanel.setBackground(new Color(255, 255, 204));
 		SnorePanel.setBounds(254, 129, 531, 363);
@@ -479,7 +478,6 @@ public class WinInDom extends WinBase{
 		healthBar.setString(String.format("%d",dataPackage.characterHealth));//进度条显示字
 		IDshow.setText(dataPackage.studentID);//显示学号
 		nameShow.setText(dataPackage.name);//显示名字
-
 		
 		label_social.setText("社交能力:"+dataPackage.characterEQ);
 		label_Art.setText("才艺能力:"+dataPackage.characterArt);

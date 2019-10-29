@@ -212,7 +212,6 @@ public class WinMorningClass extends WinBase{
 		JLabel StudentIDLable = new JLabel("学号");
 		StudentIDLable.setHorizontalAlignment(SwingConstants.CENTER);
 		StudentIDLable.setFont(new Font("Lucida Grande", Font.BOLD, 14));
-
 		StudentIDLable.setBounds(26, 78, 32, 16);
 		
 		JTextPane nameShow = new JTextPane();
@@ -221,9 +220,7 @@ public class WinMorningClass extends WinBase{
 		panel.add(nameShow);
 		
 		JLabel nameLable = new JLabel("姓名");
-
 		nameLable.setHorizontalAlignment(SwingConstants.CENTER);
-
 		nameLable.setFont(new Font("Lucida Grande", Font.BOLD, 14));
 		nameLable.setBounds(26, 42, 32, 24);
 		panel.add(nameLable);
