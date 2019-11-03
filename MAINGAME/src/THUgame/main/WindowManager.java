@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import THUgame.datapack.DataPack;
 import THUgame.subevents.EventSTA;
+import THUgame.subwindows.WinResearch;
 import THUgame.subwindows.WinSTA;
 import THUgame.windows.WinBase;
 import THUgame.windows.WinChoice;
@@ -54,6 +55,7 @@ public class WindowManager extends JFrame {
 		WinBackground.dataPackage=dataPackage;
 		WinWelcome.dataPackage=dataPackage;
 		WinSTA.dataPackage=dataPackage;
+		WinResearch.dataPackage=dataPackage;
 		/*		END OF YOUR CODE		*/
 	}
 	
@@ -80,8 +82,12 @@ public class WindowManager extends JFrame {
 			case 3:
 				generator = new WinMap(mainGame,mainFrame);
 				break;
+			case 2000:
+				generator = new WinResearch(mainGame,mainFrame);
+				break;
 			case 20016:
-				generator = new WinSTA(mainGame,mainFrame);
+				//generator = new WinSTA(mainGame,mainFrame);
+				generator = new WinResearch(mainGame,mainFrame);
 				break;
 			case 30000:
 				generator = new WinChoice(mainGame,mainFrame);

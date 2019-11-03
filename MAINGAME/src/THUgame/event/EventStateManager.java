@@ -61,6 +61,8 @@ public class EventStateManager extends EventBase{
 						dataPackage.ID=1;
 					}else if(dataPackage.choiceA=="clickGoToSTA"){
 						dataPackage.ID=20016;
+					}else if(dataPackage.choiceA=="clickGoToResearch") {
+						dataPackage.ID=2000;
 					}
 					break;
 				case 20016://STA

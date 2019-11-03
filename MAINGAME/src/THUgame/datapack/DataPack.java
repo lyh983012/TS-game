@@ -70,6 +70,7 @@ public class DataPack {
 	
 	public int contibuteSTA=0;		//科协贡献度
 	public int STcap=0;				//科创能力，和新生赛以及挑战杯等有关系
+
 	
 	/*******************************************************
 	 * 自己定义的分支事件的ID，之后写在同一个文件中方便查阅
@@ -156,6 +157,26 @@ public class DataPack {
 		}
 		if(type.equals("choice demo")) {
 			this.ID=-1;
+			this.date=1;
+			this.term=1;
+			this.name="特奖杰哥";
+			this.studentID="2016000001";
+			this.characterIQ=50;
+			this.characterEQ=50;
+			this.characterlucky=50;
+			this.characterArt=50;
+			this.characterHealth=100;		//可变的
+			this.characterHappiness=50;
+			this.characterEnergy=100;
+			this.studyProgress=0;			//每个学期的进度
+			this.studyAim=999999;			//每个学期的目标
+			this.count=0;
+			this.eventFinished=false;
+			this.stateA="自习";
+		}
+		// 下面的demo仅为了测试科研地图
+		if(type.equals("test research map demo")) {
+			this.ID=2000;
 			this.date=1;
 			this.term=1;
 			this.name="特奖杰哥";

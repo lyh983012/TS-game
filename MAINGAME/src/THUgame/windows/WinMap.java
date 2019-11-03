@@ -83,7 +83,9 @@ public class WinMap extends WinBase{
 					dataPackage.choiceA="clickGoToClassMorning";//点按钮2（上课按钮）返回gotoclass
 				}else if(mode ==3){
 					dataPackage.choiceA="clickGoToSTA";//点按钮2（上课按钮）返回gotoclass
-				}			
+				}else if(mode ==4) {
+					dataPackage.choiceA="clickGoToResearch";
+				}
 		    	
 				timer=new Timer(200,new ActionListener()
 			    	{
@@ -185,6 +187,16 @@ public class WinMap extends WinBase{
 		setSelectedIcon("/imgsrc/WinMap/GoToSTA_Press.png",GoToSTA);
 		if(dataPackage.time>=8 && dataPackage.time<=18 ) {
 			backgroundPanel.add(GoToSTA);
+		}
+		
+		JButton GoToResearch = new JButton();
+		GoToResearch.setContentAreaFilled(false);
+		GoToResearch.setBorderPainted(false);
+		GoToResearch.setBounds(750, 400, 120, 50);
+		setIcon("/imgsrc/WinMap/GoToResearch.png",GoToResearch);
+		setSelectedIcon("/imgsrc/WinMap/GoToResearch_Press.png", GoToResearch);
+		if(dataPackage.time >=8 && dataPackage.time<=18) {
+			backgroundPanel.add(GoToResearch);
 		}
 
 		/*************************************************************	
@@ -288,16 +300,19 @@ public class WinMap extends WinBase{
 		demoMouseListener clickGoToClassAfternoon=new demoMouseListener(1);//设置鼠标监听器，发生1号事件
 		demoMouseListener clickGoToClassMorning=new demoMouseListener(2);//设置鼠标监听器，发生2号事件
 		demoMouseListener clickGoToSTA=new demoMouseListener(3);//设置鼠标监听器，发生2号事件
+		demoMouseListener clickGoToResearch=new demoMouseListener(4);
 
 		clickbackToDom.setButton(backToDom);
 		clickGoToClassAfternoon.setButton(GoToClassAfternoon);
 		clickGoToClassMorning.setButton(GoToClassMorning);
 		clickGoToSTA.setButton(GoToSTA);
+		clickGoToResearch.setButton(GoToResearch);
 		
 		backToDom.addMouseListener(clickbackToDom);//0号事件是 睡觉按钮 被点击
 		GoToClassAfternoon.addMouseListener(clickGoToClassAfternoon);//1号事件是 去自习按钮 被点击
 		GoToClassMorning.addMouseListener(clickGoToClassMorning);
 		GoToSTA.addMouseListener(clickGoToSTA);
+		GoToResearch.addMouseListener(clickGoToResearch);
 		/*		  END OF YOUR CODE		*/
     	    	
     	/*****************************************************************				
