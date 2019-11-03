@@ -4,11 +4,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
 import java.awt.Font;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
@@ -18,7 +23,12 @@ import THUgame.tool.ImagePanel;
  * 【宿舍界面】
  * 
  * --DIALOG--
- * 
+ *  update:20191103
+ *  via：余冬杰
+ *  更新：
+ *  	1.问卷设计基本完成，背景待美化
+ *  	2.问卷按键监听，结果保存
+ *  
  *  update:20191029
  *  via：余冬杰
  *  更新：
@@ -26,7 +36,10 @@ import THUgame.tool.ImagePanel;
  *      1.接受/拒绝凌艺涵的对话框
  *      2.招新问卷（按钮、背景素材）
  *      3.填完问卷如何存储属性
- * 
+ *      4.主要变化在对话框和招新问卷、聘书
+ *  TODO LIST in line:
+ *  154 background image of questionnaire
+ *  
  **/
 
 
@@ -141,13 +154,117 @@ public class WinOrganization extends WinBase{
 		 *  	具体用法见MorninigClass窗口
 		 *************************************************************/
 		JPanel enrollPack = new JPanel();
-		enrollPack.setBounds(291, 32, 440, 424);
+		enrollPack.setBounds(291, 32, 440, 430);
 		enrollPack.setOpaque(false);//注意要设成透明的
 		enrollPack.setLayout(null);
 			
+			JPanel enrollPanel = new JPanel();
+			enrollPanel.setBounds(0, 0, 440, 430);
+			enrollPanel.setLayout(null);			
+		// TODO: background image of questionnaire
 			
+			// add name/ID/CLASS label - uneditable
+			JLabel enrollNameLabel = new JLabel("姓名");
+			enrollNameLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+			enrollNameLabel.setBounds(36, 39, 35, 25);
+			enrollPanel.add(enrollNameLabel);
 			
+			JLabel enrollIDLabel = new JLabel("学号");
+			enrollIDLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+			enrollIDLabel.setBounds(36, 74, 35, 25);
+			enrollPanel.add(enrollIDLabel);
 			
+			JLabel enrollClassLabel = new JLabel("班级");
+			enrollClassLabel.setFont(new Font("Dialog", Font.BOLD, 16));
+			enrollClassLabel.setBounds(36, 109, 35, 25);
+			enrollPanel.add(enrollClassLabel);
+			
+			JTextPane enrollNameShow = new JTextPane();
+			enrollNameShow.setEditable(false);
+			enrollNameShow.setBounds(81, 41, 73, 20);
+			enrollPanel.add(enrollNameShow);
+			
+			JTextPane enrollIDShow = new JTextPane();
+			enrollIDShow.setEditable(false);
+			enrollIDShow.setBounds(81, 76, 73, 20);
+			enrollPanel.add(enrollIDShow);
+			
+			JTextPane enrollClassShow = new JTextPane();
+			enrollClassShow.setEditable(false);
+			enrollClassShow.setBounds(81, 111, 73, 20);
+			enrollPanel.add(enrollClassShow);
+			
+			// add single choice of favourite student organization
+			JLabel enrollWordLabel = new JLabel("你想加入的学生组织是？（单选）");
+			enrollWordLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+			enrollWordLabel.setBounds(36, 144, 273, 25);
+			enrollPanel.add(enrollWordLabel);
+			
+			ButtonGroup enrollChoiceGroup = new ButtonGroup();
+				JRadioButton studentUnion = new JRadioButton();
+				studentUnion.setSelected(false);
+				studentUnion.setBounds(36, 177, 21, 20);
+				enrollChoiceGroup.add(studentUnion);
+				enrollPanel.add(studentUnion);
+				
+				JRadioButton hobbyClub = new JRadioButton();
+				hobbyClub.setSelected(false);
+				hobbyClub .setBounds(36, 205, 21, 20);
+				enrollChoiceGroup.add(hobbyClub );
+				enrollPanel.add(hobbyClub);
+				
+				JRadioButton STA = new JRadioButton();
+				STA.setSelected(false);
+				STA.setBounds(36, 233, 21, 20);
+				enrollChoiceGroup.add(STA);
+				enrollPanel.add(STA);
+				
+				// add the name of organ
+				JLabel SUlabel = new JLabel("系学生会体育部");
+				SUlabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+				SUlabel.setBounds(63, 175, 120, 25);
+				enrollPanel.add(SUlabel);
+				
+				JLabel Clublabel = new JLabel("校兴趣社团");
+				Clublabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+				Clublabel.setBounds(63, 203, 120, 25);
+				enrollPanel.add(Clublabel);
+				
+				JLabel STAlabel = new JLabel("系科协");
+				STAlabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+				STAlabel.setBounds(63, 231, 120, 25);
+				enrollPanel.add(STAlabel);
+				
+			// the reason text input
+			JTextField reasonText = new JTextField();
+			reasonText.setBounds(36, 294, 368, 64);
+			enrollPanel.add(reasonText);
+			
+			JLabel reasonTitle = new JLabel("你想加入该组织的理由是？");
+			reasonTitle.setFont(new Font("Dialog", Font.BOLD, 16));
+			reasonTitle.setBounds(36, 263, 273, 25);
+			enrollPanel.add(reasonTitle);
+			
+			// the button: close and Submit
+			JButton closeButton = new JButton();
+			closeButton.setBounds(380, 10, 50, 50);
+			enrollPanel.add(closeButton);
+			closeButton.setBorderPainted(false);
+			closeButton.setContentAreaFilled(false);
+			setIcon("/imgsrc/WinOrganization/redCross.png", closeButton);
+			setSelectedIcon("/imgsrc/WinOrganization/redCrossPressed.png", closeButton);
+			enrollPanel.add(closeButton);
+			
+			JButton submitButton = new JButton();
+			submitButton.setBounds(144, 375, 135, 45);
+			enrollPanel.add(submitButton);
+			submitButton.setBorderPainted(false);
+			submitButton.setContentAreaFilled(false);
+			setIcon("/imgsrc/WinOrganization/Submit.png", submitButton);
+			setSelectedIcon("/imgsrc/WinOrganization/SubmitPressed.png", submitButton);
+			enrollPanel.add(submitButton);
+			
+		enrollPack.add(enrollPanel);
 		backgroundPanel.add(enrollPack);
 		/*************************************************************	
 		 * 【镶时钟】
@@ -191,7 +308,7 @@ public class WinOrganization extends WinBase{
 		panel.setLayout(null);
 		
 		JLabel StudentIDLable = new JLabel("学号");
-		StudentIDLable.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		StudentIDLable.setFont(new Font("Lucida Grande", Font.BOLD, 14));
 		StudentIDLable.setBounds(26, 78, 32, 16);
 		panel.add(StudentIDLable);
 		
@@ -387,6 +504,17 @@ public class WinOrganization extends WinBase{
 		label_Art.setText("才艺能力:"+dataPackage.characterArt);
 		label_IQ.setText("智商:"+dataPackage.characterIQ);
 		label_lucky.setText("幸运值:"+dataPackage.characterlucky);
+		
+		/*          设置调查问卷的动态属性                     */
+		// TODO: Font of TEXT : Sans Han
+		enrollNameShow.setText(dataPackage.name);//显示名字
+		enrollIDShow.setText(dataPackage.studentID);//显示学号
+		enrollClassShow.setText("新雅61");
+		
+		
+		
+		
+		
 
 		/*********************************************			
 		 * 【鼠标动作的设置】

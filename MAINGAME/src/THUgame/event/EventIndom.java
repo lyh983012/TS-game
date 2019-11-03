@@ -47,6 +47,8 @@ public class EventIndom extends EventBase{
 			return;									//直接返回，避免属性乱变
 		}else if(oldDataPack.term == 1 && oldDataPack.week == 1 && oldDataPack.date == 2 && oldDataPack.time == 19){
 			oldDataPack.eventFinished = true;      //第1学期-第1周-第2天-19点，宿舍时间结束，进入社团招新
+			oldDataPack.stateB = "enrollOrganization"; // 进入社团招新
+			System.out.println("ready to ORGAN");
 			return;								   //直接返回，避免属性乱变
 		}
 		
