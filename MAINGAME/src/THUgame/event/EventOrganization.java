@@ -27,9 +27,10 @@ public class EventOrganization extends EventBase{
 		 * 事件结束
 		 * 		转换一个标记，必要时存储一些信息
 		 *******************************************/
-		if (oldDataPack.choiceA.equals("closeQuestionnaire")) {
+		if (oldDataPack.choiceB.equals("closeQuestionnaire")) {
 			oldDataPack.notification = "思来想去还是没有报名……";
 			oldDataPack.eventFinished=true;			//并且点击了关闭问卷这个按钮，那么招新事件结束
+			oldDataPack.time += 1;
 			return;									//直接返回，避免属性乱变
 		} else if (oldDataPack.stateA == "quitEnroll") {
 			oldDataPack.eventFinished=true;			//拒绝了招新人员，那么招新事件结束

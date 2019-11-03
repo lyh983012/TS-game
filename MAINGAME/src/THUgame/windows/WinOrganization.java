@@ -38,7 +38,7 @@ import THUgame.tool.ImagePanel;
  *      3.填完问卷如何存储属性
  *      4.主要变化在对话框和招新问卷、聘书
  *  TODO LIST in line:
- *  154 background image of questionnaire
+ *  230 background image of questionnaire
  *  
  **/
 
@@ -85,15 +85,15 @@ public class WinOrganization extends WinBase{
 		public void mouseReleased(MouseEvent e) {
 			/*		START OF YOUR CODE		*/
 			if(mode==0) {
-				dataPackage.choiceA="sleep";	//点按钮0（睡觉按钮）返回sleep
+				dataPackage.choiceB="closeQuestionnaire";	//点按钮0（关闭按钮）返回closeQuestionnaire
 			}else if(mode ==1){
-				dataPackage.choiceA="selfstudy";//点按钮1（自习按钮）返回selfstudy
+				dataPackage.choiceB="submitQuestionnaire";//点按钮1（提交按钮）返回submitQuestionnaire
 			}else if(mode ==2){
-				dataPackage.choiceA="gooutside";//点按钮2（上课按钮）返回gotoclass
+				dataPackage.choiceB="gooutside";//点按钮2（上课按钮）返回gotoclass
 			}else if(mode ==3){
-				dataPackage.choiceA="wakehimup";//点按钮3（唤醒按钮）返回wakehimup
+				dataPackage.choiceB="wakehimup";//点按钮3（唤醒按钮）返回wakehimup
 			}else if(mode ==4){
-				dataPackage.choiceA="stayup";//点按钮4（待着按钮）返回stayup
+				dataPackage.choiceB="stayup";//点按钮4（待着按钮）返回stayup
 			}
 			/*		END OF YOUR CODE		*/
 			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
@@ -138,134 +138,233 @@ public class WinOrganization extends WinBase{
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
 		
-		JButton OutButton = new JButton();
-		OutButton.setBorderPainted(false);
-		OutButton.setBounds(819, 611, 150, 50);
-		if (dataPackage.stateB.equals("classtime")) {	//高级应用：仅仅在符合“classtime”状态的时候显示这个按钮
-			if(!dataPackage.todayMorningClass.equals("----")||!dataPackage.todayAfternoonClass.equals("----")) {
-				setIcon("/imgsrc/Windom/out.png",OutButton);
-				setSelectedIcon("/imgsrc/Windom/out_press.png",OutButton);
-				backgroundPanel.add(OutButton);
+		/*************************************************************	
+		 * 【镶对话框】
+		 * 		建立一个带背景的Panel的流程设setBounds(x, y, 宽, 高);
+		 *  	1.建一个Panel	
+		 * 		2.Panel里建两个subPanel，全部都设成setBounds(0, 0, 宽, 高);
+		 * 		3.底下的用imagePanel工具类放图片，上面的放控件
+		 * 		4.设置两个Panel为透明这一部分按照流程做的话就会自然消失的
+		 *************************************************************/
+		JPanel dialogPack = new JPanel();
+		dialogPack.setBounds(66, 475, 689, 189);
+		dialogPack.setOpaque(false);//注意要设成透明的
+		dialogPack.setLayout(null);
+		
+			JPanel dialogPanel = new JPanel();//第1个subPanel，放控件
+			dialogPanel.setBounds(0, 0, 689, 189);//(0, 0, 宽, 高);
+			
+			JPanel dialogBackgoundPanel = new ImagePanel("imgsrc//Dialog.png",0, 0, 689, 189);	//第2个subPanel，放图
+																								//(0, 0, 宽, 高);
+			dialogBackgoundPanel.setBounds(0, 0, 689, 189);//(0, 0, 宽, 高);
+			dialogBackgoundPanel.setOpaque(false);//注意要设成透明的
+			dialogPanel.setOpaque(false);		//注意要设成透明的
+			dialogPanel.setLayout(null);
+			
+			JLabel dialogName = new JLabel();
+			dialogName.setBounds(17, 6, 89, 40);
+			dialogPanel.add(dialogName);
+			
+			if (dataPackage.count == 2) {
+				dialogName.setText("凌艺涵");
+			} else {
+				dialogName.setText("独白");
 			}
-		}
+			
+			
+			JLabel dialogContent = new JLabel();
+			dialogName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			dialogContent.setBounds(15, 42, 677, 141);
+			dialogPanel.add(dialogContent);
+			
+			if (!dataPackage.notification.equals(""))//设置对话内容
+				dialogContent.setText(dataPackage.notification);
+			else
+				dialogContent.setText("回到了宿舍～");//设置默认对话内容
+		
+		dialogPack.add(dialogPanel);		//注意：先放的在上层，所以先放带控件的
+		
+			/*************************************************************	
+			 * 【下一步按钮】 
+			 *  	特殊步骤下才会触发
+			 *  	具体用法见MorninigClass窗口
+			 *************************************************************/
+			if (dataPackage.count == 1 || dataPackage.count == 2 || dataPackage.count == 3 || dataPackage.count == 6 || dataPackage.count == 0) {
+				JButton nextButton = new JButton();
+				nextButton.setBounds(597, 113, 52, 48);
+				dialogPanel.add(nextButton);
+				nextButton.setBorderPainted(false);
+				nextButton.setContentAreaFilled(false);
+				setIcon("/imgsrc/WinOrganization/next.png", nextButton);
+				setSelectedIcon("/imgsrc/WinOrganization/nextPressed.png", nextButton);
+				
+				/*********************************************			
+				 * 【局部鼠标动作的设置】
+				 ********************************************/
+				demoMouseListener.dataPackage=dataPackage;//数据包注册，不需要改
+				demoMouseListener.mainGame=mainGame;
+				
+				demoMouseListener clickNext=new demoMouseListener(3);//设置鼠标监听器，发生0号事件
+				
+				clickNext.setButton(nextButton);
+				nextButton.addMouseListener(clickNext);//3号事件是下一步 去上课按钮 被点击	
+			}
+			
+		
+		dialogPack.add(dialogBackgoundPanel);
+		backgroundPanel.add(dialogPack);
+		
+		
+		
+		/*************************************************************	
+		 * 【选项框】 
+		 *  	
+		 *  	具体用法见MorninigClass窗口
+		 *************************************************************/
+		
+		
 		/*************************************************************	
 		 * 【招新问卷】 
 		 *  	
 		 *  	具体用法见MorninigClass窗口
 		 *************************************************************/
-		JPanel enrollPack = new JPanel();
-		enrollPack.setBounds(291, 32, 440, 430);
-		enrollPack.setOpaque(false);//注意要设成透明的
-		enrollPack.setLayout(null);
-			
-			JPanel enrollPanel = new JPanel();
-			enrollPanel.setBounds(0, 0, 440, 430);
-			enrollPanel.setLayout(null);			
-		// TODO: background image of questionnaire
-			
-			// add name/ID/CLASS label - uneditable
-			JLabel enrollNameLabel = new JLabel("姓名");
-			enrollNameLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-			enrollNameLabel.setBounds(36, 39, 35, 25);
-			enrollPanel.add(enrollNameLabel);
-			
-			JLabel enrollIDLabel = new JLabel("学号");
-			enrollIDLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-			enrollIDLabel.setBounds(36, 74, 35, 25);
-			enrollPanel.add(enrollIDLabel);
-			
-			JLabel enrollClassLabel = new JLabel("班级");
-			enrollClassLabel.setFont(new Font("Dialog", Font.BOLD, 16));
-			enrollClassLabel.setBounds(36, 109, 35, 25);
-			enrollPanel.add(enrollClassLabel);
-			
-			JTextPane enrollNameShow = new JTextPane();
-			enrollNameShow.setEditable(false);
-			enrollNameShow.setBounds(81, 41, 73, 20);
-			enrollPanel.add(enrollNameShow);
-			
-			JTextPane enrollIDShow = new JTextPane();
-			enrollIDShow.setEditable(false);
-			enrollIDShow.setBounds(81, 76, 73, 20);
-			enrollPanel.add(enrollIDShow);
-			
-			JTextPane enrollClassShow = new JTextPane();
-			enrollClassShow.setEditable(false);
-			enrollClassShow.setBounds(81, 111, 73, 20);
-			enrollPanel.add(enrollClassShow);
-			
-			// add single choice of favourite student organization
-			JLabel enrollWordLabel = new JLabel("你想加入的学生组织是？（单选）");
-			enrollWordLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-			enrollWordLabel.setBounds(36, 144, 273, 25);
-			enrollPanel.add(enrollWordLabel);
-			
-			ButtonGroup enrollChoiceGroup = new ButtonGroup();
-				JRadioButton studentUnion = new JRadioButton();
-				studentUnion.setSelected(false);
-				studentUnion.setBounds(36, 177, 21, 20);
-				enrollChoiceGroup.add(studentUnion);
-				enrollPanel.add(studentUnion);
+		if (dataPackage.count == 5) {
+			JPanel enrollPack = new JPanel();
+			enrollPack.setBounds(291, 32, 440, 430);
+			enrollPack.setOpaque(false);//注意要设成透明的
+			enrollPack.setLayout(null);
 				
-				JRadioButton hobbyClub = new JRadioButton();
-				hobbyClub.setSelected(false);
-				hobbyClub .setBounds(36, 205, 21, 20);
-				enrollChoiceGroup.add(hobbyClub );
-				enrollPanel.add(hobbyClub);
+				JPanel enrollPanel = new JPanel();
+				enrollPanel.setBounds(0, 0, 440, 430);
+				enrollPanel.setLayout(null);			
+			// TODO: background image of questionnaire
 				
-				JRadioButton STA = new JRadioButton();
-				STA.setSelected(false);
-				STA.setBounds(36, 233, 21, 20);
-				enrollChoiceGroup.add(STA);
-				enrollPanel.add(STA);
+				// add name/ID/CLASS label - uneditable
+				JLabel enrollNameLabel = new JLabel("姓名");
+				enrollNameLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+				enrollNameLabel.setBounds(36, 39, 35, 25);
+				enrollPanel.add(enrollNameLabel);
 				
-				// add the name of organ
-				JLabel SUlabel = new JLabel("系学生会体育部");
-				SUlabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-				SUlabel.setBounds(63, 175, 120, 25);
-				enrollPanel.add(SUlabel);
+				JLabel enrollIDLabel = new JLabel("学号");
+				enrollIDLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+				enrollIDLabel.setBounds(36, 74, 35, 25);
+				enrollPanel.add(enrollIDLabel);
 				
-				JLabel Clublabel = new JLabel("校兴趣社团");
-				Clublabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-				Clublabel.setBounds(63, 203, 120, 25);
-				enrollPanel.add(Clublabel);
+				JLabel enrollClassLabel = new JLabel("班级");
+				enrollClassLabel.setFont(new Font("Dialog", Font.BOLD, 16));
+				enrollClassLabel.setBounds(36, 109, 35, 25);
+				enrollPanel.add(enrollClassLabel);
 				
-				JLabel STAlabel = new JLabel("系科协");
-				STAlabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-				STAlabel.setBounds(63, 231, 120, 25);
-				enrollPanel.add(STAlabel);
+				JTextPane enrollNameShow = new JTextPane();
+				enrollNameShow.setEditable(false);
+				enrollNameShow.setBounds(81, 41, 73, 20);
+				enrollPanel.add(enrollNameShow);
 				
-			// the reason text input
-			JTextField reasonText = new JTextField();
-			reasonText.setBounds(36, 294, 368, 64);
-			enrollPanel.add(reasonText);
+				JTextPane enrollIDShow = new JTextPane();
+				enrollIDShow.setEditable(false);
+				enrollIDShow.setBounds(81, 76, 73, 20);
+				enrollPanel.add(enrollIDShow);
+				
+				JTextPane enrollClassShow = new JTextPane();
+				enrollClassShow.setEditable(false);
+				enrollClassShow.setBounds(81, 111, 73, 20);
+				enrollPanel.add(enrollClassShow);
+				
+				// add single choice of favourite student organization
+				JLabel enrollWordLabel = new JLabel("你想加入的学生组织是？（单选）");
+				enrollWordLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+				enrollWordLabel.setBounds(36, 144, 273, 25);
+				enrollPanel.add(enrollWordLabel);
+				
+				ButtonGroup enrollChoiceGroup = new ButtonGroup();
+					JRadioButton studentUnion = new JRadioButton();
+					studentUnion.setSelected(false);
+					studentUnion.setBounds(36, 177, 21, 20);
+					enrollChoiceGroup.add(studentUnion);
+					enrollPanel.add(studentUnion);
+					
+					JRadioButton hobbyClub = new JRadioButton();
+					hobbyClub.setSelected(false);
+					hobbyClub .setBounds(36, 205, 21, 20);
+					enrollChoiceGroup.add(hobbyClub );
+					enrollPanel.add(hobbyClub);
+					
+					JRadioButton STA = new JRadioButton();
+					STA.setSelected(false);
+					STA.setBounds(36, 233, 21, 20);
+					enrollChoiceGroup.add(STA);
+					enrollPanel.add(STA);
+					
+					// add the name of organ
+					JLabel SUlabel = new JLabel("系学生会体育部");
+					SUlabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+					SUlabel.setBounds(63, 175, 120, 25);
+					enrollPanel.add(SUlabel);
+					
+					JLabel Clublabel = new JLabel("校兴趣社团");
+					Clublabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+					Clublabel.setBounds(63, 203, 120, 25);
+					enrollPanel.add(Clublabel);
+					
+					JLabel STAlabel = new JLabel("系科协");
+					STAlabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+					STAlabel.setBounds(63, 231, 120, 25);
+					enrollPanel.add(STAlabel);
+					
+				// the reason text input
+				JTextField reasonText = new JTextField();
+				reasonText.setBounds(36, 294, 368, 64);
+				enrollPanel.add(reasonText);
+				
+				JLabel reasonTitle = new JLabel("你想加入该组织的理由是？");
+				reasonTitle.setFont(new Font("Dialog", Font.BOLD, 16));
+				reasonTitle.setBounds(36, 263, 273, 25);
+				enrollPanel.add(reasonTitle);
+				
+				// the button: close and Submit
+				JButton closeButton = new JButton();
+				closeButton.setBounds(380, 10, 50, 50);
+				closeButton.setBorderPainted(false);
+				closeButton.setContentAreaFilled(false);
+				setIcon("/imgsrc/WinOrganization/redCross.png", closeButton);
+				setSelectedIcon("/imgsrc/WinOrganization/redCrossPressed.png", closeButton);
+				enrollPanel.add(closeButton);
+				
+				JButton submitButton = new JButton();
+				submitButton.setBounds(144, 375, 135, 45);
+				submitButton.setBorderPainted(false);
+				submitButton.setContentAreaFilled(false);
+				setIcon("/imgsrc/WinOrganization/Submit.png", submitButton);
+				setSelectedIcon("/imgsrc/WinOrganization/SubmitPressed.png", submitButton);
+				enrollPanel.add(submitButton);
+				
+				/*          设置调查问卷的动态属性                     */
+				// TODO: Font of TEXT : Sans Han
+				enrollNameShow.setText(dataPackage.name);//显示名字
+				enrollIDShow.setText(dataPackage.studentID);//显示学号
+				enrollClassShow.setText("新雅61");
+				
+			enrollPack.add(enrollPanel);
+			backgroundPanel.add(enrollPack);
 			
-			JLabel reasonTitle = new JLabel("你想加入该组织的理由是？");
-			reasonTitle.setFont(new Font("Dialog", Font.BOLD, 16));
-			reasonTitle.setBounds(36, 263, 273, 25);
-			enrollPanel.add(reasonTitle);
+			/*********************************************			
+			 * 【局部鼠标动作的设置】
+			 ********************************************/
+			demoMouseListener.dataPackage=dataPackage;//数据包注册，不需要改
+			demoMouseListener.mainGame=mainGame;
 			
-			// the button: close and Submit
-			JButton closeButton = new JButton();
-			closeButton.setBounds(380, 10, 50, 50);
-			enrollPanel.add(closeButton);
-			closeButton.setBorderPainted(false);
-			closeButton.setContentAreaFilled(false);
-			setIcon("/imgsrc/WinOrganization/redCross.png", closeButton);
-			setSelectedIcon("/imgsrc/WinOrganization/redCrossPressed.png", closeButton);
-			enrollPanel.add(closeButton);
+			demoMouseListener clickClose=new demoMouseListener(0);//设置鼠标监听器，发生0号事件
+			demoMouseListener clickSubmit=new demoMouseListener(1);//设置鼠标监听器，发生1号事件
 			
-			JButton submitButton = new JButton();
-			submitButton.setBounds(144, 375, 135, 45);
-			enrollPanel.add(submitButton);
-			submitButton.setBorderPainted(false);
-			submitButton.setContentAreaFilled(false);
-			setIcon("/imgsrc/WinOrganization/Submit.png", submitButton);
-			setSelectedIcon("/imgsrc/WinOrganization/SubmitPressed.png", submitButton);
-			enrollPanel.add(submitButton);
+			clickClose.setButton(closeButton);
+			closeButton.addMouseListener(clickClose);//2号事件是 去上课按钮 被点击
 			
-		enrollPack.add(enrollPanel);
-		backgroundPanel.add(enrollPack);
+			clickClose.setButton(submitButton);
+			submitButton.addMouseListener(clickSubmit);//2号事件是 去上课按钮 被点击
+		
+		}
+		
 		/*************************************************************	
 		 * 【镶时钟】
 		 * 		不需要修改
@@ -375,54 +474,8 @@ public class WinOrganization extends WinBase{
 		JLabel label_lucky = new JLabel("幸运值:");
 		label_lucky.setBounds(100, 245, 84, 16);
 		panel.add(label_lucky);
-		/*************************************************************	
-		 * 【镶对话框】
-		 * 		建立一个带背景的Panel的流程设setBounds(x, y, 宽, 高);
-		 *  	1.建一个Panel	
-		 * 		2.Panel里建两个subPanel，全部都设成setBounds(0, 0, 宽, 高);
-		 * 		3.底下的用imagePanel工具类放图片，上面的放控件
-		 * 		4.设置两个Panel为透明这一部分按照流程做的话就会自然消失的
-		 *************************************************************/
-		JPanel dialogPack = new JPanel();
-		dialogPack.setBounds(66, 475, 689, 189);
-		dialogPack.setOpaque(false);//注意要设成透明的
-		dialogPack.setLayout(null);
 		
-			JPanel dialogPanel = new JPanel();//第1个subPanel，放控件
-			dialogPanel.setBounds(0, 0, 689, 189);//(0, 0, 宽, 高);
-			
-			JPanel dialogBackgoundPanel = new ImagePanel("imgsrc//Dialog.png",0, 0, 689, 189);	//第2个subPanel，放图
-																								//(0, 0, 宽, 高);
-			dialogBackgoundPanel.setBounds(0, 0, 689, 189);//(0, 0, 宽, 高);
-			dialogBackgoundPanel.setOpaque(false);//注意要设成透明的
-			dialogPanel.setOpaque(false);		//注意要设成透明的
-			dialogPanel.setLayout(null);
-			
-			JLabel dialogName = new JLabel();
-			dialogName.setBounds(17, 6, 89, 40);
-			dialogPanel.add(dialogName);
-			
-			if (dataPackage.count == 1) {
-				dialogName.setText("凌艺涵");
-			} else {
-				dialogName.setText("独白");
-			}
-			
-			
-			JLabel dialogContent = new JLabel();
-			dialogName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-			dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-			dialogContent.setBounds(15, 42, 677, 141);
-			dialogPanel.add(dialogContent);
-			
-			if (!dataPackage.notification.equals(""))//设置对话内容
-				dialogContent.setText(dataPackage.notification);
-			else
-				dialogContent.setText("回到了宿舍～");//设置默认对话内容
 		
-		dialogPack.add(dialogPanel);		//注意：先放的在上层，所以先放带控件的
-		dialogPack.add(dialogBackgoundPanel);
-		backgroundPanel.add(dialogPack);
 		/*************************************************************	
 		 * 镶待办事项 这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
@@ -505,16 +558,6 @@ public class WinOrganization extends WinBase{
 		label_IQ.setText("智商:"+dataPackage.characterIQ);
 		label_lucky.setText("幸运值:"+dataPackage.characterlucky);
 		
-		/*          设置调查问卷的动态属性                     */
-		// TODO: Font of TEXT : Sans Han
-		enrollNameShow.setText(dataPackage.name);//显示名字
-		enrollIDShow.setText(dataPackage.studentID);//显示学号
-		enrollClassShow.setText("新雅61");
-		
-		
-		
-		
-		
 
 		/*********************************************			
 		 * 【鼠标动作的设置】
@@ -522,14 +565,17 @@ public class WinOrganization extends WinBase{
 		demoMouseListener.dataPackage=dataPackage;//数据包注册，不需要改
 		demoMouseListener.mainGame=mainGame;
 		
+//		demoMouseListener clickClose=new demoMouseListener(0);//设置鼠标监听器，发生0号事件
+//		demoMouseListener clickSubmit=new demoMouseListener(1);//设置鼠标监听器，发生1号事件
+//		demoMouseListener clickOut=new demoMouseListener(2);//设置鼠标监听器，发生2号事件
+//		demoMouseListener clickwake=new demoMouseListener(3);//设置鼠标监听器，发生3号事件
+//		demoMouseListener clickstay=new demoMouseListener(4);
 		
-		demoMouseListener clicksleep=new demoMouseListener(0);//设置鼠标监听器，发生0号事件
-		demoMouseListener clickselfstudy=new demoMouseListener(1);//设置鼠标监听器，发生1号事件
-		demoMouseListener clickOut=new demoMouseListener(2);//设置鼠标监听器，发生2号事件
-		demoMouseListener clickwake=new demoMouseListener(3);//设置鼠标监听器，发生3号事件
-		demoMouseListener clickstay=new demoMouseListener(4);
-		clickOut.setButton(OutButton);
-		OutButton.addMouseListener(clickOut);//2号事件是 去上课按钮 被点击
+//		clickClose.setButton(closeButton);
+//		closeButton.addMouseListener(clickClose);//2号事件是 去上课按钮 被点击
+//		
+//		clickClose.setButton(submitButton);
+//		submitButton.addMouseListener(clickSubmit);//2号事件是 去上课按钮 被点击
 	
 		/*		END OF YOUR CODE		*/
     	    	
