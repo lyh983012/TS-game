@@ -1,8 +1,6 @@
 package THUgame.main;
 
-import THUgame.datapack.*;
-import THUgame.subevents.EventResearch;
-import THUgame.subwindows.WinResearch;
+import THUgame.datapack.DataPack;
 
 /*
  * template version 1.1
@@ -19,11 +17,8 @@ public class Entry {
 		private static WindowManager mainGUI;
 	 
 	   	public static void main(String args[]) {
-		    DataPack dataPackage=new DataPack("demo");
-	   		//DataPack dataPackage=new DataPack("choice demo");
-		    //DataPack dataPackage=new DataPack("test research map demo");
-
-		    
+		    //DataPack dataPackage=new DataPack("demo");
+	   		DataPack dataPackage=new DataPack("choice demo");
 		    EventManager.dataPackage=dataPackage;
 		    WindowManager.dataPackage=dataPackage;
 			/*********************************		
@@ -32,10 +27,6 @@ public class Entry {
 			 * 意思是 每个类都维护同一个dataPack，方便全局同步
 			 * 
 			 *********************************/
-		    
-		    ResearchData researchDataPackage = new ResearchData();
-		    EventResearch.researchDataPackage = researchDataPackage;
-		    WinResearch.researchDataPackage = researchDataPackage;
 		    
 		    mainGame = new EventManager();
 		    mainGUI = new WindowManager();
