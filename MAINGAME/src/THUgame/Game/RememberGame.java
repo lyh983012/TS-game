@@ -207,7 +207,6 @@ public class RememberGame extends JPanel{
 		
 		this.add(EventPanel);
 		this.add(EventBackgound);
-        
     }
     
     public void InitGame() {	

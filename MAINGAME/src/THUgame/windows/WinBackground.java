@@ -142,9 +142,6 @@ public class WinBackground extends WinBase{
 		setSelectedIcon("/imgsrc/WinBackground/cb.png",button);
 		
 		//panelbutton.add(Text);
-		
-	
-		
 
 		JLabel textLabel = new JLabel();
 		textLabel.setHorizontalAlignment(SwingConstants.CENTER);
