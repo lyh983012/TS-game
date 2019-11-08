@@ -85,6 +85,10 @@ class Lattice{
 }
 
 public class MazeGame extends JPanel implements KeyListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static public EventManager mainGame;
 	static public DataPack dataPackage;
 	private JButton StartButton;
@@ -210,8 +214,6 @@ public class MazeGame extends JPanel implements KeyListener{
 	 }
 	 **/
 	 
-
-
 	
 	class MazePanel extends JPanel{
 		
