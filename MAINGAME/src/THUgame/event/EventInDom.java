@@ -10,6 +10,10 @@ import THUgame.datapack.DataPack;
  * 宿舍事件 * 
  * 
  * --DIALOG--
+ * update:20191114
+ * via：林逸晗
+ * 更新：加入自动存档
+ * 
  *  update:20191018
  * via：余冬杰
  * 更新：加入打呼噜
@@ -38,6 +42,7 @@ import THUgame.datapack.DataPack;
 public class EventInDom extends EventBase{
 
 	public void actOn(DataPack oldDataPack) {
+		this.oldDataPack=oldDataPack;
 		/*******************************************
 		 * 事件结束
 		 * 		转换一个标记，必要时存储一些信息
@@ -92,7 +97,8 @@ public class EventInDom extends EventBase{
 					oldDataPack.characterEnergy=100;
 					oldDataPack.characterHealth+=5;
 					oldDataPack.characterHappiness+=5;
-					oldDataPack.notification += "<br>睡到了早上，健康+5，心情+5，体力回复满</html>";
+					oldDataPack.notification += "<br>睡到了早上，健康+5，心情+5，体力回复满<br>[游戏已保存]</html>";
+					saveGame();
 				}
 				break;
 			case "selfstudy":
@@ -113,6 +119,7 @@ public class EventInDom extends EventBase{
 						oldDataPack.stateA="game";	
 						oldDataPack.time+=5;
 						oldDataPack.trigSubEvent = true; // 触发子事件
+						saveGame();
 					}
 					break;
 				}

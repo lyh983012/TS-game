@@ -1,5 +1,6 @@
 package THUgame.windows;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
@@ -68,13 +69,10 @@ public class WinHome extends WinBase{
 					if(mode==0) {
 						dataPackage.choiceA="A";
 					}else if(mode==1){
-						dataPackage.choiceA="B";
+						dataPackage.choiceA="B"; 
 					}else if(mode==2){
 						dataPackage.choiceA="C";
-					}else if(mode==3){
-						dataPackage.choiceA="D";
-					}else if(mode==4){
-						dataPackage.choiceA="E";
+						JOptionPane.showMessageDialog(null, "没看见窗口上面的红叉吗", "oops",JOptionPane.WARNING_MESSAGE);  
 					}
 					/*		END OF YOUR CODE		*/
 					//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
@@ -197,6 +195,7 @@ public class WinHome extends WinBase{
 		choicea.addMouseListener(clicka);//0号事件是 a 被点击
     	choiceb.addMouseListener(clickb);//1号事件是 b 被点击
     	choicec.addMouseListener(clickc);//2号事件是 c 被点击
+    	
 		/*		END OF YOUR CODE		*/
     	    	
     	/*****************************************************************				

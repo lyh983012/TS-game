@@ -2,11 +2,15 @@ package THUgame.Game;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import THUgame.tool.ImagePanel;
+import THUgame.tool.GifPanel;
+
 import java.awt.Color;
 import java.awt.EventQueue;
 
 
-public class GamePanelTest_2{
+public class ToolTest{
 	
 	JFrame frame;
 	
@@ -14,7 +18,7 @@ public class GamePanelTest_2{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 
-					GamePanelTest_2 window = new GamePanelTest_2();
+					ToolTest window = new ToolTest();
 					window.frame.setVisible(true);
 
 			}
@@ -25,10 +29,10 @@ public class GamePanelTest_2{
 	 * 【构造函数】
 	 * 不要新建JFrame窗口对象，而是把上层传进来的窗口对象里面的东西扔了，重新添加
 	 *************************************************************/
-	public GamePanelTest_2() {
+	public ToolTest() {
 		
 		frame=new JFrame();
-		frame.setBounds(0, 0, 1080, 720);
+		frame.setBounds(0, 0,540,303);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);		
 		/*************************************************************	
@@ -37,22 +41,11 @@ public class GamePanelTest_2{
 		 * 这一部分按照流程做的话就会自然消失的，推荐直接在可视化界面编辑属性
 		 * 最后放一下背景
 		 *************************************************************/
-		JPanel backgroundPanel=new JPanel();
-		backgroundPanel.setBackground(new Color(0, 0, 0));
-		backgroundPanel.setBounds(0, 0, 1080, 720);
-		backgroundPanel.setLayout(null);
-		
-		JPanel EventPanel = new RememberGame(200, 100);//将来可以用它来放临时小事件
-		EventPanel.setOpaque(false);//注意要设成透明的
-		EventPanel.setLayout(null);
-
-		backgroundPanel.add(EventPanel);
-
-
-		frame.getContentPane().removeAll();
-		frame.getContentPane().add(backgroundPanel);
+		GifPanel gifbox2 = new GifPanel("/imgsrc/test.gif",0,0,540,303,-1);
+		frame.getContentPane().add(gifbox2);
 		frame.getContentPane().repaint();
-		frame.setVisible(true);
+    	frame.setVisible(true);
+		
 	}
 }
 

@@ -35,8 +35,30 @@ public class EventStateManager extends EventBase{
     		switch(dataPackage.ID) {
 				case -1://开始界面过后，进入选择界面
 					if(dataPackage.stateA.equals("新游戏")) 
-						dataPackage.ID=30001;
+						dataPackage.ID=30003;
+					else if(dataPackage.stateA.equals("继续")) 
+						dataPackage.ID=30004;
 					break;	
+				case 30003:
+					dataPackage.ID=30001;
+					break;
+				case 30001:
+					dataPackage.ID=30000;
+					break;
+				case 30000:
+					dataPackage.ID=30002;
+					break;
+				case 30002:
+					dataPackage.ID=0;//选择界面过后，进入游戏界面
+					break;
+				case 30004:
+					if(dataPackage.stateA.equals("backhome")) {
+						dataPackage.ID=-1;//如果没有选择，回到主界面开始新游戏
+					}else {
+						dataPackage.ID=0;//如果选择了，就进入宿舍
+				        System.out.println("s");
+					}
+					break;
     			case 0://dom界面
     				if(dataPackage.choiceA.equals("gooutside")) {
     					dataPackage.ID=3;
@@ -65,15 +87,6 @@ public class EventStateManager extends EventBase{
 					break;
 				case 20016://STA
 					dataPackage.ID=3;/*存疑*/
-					break;
-				case 30000://选择界面过后，进入游戏界面
-					dataPackage.ID=30002;
-					break;
-				case 30001:
-					dataPackage.ID=30000;
-					break;
-				case 30002:
-					dataPackage.ID=0;
 					break;
         		}
         		dataPackage.clearEventState();//复原状态，以免别人的分支出问题

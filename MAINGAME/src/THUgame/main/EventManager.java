@@ -3,8 +3,10 @@ import THUgame.datapack.DataPack;
 import THUgame.event.EventBase;
 import THUgame.event.EventChoice;
 import THUgame.event.EventInDom;
+import THUgame.event.EventInputName;
 import THUgame.event.EventMorningClass;
 import THUgame.event.EventNoonClass;
+import THUgame.event.EventSaveAndLoad;
 import THUgame.event.EventStateManager;
 import THUgame.event.EventHome;
 import THUgame.event.EventBackground;
@@ -34,9 +36,12 @@ public class EventManager extends Thread{
     		 *  
     		 *  20016. STA科协的事件。只要满足加入了科协，任意白天时间都可以去
     		 *  
+    		 *  
     		 *  30000.通过选择确定人物模板事件->30002
+    		 *  30003.基本信息输入->30001
     		 *  30001.人物基本背景说明及选择提示->30000
     		 *  30002.欢迎界面->0
+    		 *  30004.存档界面
     		 *  10000.地图界面
     		 * 	
     		 *********************************/
@@ -66,6 +71,12 @@ public class EventManager extends Thread{
 				case 30002:
 					pushForward = new EventWelcome();
 					break;
+				case 30003:
+					pushForward = new EventInputName();
+					break;
+				case 30004:
+					pushForward = new EventSaveAndLoad();
+					break;	
     		}
     		/*		END OF YOUR CODE		*/
     		pushForward.actOn(dataPackage);

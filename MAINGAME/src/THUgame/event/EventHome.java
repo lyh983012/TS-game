@@ -26,6 +26,11 @@ public class EventHome extends EventBase{
 			oldDataPack.eventFinished=true;
 			return;
 		}
+		if (oldDataPack.choiceA.equals("B")){
+			oldDataPack.stateA = "继续";
+			oldDataPack.eventFinished=true;
+			return;
+		}
 		
 	}
 }
