@@ -5,27 +5,27 @@ import java.awt.event.MouseEvent;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
 import javax.swing.SwingConstants;
+import javax.swing.JRadioButton;
+import javax.swing.JFormattedTextField;
 /* 
- * 显示游戏的文字背景
+/*
  * 
- * --DIALOG--
- * update：20191018 16:30
- * via 林逸晗
- * 更新；解决了按钮的问题，更新了GUI
+ * update:20191114
+ * via：林逸晗
+ * 更新：加入用户的信息输入
  * 
- * version 1.0
- * via 黄天翼
- * update:20191018 00:59
- * 
- **/
+ * */
 
 
-public class WinBackground extends WinBase{
+
+public class WinInputName extends WinBase{
 	
 	/*************************************************************	
 	 *
@@ -35,6 +35,11 @@ public class WinBackground extends WinBase{
 	 * 		所有必要实现的接口都实现了。
 	 * 
 	 *************************************************************/
+	static JFormattedTextField formattedTextField;
+	static JRadioButton boy;
+	static JRadioButton girl;
+	static JRadioButton other;
+
 	static private class backgroundMouseListener extends BaseMouseListener{
 		static public DataPack dataPackage;
 		static public EventManager mainGame;
@@ -67,9 +72,43 @@ public class WinBackground extends WinBase{
 			/*		START OF YOUR CODE		*/
 			/*		END OF YOUR CODE		*/
 			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-			EventManager.dataPackage=dataPackage;
-			synchronized(mainGame) {
-				mainGame.notify();
+			if(safeGuardCount==0) {
+				String name=formattedTextField.getText();
+				int isBoy=0;
+				if(boy.isSelected())
+					isBoy=1; 
+				int isGirl=0;
+				if(girl.isSelected())
+					isGirl=1; 
+				int isOthers=0;
+				if(other.isSelected())
+					isOthers=1;
+				
+				if(isBoy+isGirl+isOthers>1) {
+					JOptionPane.showMessageDialog(null, "你的性别太复杂了", "oops",JOptionPane.WARNING_MESSAGE);  
+					return;
+				}
+				if(isBoy+isGirl+isOthers==0) {
+					JOptionPane.showMessageDialog(null, "还是要选一个选项哦", "oops",JOptionPane.WARNING_MESSAGE);  
+					return;
+				}
+				if(name.length()>5 || name.length()<1) {
+					JOptionPane.showMessageDialog(null, "名字字数有问题哦", "oops",JOptionPane.WARNING_MESSAGE);  
+					return;
+				}
+				if(isBoy+isGirl+isOthers==1) {
+					safeGuardCount++;
+					dataPackage.name=name;
+					if(isBoy==1)
+						dataPackage.sex="boy";
+					if(isGirl==1)
+						dataPackage.sex="girl";
+					if(isOthers==1)
+						dataPackage.sex="others";
+					synchronized(mainGame) {
+						mainGame.notify();
+					}
+				}
 			}
 			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		}
@@ -91,7 +130,7 @@ public class WinBackground extends WinBase{
 	 * 		不要新建JFrame窗口对象，而是把上层传进来的窗口对象里面的东西扔了，重新添加
 	 * 
 	 *************************************************************/
-	public WinBackground(EventManager mainGame,JFrame frame) {
+	public WinInputName(EventManager mainGame,JFrame frame) {
 		
 		//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -113,7 +152,37 @@ public class WinBackground extends WinBase{
 		backgroundImage.setBounds(0, 0, 1080, 720);
 		backgroundImage.setOpaque(false);
 		backgroundImage.setLayout(null);
-
+		
+		JLabel namelabel = new JLabel("在这输入你的名字：");
+		namelabel.setFont(new Font("STIXGeneral", Font.PLAIN, 20));
+		namelabel.setBounds(300, 200, 200, 50);
+		backgroundPanel.add(namelabel);
+		
+		JLabel sexlabel = new JLabel("选择你的性别：");
+		sexlabel.setFont(new Font("STIXGeneral", Font.PLAIN, 20));
+		sexlabel.setBounds(300, 350, 200, 50);
+		backgroundPanel.add(sexlabel);
+		
+		formattedTextField = new JFormattedTextField();
+		formattedTextField.setText("建议在4个字符以内");
+		formattedTextField.setBounds(500, 200, 183, 50);
+		backgroundPanel.add(formattedTextField);
+		
+	    boy = new JRadioButton("男生");
+		boy.setFont(new Font("STIXGeneral", Font.PLAIN, 20));
+		boy.setBounds(500, 300, 141, 50);
+		backgroundPanel.add(boy);
+		
+		girl = new JRadioButton("女生");
+		girl.setFont(new Font("STIXGeneral", Font.PLAIN, 20));
+		girl.setBounds(500, 350, 141, 50);
+		backgroundPanel.add(girl);
+		
+		other = new JRadioButton("其他");
+		other.setFont(new Font("STIXGeneral", Font.PLAIN, 20));
+		other.setBounds(500, 400, 141, 50);
+		backgroundPanel.add(other);
+		
 		JButton button= new JButton();	
 		button.setBorderPainted(false);
 		button.setFont(new Font("印品黑体", Font.PLAIN, 19));
@@ -125,49 +194,14 @@ public class WinBackground extends WinBase{
 		setIcon("/imgsrc/WinBackground/ca.png",button);
 		setSelectedIcon("/imgsrc/WinBackground/cb.png",button);
 		
-		//panelbutton.add(Text);
-
-		JLabel textLabel = new JLabel();
-		textLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		textLabel.setText("<html>这样会自动换行</html>");
-		textLabel.setOpaque(false);
-		textLabel.setFont(new Font("印品黑体", Font.PLAIN, 30));
-		textLabel.setBounds(80, 60, 948, 460);
-		
 		backgroundPanel.add(button);
-		backgroundPanel.add(textLabel);
 		backgroundPanel.add(backgroundImage);
-		
-		switch(dataPackage.count) {
-		case 0:
-			String sex;
-			if(dataPackage.sex.equals("others"))
-				sex="***(性别保密)";
-			else
-				sex=dataPackage.sex;
-			textLabel.setText("<html>9102年，曾经的学习之神"+dataPackage.name+"，一个来自华国安徽南京的"+sex+"，因为天天玩一款叫做MineCraft的游戏，连挂30学分，从北方大学退学。前往该省最顶尖的中学复读。拿到全省第五的高考成绩，毅然决然选择了上个学校的隔壁，因此当地报纸授其以“北大得不到的学生”的荣誉称号。</html>");
-			break;
-		case 1:
-			textLabel.setText("<html>带着珍贵的录取通知书，你来到了华清大学。<br> 这里是国内高中生梦想中的圣地之一，与“隔壁”北方大学共称为两大顶尖高校。<br>告别了过往的传奇经历，你的大学生活即将开始...");
-			break;
-		case 2:
-			String dom;
-			if(dataPackage.sex.equals("others"))
-				dom="因为你对自己的性别认知十分特殊，无奈之下，学校根据你的生理性别把你分配到了一个男生宿舍。出人意料的，你的舍友都开心地接纳了你。但这是不是好事呢？";
-			else if(dataPackage.sex=="girl")
-				dom="尽管你是个女生，但是这所学校为了争当世界一流高校，竟然在你入学前一年拆掉了女生宿舍进行重建！虽然大家已经习惯了男女混宿，但你为了和舍友能够正常相处，还是决定女扮男装进入了宿舍。";
-			else 
-				dom="作为一个男生，你的同性在这所学校占据了66.66%的相对多数，因此你也顺利地找到了很多的同性好朋友。怀揣着激动的心情，你来到了宿舍。";
-			textLabel.setText("<html>"+dom+"</html>");
-			break;
 
-		}
 		/*********************************************			
 		 * 【鼠标动作的设置】
 		 ********************************************/
 		backgroundMouseListener.dataPackage=dataPackage;//数据包注册，不需要改
 		backgroundMouseListener.mainGame=mainGame;
-		
 		backgroundMouseListener click=new backgroundMouseListener(0);//设置鼠标监听器，发生0号事件
 
 		click.setButton(button);

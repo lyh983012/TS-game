@@ -1,32 +1,46 @@
 package THUgame.windows;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.awt.Color;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JTextPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Insets;
+
+import javax.swing.border.LineBorder;
+
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
+
+import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-/* 
- * 显示游戏的文字背景
+
+/*
  * 
- * --DIALOG--
- * update：20191018 16:30
- * via 林逸晗
- * 更新；解决了按钮的问题，更新了GUI
+ * update:20191114
+ * via：林逸晗
+ * 更新：加入读存档
  * 
- * version 1.0
- * via 黄天翼
- * update:20191018 00:59
- * 
- **/
+ * */
 
 
-public class WinBackground extends WinBase{
+public class WinSaveAndLoad extends WinBase{
 	
+	static File file;
+	static JLabel lblNewLabel;
 	/*************************************************************	
 	 *
 	 *【内部的事件响应类】
@@ -35,14 +49,14 @@ public class WinBackground extends WinBase{
 	 * 		所有必要实现的接口都实现了。
 	 * 
 	 *************************************************************/
-	static private class backgroundMouseListener extends BaseMouseListener{
+	static private class welcomeMouseListener extends BaseMouseListener{
 		static public DataPack dataPackage;
 		static public EventManager mainGame;
 		private JFrame frame;
 		private JButton button;
 		private int mode;
 		
-		public backgroundMouseListener(int i){
+		public welcomeMouseListener(int i){
 			this.mode=i;
 		}
 		
@@ -67,10 +81,25 @@ public class WinBackground extends WinBase{
 			/*		START OF YOUR CODE		*/
 			/*		END OF YOUR CODE		*/
 			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-			EventManager.dataPackage=dataPackage;
-			synchronized(mainGame) {
-				mainGame.notify();
-			}
+			if(file==null) {
+				dataPackage.choiceA=""; 
+    			synchronized(mainGame) {
+    				mainGame.notify();
+    			}
+    			return;
+			}else{
+            	String suffix = file.getName().substring(file.getName().lastIndexOf(".") + 1);
+            	if(suffix.equals("thu")) {
+            		dataPackage.choiceA=file.getPath();
+        			synchronized(mainGame) {
+        				mainGame.notify();
+        			}
+            	}else{
+            		System.out.println(suffix);
+            		JOptionPane.showMessageDialog(null, "文件格式不对？", "oops",JOptionPane.WARNING_MESSAGE);  
+            	}
+            }   
+			
 			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		}
 		@Override
@@ -91,7 +120,7 @@ public class WinBackground extends WinBase{
 	 * 		不要新建JFrame窗口对象，而是把上层传进来的窗口对象里面的东西扔了，重新添加
 	 * 
 	 *************************************************************/
-	public WinBackground(EventManager mainGame,JFrame frame) {
+	public WinSaveAndLoad(EventManager mainGame,JFrame frame)  {
 		
 		//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -113,7 +142,7 @@ public class WinBackground extends WinBase{
 		backgroundImage.setBounds(0, 0, 1080, 720);
 		backgroundImage.setOpaque(false);
 		backgroundImage.setLayout(null);
-
+		
 		JButton button= new JButton();	
 		button.setBorderPainted(false);
 		button.setFont(new Font("印品黑体", Font.PLAIN, 19));
@@ -125,50 +154,54 @@ public class WinBackground extends WinBase{
 		setIcon("/imgsrc/WinBackground/ca.png",button);
 		setSelectedIcon("/imgsrc/WinBackground/cb.png",button);
 		
-		//panelbutton.add(Text);
-
-		JLabel textLabel = new JLabel();
-		textLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		textLabel.setText("<html>这样会自动换行</html>");
-		textLabel.setOpaque(false);
-		textLabel.setFont(new Font("印品黑体", Font.PLAIN, 30));
-		textLabel.setBounds(80, 60, 948, 460);
+		JLabel title = new JLabel("请选择一个合法的thu后缀名的存档文件:");
+		title.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		title.setBounds(360, 200, 500, 30);
+		backgroundPanel.add(title);
 		
-		backgroundPanel.add(button);
-		backgroundPanel.add(textLabel);
-		backgroundPanel.add(backgroundImage);
+		lblNewLabel = new JLabel("（点击箭头返回）你选择了: ");
+		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		lblNewLabel.setBounds(340, 268, 500, 30);
+		backgroundPanel.add(lblNewLabel);
 		
-		switch(dataPackage.count) {
-		case 0:
-			String sex;
-			if(dataPackage.sex.equals("others"))
-				sex="***(性别保密)";
-			else
-				sex=dataPackage.sex;
-			textLabel.setText("<html>9102年，曾经的学习之神"+dataPackage.name+"，一个来自华国安徽南京的"+sex+"，因为天天玩一款叫做MineCraft的游戏，连挂30学分，从北方大学退学。前往该省最顶尖的中学复读。拿到全省第五的高考成绩，毅然决然选择了上个学校的隔壁，因此当地报纸授其以“北大得不到的学生”的荣誉称号。</html>");
-			break;
-		case 1:
-			textLabel.setText("<html>带着珍贵的录取通知书，你来到了华清大学。<br> 这里是国内高中生梦想中的圣地之一，与“隔壁”北方大学共称为两大顶尖高校。<br>告别了过往的传奇经历，你的大学生活即将开始...");
-			break;
-		case 2:
-			String dom;
-			if(dataPackage.sex.equals("others"))
-				dom="因为你对自己的性别认知十分特殊，无奈之下，学校根据你的生理性别把你分配到了一个男生宿舍。出人意料的，你的舍友都开心地接纳了你。但这是不是好事呢？";
-			else if(dataPackage.sex=="girl")
-				dom="尽管你是个女生，但是这所学校为了争当世界一流高校，竟然在你入学前一年拆掉了女生宿舍进行重建！虽然大家已经习惯了男女混宿，但你为了和舍友能够正常相处，还是决定女扮男装进入了宿舍。";
-			else 
-				dom="作为一个男生，你的同性在这所学校占据了66.66%的相对多数，因此你也顺利地找到了很多的同性好朋友。怀揣着激动的心情，你来到了宿舍。";
-			textLabel.setText("<html>"+dom+"</html>");
-			break;
-
-		}
+		JButton open=new JButton("选择存档");  
+		open.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		open.setBounds(420, 320, 300, 100);  
+		open.setVisible(true);   
+        open.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {  
+                // TODO Auto-generated method stub  
+                JFileChooser jfc=new JFileChooser();  
+                jfc.setFileSelectionMode(JFileChooser.FILES_ONLY );  
+                jfc.setCurrentDirectory(new File(new File(this.getClass().getResource("").getPath()).getParentFile().getParentFile().getParentFile().getPath()));
+                jfc.showDialog(new JLabel(), "选择");  
+                file=jfc.getSelectedFile();
+                if(file==null)
+                	return;
+                lblNewLabel.setText("（点击箭头开始）你选择了："+file.getName());
+            }  
+        });  
+        
+		JButton close=new JButton("取消选择");  
+		close.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		close.setBounds(420, 450, 300, 100);  
+		close.setVisible(true);   
+        close.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {  
+                // TODO Auto-generated method stub  
+                file=null;
+                lblNewLabel.setText("（点击箭头返回）你选择了：  ");
+            }  
+        });  
+        backgroundPanel.add(open);  
+		backgroundPanel.add(close);  
+		backgroundPanel.add(button);  
 		/*********************************************			
 		 * 【鼠标动作的设置】
 		 ********************************************/
-		backgroundMouseListener.dataPackage=dataPackage;//数据包注册，不需要改
-		backgroundMouseListener.mainGame=mainGame;
-		
-		backgroundMouseListener click=new backgroundMouseListener(0);//设置鼠标监听器，发生0号事件
+		welcomeMouseListener.dataPackage=dataPackage;//数据包注册，不需要改
+		welcomeMouseListener.mainGame=mainGame;
+		welcomeMouseListener click=new welcomeMouseListener(0);//设置鼠标监听器，发生0号事件
 
 		click.setButton(button);
     	button.addMouseListener(click);//0号事件是 睡觉按钮 被点击
@@ -182,8 +215,12 @@ public class WinBackground extends WinBase{
 		//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(backgroundPanel);
+		frame.getContentPane().add(backgroundImage);
 		frame.getContentPane().repaint();
     	frame.setVisible(true);
     	//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 	}
 }
+
+    
+

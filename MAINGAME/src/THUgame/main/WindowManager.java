@@ -9,9 +9,11 @@ import THUgame.windows.WinBase;
 import THUgame.windows.WinChoice;
 import THUgame.windows.WinHome;
 import THUgame.windows.WinInDom;
+import THUgame.windows.WinInputName;
 import THUgame.windows.WinMap;
 import THUgame.windows.WinMorningClass;
 import THUgame.windows.WinNoonClass;
+import THUgame.windows.WinSaveAndLoad;
 import THUgame.windows.WinBackground;
 import THUgame.windows.WinWelcome;
 
@@ -54,6 +56,8 @@ public class WindowManager extends JFrame {
 		WinBackground.dataPackage=dataPackage;
 		WinWelcome.dataPackage=dataPackage;
 		WinSTA.dataPackage=dataPackage;
+		WinInputName.dataPackage=dataPackage;
+		WinSaveAndLoad.dataPackage=dataPackage;
 		/*		END OF YOUR CODE		*/
 	}
 	
@@ -91,6 +95,12 @@ public class WindowManager extends JFrame {
 				break;
 			case 30002:
 				generator = new WinWelcome(mainGame,mainFrame);
+				break;
+			case 30003:
+				generator = new WinInputName(mainGame,mainFrame);
+				break;
+			case 30004:
+				generator = new WinSaveAndLoad(mainGame,mainFrame);
 				break;
 				
 		}

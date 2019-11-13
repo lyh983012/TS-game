@@ -21,9 +21,6 @@ import THUgame.tool.ImagePanel;
  * 【宿舍界面】
  * 
  * --DIALOG--
- * update:20191114
- * via：林逸晗
- * 更新：加入存档方法于基类，加入存档操作于宿舍
  * 
  * update:20191030
  * via：林逸晗
@@ -72,7 +69,7 @@ import THUgame.tool.ImagePanel;
  **/
 
 
-public class WinInDom extends WinBase{
+public class WinEnd extends WinBase{
 	
 	/*************************************************************	
 	 *
@@ -153,7 +150,7 @@ public class WinInDom extends WinBase{
 	 * 		不要新建JFrame窗口对象，而是把上层传进来的窗口对象里面的东西扔了，重新添加
 	 * 
 	 *************************************************************/
-	public WinInDom(EventManager mainGame,JFrame frame) {
+	public WinEnd(EventManager mainGame,JFrame frame) {
 		
 		//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -205,46 +202,33 @@ public class WinInDom extends WinBase{
 		 *  	具体用法见MorninigClass窗口
 		 *************************************************************/
 		JPanel SnorePanel = new JPanel();	
-		SnorePanel.setOpaque(false);
+		SnorePanel.setBackground(new Color(255, 255, 204));
 		SnorePanel.setBounds(254, 129, 531, 363);
 		backgroundPanel.add(SnorePanel);
 		SnorePanel.setLayout(null);
 		
-		JPanel upperlevel = new JPanel();
-		upperlevel.setOpaque(false);
-		upperlevel.setBounds(0, 0, 531, 363);
-		upperlevel.setLayout(null);
+		JLabel label_1 = new JLabel("你被舍友的呼噜吵醒了，睡眠质量大跌");
+		label_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		label_1.setBounds(95, 130, 388, 16);
+		SnorePanel.add(label_1);
 		
-		JPanel background = new ImagePanel("imgsrc//对话框.png",0, 0, 531, 363);
-		background.setOpaque(false);
-		background.setBounds(0, 0, 531, 363);
-		background.setLayout(null);
+		JLabel label_2 = new JLabel("健康下降、心情下降、社交力下降、体力下降");
+		label_2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		label_2.setBounds(95, 173, 388, 16);
+		SnorePanel.add(label_2);
 		
-			JLabel label_1 = new JLabel("你被舍友的呼噜吵醒了，睡眠质量大跌");
-			label_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-			label_1.setBounds(95, 130, 388, 16);
+		JButton wakeButton = new JButton();
+		wakeButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
+		wakeButton.setBounds(95, 250, 120, 50);
+		wakeButton.setText("叫醒舍友");
 		
-			JLabel label_2 = new JLabel("好烦啊，要不要叫醒他");
-			label_2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-			label_2.setBounds(95, 173, 388, 16);
-			
-			JButton wakeButton = new JButton();
-			wakeButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
-			wakeButton.setBounds(95, 250, 120, 50);
-			wakeButton.setText("叫醒舍友");
-			
-			JButton stayButton = new JButton();
-			stayButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
-			stayButton.setBounds(300, 250, 120, 50);
-			stayButton.setText("保持沉默");
+		JButton stayButton = new JButton();
+		stayButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
+		stayButton.setBounds(300, 250, 120, 50);
+		stayButton.setText("保持沉默");
 		
-		upperlevel.add(label_1);
-		upperlevel.add(label_2);
-		upperlevel.add(wakeButton);
-		upperlevel.add(stayButton);
-			
-		SnorePanel.add(upperlevel);
-		SnorePanel.add(background);
+		SnorePanel.add(wakeButton);
+		SnorePanel.add(stayButton);
 		
 		RememberGame.mainGame=mainGame;//注意这里！不然没办法结束游戏！
 		RememberGame.dataPackage=dataPackage;//注意这里！不然没办法结束游戏！

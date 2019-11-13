@@ -56,7 +56,7 @@ public class RememberGame extends JPanel{
 	private int length;
 	private boolean RememStart;
 	private int turn;
-	private int Maxturn=5;
+	private int Maxturn=3;
 
 	JPanel EventPanel;
 
