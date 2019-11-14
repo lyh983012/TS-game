@@ -64,7 +64,7 @@ public class EventOrganization extends EventBase{
 				break;
 			case 1:
 				if (oldDataPack.date == 2) { // 第2天发布招新
-					oldDataPack.notification = "您好！我是新雅书院学生会的凌艺涵。今天我是来搞你的。";
+					oldDataPack.notification = "<html>您好！我是新雅书院学生会的凌艺涵。今天是系学生会各部门招新，请问你有兴趣填一下问卷吗？</html>。";
 				} else {                     // 第3天公布聘书，并发布第一次会议通知
 					oldDataPack.notification = "我又来啦，恭喜你被学生会体育部录用了，这是你的聘书！";
 				}

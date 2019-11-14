@@ -8,6 +8,7 @@ import java.awt.Color;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
@@ -175,7 +176,7 @@ public class WinOrganization extends WinBase{
 			JLabel dialogContent = new JLabel();
 			dialogName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 			dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-			dialogContent.setBounds(15, 42, 677, 141);
+			dialogContent.setBounds(27, 42, 632, 137);
 			dialogPanel.add(dialogContent);
 			
 			if (!dataPackage.notification.equals(""))//设置对话内容
@@ -222,7 +223,50 @@ public class WinOrganization extends WinBase{
 		 *  	
 		 *  	具体用法见MorninigClass窗口
 		 *************************************************************/
-		
+		if (dataPackage.count == 3) {
+			
+		}
+		JPanel choosePack = new JPanel();
+		choosePack.setBounds(298, 141, 432, 277);
+		choosePack.setOpaque(false);//注意要设成透明的
+		choosePack.setLayout(null);
+			JPanel choosePanel = new JPanel();
+			choosePanel.setBounds(0, 0, 432, 277);
+			choosePanel.setLayout(null);
+			
+				JLabel textLabel = new JLabel();
+				textLabel.setHorizontalAlignment(SwingConstants.CENTER);
+				textLabel.setText("<html>是否要接下招新问卷呢？</html>");
+				textLabel.setFont(new Font("印品黑体", Font.PLAIN, 20));
+				textLabel.setBounds(81, 51, 270,77);
+				
+				JButton tryButton = new JButton();	
+				tryButton.setBorderPainted(false);
+				tryButton.setFont(new Font("印品黑体", Font.PLAIN, 16));
+				tryButton.setForeground(Color.BLACK);
+				tryButton.setBounds(48, 167, 151,60);
+				tryButton.setContentAreaFilled(false);
+				tryButton.setHorizontalAlignment(SwingConstants.CENTER);
+				setIcon("/imgsrc/WinOrganization/next.png", nextButton);
+				setSelectedIcon("/imgsrc/WinOrganization/nextPressed.png", nextButton);
+				
+				JButton refuseButton = new JButton();
+				refuseButton.setHorizontalAlignment(SwingConstants.CENTER);
+				refuseButton.setForeground(Color.BLACK);
+				refuseButton.setFont(new Font("Dialog", Font.PLAIN, 16));
+				refuseButton.setContentAreaFilled(false);
+				refuseButton.setBorderPainted(false);
+				refuseButton.setBounds(235, 167, 151, 60);
+				setIcon("/imgsrc/WinOrganization/next.png", nextButton);
+				setSelectedIcon("/imgsrc/WinOrganization/nextPressed.png", nextButton);
+				
+				choosePanel.add(refuseButton);
+				choosePanel.add(tryButton);
+				choosePanel.add(textLabel);
+			choosePack.add(choosePanel);
+			
+			
+		backgroundPanel.add(choosePack);
 		
 		/*************************************************************	
 		 * 【招新问卷】 
@@ -529,6 +573,7 @@ public class WinOrganization extends WinBase{
 		Background.setBounds(0, 0, 1080, 720);
 		backgroundPanel.add(Background);
 		Background.setLayout(null);
+		
 		/*****************************************************************				
 		 * 
 		 * 【细节设定】
