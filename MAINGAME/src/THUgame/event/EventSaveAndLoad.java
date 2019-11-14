@@ -23,7 +23,8 @@ public class EventSaveAndLoad extends EventBase{
 		        ois = new ObjectInputStream(new FileInputStream(file));
 		        oldDataPack.copyElements((DataPack)ois.readObject());
 		    } catch (Exception e) {
-		    	e.printStackTrace();
+		    	JOptionPane.showMessageDialog(null, "存档文件可能已损坏", "oops",JOptionPane.WARNING_MESSAGE);  
+		    	return; 
 		    }
 	        oldDataPack.stateA = "startgame";
 	        oldDataPack.eventFinished = true;
