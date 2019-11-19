@@ -27,13 +27,14 @@ public class EventOrganization extends EventBase{
 		 * 事件结束
 		 * 		转换一个标记，必要时存储一些信息
 		 *******************************************/
-		if (oldDataPack.choiceB.equals("closeQuestionnaire")) {
-			oldDataPack.notification = "思来想去还是没有报名……";
-			oldDataPack.eventFinished=true;			//并且点击了关闭问卷这个按钮，那么招新事件结束
+		System.out.println(oldDataPack.count);
+		if (oldDataPack.count == 5) {
+			oldDataPack.eventFinished=true;			//点击了关闭问卷这个按钮，那么招新事件结束
 			oldDataPack.time += 1;
 			return;									//直接返回，避免属性乱变
 		} else if (oldDataPack.stateA == "quitEnroll") {
 			oldDataPack.eventFinished=true;			//拒绝了招新人员，那么招新事件结束
+			oldDataPack.time += 1;
 			return;									//直接返回，避免属性乱变
 		}
 		
@@ -79,9 +80,10 @@ public class EventOrganization extends EventBase{
 				break;
 			case 3:
 				if (oldDataPack.date == 2) {
-					if (oldDataPack.choiceA == "agree") {
+					if (oldDataPack.choiceB == "accept") {
 						oldDataPack.notification = "<html>社工呀，要不试试吧！</html>";
-					} else if (oldDataPack.choiceA == "refuse") {
+						oldDataPack.stateA = "continueEnroll";
+					} else if (oldDataPack.choiceB == "refuse") {
 						oldDataPack.notification = "算啦，还是专心学习吧";
 						oldDataPack.stateA = "quitEnroll";
 					}
@@ -89,10 +91,16 @@ public class EventOrganization extends EventBase{
 				
 				break;
 			case 4:
-				
-				
+				if (oldDataPack.choiceC.equals("closeQuestionnaire")) { // 关闭了问卷
+					oldDataPack.stateB = "quitQuestionnaire";
+					oldDataPack.notification = "思来想去还是没有报名……";
+				}
+				else if (oldDataPack.choiceC.equals("submitQuestionnaire")){ // 提交了问卷
+					oldDataPack.stateB = "waitForAnswer";
+					oldDataPack.notification = "<html>谢谢你的时间~明天我同一时间我会来通知录取结果！</html>";
+				}
 				break;
-
+			
 		}
 		if (oldDataPack.characterHealth<=0)
 			JOptionPane.showMessageDialog(null, "你猝死了", "", JOptionPane.ERROR_MESSAGE);//弹出猝死界面

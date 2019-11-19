@@ -86,15 +86,15 @@ public class WinOrganization extends WinBase{
 		public void mouseReleased(MouseEvent e) {
 			/*		START OF YOUR CODE		*/
 			if(mode==0) {
-				dataPackage.choiceB="closeQuestionnaire";	//点按钮0（关闭按钮）返回closeQuestionnaire
+				dataPackage.choiceC="closeQuestionnaire";	//点按钮0（关闭按钮）返回closeQuestionnaire
 			}else if(mode ==1){
-				dataPackage.choiceB="submitQuestionnaire";//点按钮1（提交按钮）返回submitQuestionnaire
+				dataPackage.choiceC="submitQuestionnaire";//点按钮1（提交按钮）返回submitQuestionnaire
 			}else if(mode ==2){
-				dataPackage.choiceB="gooutside";//点按钮2（上课按钮）返回gotoclass
+				dataPackage.choiceA="clickNext";//点按钮2（下一步按钮），状态标记为点击下一步
 			}else if(mode ==3){
-				dataPackage.choiceB="wakehimup";//点按钮3（唤醒按钮）返回wakehimup
+				dataPackage.choiceB="accept";//点按钮3（唤醒按钮）返回accept
 			}else if(mode ==4){
-				dataPackage.choiceB="stayup";//点按钮4（待着按钮）返回stayup
+				dataPackage.choiceB="refuse";//点按钮4（待着按钮）返回refuse
 			}
 			/*		END OF YOUR CODE		*/
 			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
@@ -166,7 +166,8 @@ public class WinOrganization extends WinBase{
 			dialogName.setBounds(17, 6, 89, 40);
 			dialogPanel.add(dialogName);
 			
-			if (dataPackage.count == 2) {
+			if (dataPackage.count == 2 ||
+				(dataPackage.count == 5 && dataPackage.stateB.equals("waitForAnswer"))) {
 				dialogName.setText("凌艺涵");
 			} else {
 				dialogName.setText("独白");
@@ -191,7 +192,12 @@ public class WinOrganization extends WinBase{
 			 *  	特殊步骤下才会触发
 			 *  	具体用法见MorninigClass窗口
 			 *************************************************************/
-			if (dataPackage.count == 1 || dataPackage.count == 2 || dataPackage.count == 3 || dataPackage.count == 6 || dataPackage.count == 0) {
+			if (dataPackage.count == 1 || 
+				dataPackage.count == 2 || 
+				dataPackage.count == 6 || 
+				dataPackage.count == 0 ||
+				(dataPackage.count == 4 && dataPackage.stateA.equals("quitEnroll")) ||
+				dataPackage.count == 5) {
 				JButton nextButton = new JButton();
 				nextButton.setBounds(597, 113, 52, 48);
 				dialogPanel.add(nextButton);
@@ -220,60 +226,73 @@ public class WinOrganization extends WinBase{
 		
 		/*************************************************************	
 		 * 【选项框】 
+		 *  	是否接下招新问卷
 		 *  	
-		 *  	具体用法见MorninigClass窗口
 		 *************************************************************/
 		if (dataPackage.count == 3) {
+			JPanel choosePack = new JPanel();
+			choosePack.setBounds(298, 141, 432, 277);
+			choosePack.setOpaque(false);//注意要设成透明的
+			choosePack.setLayout(null);
+				JPanel choosePanel = new JPanel();
+				choosePanel.setBounds(0, 0, 432, 277);
+				choosePanel.setLayout(null);
+				
+					JLabel textLabel = new JLabel();
+					textLabel.setHorizontalAlignment(SwingConstants.CENTER);
+					textLabel.setText("<html>是否要接下招新问卷呢？</html>");
+					textLabel.setFont(new Font("印品黑体", Font.PLAIN, 20));
+					textLabel.setBounds(81, 51, 270,77);
+					
+					JButton tryButton = new JButton();	
+					tryButton.setBorderPainted(false);
+					tryButton.setFont(new Font("印品黑体", Font.PLAIN, 16));
+					tryButton.setForeground(Color.BLACK);
+					tryButton.setBounds(68, 167, 120,40);
+					tryButton.setContentAreaFilled(false);
+					tryButton.setHorizontalAlignment(SwingConstants.CENTER);
+					setIcon("/imgsrc/WinOrganization/accept.png", tryButton);
+					setSelectedIcon("/imgsrc/WinOrganization/acceptPressed.png", tryButton);
+					
+					JButton refuseButton = new JButton();
+					refuseButton.setHorizontalAlignment(SwingConstants.CENTER);
+					refuseButton.setForeground(Color.BLACK);
+					refuseButton.setFont(new Font("Dialog", Font.PLAIN, 16));
+					refuseButton.setContentAreaFilled(false);
+					refuseButton.setBorderPainted(false);
+					refuseButton.setBounds(263, 167, 120, 40);
+					setIcon("/imgsrc/WinOrganization/refuse.png", refuseButton);
+					setSelectedIcon("/imgsrc/WinOrganization/refusePressed.png", refuseButton);
+					
+					choosePanel.add(refuseButton);
+					choosePanel.add(tryButton);
+					choosePanel.add(textLabel);
+				choosePack.add(choosePanel);
+			backgroundPanel.add(choosePack);
 			
+			/*********************************************			
+			 * 【局部鼠标动作的设置】
+			 ********************************************/
+			demoMouseListener.dataPackage=dataPackage;//数据包注册，不需要改
+			demoMouseListener.mainGame=mainGame;
+			
+			demoMouseListener clickAccept = new demoMouseListener(3);//设置鼠标监听器，发生3号事件
+			demoMouseListener clickRefuse = new demoMouseListener(4);//设置鼠标监听器，发生4号事件
+			
+			clickAccept.setButton(tryButton);
+			tryButton.addMouseListener(clickAccept);//3号事件是 接受按钮 被点击
+			
+			clickRefuse.setButton(refuseButton);
+			refuseButton.addMouseListener(clickRefuse);//4号事件是 拒绝按钮 被点击
 		}
-		JPanel choosePack = new JPanel();
-		choosePack.setBounds(298, 141, 432, 277);
-		choosePack.setOpaque(false);//注意要设成透明的
-		choosePack.setLayout(null);
-			JPanel choosePanel = new JPanel();
-			choosePanel.setBounds(0, 0, 432, 277);
-			choosePanel.setLayout(null);
-			
-				JLabel textLabel = new JLabel();
-				textLabel.setHorizontalAlignment(SwingConstants.CENTER);
-				textLabel.setText("<html>是否要接下招新问卷呢？</html>");
-				textLabel.setFont(new Font("印品黑体", Font.PLAIN, 20));
-				textLabel.setBounds(81, 51, 270,77);
-				
-				JButton tryButton = new JButton();	
-				tryButton.setBorderPainted(false);
-				tryButton.setFont(new Font("印品黑体", Font.PLAIN, 16));
-				tryButton.setForeground(Color.BLACK);
-				tryButton.setBounds(48, 167, 151,60);
-				tryButton.setContentAreaFilled(false);
-				tryButton.setHorizontalAlignment(SwingConstants.CENTER);
-				setIcon("/imgsrc/WinOrganization/next.png", nextButton);
-				setSelectedIcon("/imgsrc/WinOrganization/nextPressed.png", nextButton);
-				
-				JButton refuseButton = new JButton();
-				refuseButton.setHorizontalAlignment(SwingConstants.CENTER);
-				refuseButton.setForeground(Color.BLACK);
-				refuseButton.setFont(new Font("Dialog", Font.PLAIN, 16));
-				refuseButton.setContentAreaFilled(false);
-				refuseButton.setBorderPainted(false);
-				refuseButton.setBounds(235, 167, 151, 60);
-				setIcon("/imgsrc/WinOrganization/next.png", nextButton);
-				setSelectedIcon("/imgsrc/WinOrganization/nextPressed.png", nextButton);
-				
-				choosePanel.add(refuseButton);
-				choosePanel.add(tryButton);
-				choosePanel.add(textLabel);
-			choosePack.add(choosePanel);
-			
-			
-		backgroundPanel.add(choosePack);
+		
 		
 		/*************************************************************	
 		 * 【招新问卷】 
-		 *  	
-		 *  	具体用法见MorninigClass窗口
+		 *  	弹出招新问卷
+		 *  	关闭 or 提交
 		 *************************************************************/
-		if (dataPackage.count == 5) {
+		if (dataPackage.count == 4 && dataPackage.stateA.equals("continueEnroll")) {
 			JPanel enrollPack = new JPanel();
 			enrollPack.setBounds(291, 32, 440, 430);
 			enrollPack.setOpaque(false);//注意要设成透明的
@@ -407,6 +426,8 @@ public class WinOrganization extends WinBase{
 			clickClose.setButton(submitButton);
 			submitButton.addMouseListener(clickSubmit);//2号事件是 去上课按钮 被点击
 		
+		}else {
+			
 		}
 		
 		/*************************************************************	
