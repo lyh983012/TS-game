@@ -3,6 +3,9 @@ package THUgame.event;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
+
+import javax.swing.JOptionPane;
+
 import THUgame.datapack.DataPack;
 
 /*
@@ -14,6 +17,7 @@ import THUgame.datapack.DataPack;
  * */
 
 public class EventSaveAndLoad extends EventBase{
+	@SuppressWarnings("resource")
 	public void actOn(DataPack oldDataPack) {
 		
 		if(!(oldDataPack.choiceA.equals(""))) {
@@ -23,7 +27,8 @@ public class EventSaveAndLoad extends EventBase{
 		        ois = new ObjectInputStream(new FileInputStream(file));
 		        oldDataPack.copyElements((DataPack)ois.readObject());
 		    } catch (Exception e) {
-		    	e.printStackTrace();
+		    	JOptionPane.showMessageDialog(null, "存档文件可能已损坏", "oops",JOptionPane.WARNING_MESSAGE);  
+		    	return; 
 		    }
 	        oldDataPack.stateA = "startgame";
 	        oldDataPack.eventFinished = true;

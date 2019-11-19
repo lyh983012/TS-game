@@ -11,26 +11,16 @@ package THUgame.Game;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Random;
 import java.util.Stack;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.Timer;
-
-import THUgame.Game.RememberGame.EnderListener;
-import THUgame.Game.RememberGame.TimerListener;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
@@ -82,20 +72,27 @@ class Lattice{
 		return this.Intree;
 	}
 	
+	public void SetWhite(Graphics g,int padding,int width) {
+		int tx,ty;
+		tx = padding + x*width;
+		ty = padding + y*width - 100;
+		g.drawLine(tx, ty, tx+width, ty);
+		g.drawLine(tx, ty, tx, ty+width);
+		g.drawLine(tx, ty, tx, ty+width);
+		g.drawLine(tx+width, ty, tx+width, ty+width);
+		g.drawLine(tx, ty+width, tx+width, ty+width);
+	}
+	
 }
 
 public class MazeGame extends JPanel implements KeyListener{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	static public EventManager mainGame;
 	static public DataPack dataPackage;
 	private JButton StartButton;
 	private Timer timer;
 	private int delay;
 	private Lattice[][] maze;
-	private int num, width, padding;
+	private int num, padding,width;
 	static private boolean MazeReady;
 	private int Ballx,Bally;
 	
@@ -166,54 +163,9 @@ public class MazeGame extends JPanel implements KeyListener{
 		this.add(EventPanel);
 		this.add(EventBackgound);
 	}
-	/***
-	 private class move implements KeyListener() {
-		   // int tx = this.Ballx, ty = this.Bally;
-		    // System.out.println(c);
-		    public void keyTyped(KeyEvent e) {
-   
-		         
-		    }
-		 
-		    @Override
-		    public void keyPressed(KeyEvent e) {
-		        // TODO Auto-generated method stub
-			 	System.out.println("Move!");
-			 	int c =e.getKeyCode();
-			    switch (c) {
-			      case KeyEvent.VK_LEFT :
-			        Bally--;
-			        break;
-			      case KeyEvent.VK_RIGHT :
-			        Bally++;
-			        break;
-			      case KeyEvent.VK_UP :
-			        Ballx--;
-			        break;
-			      case KeyEvent.VK_DOWN :
-			        Ballx++;
-			        break;
-			      case KeyEvent.VK_SPACE :
-
-			        break;
-			      default:
-			    }
-		       
-		         
-		    }
-		 
-		    @Override
-		    public void keyReleased(KeyEvent e) {
-		        // TODO Auto-generated method stub
-		         
-		    }
 
 
-		    
-		    
-	 }
-	 **/
-	 
+
 	
 	class MazePanel extends JPanel{
 		
@@ -233,22 +185,34 @@ public class MazeGame extends JPanel implements KeyListener{
 		    g.setColor(Color.white);
 		    for(int i = num-1;i>=0;i--)
 		    	for(int j = num-1;j>=0;j--) {
+		    		
 		    		Lattice f = maze[i][j].getFather();
 		    		if(f!=null) {
 		    			int fx = f.GetX();
 		    			int fy = f.GetY();
 		    			clearFence(i,j,fx,fy,g);
 		    		}
+		    		if(dist(i,j,Ballx,Bally)>4)
+		    			maze[i][j].SetWhite(g,padding,width);
 		    	}
+		    g.setColor(Color.white);
+		    
+		    
+		    
+		    	
+		    
 		    g.drawLine(padding, padding + 1-100, padding, padding + width - 1-100);
 		    int last = padding + num * width;
 		    g.drawLine(last, last - 1-100, last, last - width + 1-100);
 		    
 			g.setColor(Color.red);
 			g.fillOval(getcenterx(Ballx) - width / 3, getcentery(Bally) - width / 3,
-				
 			        width / 2, width / 2);
-			}
+			g.setColor(Color.blue);
+			g.fillOval(getcenterx(num-1) - width / 3, getcentery(num-1) - width / 3,
+			        width / 2, width / 2);
+			
+			} 
 		}
 	}
 	/**
@@ -266,12 +230,22 @@ public class MazeGame extends JPanel implements KeyListener{
 		EventPanel.removeAll();
 		initMaze();
 		System.out.println("Init start");
+		/***
+		 * 为实现监听键盘的功能，addKeyListener，requestFocus非常重要
+		 */
 		this.addKeyListener(this);
-		//this.setFocusable(true);
 		this.requestFocus();
+		//上面两句一定要加
 		return;
 	}
 	
+	/*****
+	 * 计算距离
+	 */
+	private double dist(int x, int y, int ballx, int bally) {
+		double dist = Math.sqrt((x-ballx)*(x-ballx)+(y-bally)*(y-bally));
+		return dist;
+	}
 	/****
 	 * 
 	 * @param p是当前需要获得邻域的点

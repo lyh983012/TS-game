@@ -93,15 +93,12 @@ public class WinInDom extends WinBase{
 		public demoMouseListener(int i){
 			this.mode=i;
 		}
-		
 		public void setFrame(JFrame frame) {
 			this.frame=frame;
 		}
-		
 		public void setButton(JButton button) {
 			this.button=button;
 		}
-		
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
@@ -125,6 +122,14 @@ public class WinInDom extends WinBase{
 					dataPackage.choiceA="wakehimup";//点按钮3（唤醒按钮）返回wakehimup
 				}else if(mode ==4){
 					dataPackage.choiceA="stayup";//点按钮4（待着按钮）返回stayup
+				}else if(mode ==5){
+					if(dataPackage.stateA.equals("期末考")){
+						dataPackage.choiceA="takeExam";//点按钮4（待着按钮）返回stayup
+					}else if(dataPackage.stateA.equals("科研报名")){
+						dataPackage.choiceA="readMessage_research_login";//点按钮4（待着按钮）返回stayup
+					}else if(dataPackage.stateA.equals("报名结果")){
+						dataPackage.choiceA="readMessage_research_result";//点按钮4（待着按钮）返回stayup
+					}
 				}
 				/*		END OF YOUR CODE		*/
 				//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
@@ -204,7 +209,7 @@ public class WinInDom extends WinBase{
 		 *  	这一部分需要用dataPackage.trigSubEvent决定是否绘制
 		 *  	具体用法见MorninigClass窗口
 		 *************************************************************/
-		JPanel SnorePanel = new JPanel();	
+		JPanel SnorePanel = new JPanel();	//1.跟打呼噜相关的小事件在这里触发
 		SnorePanel.setOpaque(false);
 		SnorePanel.setBounds(254, 129, 531, 363);
 		backgroundPanel.add(SnorePanel);
@@ -229,12 +234,12 @@ public class WinInDom extends WinBase{
 			label_2.setBounds(95, 173, 388, 16);
 			
 			JButton wakeButton = new JButton();
-			wakeButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
+			wakeButton.setBorderPainted(true);
 			wakeButton.setBounds(95, 250, 120, 50);
 			wakeButton.setText("叫醒舍友");
 			
 			JButton stayButton = new JButton();
-			stayButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
+			stayButton.setBorderPainted(true);
 			stayButton.setBounds(300, 250, 120, 50);
 			stayButton.setText("保持沉默");
 		
@@ -246,22 +251,64 @@ public class WinInDom extends WinBase{
 		SnorePanel.add(upperlevel);
 		SnorePanel.add(background);
 		
-		RememberGame.mainGame=mainGame;//注意这里！不然没办法结束游戏！
+		JPanel messagePanel = new JPanel();//2.跟转场相关
+		messagePanel.setOpaque(false);
+		messagePanel.setBounds(254, 129, 531, 363);
+		backgroundPanel.add(messagePanel);
+		messagePanel.setLayout(null);
+		
+		JPanel messageupperlevel = new JPanel();
+		messageupperlevel.setOpaque(false);
+		messageupperlevel.setBounds(0, 0, 531, 363);
+		messageupperlevel.setLayout(null);
+		
+		JPanel messagebackground = new ImagePanel("imgsrc//对话框.png",0, 0, 531, 363);
+		messagebackground.setOpaque(false);
+		messagebackground.setBounds(0, 0, 531, 363);
+		messagebackground.setLayout(null);
+		
+			JLabel messagelabel_1 = new JLabel();
+			messagelabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			messagelabel_1.setBounds(100, 50, 350, 200);
+
+			JButton messageButton = new JButton();
+			messageButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
+			messageButton.setBounds(197, 250, 120, 50);		
+		
+		messageupperlevel.add(messagelabel_1);
+		messageupperlevel.add(messageButton);	
+		messagePanel.add(messageupperlevel);
+		messagePanel.add(messagebackground);
+		
+		RememberGame.mainGame=mainGame;//3.Game 注意这里！不然没办法结束游戏！
 		RememberGame.dataPackage=dataPackage;//注意这里！不然没办法结束游戏！
-		JPanel Remember = new RememberGame(254, 134);//将来可以用它来放临时小事件	
+		JPanel Remember = new RememberGame(254, 134);
 		Remember.setBounds(254, 134, 536, 398);
 		Remember.setLayout(null);
 		Remember.setOpaque(false);//注意要设成透明的
 		backgroundPanel.add(Remember);
 		
-		SnorePanel.setVisible(false); // 未触发子事件，取消小事件，恢复睡觉按钮
-		Remember.setVisible(false); // 未触发子事件，取消小事件，恢复睡觉按钮
+		messagePanel.setVisible(false); 
+		SnorePanel.setVisible(false); 
+		Remember.setVisible(false);
 
 		if (dataPackage.trigSubEvent){ // 触发子事件，小事情可见。。
 			if(dataPackage.stateA.equals("game")) {
 				Remember.setVisible(true);
 			}else if(dataPackage.stateA.equals("被吵醒")){
 				SnorePanel.setVisible(true);
+			}else if(dataPackage.stateA.equals("期末考")){
+				messageButton.setText("出发去考点");
+				messagelabel_1.setText("<html>天哪期末考要开始了！差点就睡过头了，快点赶去考试！</html>");
+				messagePanel.setVisible(true);
+			}else if(dataPackage.stateA.equals("科研报名")){
+				messageButton.setText("查看消息");
+				messagelabel_1.setText("<html>咦？收到了一条消息</html>");
+				messagePanel.setVisible(true);
+			}else if(dataPackage.stateA.equals("报名结果")){
+				messageButton.setText("查看消息");
+				messagelabel_1.setText("<html>咦？收到了一条消息</html>");
+				messagePanel.setVisible(true);
 			}
 			sleepButton.setVisible(false);
 			selfstudyButton.setVisible(false);
@@ -444,9 +491,9 @@ public class WinInDom extends WinBase{
 			todoList.add(label3);
 			label3.setFont(new Font("STFangsong", Font.PLAIN, 16));
 				
-			JLabel label4 = new JLabel("3.");
+			JLabel label4 = new JLabel(dataPackage.stateE);
 			label4.setForeground(Color.WHITE);
-			label4.setBounds(20, 115, 100, 18);
+			label4.setBounds(20, 115, 400, 20);
 			todoList.add(label4);
 			label4.setFont(new Font("STFangsong", Font.PLAIN, 16));
 			
@@ -512,7 +559,9 @@ public class WinInDom extends WinBase{
 		demoMouseListener clickOut=new demoMouseListener(2);//设置鼠标监听器，发生2号事件
 		demoMouseListener clickwake=new demoMouseListener(3);//设置鼠标监听器，发生3号事件
 		demoMouseListener clickstay=new demoMouseListener(4);//设置鼠标监听器，发生4号事件
-
+		demoMouseListener clickexam = new demoMouseListener(5);//设置鼠标监听器，发生4号事件
+		
+		clickexam.setButton(messageButton);
 		clicksleep.setButton(sleepButton);
 		clickselfstudy.setButton(selfstudyButton);
 		clickOut.setButton(OutButton);
@@ -524,6 +573,7 @@ public class WinInDom extends WinBase{
 		OutButton.addMouseListener(clickOut);//2号事件是 去上课按钮 被点击
 		wakeButton.addMouseListener(clickwake);//3号事件是 叫醒舍友 被点击
 		stayButton.addMouseListener(clickstay);//4号事件是 按兵不动 被点击
+		messageButton.addMouseListener(clickexam);//5号事件是 出发考试 被点击
 		/*		END OF YOUR CODE		*/
     	    	
     	/*****************************************************************				

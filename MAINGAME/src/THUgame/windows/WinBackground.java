@@ -126,7 +126,6 @@ public class WinBackground extends WinBase{
 		setSelectedIcon("/imgsrc/WinBackground/cb.png",button);
 		
 		//panelbutton.add(Text);
-
 		JLabel textLabel = new JLabel();
 		textLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		textLabel.setText("<html>这样会自动换行</html>");
@@ -167,7 +166,6 @@ public class WinBackground extends WinBase{
 		 ********************************************/
 		backgroundMouseListener.dataPackage=dataPackage;//数据包注册，不需要改
 		backgroundMouseListener.mainGame=mainGame;
-		
 		backgroundMouseListener click=new backgroundMouseListener(0);//设置鼠标监听器，发生0号事件
 
 		click.setButton(button);

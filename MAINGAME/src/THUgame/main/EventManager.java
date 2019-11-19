@@ -12,6 +12,16 @@ import THUgame.event.EventHome;
 import THUgame.event.EventBackground;
 import THUgame.event.EventWelcome;
 import THUgame.subevents.EventSTA;
+import THUgame.subevents.EventResearchBegin;
+import THUgame.subevents.EventResearchMeetingNotice;
+import THUgame.subevents.EventResearchGroupMeetingOne;
+import THUgame.subevents.EventResearchGroupMeetingTwo;
+import THUgame.subevents.EventResearchGroupMeetingThree;
+import THUgame.subevents.EventResearchGroupMeetingFour;
+import THUgame.subevents.EventResearchGroupMeetingFive;
+import THUgame.subevents.EventResearchGroupMeetingSix;
+import THUgame.subevents.EventResearchGroupMeetingSeven;
+import THUgame.subevents.EventResearchGroupMeetingEight;
 public class EventManager extends Thread{
 	
     private WindowManager GUI;
@@ -61,6 +71,36 @@ public class EventManager extends Thread{
 					break;	
 				case 20016:
 					pushForward = new EventSTA();
+					break;
+				case 21000:
+					pushForward = new EventResearchBegin();
+					break;
+				case 21001:
+					pushForward = new EventResearchMeetingNotice();
+					break;
+				case 21002:
+					pushForward = new EventResearchGroupMeetingOne();
+					break;
+				case 21003:
+					pushForward = new EventResearchGroupMeetingTwo();
+					break;
+				case 21004:
+					pushForward = new EventResearchGroupMeetingThree();
+					break;
+				case 21005:
+					pushForward = new EventResearchGroupMeetingFour();
+					break;
+				case 21006:
+					pushForward = new EventResearchGroupMeetingFive();
+					break;
+				case 21007:
+					pushForward = new EventResearchGroupMeetingSix();
+					break;
+				case 21008:
+					pushForward = new EventResearchGroupMeetingSeven();
+					break;
+				case 21009:
+					pushForward = new EventResearchGroupMeetingEight();
 					break;
 				case 30000:
 					pushForward = new EventChoice();

@@ -278,7 +278,7 @@ public class RememberGame extends JPanel{
 	    	Random r = new Random();
 	    	if(this.RememStart  == false) {
 	    		try {
-					Thread.sleep(800);
+					Thread.sleep(400);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -313,13 +313,13 @@ public class RememberGame extends JPanel{
 	    		this.turn-=1;
 		    	if(GameLose)
 		    	{
-		    		this.score=this.score-2;
+		    		this.score=this.score-4;
 		    		scoreShow.setText("第"+(Maxturn-turn)+"轮你输了");
 		            scoreTime.setText("当前得分为:"+this.score);
 
 		    	}
 		    	else if(GameVictory) {
-		    		this.score=this.score+5;
+		    		this.score=this.score+7;
 		    		scoreShow.setText("第"+(Maxturn-turn)+"轮你赢了");
 		            scoreTime.setText("当前得分为:"+this.score);
 		    	}

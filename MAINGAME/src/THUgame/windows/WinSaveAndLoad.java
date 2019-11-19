@@ -154,13 +154,13 @@ public class WinSaveAndLoad extends WinBase{
 		setIcon("/imgsrc/WinBackground/ca.png",button);
 		setSelectedIcon("/imgsrc/WinBackground/cb.png",button);
 		
-		JLabel title = new JLabel("请选择一个合法的thu后缀名的存档文件:");
-		title.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		JLabel title = new JLabel("请选择一个合法的thu后缀名的存档文件");
+		title.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
 		title.setBounds(360, 200, 500, 30);
 		backgroundPanel.add(title);
 		
-		lblNewLabel = new JLabel("（点击箭头返回）你选择了: ");
-		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		lblNewLabel = new JLabel("（点击箭头返回）你选择了:  ");
+		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		lblNewLabel.setBounds(340, 268, 500, 30);
 		backgroundPanel.add(lblNewLabel);
 		

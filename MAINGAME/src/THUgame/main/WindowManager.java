@@ -3,7 +3,7 @@ package THUgame.main;
 import javax.swing.*;
 
 import THUgame.datapack.DataPack;
-import THUgame.subevents.EventSTA;
+import THUgame.subwindows.WinResearchBegin;
 import THUgame.subwindows.WinSTA;
 import THUgame.windows.WinBase;
 import THUgame.windows.WinChoice;
@@ -16,7 +16,17 @@ import THUgame.windows.WinNoonClass;
 import THUgame.windows.WinSaveAndLoad;
 import THUgame.windows.WinBackground;
 import THUgame.windows.WinWelcome;
-
+import THUgame.subwindows.WinResearchGroupmeetingOne;
+import THUgame.subwindows.WinResearchGroupmeetingTwo;
+import THUgame.subwindows.WinResearchGroupmeetingThree;
+import THUgame.subwindows.WinResearchGroupmeetingFour;
+import THUgame.subwindows.WinResearchGroupmeetingFive;
+import THUgame.subwindows.WinResearchGroupmeetingSix;
+import THUgame.subwindows.WinResearchGroupmeetingSeven;
+import THUgame.subwindows.WinResearchGroupmeetingEight;
+import THUgame.subwindows.WinResearchMeetingNotice;
+import THUgame.subwindows.WinResearchBegin;
+import THUgame.subevents.EventSTA;
 /*
  * template version 1.1
  * 窗口管理线程
@@ -58,6 +68,15 @@ public class WindowManager extends JFrame {
 		WinSTA.dataPackage=dataPackage;
 		WinInputName.dataPackage=dataPackage;
 		WinSaveAndLoad.dataPackage=dataPackage;
+		WinResearchBegin.dataPackage=dataPackage;
+		WinResearchGroupmeetingOne.dataPackage=dataPackage;
+		WinResearchGroupmeetingTwo.dataPackage=dataPackage;
+		WinResearchGroupmeetingThree.dataPackage=dataPackage;
+		WinResearchGroupmeetingFour.dataPackage=dataPackage;
+		WinResearchGroupmeetingFive.dataPackage=dataPackage;
+		WinResearchGroupmeetingSix.dataPackage=dataPackage;
+		WinResearchGroupmeetingSeven.dataPackage=dataPackage;
+		WinResearchGroupmeetingEight.dataPackage=dataPackage;
 		/*		END OF YOUR CODE		*/
 	}
 	
@@ -86,6 +105,36 @@ public class WindowManager extends JFrame {
 				break;
 			case 20016:
 				generator = new WinSTA(mainGame,mainFrame);
+				break;
+			case 21000:
+				generator = new WinResearchBegin(mainGame,mainFrame);
+				break;
+			case 21001:
+				generator = new WinResearchMeetingNotice(mainGame,mainFrame);
+				break;
+			case 21002:
+				generator = new WinResearchGroupmeetingOne(mainGame,mainFrame);
+				break;
+			case 21003:
+				generator = new WinResearchGroupmeetingTwo(mainGame,mainFrame);
+				break;
+			case 21004:
+				generator = new WinResearchGroupmeetingThree(mainGame,mainFrame);
+				break;
+			case 21005:
+				generator = new WinResearchGroupmeetingFour(mainGame,mainFrame);
+				break;
+			case 21006:
+				generator = new WinResearchGroupmeetingFive(mainGame,mainFrame);
+				break;
+			case 21007:
+				generator = new WinResearchGroupmeetingSix(mainGame,mainFrame);
+				break;
+			case 21008:
+				generator = new WinResearchGroupmeetingSeven(mainGame,mainFrame);
+				break;
+			case 21009:
+				generator = new WinResearchGroupmeetingEight(mainGame,mainFrame);
 				break;
 			case 30000:
 				generator = new WinChoice(mainGame,mainFrame);
