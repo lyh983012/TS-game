@@ -1,5 +1,10 @@
 //created by Jiabei 2019.10.18
 //modified by lyh 2019.10.28
+/* 
+ * update:20191030
+ * via：林逸晗
+ * 更新：加入safeGuardCount For button
+ */
 
 package THUgame.Game;
 
@@ -19,7 +24,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.Timer;
-
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
@@ -47,10 +51,12 @@ public class RememberGame extends JPanel{
 	private JLabel scoreShow;
     private JLabel scoreTime;
     private JLabel ready;
+    private JPanel mask;
 	private Timer timer;
 	private int length;
 	private boolean RememStart;
-	private int turn=5;
+	private int turn;
+	private int Maxturn=3;
 
 	JPanel EventPanel;
 
@@ -93,26 +99,27 @@ public class RememberGame extends JPanel{
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			// TODO Auto-generated method stub
-    		
-			Answer.add(this.ID);
-			//this.setForeground(Color.red);
-			if(Answer.size()<RightAnswer.size()) {
-				for(int i = 0;i<Answer.size();i++) {
-					if(!Objects.equals(Answer.get(i), RightAnswer.get(i))) 
-					{
-						GameLose = true;
-						return;
+			if(RememStart ==true) {
+				Answer.add(this.ID);
+				//this.setForeground(Color.red);
+				if(Answer.size()<RightAnswer.size()) {
+					for(int i = 0;i<Answer.size();i++) {
+						if(!Objects.equals(Answer.get(i), RightAnswer.get(i))) 
+						{
+							GameLose = true;
+							return;
+						}
 					}
 				}
-			}
-			else if(Answer.size() == RightAnswer.size()) {
-				for(int i = 0;i<Answer.size();i++) {
-					if((int)Answer.get(i)!=(int)RightAnswer.get(i)) {
-						GameLose = true;
-						return;
+				else if(Answer.size() == RightAnswer.size()) {
+					for(int i = 0;i<Answer.size();i++) {
+						if((int)Answer.get(i)!=(int)RightAnswer.get(i)) {
+							GameLose = true;
+							return;
+						}
 					}
+					GameVictory = true;
 				}
-				GameVictory = true;
 			}
 		}
 
@@ -141,9 +148,11 @@ public class RememberGame extends JPanel{
     		@Override
     	public void actionPerformed(ActionEvent e) {
     			this.dataPackage.trigSubEvent=false;
+    			this.dataPackage.choiceA="";
     			this.dataPackage.characterIQ+=score/10;//在这里改属性
-    			this.dataPackage.notification="<html>你完成了一个非常负责的任务，你硬着头皮完成了这个任务";
-    			this.dataPackage.notification += "<br>在这个珍贵的机会之中，你的智力值发生了"+String.valueOf(score/10)+"点的变化</html>";
+    			this.dataPackage.notification = "<html>我发现作业非常困难，沉迷其中，过去了五个小时";
+    			this.dataPackage.notification += "<br>学习进度+1，心情值-1，体力消耗5点";
+    			this.dataPackage.notification += "<br>漫长的五小时后，我可能错过了一些事情，但是<br>沉浸在知识海洋里让我的智力值发生了"+String.valueOf(score/10)+"点的变化</html>";
 	   			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 	   			synchronized(mainGame) {
 	   				this.mainGame.notify();
@@ -155,14 +164,15 @@ public class RememberGame extends JPanel{
     	this.setBounds(x, y, 540, 350);
     	this.setLayout(null);
     	this.setOpaque(false);//注意要设成透明的
-    	
     	this.delay=80;
+    	turn=Maxturn;
     	RememberGame.RightAnswer = new ArrayList<Integer>();
     	RememberGame.Answer =new ArrayList<Integer>();
     	RememberGame.Buttons=new ArrayList<Button>();
     	
     	this.HeroNewButton = new JButton("开始游戏");
-        this.HeroNewButton.setBounds(225, 266, 100, 20);
+    	this.HeroNewButton.setFont(new Font("Lucida Grande", Font.BOLD, 18));
+        this.HeroNewButton.setBounds(225, 266, 100, 50);
         this.HeroNewButton.addActionListener(new ActionListener(){
     		@Override
     		public void actionPerformed(ActionEvent e) {
@@ -179,7 +189,7 @@ public class RememberGame extends JPanel{
 		txtpnshi.setBounds(170, 100, 220, 70);
 		txtpnshi.setOpaque(false);
 		txtpnshi.setEditable(false);
-		txtpnshi.setText("你开始写作业了！规则：记忆点击顺序，按顺序点击对应的方块，一共有五轮");
+		txtpnshi.setText("你开始写作业了！规则：记忆点击顺序，按顺序点击对应的方块，一共有"+Maxturn+"轮");
 		txtpnshi.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		this.add(txtpnshi);
 		
@@ -197,12 +207,11 @@ public class RememberGame extends JPanel{
 		
 		this.add(EventPanel);
 		this.add(EventBackgound);
-        
     }
     
     public void InitGame() {	
-    	if(turn==5) {//第一次初始化
-    		scoreShow=new JLabel("游戏剩余五轮");
+    	if(turn==Maxturn) {//第一次初始化
+    		scoreShow=new JLabel("游戏剩余"+turn+"轮");
     	    scoreShow.setBounds(50,40,100,20);
     	    scoreTime=new JLabel("当前得分：0");
     	    scoreTime.setBounds(50,60,100,20);
@@ -221,6 +230,7 @@ public class RememberGame extends JPanel{
 	    			RememberGame.Buttons.add(B);
 	        		EventPanel.add(B);
 	        		B.setText(String.valueOf(i*3+j+1));
+	        		B.setFont(new Font("Lucida Grande", Font.BOLD, 18));
 	        		B.setBounds(175+j*buttonsize,130+i*buttonsize,buttonsize,buttonsize);
 	        		B.setForeground(Color.black);
 	        		B.addMouseListener(B);
@@ -229,6 +239,7 @@ public class RememberGame extends JPanel{
 	    	}
     	}
     	//每轮的初始化。生成随机序列
+ 
     	this.RememStart = false;
     	RememberGame.GameVictory = false;
     	RememberGame.GameLose = false;
@@ -262,7 +273,7 @@ public class RememberGame extends JPanel{
 			waitforplayerdelay=true;
 			return;
     	}
-    	/*显示*/
+    	/*  显示  */
     	if(flag == true){
 	    	Random r = new Random();
 	    	if(this.RememStart  == false) {
@@ -303,18 +314,18 @@ public class RememberGame extends JPanel{
 		    	if(GameLose)
 		    	{
 		    		this.score=this.score-2;
-		    		scoreShow.setText("第"+(5-turn)+"轮你输了");
+		    		scoreShow.setText("第"+(Maxturn-turn)+"轮你输了");
 		            scoreTime.setText("当前得分为:"+this.score);
 
 		    	}
 		    	else if(GameVictory) {
 		    		this.score=this.score+5;
-		    		scoreShow.setText("第"+(5-turn)+"轮你赢了");
+		    		scoreShow.setText("第"+(Maxturn-turn)+"轮你赢了");
 		            scoreTime.setText("当前得分为:"+this.score);
 		    	}
 	    		this.InitGame();
 	    	}
-	    	else if(this.turn==0) {
+	    	else if(this.turn<=0) {
 	            this.endGame();
 	           	this.timer.stop();
 	    	}
@@ -323,7 +334,8 @@ public class RememberGame extends JPanel{
     }
 	
     public void endGame() {
-
+    	flag=false;
+    	this.timer.stop();
     	EventPanel.removeAll();
     	JTextPane txtpnshi = new JTextPane();
 		txtpnshi.setBounds(175, 100, 200, 200);

@@ -10,6 +10,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import java.awt.Font;
+
+import THUgame.Game.RememberGame;
+import THUgame.Game.ShootGame;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
@@ -18,10 +21,17 @@ import THUgame.tool.ImagePanel;
  * 【宿舍界面】
  * 
  * --DIALOG--
+ * update:20191114
+ * via：林逸晗
+ * 更新：加入存档方法于基类，加入存档操作于宿舍
+ * 
+ * update:20191030
+ * via：林逸晗
+ * 更新：加入safeGuardCount
  * 
  * update:20191028 01:07
  * via：林逸晗
- * 更新：更改了界面UI，使之适配MAP
+ * 更新：更改了界面UI，使之适配MAP，加入了游戏
  * 
  * update:20191018 01:07
  * via：余冬杰
@@ -103,22 +113,25 @@ public class WinInDom extends WinBase{
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			/*		START OF YOUR CODE		*/
-			if(mode==0) {
-				dataPackage.choiceA="sleep";	//点按钮0（睡觉按钮）返回sleep
-			}else if(mode ==1){
-				dataPackage.choiceA="selfstudy";//点按钮1（自习按钮）返回selfstudy
-			}else if(mode ==2){
-				dataPackage.choiceA="gooutside";//点按钮2（上课按钮）返回gotoclass
-			}else if(mode ==3){
-				dataPackage.choiceA="wakehimup";//点按钮3（唤醒按钮）返回wakehimup
-			}else if(mode ==4){
-				dataPackage.choiceA="stayup";//点按钮4（待着按钮）返回stayup
-			}
-			/*		END OF YOUR CODE		*/
-			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-			EventManager.dataPackage=dataPackage;
-			synchronized(mainGame) {
-				mainGame.notify();
+			if(safeGuardCount==0) {
+				safeGuardCount++;
+				if(mode==0) {
+					dataPackage.choiceA="sleep";	//点按钮0（睡觉按钮）返回sleep
+				}else if(mode ==1){
+					dataPackage.choiceA="selfstudy";//点按钮1（自习按钮）返回selfstudy
+				}else if(mode ==2){
+					dataPackage.choiceA="gooutside";//点按钮2（上课按钮）返回gotoclass
+				}else if(mode ==3){
+					dataPackage.choiceA="wakehimup";//点按钮3（唤醒按钮）返回wakehimup
+				}else if(mode ==4){
+					dataPackage.choiceA="stayup";//点按钮4（待着按钮）返回stayup
+				}
+				/*		END OF YOUR CODE		*/
+				//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+				EventManager.dataPackage=dataPackage;
+				synchronized(mainGame) {
+					mainGame.notify();
+				}
 			}
 			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		}
@@ -183,55 +196,77 @@ public class WinInDom extends WinBase{
 		JButton OutButton = new JButton();
 		OutButton.setBorderPainted(false);
 		OutButton.setBounds(819, 611, 150, 50);
-		if (dataPackage.stateB.equals("classtime")) {	//高级应用：仅仅在符合“classtime”状态的时候显示这个按钮
-			if(!dataPackage.todayMorningClass.equals("----")||!dataPackage.todayAfternoonClass.equals("----")) {
-				setIcon("/imgsrc/Windom/out.png",OutButton);
-				setSelectedIcon("/imgsrc/Windom/out_press.png",OutButton);
-				backgroundPanel.add(OutButton);
-			}
-		}
+		setIcon("/imgsrc/Windom/out.png",OutButton);
+		setSelectedIcon("/imgsrc/Windom/out_press.png",OutButton);
+		backgroundPanel.add(OutButton);
 		/*************************************************************	
 		 * 【小事件】 
 		 *  	这一部分需要用dataPackage.trigSubEvent决定是否绘制
 		 *  	具体用法见MorninigClass窗口
 		 *************************************************************/
-		JPanel EventPanel = new JPanel();	
-		EventPanel.setBackground(new Color(255, 255, 204));
-		EventPanel.setBounds(254, 129, 531, 363);
-		backgroundPanel.add(EventPanel);
-		EventPanel.setLayout(null);
+		JPanel SnorePanel = new JPanel();	
+		SnorePanel.setOpaque(false);
+		SnorePanel.setBounds(254, 129, 531, 363);
+		backgroundPanel.add(SnorePanel);
+		SnorePanel.setLayout(null);
+		
+		JPanel upperlevel = new JPanel();
+		upperlevel.setOpaque(false);
+		upperlevel.setBounds(0, 0, 531, 363);
+		upperlevel.setLayout(null);
+		
+		JPanel background = new ImagePanel("imgsrc//对话框.png",0, 0, 531, 363);
+		background.setOpaque(false);
+		background.setBounds(0, 0, 531, 363);
+		background.setLayout(null);
+		
+			JLabel label_1 = new JLabel("你被舍友的呼噜吵醒了，睡眠质量大跌");
+			label_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			label_1.setBounds(95, 130, 388, 16);
+		
+			JLabel label_2 = new JLabel("好烦啊，要不要叫醒他");
+			label_2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			label_2.setBounds(95, 173, 388, 16);
+			
+			JButton wakeButton = new JButton();
+			wakeButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
+			wakeButton.setBounds(95, 250, 120, 50);
+			wakeButton.setText("叫醒舍友");
+			
+			JButton stayButton = new JButton();
+			stayButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
+			stayButton.setBounds(300, 250, 120, 50);
+			stayButton.setText("保持沉默");
+		
+		upperlevel.add(label_1);
+		upperlevel.add(label_2);
+		upperlevel.add(wakeButton);
+		upperlevel.add(stayButton);
+			
+		SnorePanel.add(upperlevel);
+		SnorePanel.add(background);
+		
+		RememberGame.mainGame=mainGame;//注意这里！不然没办法结束游戏！
+		RememberGame.dataPackage=dataPackage;//注意这里！不然没办法结束游戏！
+		JPanel Remember = new RememberGame(254, 134);//将来可以用它来放临时小事件	
+		Remember.setBounds(254, 134, 536, 398);
+		Remember.setLayout(null);
+		Remember.setOpaque(false);//注意要设成透明的
+		backgroundPanel.add(Remember);
+		
+		SnorePanel.setVisible(false); // 未触发子事件，取消小事件，恢复睡觉按钮
+		Remember.setVisible(false); // 未触发子事件，取消小事件，恢复睡觉按钮
 
 		if (dataPackage.trigSubEvent){ // 触发子事件，小事情可见。。
-			EventPanel.setVisible(true);
+			if(dataPackage.stateA.equals("game")) {
+				Remember.setVisible(true);
+			}else if(dataPackage.stateA.equals("被吵醒")){
+				SnorePanel.setVisible(true);
+			}
 			sleepButton.setVisible(false);
 			selfstudyButton.setVisible(false);
 			OutButton.setVisible(false);
-		}else {
-			EventPanel.setVisible(false); // 未触发子事件，取消小事件，恢复睡觉按钮
 		}
-		
-		JLabel label_1 = new JLabel("你被舍友的呼噜吵醒了，睡眠质量大跌");
-		label_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		label_1.setBounds(95, 130, 388, 16);
-		EventPanel.add(label_1);
-		
-		JLabel label_2 = new JLabel("健康下降、心情下降、社交力下降、体力下降");
-		label_2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		label_2.setBounds(95, 173, 388, 16);
-		EventPanel.add(label_2);
-		
-		JButton wakeButton = new JButton();
-		wakeButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
-		wakeButton.setBounds(95, 250, 120, 50);
-		wakeButton.setText("叫醒舍友");
-		
-		JButton stayButton = new JButton();
-		stayButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
-		stayButton.setBounds(300, 250, 120, 50);
-		stayButton.setText("保持沉默");
-		
-		EventPanel.add(wakeButton);
-		EventPanel.add(stayButton);
 		
 		/*************************************************************	
 		 * 【镶时钟】

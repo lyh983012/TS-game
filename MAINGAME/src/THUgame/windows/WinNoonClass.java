@@ -22,6 +22,9 @@ import javax.swing.JTextField;
 /*【下午课界面】
  * 
  * --DIALOG--
+ * update:20191030
+ * via：林逸晗
+ * 更新：加入safeGuardCount
  * 
  * update:20191028 01:07
  * via：林逸晗
@@ -74,20 +77,23 @@ public class WinNoonClass extends WinBase{
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			/*		START OF YOUR CODE		*/
-			if(mode==0) {
-				dataPackage.choiceA="answer";
-			}else if(mode==1){
-				dataPackage.choiceA="ask";
-			}else if(mode==2){
-				dataPackage.choiceA="next";
-			}else if(mode==3){
-				dataPackage.choiceA="back";
-			}
-			/*		END OF YOUR CODE		*/
-			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-			EventManager.dataPackage=dataPackage;
-			synchronized(mainGame) {
-				mainGame.notify();
+			if(safeGuardCount==0) {
+				safeGuardCount++;
+				if(mode==0) {
+					dataPackage.choiceA="answer";
+				}else if(mode==1){
+					dataPackage.choiceA="ask";
+				}else if(mode==2){
+					dataPackage.choiceA="next";
+				}else if(mode==3){
+					dataPackage.choiceA="back";
+				}
+				/*		END OF YOUR CODE		*/
+				//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+				EventManager.dataPackage=dataPackage;
+				synchronized(mainGame) {
+					mainGame.notify();
+				}
 			}//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 			
 		}
@@ -127,21 +133,34 @@ public class WinNoonClass extends WinBase{
 		/*************************************************************	
 		 * 小事件
 		 *************************************************************/
+		
 		JPanel EventPanel = new JPanel();//将来可以用它来放临时小事件
-		EventPanel.setBackground(new Color(255, 255, 204));
+		EventPanel.setOpaque(false);
 		EventPanel.setBounds(254, 134, 536, 398);
 		EventPanel.setLayout(null);
 		EventPanel.setVisible(dataPackage.trigSubEvent);
 		
-		JButton btnNewButton_3 = new JButton("回到地图");
-		btnNewButton_3.setBounds(185, 242, 190, 47);
-		EventPanel.add(btnNewButton_3);
+		JPanel upperlevel = new JPanel();
+		upperlevel.setOpaque(false);
+		upperlevel.setBounds(0, 0, 531, 363);
+		upperlevel.setLayout(null);
+			
+		JPanel background = new ImagePanel("imgsrc//对话框.png",0, 0, 531, 363);
+		background.setOpaque(false);
+		background.setBounds(0, 0, 531, 363);	
+		background.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("已经下课了！");
-		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		lblNewLabel_1.setBounds(226, 107, 220, 68);
-		EventPanel.add(lblNewLabel_1);
+			JButton btnNewButton_3 = new JButton("溜了溜了");
+			btnNewButton_3.setBounds(185, 242, 190, 47);	
+	
+			JLabel lblNewLabel_1 = new JLabel("已经下课了！");
+			lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+			lblNewLabel_1.setBounds(226, 107, 220, 68);
 
+		upperlevel.add(lblNewLabel_1);
+		upperlevel.add(btnNewButton_3);	
+		EventPanel.add(upperlevel);
+		EventPanel.add(background);
 		
 		ShootGame.mainGame=mainGame;//注意这里！不然没办法结束游戏！
 		ShootGame.dataPackage=dataPackage;//注意这里！不然没办法结束游戏！

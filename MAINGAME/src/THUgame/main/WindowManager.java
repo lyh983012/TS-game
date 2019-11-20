@@ -3,13 +3,17 @@ package THUgame.main;
 import javax.swing.*;
 
 import THUgame.datapack.DataPack;
+import THUgame.subevents.EventSTA;
+import THUgame.subwindows.WinSTA;
 import THUgame.windows.WinBase;
 import THUgame.windows.WinChoice;
 import THUgame.windows.WinHome;
 import THUgame.windows.WinInDom;
+import THUgame.windows.WinInputName;
 import THUgame.windows.WinMap;
 import THUgame.windows.WinMorningClass;
 import THUgame.windows.WinNoonClass;
+import THUgame.windows.WinSaveAndLoad;
 import THUgame.windows.WinBackground;
 import THUgame.windows.WinWelcome;
 import THUgame.windows.WinOrganization;
@@ -52,6 +56,9 @@ public class WindowManager extends JFrame {
 		WinHome.dataPackage = dataPackage;
 		WinBackground.dataPackage=dataPackage;
 		WinWelcome.dataPackage=dataPackage;
+		WinSTA.dataPackage=dataPackage;
+		WinInputName.dataPackage=dataPackage;
+		WinSaveAndLoad.dataPackage=dataPackage;
 		/*		END OF YOUR CODE		*/
 	}
 	
@@ -78,6 +85,9 @@ public class WindowManager extends JFrame {
 			case 3:
 				generator = new WinMap(mainGame,mainFrame);
 				break;
+			case 20016:
+				generator = new WinSTA(mainGame,mainFrame);
+				break;
 			case 30000:
 				generator = new WinChoice(mainGame,mainFrame);
 				break;
@@ -90,6 +100,13 @@ public class WindowManager extends JFrame {
 			case 20001:
 				generator = new WinOrganization(mainGame, mainFrame);
 				break;
+			case 30003:
+				generator = new WinInputName(mainGame,mainFrame);
+				break;
+			case 30004:
+				generator = new WinSaveAndLoad(mainGame,mainFrame);
+				break;
+
 		}
 		/*		END OF YOUR CODE		*/
 	}

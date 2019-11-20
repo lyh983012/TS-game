@@ -35,21 +35,43 @@ public class EventStateManager extends EventBase{
     		switch(dataPackage.ID) {
 				case -1://开始界面过后，进入选择界面
 					if(dataPackage.stateA.equals("新游戏")) 
-						dataPackage.ID=30001;
+						dataPackage.ID=30003;
+					else if(dataPackage.stateA.equals("继续")) 
+						dataPackage.ID=30004;
 					break;	
-    			case 0://dom界面后进入教室
+				case 30003:
+					dataPackage.ID=30001;
+					break;
+				case 30001:
+					dataPackage.ID=30000;
+					break;
+				case 30000:
+					dataPackage.ID=30002;
+					break;
+				case 30002:
+					dataPackage.ID=0;//选择界面过后，进入游戏界面
+					break;
+				case 30004:
+					if(dataPackage.stateA.equals("backhome")) {
+						dataPackage.ID=-1;//如果没有选择，回到主界面开始新游戏
+					}else {
+						dataPackage.ID=0;//如果选择了，就进入宿舍
+				        System.out.println("s");
+					}
+					break;
+    			case 0://dom界面
     				if(dataPackage.choiceA.equals("gooutside")) {
     					dataPackage.ID=3;
     				}else if(dataPackage.stateB.equals("enrollOrganization")) {  // dom界面后进入招新界面
     					dataPackage.ID = 20001; 
     				}
     				break;
-				case 1://上午界面后进入dom
+				case 1://上午界面
 					if(dataPackage.choiceA.equals("back")){
     					dataPackage.ID=3;
 					}
     				break;	
-				case 2://下午界面后进入dom
+				case 2://下午界面
 					if(dataPackage.choiceA.equals("back")){
     					dataPackage.ID=3;
 					}
@@ -61,16 +83,12 @@ public class EventStateManager extends EventBase{
 						dataPackage.ID=2;
 					}else if(dataPackage.choiceA=="clickGoToClassMorning"){
 						dataPackage.ID=1;
+					}else if(dataPackage.choiceA=="clickGoToSTA"){
+						dataPackage.ID=20016;
 					}
 					break;
-				case 30000://选择界面过后，进入游戏界面
-					dataPackage.ID=30002;
-					break;
-				case 30001:
-					dataPackage.ID=30000;
-					break;
-				case 30002:
-					dataPackage.ID=0;
+				case 20016://STA
+					dataPackage.ID=3;/*存疑*/
 					break;
 				case 20001: // 招新界面结束后，进入宿舍dom界面
 					dataPackage.ID=0;

@@ -113,41 +113,19 @@ public class WinBackground extends WinBase{
 		backgroundImage.setBounds(0, 0, 1080, 720);
 		backgroundImage.setOpaque(false);
 		backgroundImage.setLayout(null);
-		/*
-		JButton button = new JButton();
-		button.setBorderPainted(false);
-		button.setBounds(850,550,150,50);
-		button.setText("确定");
-		*/
-		JPanel panelbutton = new JPanel();
-		panelbutton.setLayout(null);
-		panelbutton.setOpaque(false);
-		panelbutton.setBounds(850,550,70,70);
-		panelbutton.setLayout(null);
-		
-		JLabel Text = new JLabel("确定");
-		Text.setFont(new Font("印品黑体", Font.PLAIN, 16));
-		Text.setForeground(Color.BLACK);
-		Text.setBounds(0, 0, 70,70);
-		Text.setHorizontalAlignment(SwingConstants.CENTER);
-		
+
 		JButton button= new JButton();	
 		button.setBorderPainted(false);
 		button.setFont(new Font("印品黑体", Font.PLAIN, 19));
 		button.setForeground(Color.BLACK);
-		button.setBounds(0, 0, 70,70);
+		button.setBounds(850, 550, 80, 80);
 		button.setContentAreaFilled(false);
 		button.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		setIcon("/imgsrc/WinBackground/ca.png",button);
 		setSelectedIcon("/imgsrc/WinBackground/cb.png",button);
 		
-		panelbutton.add(Text);
-		panelbutton.add(button);
-		backgroundPanel.add(panelbutton);
-		
-	
-		
+		//panelbutton.add(Text);
 
 		JLabel textLabel = new JLabel();
 		textLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -156,20 +134,33 @@ public class WinBackground extends WinBase{
 		textLabel.setFont(new Font("印品黑体", Font.PLAIN, 30));
 		textLabel.setBounds(80, 60, 948, 460);
 		
-		backgroundPanel.add(panelbutton);
+		backgroundPanel.add(button);
 		backgroundPanel.add(textLabel);
 		backgroundPanel.add(backgroundImage);
 		
 		switch(dataPackage.count) {
 		case 0:
-			textLabel.setText("<html>9102年，我们的主角____（玩家设定），一个来自华国安徽南京的__（男／女）生，因为天天玩一款叫做MineCraft的游戏，连挂30学分，从北方大学退学。前往该省最顶尖的中学复读。拿到全省第五的高考成绩，毅然决然选择了隔壁，因此当地报纸授其以“北大得不到的学生”的荣誉称号。</html>");
+			String sex;
+			if(dataPackage.sex.equals("others"))
+				sex="***(性别保密)";
+			else
+				sex=dataPackage.sex;
+			textLabel.setText("<html>9102年，曾经的学习之神"+dataPackage.name+"，一个来自华国安徽南京的"+sex+"，因为天天玩一款叫做MineCraft的游戏，连挂30学分，从北方大学退学。前往该省最顶尖的中学复读。拿到全省第五的高考成绩，毅然决然选择了上个学校的隔壁，因此当地报纸授其以“北大得不到的学生”的荣誉称号。</html>");
 			break;
 		case 1:
-			textLabel.setText("<html>进入华清大学的____认识到了自己天天玩MineCraft是不对的，1.1472版本里的各种feature他也厌倦了。痛改前非的同时，ta也同时也卸载了电脑里的Dota30、CSOL200、看门狗981、COD4～9(后面的呢？不好玩没下载)、刺客信条豪华版全DLC以及无主之地1、2、3、4、5，怪物猎人还有红色警戒3和星际2也惨遭移除，同时也不忘把存有黑魂和只狼的硬盘清空、把Switch带着其塞尔达一起低价甩卖，只带了一个装有扫雷的电脑来到了我们的华清大学……</html>");
-			break;
-		case 2:
 			textLabel.setText("<html>带着珍贵的录取通知书，你来到了华清大学。<br> 这里是国内高中生梦想中的圣地之一，与“隔壁”北方大学共称为两大顶尖高校。<br>告别了过往的传奇经历，你的大学生活即将开始...");
 			break;
+		case 2:
+			String dom;
+			if(dataPackage.sex.equals("others"))
+				dom="因为你对自己的性别认知十分特殊，无奈之下，学校根据你的生理性别把你分配到了一个男生宿舍。出人意料的，你的舍友都开心地接纳了你。但这是不是好事呢？";
+			else if(dataPackage.sex=="girl")
+				dom="尽管你是个女生，但是这所学校为了争当世界一流高校，竟然在你入学前一年拆掉了女生宿舍进行重建！虽然大家已经习惯了男女混宿，但你为了和舍友能够正常相处，还是决定女扮男装进入了宿舍。";
+			else 
+				dom="作为一个男生，你的同性在这所学校占据了66.66%的相对多数，因此你也顺利地找到了很多的同性好朋友。怀揣着激动的心情，你来到了宿舍。";
+			textLabel.setText("<html>"+dom+"</html>");
+			break;
+
 		}
 		/*********************************************			
 		 * 【鼠标动作的设置】

@@ -1,5 +1,6 @@
 package THUgame.windows;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
@@ -12,15 +13,16 @@ import THUgame.tool.ImagePanel;
  * 初始界面
  * 
  * --DIALOG--
+ * 
+ * update:20191030
+ * via：林逸晗
+ * 更新：加入safeGuardCount
+ * 
  * version 1.0
  * via 黄天翼、江世航
  * update:20191018 01:03
  * 
  **/
-
-
-
-
 public class WinHome extends WinBase{
 		
 		
@@ -62,23 +64,24 @@ public class WinHome extends WinBase{
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				/*		START OF YOUR CODE		*/
-				if(mode==0) {
-					dataPackage.choiceA="A";
-				}else if(mode==1){
-					dataPackage.choiceA="B";
-				}else if(mode==2){
-					dataPackage.choiceA="C";
-				}else if(mode==3){
-					dataPackage.choiceA="D";
-				}else if(mode==4){
-					dataPackage.choiceA="E";
+				if(safeGuardCount==0) {
+					safeGuardCount++;
+					if(mode==0) {
+						dataPackage.choiceA="A";
+					}else if(mode==1){
+						dataPackage.choiceA="B"; 
+					}else if(mode==2){
+						dataPackage.choiceA="C";
+						JOptionPane.showMessageDialog(null, "没看见窗口上面的红叉吗", "oops",JOptionPane.WARNING_MESSAGE);  
+					}
+					/*		END OF YOUR CODE		*/
+					//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+					EventManager.dataPackage=dataPackage;
+					synchronized(mainGame) {
+						mainGame.notify();
+					}
 				}
-				/*		END OF YOUR CODE		*/
-				//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-				EventManager.dataPackage=dataPackage;
-				synchronized(mainGame) {
-					mainGame.notify();
-				}//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+				//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 				
 			}
 			@Override
@@ -192,6 +195,7 @@ public class WinHome extends WinBase{
 		choicea.addMouseListener(clicka);//0号事件是 a 被点击
     	choiceb.addMouseListener(clickb);//1号事件是 b 被点击
     	choicec.addMouseListener(clickc);//2号事件是 c 被点击
+    	
 		/*		END OF YOUR CODE		*/
     	    	
     	/*****************************************************************				
