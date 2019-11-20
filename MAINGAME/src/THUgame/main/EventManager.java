@@ -77,6 +77,7 @@ public class EventManager extends Thread{
 					break;
 				case 20001:
 					pushForward = new EventOrganization();
+					break;
 				case 30003:
 					pushForward = new EventInputName();
 					break;
