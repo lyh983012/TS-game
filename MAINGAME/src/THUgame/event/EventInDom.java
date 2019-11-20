@@ -139,7 +139,8 @@ public class EventInDom extends EventBase{
 				oldDataPack.characterEQ -= 1;
 				oldDataPack.characterHealth -= 1;
 				oldDataPack.characterEnergy += 5;
-				oldDataPack.notification += "<br>社交力-1，健康值-1，心情值-2，体力回复5点</html>";
+				oldDataPack.notification += "<br>社交力-1，健康值-1，心情值-2，体力回复5点<br>[游戏已保存]</html>";
+				saveGame();
 				break;
 				
 			case "stayup":
@@ -150,7 +151,8 @@ public class EventInDom extends EventBase{
 				oldDataPack.characterHealth -= 1;
 				oldDataPack.characterHappiness += 3;
 				oldDataPack.characterEnergy += 5;	
-				oldDataPack.notification += "<br>社交力+1，健康值-1，心情值+3，体力回复5点</html>";
+				oldDataPack.notification += "<br>社交力+1，健康值-1，心情值+3，体力回复5点<br>[游戏已保存]</html>";
+				saveGame();
 				break;
 		}
 		if (oldDataPack.time>=8 && oldDataPack.time<=10) { //只在特定时间可以去上课
