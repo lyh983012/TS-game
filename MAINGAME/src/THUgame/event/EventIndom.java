@@ -63,6 +63,11 @@ public class EventInDom extends EventBase{
 			oldDataPack.eventFinished=true;			//并且点击了去上课这个按钮，那么宿舍事件结束
 			return;									//直接返回，避免属性乱变
 		}
+		if (oldDataPack.choiceA.equals("need_course_reg")) {
+			oldDataPack.eventFinished=true;			//并且点击了去上课这个按钮，那么宿舍事件结束
+			saveGame();
+			return;									//直接返回，避免属性乱变
+		}
 		oldDataPack.stateA="";
 		//StateC用于触发游戏
 		//StateA用于判断上午下午
@@ -72,7 +77,12 @@ public class EventInDom extends EventBase{
 		if(oldDataPack.joinResearch && oldDataPack.term>=3 && oldDataPack.date==4 && oldDataPack.time<=16) {
 			oldDataPack.stateE+="今日12~16点必须去组会";
 		}
-		/*******************************************
+		
+		if(oldDataPack.date==7 && oldDataPack.week==4) {
+			oldDataPack.course_selected=false;
+		}
+		/****
+		 * ***************************************
 		 * 在下面进行dataPack的处理
 		 * this.characterIQ=50;
 			this.characterEQ=50;
@@ -95,25 +105,25 @@ public class EventInDom extends EventBase{
 		
 		switch(oldDataPack.choiceA) {
 			case "sleep":
-				oldDataPack.notification="<html>睡醒了呢！头脑有些不清醒，但是健康和体力都增加了，人的心情也变好了。";
+				oldDataPack.notification="<html>转眼过去了3个小时，睡醒了！头脑有些不清醒，但是健康和体力都增加了，人的心情也变好了。";
 				if(oldDataPack.time<24 && oldDataPack.time>6){
-					oldDataPack.time+=4;		//小憩一会儿，时间+2
-					oldDataPack.characterEnergy+=10;
-					oldDataPack.characterHealth+=1;
-					oldDataPack.characterHappiness+=2;
-					oldDataPack.notification += "<br>过去了1小时，心情值+2，健康值+2，体力回复10点</html>";
+					oldDataPack.time+=3;		//小憩一会儿，时间+2
+					oldDataPack.characterEnergy+=20;
+					oldDataPack.characterHealth+=5;
+					oldDataPack.characterHappiness+=5;
+					oldDataPack.notification += "<br>心情值+2，健康值+2，体力回复10点</html>";
 				}else if(randomSnore <= 5 && oldDataPack.time<3 ) {// 0点睡觉，50%触发被呼噜打醒
 					oldDataPack.time=3;			//3点被吵醒
 					oldDataPack.trigSubEvent = true; // 触发子事件
 					oldDataPack.stateA="被吵醒";
-					oldDataPack.notification += "<br>到了三点……</html>";
+					oldDataPack.notification += "<br>到了3点……</html>";
 				}else { // 一日之际在于晨
 					oldDataPack.trigSubEvent = false;  // 吵醒之后睡着，取消子事件
 					oldDataPack.time=7+randomTime;	//睡大觉，有机率睡爆，时间等于7点+0～2（原本的版本是计数器+1） 
 					oldDataPack.characterEnergy=100;
 					oldDataPack.characterHealth+=5;
 					oldDataPack.characterHappiness+=5;
-					oldDataPack.notification += "<br>新的一天开始了～<br>健康+5，心情+5，体力回复满。[游戏已保存]</html>";
+					oldDataPack.notification += "<br>新的一天开始了～，起床的时候已经"+String.valueOf(oldDataPack.time)+"点了<br>健康+10，心情+5，体力回复满。[游戏已保存]</html>";
 					if(oldDataPack.week==4 && oldDataPack.date==7) {
 						oldDataPack.stateA="期末考";
 						oldDataPack.trigSubEvent = true; // 触发子事件
@@ -140,15 +150,14 @@ public class EventInDom extends EventBase{
 					oldDataPack.notification="太困了，根本学不动";
 					break;
 				}else{
-					oldDataPack.time+=4;		//自习需要耗时，时间+2（原本的版本是计数器+2）
-					oldDataPack.notification="<html>写会儿作业，身体变得有些疲劳，微微有些不适";
-					oldDataPack.characterEnergy-=5;
-					oldDataPack.characterHappiness-=1;
-					oldDataPack.studyProgress+=1;
-					oldDataPack.notification += "<br>学习进度+1，心情值-1，体力消耗5点</html>";
+					oldDataPack.time+=3;		//自习需要耗时，时间+2（原本的版本是计数器+2）
+					oldDataPack.notification="<html>写了3个小时作业，身体变得有些疲劳";
+					oldDataPack.characterEnergy-=20;
+					oldDataPack.characterHappiness-=4;
+					oldDataPack.studyProgress+=4;
+					oldDataPack.notification += "<br>学习进度+4，心情值-4，体力消耗20点</html>";
 					if(randomGame <= 3) {
 						oldDataPack.stateA="game";	
-						oldDataPack.time+=6;
 						oldDataPack.trigSubEvent = true; // 触发子事件
 						saveGame();
 					}
@@ -159,18 +168,18 @@ public class EventInDom extends EventBase{
 				oldDataPack.notification="<html>虽然感觉安静了些，但还是觉得有些尴尬，社交力和心情稍稍下降了";
 				oldDataPack.characterHappiness -= 2;
 				oldDataPack.characterEQ -= 1;
-				oldDataPack.characterHealth -= 1;
+				oldDataPack.characterHealth -= 5;
 				oldDataPack.characterEnergy += 5;
-				oldDataPack.notification += "<br>社交力-1，健康值-1，心情值-2，体力回复5点</html>";
+				oldDataPack.notification += "<br>社交力-1，健康值-5，心情值-2，体力回复5点</html>";
 				break;
 			case "stayup":
 				oldDataPack.trigSubEvent = false;  // 吵醒之后待着，取消子事件
 				oldDataPack.notification = "<html>后面睡得都不太好，白天告诉了舍友，舍友非常抱歉";
 				oldDataPack.characterEQ += 1;
-				oldDataPack.characterHealth -= 1;
-				oldDataPack.characterHappiness += 3;
+				oldDataPack.characterHealth -= 5;
+				oldDataPack.characterHappiness -= 5;
 				oldDataPack.characterEnergy += 5;	
-				oldDataPack.notification += "<br>社交力+1，健康值-1，心情值+3，体力回复5点</html>";
+				oldDataPack.notification += "<br>社交力+1，健康值-5，心情值+5，体力回复5点</html>";
 				break;
 			
 		}

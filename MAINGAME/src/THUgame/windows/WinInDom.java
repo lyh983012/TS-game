@@ -129,6 +129,8 @@ public class WinInDom extends WinBase{
 						dataPackage.choiceA="readMessage_research_login";//点按钮4（待着按钮）返回stayup
 					}else if(dataPackage.stateA.equals("报名结果")){
 						dataPackage.choiceA="readMessage_research_result";//点按钮4（待着按钮）返回stayup
+					}else if(dataPackage.stateA.equals("选课")){
+						dataPackage.choiceA="need_course_reg";//点按钮4（待着按钮）返回stayup
 					}
 				}
 				/*		END OF YOUR CODE		*/
@@ -269,7 +271,7 @@ public class WinInDom extends WinBase{
 		
 			JLabel messagelabel_1 = new JLabel();
 			messagelabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-			messagelabel_1.setBounds(100, 50, 350, 200);
+			messagelabel_1.setBounds(100, 50, 300, 200);
 
 			JButton messageButton = new JButton();
 			messageButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
@@ -291,8 +293,13 @@ public class WinInDom extends WinBase{
 		messagePanel.setVisible(false); 
 		SnorePanel.setVisible(false); 
 		Remember.setVisible(false);
-
-		if (dataPackage.trigSubEvent){ // 触发子事件，小事情可见。。
+		
+		if(dataPackage.week==1 && dataPackage.date==1 && dataPackage.course_selected==false) {
+			dataPackage.trigSubEvent=true;
+			dataPackage.stateA="选课";
+			dataPackage.course_selected=true;
+		}
+		if (dataPackage.trigSubEvent){ // 触发子事件，小事情可见。。  d
 			if(dataPackage.stateA.equals("game")) {
 				Remember.setVisible(true);
 			}else if(dataPackage.stateA.equals("被吵醒")){
@@ -308,6 +315,10 @@ public class WinInDom extends WinBase{
 			}else if(dataPackage.stateA.equals("报名结果")){
 				messageButton.setText("查看消息");
 				messagelabel_1.setText("<html>咦？收到了一条消息</html>");
+				messagePanel.setVisible(true);
+			}else if(dataPackage.stateA.equals("选课")){
+				messageButton.setText("选课系统");
+				messagelabel_1.setText("<html>今天是新学期的第1天，我需要去选课系统选一下课程。9102年的选课系统真不赖，一选完课就能出结果了哦～</html>");
 				messagePanel.setVisible(true);
 			}
 			sleepButton.setVisible(false);

@@ -1,5 +1,8 @@
 package THUgame.event;
+import java.util.Iterator;
 import THUgame.datapack.DataPack;
+import THUgame.tool.CourseGrade;
+import THUgame.tool.Courses;
 
 /*
  * 时间管理类
@@ -49,7 +52,10 @@ public class EventStateManager extends EventBase{
 					dataPackage.ID=30002;
 					break;
 				case 30002:
-					dataPackage.ID=0;//选择界面过后，进入游戏界面
+					dataPackage.ID=0;//进入宿舍系统
+					break;
+				case 4:
+					dataPackage.ID=0;//选颗界面过后，进入游戏界面
 					break;
 				case 30004:
 					if(dataPackage.stateA.equals("backhome")) {
@@ -70,6 +76,10 @@ public class EventStateManager extends EventBase{
     				}
     				if(dataPackage.choiceA.equals("readMessage_research_result")) {
     					dataPackage.ID=21001;//进入阅读信息
+    				}
+    				if(dataPackage.choiceA.equals("need_course_reg")) {
+    					Courses.courseListInit(dataPackage.term);
+    					dataPackage.ID=4;//选课
     				}
     				break;
 				case 20016://STA
@@ -169,35 +179,17 @@ public class EventStateManager extends EventBase{
 		/*********************************		
 		 * 固定课表
 		 *********************************/
-		switch(dataPackage.date) {
-			case 1:
-				dataPackage.todayMorningClass="微积分A";//表示早上的课
-				dataPackage.todayAfternoonClass="抽象代数";//表示早上的课
-				break;
-			case 2:
-				dataPackage.todayMorningClass="----";//表示早上的课
-				dataPackage.todayAfternoonClass="抽象代数";//表示早上的课
-				break;
-			case 3:
-				dataPackage.todayMorningClass="体育课";//表示早上的课
-				dataPackage.todayAfternoonClass="英语课";//表示早上的课
-				break;
-			case 4:
-				dataPackage.todayMorningClass="微积分A";//表示早上的课
-				dataPackage.todayAfternoonClass="微积分A习题课";//表示早上的课
-				break;
-			case 5:
-				dataPackage.todayMorningClass="机械制图";//表示早上的课
-				dataPackage.todayAfternoonClass="大学语文";//表示早上的课
-				break;
-			case 6:
-				dataPackage.todayMorningClass="----";//表示早上的课
-				dataPackage.todayAfternoonClass="经济学双学位课";//表示早上的课
-				break;
-			case 7:
-				dataPackage.todayMorningClass="----";//表示早上的课
-				dataPackage.todayAfternoonClass="----";//表示早上的课
-				break;
+		dataPackage.todayMorningClass="----";//表示早上的课
+		dataPackage.todayAfternoonClass="----";//表示早上的课
+		for(int i=0;i<dataPackage.courseGradeCount;i++) {
+			CourseGrade tmp=dataPackage.courseGrade[i];
+			Courses course=tmp.course;
+			if(course.courseTerm==dataPackage.term)
+				if(course.classTime1==dataPackage.date*10+1 || course.classTime2==dataPackage.date*10+1) {
+					dataPackage.todayMorningClass=course.courseTitle;//表示早上的课
+				}else if (course.classTime1==dataPackage.date*10+2 || course.classTime2==dataPackage.date*10+2) {
+					dataPackage.todayAfternoonClass=course.courseTitle;
+				}
 		}
 		if(dataPackage.time>=12){
 			dataPackage.todayMorningClass="----";//表示早上的课

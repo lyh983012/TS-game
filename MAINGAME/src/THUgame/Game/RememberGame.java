@@ -150,7 +150,8 @@ public class RememberGame extends JPanel{
     			this.dataPackage.trigSubEvent=false;
     			this.dataPackage.choiceA="";
     			this.dataPackage.characterIQ+=score/10;//在这里改属性
-    			this.dataPackage.notification = "<html>我发现作业非常困难，沉迷其中，过去了五个小时";
+    			this.dataPackage.time+=3;
+    			this.dataPackage.notification = "<html>我发现作业非常困难，沉迷其中，过去了6个小时";
     			this.dataPackage.notification += "<br>学习进度+1，心情值-1，体力消耗5点";
     			this.dataPackage.notification += "<br>漫长的五小时后，我可能错过了一些事情，但是<br>沉浸在知识海洋里让我的智力值发生了"+String.valueOf(score/10)+"点的变化</html>";
 	   			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥

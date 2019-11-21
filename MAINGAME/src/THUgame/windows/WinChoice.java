@@ -123,6 +123,10 @@ public class WinChoice extends WinBase{
 		frame.getContentPane().setLayout(null);
 		this.mainGame=mainGame;
 		
+		JPanel backgroundImage=new ImagePanel("imgsrc//WinBackground/Welcome.png",0, 0, 1080, 720);
+		backgroundImage.setBounds(0, 0, 1080, 720);
+		backgroundImage.setOpaque(false);
+		backgroundImage.setLayout(null);
 		/*************************************************************	
 		 * 背景镶板，所有的组件都在里面
 		 * 两个按钮直接用插件拖进去的
@@ -136,10 +140,9 @@ public class WinChoice extends WinBase{
 		backgroundPanel.setOpaque(false);
 		
 		JPanel questionPanel = new JPanel();
-		questionPanel.setBounds(145,10,800,280);
+		questionPanel.setBounds(145,30,800,280);
 		questionPanel.setOpaque(false);
 		questionPanel.setLayout(null);
-		
 		
 		JPanel questionText = new JPanel();
 		questionText.setBounds(0, 0, 800, 280);
@@ -178,7 +181,7 @@ public class WinChoice extends WinBase{
 		JPanel panelA = new JPanel();
 		panelA.setLayout(null);
 		panelA.setOpaque(false);
-		panelA.setBounds(145, 300, 810, 60);
+		panelA.setBounds(145, 320, 810, 60);
 		panelA.setLayout(null);
 	
 		JLabel choiceAText = new JLabel("E");
@@ -203,7 +206,7 @@ public class WinChoice extends WinBase{
 		JPanel panelB = new JPanel();
 		panelB.setLayout(null);
 		panelB.setOpaque(false);
-		panelB.setBounds(145, 370, 810, 60);
+		panelB.setBounds(145, 390, 810, 60);
 		panelB.setLayout(null);
 	
 		JLabel choiceBText = new JLabel("E");
@@ -228,7 +231,7 @@ public class WinChoice extends WinBase{
 		JPanel panelC = new JPanel();
 		panelC.setLayout(null);
 		panelC.setOpaque(false);
-		panelC.setBounds(145, 440, 810, 60);
+		panelC.setBounds(145, 460, 810, 60);
 		panelC.setLayout(null);
 	
 		JLabel choiceCText = new JLabel("E");
@@ -254,7 +257,7 @@ public class WinChoice extends WinBase{
 		JPanel panelD = new JPanel();
 		panelD.setLayout(null);
 		panelD.setOpaque(false);
-		panelD.setBounds(145, 510, 810, 60);
+		panelD.setBounds(145, 530, 810, 60);
 		panelD.setLayout(null);
 	
 		JLabel choiceDText = new JLabel("E");
@@ -279,7 +282,7 @@ public class WinChoice extends WinBase{
 		JPanel panelE = new JPanel();
 		panelE.setLayout(null);
 		panelE.setOpaque(false);
-		panelE.setBounds(145, 580, 810, 60);
+		panelE.setBounds(145, 600, 810, 60);
 		panelE.setLayout(null);
 		
 		JLabel choiceEText = new JLabel("E");
@@ -531,13 +534,11 @@ public class WinChoice extends WinBase{
     	    	
     	/*****************************************************************				
 		 * 恢复显示，按照流程做就不会消失，之后四行不允许更改
-		 ******************************************************************/
-		
-		
-
+		 ******************************************************************/ 
 		
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(backgroundPanel);
+		frame.getContentPane().add(backgroundImage);
 		frame.getContentPane().repaint();
 		frame.setVisible(true);
 	}

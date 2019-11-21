@@ -7,6 +7,7 @@ import THUgame.subwindows.WinResearchBegin;
 import THUgame.subwindows.WinSTA;
 import THUgame.windows.WinBase;
 import THUgame.windows.WinChoice;
+import THUgame.windows.WinCourseRegistration;
 import THUgame.windows.WinHome;
 import THUgame.windows.WinInDom;
 import THUgame.windows.WinInputName;
@@ -25,7 +26,6 @@ import THUgame.subwindows.WinResearchGroupmeetingSix;
 import THUgame.subwindows.WinResearchGroupmeetingSeven;
 import THUgame.subwindows.WinResearchGroupmeetingEight;
 import THUgame.subwindows.WinResearchMeetingNotice;
-import THUgame.subwindows.WinResearchBegin;
 import THUgame.subevents.EventSTA;
 /*
  * template version 1.1
@@ -77,6 +77,7 @@ public class WindowManager extends JFrame {
 		WinResearchGroupmeetingSix.dataPackage=dataPackage;
 		WinResearchGroupmeetingSeven.dataPackage=dataPackage;
 		WinResearchGroupmeetingEight.dataPackage=dataPackage;
+		WinCourseRegistration.dataPackage=dataPackage;
 		/*		END OF YOUR CODE		*/
 	}
 	
@@ -102,6 +103,9 @@ public class WindowManager extends JFrame {
 				break;	
 			case 3:
 				generator = new WinMap(mainGame,mainFrame);
+				break;
+			case 4:
+				generator = new WinCourseRegistration(mainGame,mainFrame);
 				break;
 			case 20016:
 				generator = new WinSTA(mainGame,mainFrame);

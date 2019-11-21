@@ -2,6 +2,7 @@ package THUgame.main;
 import THUgame.datapack.DataPack;
 import THUgame.event.EventBase;
 import THUgame.event.EventChoice;
+import THUgame.event.EventCourseRegistration;
 import THUgame.event.EventInDom;
 import THUgame.event.EventInputName;
 import THUgame.event.EventMorningClass;
@@ -43,9 +44,11 @@ public class EventManager extends Thread{
     		 * 	1.MorningClass 早上上课事件->2/0／sub
     		 *  2.NoonClass 下午上课事件->0／sub
     		 *  3.Map 选择地图上的点，用于场景切换
+    		 *  4.Class Chosse class 
     		 *  
     		 *  20016. STA科协的事件。只要满足加入了科协，任意白天时间都可以去
     		 *  
+    		 *  21XXX.SRT
     		 *  
     		 *  30000.通过选择确定人物模板事件->30002
     		 *  30003.基本信息输入->30001
@@ -68,6 +71,9 @@ public class EventManager extends Thread{
 					break;	
 				case 2:
 					pushForward = new EventNoonClass();
+					break;	
+				case 4:
+					pushForward = new EventCourseRegistration();
 					break;	
 				case 20016:
 					pushForward = new EventSTA();
