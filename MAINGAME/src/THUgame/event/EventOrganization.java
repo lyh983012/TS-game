@@ -96,6 +96,7 @@ public class EventOrganization extends EventBase{
 					oldDataPack.notification = "思来想去还是没有报名……";
 				}
 				else if (oldDataPack.choiceC.equals("submitQuestionnaire")){ // 提交了问卷
+					System.out.println(oldDataPack.joinSA+" "+oldDataPack.joinClub+" "+oldDataPack.joinSTA);
 					oldDataPack.stateB = "waitForAnswer";
 					oldDataPack.notification = "<html>谢谢你的时间~明天我同一时间我会来通知录取结果！</html>";
 				}

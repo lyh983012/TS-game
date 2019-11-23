@@ -59,6 +59,7 @@ public class WindowManager extends JFrame {
 		WinSTA.dataPackage=dataPackage;
 		WinInputName.dataPackage=dataPackage;
 		WinSaveAndLoad.dataPackage=dataPackage;
+		WinOrganization.dataPackage = dataPackage;
 		/*		END OF YOUR CODE		*/
 	}
 	

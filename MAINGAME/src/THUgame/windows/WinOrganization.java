@@ -11,6 +11,7 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -34,9 +35,9 @@ import THUgame.tool.ImagePanel;
  *  via：余冬杰
  *  更新：
  *  TODO:
- *      1.接受/拒绝凌艺涵的对话框
- *      2.招新问卷（按钮、背景素材）
- *      3.填完问卷如何存储属性
+ *      1.接受/拒绝凌艺涵的对话框 √
+ *      2.招新问卷（按钮、背景素材） √
+ *      3.填完问卷如何存储属性 √
  *      4.主要变化在对话框和招新问卷、聘书
  *  TODO LIST in line:
  *  230 background image of questionnaire
@@ -55,12 +56,18 @@ public class WinOrganization extends WinBase{
 	 * 
 	 * 
 	 *************************************************************/
+	static JRadioButton studentUnion;
+	static JRadioButton hobbyClub;
+	static JRadioButton STA;
+	
 	static private class demoMouseListener extends BaseMouseListener{
 		static public DataPack dataPackage;
 		static public EventManager mainGame;
 		private JFrame frame;
 		private JButton button;
 		private int mode;
+		
+		
 		
 		public demoMouseListener(int i){
 			this.mode=i;
@@ -95,6 +102,34 @@ public class WinOrganization extends WinBase{
 				dataPackage.choiceB="accept";//点按钮3（唤醒按钮）返回accept
 			}else if(mode ==4){
 				dataPackage.choiceB="refuse";//点按钮4（待着按钮）返回refuse
+			}
+			// 设置问卷选择按钮的监听
+			if (safeGuardCount == 0 && dataPackage.count==4) {
+				int wantJoinSU = 0;
+				int wantJoinClub = 0;
+				int wantJoinSTA = 0;
+				if (studentUnion.isSelected()) {
+					wantJoinSU = 1;
+				}
+				if (hobbyClub.isSelected()) {
+					wantJoinClub = 1;
+				}
+				if (STA.isSelected()) {
+					wantJoinSTA = 1;
+				}
+				if(wantJoinClub + wantJoinSTA + wantJoinSU==0) {
+					JOptionPane.showMessageDialog(null, "还是要选一个选项哦", "oops",JOptionPane.WARNING_MESSAGE);  
+					return;
+				}
+				if(wantJoinClub + wantJoinSTA + wantJoinSU==1) {
+					safeGuardCount++;
+					if(wantJoinSU==1)
+						dataPackage.joinSA=true;
+					if(wantJoinClub==1)
+						dataPackage.joinClub=true;
+					if(wantJoinSTA==1)
+						dataPackage.joinSTA=true;
+				}
 			}
 			/*		END OF YOUR CODE		*/
 			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
@@ -341,19 +376,19 @@ public class WinOrganization extends WinBase{
 				enrollPanel.add(enrollWordLabel);
 				
 				ButtonGroup enrollChoiceGroup = new ButtonGroup();
-					JRadioButton studentUnion = new JRadioButton();
+					studentUnion = new JRadioButton();
 					studentUnion.setSelected(false);
 					studentUnion.setBounds(36, 177, 21, 20);
 					enrollChoiceGroup.add(studentUnion);
 					enrollPanel.add(studentUnion);
 					
-					JRadioButton hobbyClub = new JRadioButton();
+					hobbyClub = new JRadioButton();
 					hobbyClub.setSelected(false);
 					hobbyClub .setBounds(36, 205, 21, 20);
 					enrollChoiceGroup.add(hobbyClub );
 					enrollPanel.add(hobbyClub);
 					
-					JRadioButton STA = new JRadioButton();
+					STA = new JRadioButton();
 					STA.setSelected(false);
 					STA.setBounds(36, 233, 21, 20);
 					enrollChoiceGroup.add(STA);
