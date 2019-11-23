@@ -83,7 +83,9 @@ public class WinMap extends WinBase{
 					dataPackage.choiceA="clickGoToClassMorning";//点按钮2（上课按钮）返回gotoclass
 				}else if(mode ==3){
 					dataPackage.choiceA="clickGoToSTA";//点按钮2（上课按钮）返回gotoclass
-				}			
+				}else if(mode == 4) {
+					dataPackage.choiceA="clickGoToSUPE";//点按钮3（体育部按钮）
+				}
 		    	
 				timer=new Timer(200,new ActionListener()
 			    	{
@@ -185,6 +187,18 @@ public class WinMap extends WinBase{
 		setSelectedIcon("/imgsrc/WinMap/GoToSTA_Press.png",GoToSTA);
 		if(dataPackage.time>=8 && dataPackage.time<=18 ) {
 			backgroundPanel.add(GoToSTA);
+		}
+		
+		JButton GoToSUPE = new JButton();
+		GoToSUPE.setContentAreaFilled(false);
+		GoToSUPE.setBorderPainted(false);
+		GoToSUPE.setBounds(340, 40, 75, 50);
+		setIcon("/imgsrc/WinOrganization/517.png",GoToSUPE);
+		setSelectedIcon("/imgsrc/WinOrganization/517pressed.png",GoToSUPE);
+		backgroundPanel.add(GoToSUPE);
+		GoToSUPE.setVisible(false);
+		if(dataPackage.time >= 13 && dataPackage.time <= 14 && dataPackage.joinSA) {  //加入体育部后，13点517A开放
+			GoToSUPE.setVisible(true);
 		}
 
 		/*************************************************************	
@@ -298,6 +312,10 @@ public class WinMap extends WinBase{
 		GoToClassAfternoon.addMouseListener(clickGoToClassAfternoon);//1号事件是 去自习按钮 被点击
 		GoToClassMorning.addMouseListener(clickGoToClassMorning);
 		GoToSTA.addMouseListener(clickGoToSTA);
+		
+		demoMouseListener clickGoToSUPE=new demoMouseListener(4);
+		clickGoToSUPE.setButton(GoToSUPE);
+		GoToSUPE.addMouseListener(clickGoToSUPE);
 		/*		  END OF YOUR CODE		*/
     	    	
     	/*****************************************************************				

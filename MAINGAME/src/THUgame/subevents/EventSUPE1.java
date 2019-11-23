@@ -20,7 +20,7 @@ import THUgame.event.EventBase;
  * 
  * */
 
-public class EventOrgEnroll extends EventBase{
+public class EventSUPE1 extends EventBase{
 
 	public void actOn(DataPack oldDataPack) {
 		/*******************************************
@@ -52,7 +52,6 @@ public class EventOrgEnroll extends EventBase{
 				break;
 			case 3:
 				oldDataPack.notification = "<html>好的好的，一定准时！</html>";	
-				oldDataPack.stateA = "endEnroll";
 				break;
 		}
 		if (oldDataPack.characterHealth<=0)

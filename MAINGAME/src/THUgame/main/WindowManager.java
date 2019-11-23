@@ -108,6 +108,9 @@ public class WindowManager extends JFrame {
 			case 200011:
 				generator = new WinOrgEnroll(mainGame, mainFrame);
 				break;
+			case 200012:
+				generator = new WinSUPE1(mainGame, mainFrame);
+				break;
 			case 30003:
 				generator = new WinInputName(mainGame,mainFrame);
 				break;

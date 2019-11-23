@@ -87,6 +87,8 @@ public class EventStateManager extends EventBase{
 						dataPackage.ID=1;
 					}else if(dataPackage.choiceA=="clickGoToSTA"){
 						dataPackage.ID=20016;
+					}else if(dataPackage.choiceA.equals("clickGoToSUPE")) {
+						dataPackage.ID=200010 + dataPackage.SUPEprocess;  //20001X, X>=2
 					}
 					//TODO:MAP中加入517A
 					break;
