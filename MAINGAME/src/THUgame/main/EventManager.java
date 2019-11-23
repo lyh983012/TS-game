@@ -12,7 +12,7 @@ import THUgame.event.EventHome;
 import THUgame.event.EventBackground;
 import THUgame.event.EventWelcome;
 import THUgame.event.EventOrganization;
-import THUgame.subevents.EventSTA;
+import THUgame.subevents.*;
 
 public class EventManager extends Thread{
 	
@@ -37,7 +37,11 @@ public class EventManager extends Thread{
     		 *  2.NoonClass 下午上课事件->0／sub
     		 *  3.Map 选择地图上的点，用于场景切换
     		 *  
-    		 *  20001.社工招新->0（非耗时事件）
+    		 *  20001.社工招新->0（耗时1小时）
+    		 *  20001-1：发布聘书与第一次例会通知（耗时两小时，必须满足加入SA）
+    		 *  TODO:
+    		 *  20001-X
+    		 *  
     		 *  20016. STA科协的事件。只要满足加入了科协，任意白天时间都可以去
     		 *  
     		 *  30000.通过选择确定人物模板事件->30002
@@ -78,12 +82,16 @@ public class EventManager extends Thread{
 				case 20001:
 					pushForward = new EventOrganization();
 					break;
+				case 200011:
+					pushForward = new EventOrgEnroll();
+					break;
 				case 30003:
 					pushForward = new EventInputName();
 					break;
 				case 30004:
 					pushForward = new EventSaveAndLoad();
-					break;	
+					break;
+				//TODO:case20001X 体育部例会
     		}
     		/*		END OF YOUR CODE		*/
     		pushForward.actOn(dataPackage);

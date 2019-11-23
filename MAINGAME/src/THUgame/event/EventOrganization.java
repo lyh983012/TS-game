@@ -32,7 +32,7 @@ public class EventOrganization extends EventBase{
 			oldDataPack.eventFinished=true;			//点击了关闭问卷这个按钮，那么招新事件结束
 			oldDataPack.time += 1;
 			return;									//直接返回，避免属性乱变
-		} else if (oldDataPack.stateA == "quitEnroll") {
+		} else if (oldDataPack.stateA.equals("quitEnroll")) {
 			oldDataPack.eventFinished=true;			//拒绝了招新人员，那么招新事件结束
 			oldDataPack.time += 1;
 			return;									//直接返回，避免属性乱变

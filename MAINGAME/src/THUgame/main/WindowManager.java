@@ -4,7 +4,6 @@ import javax.swing.*;
 
 import THUgame.datapack.DataPack;
 import THUgame.subevents.EventSTA;
-import THUgame.subwindows.WinSTA;
 import THUgame.windows.WinBase;
 import THUgame.windows.WinChoice;
 import THUgame.windows.WinHome;
@@ -17,6 +16,9 @@ import THUgame.windows.WinSaveAndLoad;
 import THUgame.windows.WinBackground;
 import THUgame.windows.WinWelcome;
 import THUgame.windows.WinOrganization;
+
+import THUgame.subevents.*;
+import THUgame.subwindows.*;
 
 /*
  * template version 1.1
@@ -60,6 +62,8 @@ public class WindowManager extends JFrame {
 		WinInputName.dataPackage=dataPackage;
 		WinSaveAndLoad.dataPackage=dataPackage;
 		WinOrganization.dataPackage = dataPackage;
+		WinOrgEnroll.dataPackage = dataPackage;
+		//TODO:WinSUPEX
 		/*		END OF YOUR CODE		*/
 	}
 	
@@ -101,13 +105,17 @@ public class WindowManager extends JFrame {
 			case 20001:
 				generator = new WinOrganization(mainGame, mainFrame);
 				break;
+			case 200011:
+				generator = new WinOrgEnroll(mainGame, mainFrame);
+				break;
 			case 30003:
 				generator = new WinInputName(mainGame,mainFrame);
 				break;
 			case 30004:
 				generator = new WinSaveAndLoad(mainGame,mainFrame);
 				break;
-
+				
+			//TODO:case20001X 体育部例会
 		}
 		/*		END OF YOUR CODE		*/
 	}

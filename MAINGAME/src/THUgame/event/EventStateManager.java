@@ -64,6 +64,8 @@ public class EventStateManager extends EventBase{
     					dataPackage.ID=3;
     				}else if(dataPackage.stateB.equals("enrollOrganization")) {  // dom界面后进入招新界面
     					dataPackage.ID = 20001; 
+    				}else if(dataPackage.stateA.equals("OrgNotification")) {  // dom界面后进入招新通知时间
+    					dataPackage.ID = 200011; 
     				}
     				break;
 				case 1://上午界面
@@ -86,6 +88,7 @@ public class EventStateManager extends EventBase{
 					}else if(dataPackage.choiceA=="clickGoToSTA"){
 						dataPackage.ID=20016;
 					}
+					//TODO:MAP中加入517A
 					break;
 				case 20016://STA
 					dataPackage.ID=3;/*存疑*/
@@ -93,7 +96,13 @@ public class EventStateManager extends EventBase{
 				case 20001: // 招新界面结束后，进入宿舍dom界面
 					dataPackage.ID=0;
 					break;
+				case 200011: // 招新通知事件结束后，进入宿舍dom界面
+					dataPackage.ID=0;
+					break;
+					
+				//TODO:case20001X 体育部例会
         		}
+    		
         		dataPackage.clearEventState();//复原状态，以免别人的分支出问题
 		}
 		/*********************************		
