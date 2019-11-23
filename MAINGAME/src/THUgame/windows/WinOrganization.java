@@ -117,7 +117,7 @@ public class WinOrganization extends WinBase{
 				if (STA.isSelected()) {
 					wantJoinSTA = 1;
 				}
-				if(wantJoinClub + wantJoinSTA + wantJoinSU==0) {
+				if(wantJoinClub + wantJoinSTA + wantJoinSU==0 && dataPackage.choiceC=="") {
 					JOptionPane.showMessageDialog(null, "还是要选一个选项哦", "oops",JOptionPane.WARNING_MESSAGE);  
 					return;
 				}
@@ -272,6 +272,11 @@ public class WinOrganization extends WinBase{
 				JPanel choosePanel = new JPanel();
 				choosePanel.setBounds(0, 0, 432, 277);
 				choosePanel.setLayout(null);
+				choosePanel.setOpaque(false);
+				
+				JPanel chooseImagePanel = new ImagePanel("imgsrc//WinOrganization/smallDialog.png", 0, 0, 432, 277);
+				chooseImagePanel.setBounds(0, 0, 432, 277);
+				chooseImagePanel.setOpaque(false);
 				
 					JLabel textLabel = new JLabel();
 					textLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -283,7 +288,7 @@ public class WinOrganization extends WinBase{
 					tryButton.setBorderPainted(false);
 					tryButton.setFont(new Font("印品黑体", Font.PLAIN, 16));
 					tryButton.setForeground(Color.BLACK);
-					tryButton.setBounds(68, 167, 120,40);
+					tryButton.setBounds(138, 124, 120,40);
 					tryButton.setContentAreaFilled(false);
 					tryButton.setHorizontalAlignment(SwingConstants.CENTER);
 					setIcon("/imgsrc/WinOrganization/accept.png", tryButton);
@@ -295,7 +300,7 @@ public class WinOrganization extends WinBase{
 					refuseButton.setFont(new Font("Dialog", Font.PLAIN, 16));
 					refuseButton.setContentAreaFilled(false);
 					refuseButton.setBorderPainted(false);
-					refuseButton.setBounds(263, 167, 120, 40);
+					refuseButton.setBounds(138, 174, 120, 40);
 					setIcon("/imgsrc/WinOrganization/refuse.png", refuseButton);
 					setSelectedIcon("/imgsrc/WinOrganization/refusePressed.png", refuseButton);
 					
@@ -303,6 +308,7 @@ public class WinOrganization extends WinBase{
 					choosePanel.add(tryButton);
 					choosePanel.add(textLabel);
 				choosePack.add(choosePanel);
+				choosePack.add(chooseImagePanel);
 			backgroundPanel.add(choosePack);
 			
 			/*********************************************			
