@@ -28,37 +28,25 @@ public class EventSUPE1 extends EventBase{
 		 * 		转换一个标记，必要时存储一些信息
 		 *******************************************/
 		if (oldDataPack.stateA.equals("endEnroll")) {    //事件按照流程结束
-			oldDataPack.eventFinished=true;
-			oldDataPack.time += 1;
-			return;
+			
 		} 
 		
 		/*		START OF YOUR CODE		*/	
-		if(oldDataPack.characterHealth<0) {
-			oldDataPack.notification="我死了。";
-		}
-		Random r = new Random();
-		int randomValue = r.nextInt(8) + 1;
-		
-		switch(oldDataPack.count) {
-			case 0:
-				oldDataPack.notification = "<html>你好，我又来啦！恭喜你被系学生会体育部录用啦，这是你的聘书！</html>";
-				break;
-			case 1:
-				oldDataPack.notification = "<html>哇！还有聘书呀。</html>";
-				break;
-			case 2:
-				oldDataPack.notification = "<html>别忘了哦，明天下午1点，体育部第一次例会，地点在宿舍楼517A，记得参加。</html>";			
-				break;
-			case 3:
-				oldDataPack.notification = "<html>好的好的，一定准时！</html>";	
-				break;
-		}
-		if (oldDataPack.characterHealth<=0)
-			JOptionPane.showMessageDialog(null, "你猝死了", "", JOptionPane.ERROR_MESSAGE);//弹出猝死界面
+		if (oldDataPack.count == 7 || oldDataPack.count == 8){
+			oldDataPack.count = 9;
+		}else if (oldDataPack.count == 6) {
+			if (oldDataPack.SUPEmentor==1) { // 汪赫谦
+				oldDataPack.count = 7;
+			}else {  // 章昭焕
+				oldDataPack.count = 8;
+			}
+		}else if (oldDataPack.count == 9){
+			oldDataPack.eventFinished=true;
+			oldDataPack.time += 2;
+		}else {
+			oldDataPack.count = oldDataPack.count + 1;
+		}	
 		/*		END OF YOUR CODE		*/
-		
-		oldDataPack.count = oldDataPack.count + 1;
 		return;
 	}
 }

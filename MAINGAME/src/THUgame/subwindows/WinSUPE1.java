@@ -92,9 +92,9 @@ public class WinSUPE1 extends WinBase{
 			if(mode==0) {
 				dataPackage.choiceA = "clickNext";
 			}else if(mode ==1){
-				
+				dataPackage.SUPEmentor = 1;  // 选择汪赫谦-设计线
 			}else if(mode ==2){
-				
+				dataPackage.SUPEmentor = 2;  // 选择章昭焕-后勤线
 			}else if(mode ==3){
 				
 			}else if(mode ==4){
@@ -205,7 +205,33 @@ public class WinSUPE1 extends WinBase{
 			speaker = 0;
 			text = "<html><font style=\"color:red\">"+dataPackage.name+"</font>该你作出决定啦</html>";
 			break;
+		case 6:
+			speaker = 1;
+			String name = "";
+			if (dataPackage.SUPEmentor==1) {
+				name = "汪赫谦";
+			}else if (dataPackage.SUPEmentor==2){
+				name = "章昭焕";
+			}	
+			text = "<html>最终选择了<font style=\"color:red\">"+name+"</font>作为自己的师傅</html>";
+			break;
+		case 7:
+			speaker = 3;			
+			text = "<html>你眼光真不赖233333选我做师傅，下周我们应该会有第一件事，做当天男篮比赛的推送。<font style=\"color:red\">"+"下周四9点"+
+					"</font>我们<font style=\"color:red\">"+"517A"+"</font>见，做好准备哦。</html>";
+			break;
+		case 8:
+			speaker = 2;	
+			text = "<html>谢谢你信任我做师傅！键绳运动会快到了，<font style=\"color:red\">"+"下周四晚8点C楼"+
+					"</font>会有训练，到时候得麻烦你7点提前去<font style=\"color:red\">"+"黑猫超市"+"</font>购买好物资，辛苦啦！</html>";
+			break;
+		case 9:
+			speaker = 0;	
+			text = "<html>好的，今天的例会就到这里。我们下周四同一时间见！</html>";
+			break;
 		}
+		
+		
 		
 		//<html><font style=\"color:blue\">庚敬</font><font style=\"color:red\">煊</font></html>"
 		switch (speaker) {
@@ -251,71 +277,108 @@ public class WinSUPE1 extends WinBase{
 		
 		
 		/*************************************************************	
-		* 【聘书】 
-		*  	count=2触发
+		* 【选择师傅】 
+		*  	count=5触发
 		*  
 		*************************************************************/
-		JPanel certificatePack = new JPanel();
-		certificatePack.setLayout(null);
-		certificatePack.setOpaque(false);//注意要设成透明的
-		certificatePack.setBounds(309, 136, 407, 290);
-		certificatePack.setVisible(false);
-			
-			JPanel certificatePanel = new JPanel();
-			certificatePanel.setBounds(0, 0, 407, 290);
-			certificatePanel.setOpaque(false);//注意要设成透明的
-			certificatePanel.setLayout(null);
+		JPanel choosePack = new JPanel();
+		choosePack.setLayout(null);
+		choosePack.setOpaque(false);//注意要设成透明的
+		choosePack.setBounds(221, 136, 512, 354);
+		choosePack.setVisible(false);
 		
-			JPanel certificateImage = new ImagePanel("imgsrc/WinOrganization/certificate.png", 0, 0, 407, 290);
-			certificateImage.setBounds(0, 0, 407, 290);
-			certificateImage.setOpaque(false);//注意要设成透明的
+			JPanel choosePanel = new JPanel();
+			choosePanel.setBounds(0, 0, 512, 354);
+			choosePanel.setOpaque(false);//注意要设成透明的
+			choosePanel.setLayout(null);
 			
+			JPanel chooseBackground = new ImagePanel("imgsrc//WinOrganization/chooseBG.png",0, 0, 512, 354);
+			chooseBackground.setBounds(0, 0, 512, 354);
+			chooseBackground.setLayout(null);
 			
 				// 标题
 				JLabel textTitle = new JLabel();
 				textTitle.setVerticalAlignment(SwingConstants.CENTER);
 				textTitle.setHorizontalAlignment(SwingConstants.CENTER);
-				textTitle.setText("<html>聘书</html>");
+				textTitle.setText("<html>你选择哪位师傅呢？</html>");
 				textTitle.setOpaque(false);
-				textTitle.setFont(new Font("印品黑体", Font.BOLD, 30));
-				textTitle.setBounds(10, 37, 387, 50);
-				certificatePanel.add(textTitle);
-				// 正文
-				JLabel textContent = new JLabel();
-				textContent.setVerticalAlignment(SwingConstants.TOP);
-				textContent.setOpaque(false);
-				textContent.setFont(new Font("印品黑体", Font.PLAIN, 20));
-				textContent.setBounds(34, 88, 344, 142);
-				certificatePanel.add(textContent);
-				//落款
-				JLabel textLast = new JLabel();
-				textLast.setVerticalAlignment(SwingConstants.BOTTOM);
-				textLast.setHorizontalAlignment(SwingConstants.RIGHT);
-				textLast.setText("<html>系学生会</html>");
-				textLast.setOpaque(false);
-				textLast.setFont(new Font("印品黑体", Font.BOLD, 20));
-				textLast.setBounds(231, 172, 147, 50);
-				certificatePanel.add(textLast);
+				textTitle.setFont(new Font("华文黑体", Font.BOLD, 30));
+				textTitle.setBounds(10, 0, 502, 50);
+				choosePanel.add(textTitle);
 				
-				// 退出的×
-				JButton quitButton = new JButton();
-				quitButton.setBounds(347, 37, 50, 50);
-				quitButton.setBorderPainted(false);
-				quitButton.setContentAreaFilled(false);
-				setIcon("/imgsrc/WinOrganization/redCross.png", quitButton);
-				setSelectedIcon("/imgsrc/WinOrganization/redCrossPressed.png", quitButton);
-				certificatePanel.add(quitButton);
+				// 汪赫谦区
+				JPanel masterWang = new JPanel();
+				masterWang.setBounds(40, 60, 200, 220);
+				masterWang.setOpaque(false);//注意要设成透明的
+				masterWang.setLayout(null);
+				choosePanel.add(masterWang);
+					JLabel wangContent = new JLabel();
+					wangContent.setVerticalAlignment(SwingConstants.TOP);
+					wangContent.setOpaque(false);
+					wangContent.setFont(new Font("印品黑体", Font.PLAIN, 15));
+					wangContent.setBounds(10, 150, 190, 70);
+					wangContent.setText("<html>喜欢说骚话<br>想象力丰富<br>主要负责推送和海报的制作</html>");
+					masterWang.add(wangContent);
 				
-				demoMouseListener clickCross=new demoMouseListener(3);//设置鼠标监听器，发生3号事件——关闭聘书
-				clickCross.setButton(quitButton);
-				quitButton.addMouseListener(clickCross);
+					JPanel imageWang = new ImagePanel("imgsrc//WinOrganization/whq.png",0, 0, 132, 220);
+					imageWang.setBounds(34, 0, 132, 220);
+					imageWang.setLayout(null);
+					masterWang.add(imageWang);
+					
+					
 				
-			certificatePack.add(certificatePanel);
-			certificatePack.add(certificateImage);
-		backgroundPanel.add(certificatePack);     //触发聘书，不显示next，通过×交互
+				//章昭焕区
+				JPanel masterZhang = new JPanel();
+				masterZhang.setBounds(272, 60, 200, 220);
+				masterZhang.setOpaque(false);//注意要设成透明的
+				masterZhang.setLayout(null);
+				choosePanel.add(masterZhang);
+					JLabel zhangContent = new JLabel();
+					zhangContent.setVerticalAlignment(SwingConstants.TOP);
+					//zhangContent.setHorizontalAlignment(SwingConstants.CENTER);
+					zhangContent.setOpaque(false);
+					zhangContent.setFont(new Font("印品黑体", Font.PLAIN, 15));
+					zhangContent.setBounds(0, 150, 190, 70);
+					zhangContent.setText("<html>认真负责<br>但不善言谈<br>主要负责后勤的事务</html>");
+					masterZhang.add(zhangContent);
+					
+					JPanel imageZhang = new ImagePanel("imgsrc//WinOrganization/zzh.png",0, 0, 132, 220);
+					imageZhang.setBounds(34, 0, 132, 220);
+					imageZhang.setLayout(null);
+					masterZhang.add(imageZhang);
+					
+				
+				// 选择按钮
+				JButton WButton = new JButton();
+				WButton.setBounds(85, 290, 120, 40);
+				WButton.setBorderPainted(false);
+				WButton.setContentAreaFilled(false);
+				setIcon("/imgsrc/WinOrganization/wang.png", WButton);
+				setSelectedIcon("/imgsrc/WinOrganization/wangPressed.png", WButton);
+				choosePanel.add(WButton);
+				
+				JButton ZButton = new JButton();
+				ZButton.setBounds(317, 290, 120, 40);
+				ZButton.setBorderPainted(false);
+				ZButton.setContentAreaFilled(false);
+				setIcon("/imgsrc/WinOrganization/zhang.png", ZButton);
+				setSelectedIcon("/imgsrc/WinOrganization/zhangPressed.png", ZButton);
+				choosePanel.add(ZButton);
+				
+				demoMouseListener clickWang=new demoMouseListener(1);//设置鼠标监听器，发生1号事件——选择汪赫谦
+				clickWang.setButton(WButton);
+				WButton.addMouseListener(clickWang);
+				
+				demoMouseListener clickZhang=new demoMouseListener(2);//设置鼠标监听器，发生2号事件——选择章昭焕
+				clickZhang.setButton(ZButton);
+				ZButton.addMouseListener(clickZhang);
+				
+				choosePack.add(choosePanel);
+				choosePack.add(chooseBackground);
+		backgroundPanel.add(choosePack);     //触发聘书，不显示next，通过×交互
 		
-		if (dataPackage.count == 2) {
-			certificatePack.setVisible(true);
+		if (dataPackage.count == 5) {
+			choosePack.setVisible(true);
 		}
 		
 		/*************************************************************	

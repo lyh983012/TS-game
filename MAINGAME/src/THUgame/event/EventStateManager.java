@@ -101,7 +101,9 @@ public class EventStateManager extends EventBase{
 				case 200011: // 招新通知事件结束后，进入宿舍dom界面
 					dataPackage.ID=0;
 					break;
-					
+				case 200012:
+					dataPackage.ID=0;
+					break;
 				//TODO:case20001X 体育部例会
         		}
     		
