@@ -1,8 +1,9 @@
 package THUgame.tool;
 
+import java.io.Serializable;
 import THUgame.tool.Courses;
 
-public class CourseGrade{
+public class CourseGrade implements Serializable {
 	/* 已选课课程成绩：
 	 * 
 	 * 包含如下字段：
@@ -16,19 +17,18 @@ public class CourseGrade{
 	public String grade="CS";
 	public int term=0;
 	
-	CourseGrade(){
+	public CourseGrade(){
 	}
 	
-	CourseGrade(Courses course, String grade, int term){
+	public CourseGrade(Courses course, String grade, int term){
 		this.course=course;
 		this.grade=grade;
 		this.term=term;
 	}
 	
-	CourseGrade(Courses course, int term){
+	public CourseGrade(Courses course, int term){
 		this.course=course;
-		this.grade="CS"; //默认已选课还未给成绩 
+		this.grade="TR"; //默认已选课还未抽签 
 		this.term=term;
 	}
-	
 }

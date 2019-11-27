@@ -3,6 +3,7 @@ package THUgame.windows;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
@@ -11,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import java.awt.Font;
 
+import THUgame.Game.MazeGame;
 import THUgame.Game.RememberGame;
 import THUgame.Game.ShootGame;
 import THUgame.datapack.DataPack;
@@ -93,15 +95,12 @@ public class WinInDom extends WinBase{
 		public demoMouseListener(int i){
 			this.mode=i;
 		}
-		
 		public void setFrame(JFrame frame) {
 			this.frame=frame;
 		}
-		
 		public void setButton(JButton button) {
 			this.button=button;
 		}
-		
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
@@ -118,13 +117,32 @@ public class WinInDom extends WinBase{
 				if(mode==0) {
 					dataPackage.choiceA="sleep";	//点按钮0（睡觉按钮）返回sleep
 				}else if(mode ==1){
-					dataPackage.choiceA="selfstudy";//点按钮1（自习按钮）返回selfstudy
+					if(studychoice.isVisible()) {
+						studychoice.setVisible(false);//TODO:不知道为什么收不起来
+					}else {
+						studychoice.setVisible(true); 
+					}
+					return;
 				}else if(mode ==2){
 					dataPackage.choiceA="gooutside";//点按钮2（上课按钮）返回gotoclass
 				}else if(mode ==3){
 					dataPackage.choiceA="wakehimup";//点按钮3（唤醒按钮）返回wakehimup
 				}else if(mode ==4){
 					dataPackage.choiceA="stayup";//点按钮4（待着按钮）返回stayup
+				}else if(mode ==5){
+					if(dataPackage.stateA.equals("期末考")){
+						dataPackage.choiceA="takeExam";//点按钮4（待着按钮）返回stayup
+					}else if(dataPackage.stateA.equals("科研报名")){
+						dataPackage.choiceA="readMessage_research_login";//点按钮4（待着按钮）返回stayup
+					}else if(dataPackage.stateA.equals("报名结果")){
+						dataPackage.choiceA="readMessage_research_result";//点按钮4（待着按钮）返回stayup
+					}else if(dataPackage.stateA.equals("选课")){
+						dataPackage.choiceA="need_course_reg";//点按钮4（待着按钮）返回stayup
+					}
+				}else if(mode ==6){
+					dataPackage.choiceA="dohomework";//点按钮1（自习按钮）返回selfstudy
+				}else if(mode ==7){
+					dataPackage.choiceA="readpaper";//点按钮1（自习按钮）返回selfstudy
 				}
 				/*		END OF YOUR CODE		*/
 				//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
@@ -145,7 +163,8 @@ public class WinInDom extends WinBase{
 			// TODO Auto-generated method stub
 		}
 	}
-
+	
+	static JPanel studychoice;
 
 	/*************************************************************
 	 * 	
@@ -178,9 +197,44 @@ public class WinInDom extends WinBase{
 		 *		4.设置一下两种状态的图片，调用的是虚基类里的接口
 		 *		5.把按钮加入panel里
 		 *************************************************************/
+		
+		studychoice = new JPanel();
+		studychoice.setBounds(660, 470, 150, 200);
+		backgroundPanel.add(studychoice);
+		studychoice.setOpaque(false);
+		studychoice.setLayout(null);
+		
+		JPanel choicepanel = new JPanel();
+		choicepanel.setBounds(0, 0, 150, 200);
+		studychoice.add(choicepanel);
+		choicepanel.setOpaque(false);
+		choicepanel.setLayout(null);
+		studychoice.setVisible(false);
+		
+		JButton homeWork = new JButton();
+		homeWork.setBorderPainted(false);
+		homeWork.setBounds(25, 10, 75, 50);
+		homeWork.setContentAreaFilled(false);
+		setIcon("/imgsrc/Windom/homework.png",homeWork);
+		setSelectedIcon("/imgsrc/Windom/homework_un.png",homeWork);
+		choicepanel.add(homeWork);
+		
+		JButton paper = new JButton();
+		paper.setBorderPainted(false);
+		paper.setBounds(25, 70, 75, 50);
+		paper.setContentAreaFilled(false);
+		setIcon("/imgsrc/Windom/paper.png",paper);
+		setSelectedIcon("/imgsrc/Windom/paper_un.png",paper);
+		choicepanel.add(paper);
+		
+		JPanel imgpanel = new ImagePanel("imgsrc//Windom/choices.png",0, 0, 150, 200);
+		imgpanel.setBounds(0, 0, 150, 200);
+		studychoice.add(imgpanel);
+		imgpanel.setOpaque(false);
+		
 		JButton sleepButton = new JButton();
 		sleepButton.setBorderPainted(false);
-		sleepButton.setBounds(819, 544, 150, 50);
+		sleepButton.setBounds(819, 477, 150, 50);
 		sleepButton.setContentAreaFilled(false);
 		setIcon("/imgsrc/Windom/sleep.png",sleepButton);
 		setSelectedIcon("/imgsrc/Windom/sleepUn.png",sleepButton);
@@ -188,7 +242,7 @@ public class WinInDom extends WinBase{
 
 		JButton selfstudyButton = new JButton();
 		selfstudyButton.setBorderPainted(false);
-		selfstudyButton.setBounds(819, 477, 150, 50);
+		selfstudyButton.setBounds(819, 544, 150, 50);
 		setIcon("/imgsrc/Windom/study.png",selfstudyButton);
 		setSelectedIcon("/imgsrc/Windom/studyUn.png",selfstudyButton);
 		backgroundPanel.add(selfstudyButton);
@@ -204,7 +258,7 @@ public class WinInDom extends WinBase{
 		 *  	这一部分需要用dataPackage.trigSubEvent决定是否绘制
 		 *  	具体用法见MorninigClass窗口
 		 *************************************************************/
-		JPanel SnorePanel = new JPanel();	
+		JPanel SnorePanel = new JPanel();	//1.跟打呼噜相关的小事件在这里触发
 		SnorePanel.setOpaque(false);
 		SnorePanel.setBounds(254, 129, 531, 363);
 		backgroundPanel.add(SnorePanel);
@@ -229,12 +283,12 @@ public class WinInDom extends WinBase{
 			label_2.setBounds(95, 173, 388, 16);
 			
 			JButton wakeButton = new JButton();
-			wakeButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
+			wakeButton.setBorderPainted(true);
 			wakeButton.setBounds(95, 250, 120, 50);
 			wakeButton.setText("叫醒舍友");
 			
 			JButton stayButton = new JButton();
-			stayButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
+			stayButton.setBorderPainted(true);
 			stayButton.setBounds(300, 250, 120, 50);
 			stayButton.setText("保持沉默");
 		
@@ -246,22 +300,90 @@ public class WinInDom extends WinBase{
 		SnorePanel.add(upperlevel);
 		SnorePanel.add(background);
 		
-		RememberGame.mainGame=mainGame;//注意这里！不然没办法结束游戏！
+		JPanel messagePanel = new JPanel();//2.跟转场相关
+		messagePanel.setOpaque(false);
+		messagePanel.setBounds(254, 129, 531, 363);
+		backgroundPanel.add(messagePanel);
+		messagePanel.setLayout(null);
+		
+		JPanel messageupperlevel = new JPanel();
+		messageupperlevel.setOpaque(false);
+		messageupperlevel.setBounds(0, 0, 531, 363);
+		messageupperlevel.setLayout(null);
+		
+		JPanel messagebackground = new ImagePanel("imgsrc//对话框.png",0, 0, 531, 363);
+		messagebackground.setOpaque(false);
+		messagebackground.setBounds(0, 0, 531, 363);
+		messagebackground.setLayout(null);
+		
+			JLabel messagelabel_1 = new JLabel();
+			messagelabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			messagelabel_1.setBounds(100, 50, 300, 200);
+
+			JButton messageButton = new JButton();
+			messageButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
+			messageButton.setBounds(197, 250, 120, 50);		
+		
+		messageupperlevel.add(messagelabel_1);
+		messageupperlevel.add(messageButton);	
+		messagePanel.add(messageupperlevel);
+		messagePanel.add(messagebackground);
+		
+		RememberGame.mainGame=mainGame;//3.Game 注意这里！不然没办法结束游戏！
 		RememberGame.dataPackage=dataPackage;//注意这里！不然没办法结束游戏！
-		JPanel Remember = new RememberGame(254, 134);//将来可以用它来放临时小事件	
+		MazeGame.mainGame=mainGame;//3.Game 注意这里！不然没办法结束游戏！
+		MazeGame.dataPackage=dataPackage;//注意这里！不然没办法结束游戏！
+		
+		JPanel Maze = new MazeGame(254, 134);
+		Maze.setBounds(254, 134, 536, 398);
+		Maze.setLayout(null);
+		Maze.setOpaque(false);//注意要设成透明的
+		backgroundPanel.add(Maze);
+		
+		JPanel Remember = new RememberGame(254, 134);
 		Remember.setBounds(254, 134, 536, 398);
 		Remember.setLayout(null);
 		Remember.setOpaque(false);//注意要设成透明的
 		backgroundPanel.add(Remember);
 		
-		SnorePanel.setVisible(false); // 未触发子事件，取消小事件，恢复睡觉按钮
-		Remember.setVisible(false); // 未触发子事件，取消小事件，恢复睡觉按钮
-
-		if (dataPackage.trigSubEvent){ // 触发子事件，小事情可见。。
+		messagePanel.setVisible(false); 
+		SnorePanel.setVisible(false); 
+		Remember.setVisible(false);
+		Maze.setVisible(false);
+		
+		if(dataPackage.week==1 && dataPackage.date==1 && dataPackage.course_selected==false) {
+			dataPackage.trigSubEvent=true;
+			dataPackage.stateA="选课";
+			dataPackage.course_selected=true;
+		}
+		if (dataPackage.trigSubEvent){ // 触发子事件，小事情可见。。  d
 			if(dataPackage.stateA.equals("game")) {
-				Remember.setVisible(true);
+				Random r = new Random();
+				int dice = r.nextInt(10);
+				if(dice<4) {
+					Remember.setVisible(true);
+				}
+				else {
+					Maze.setVisible(true);
+				}
 			}else if(dataPackage.stateA.equals("被吵醒")){
 				SnorePanel.setVisible(true);
+			}else if(dataPackage.stateA.equals("期末考")){
+				messageButton.setText("出发去考点");
+				messagelabel_1.setText("<html>天哪期末考要开始了！差点就睡过头了，快点赶去考试！</html>");
+				messagePanel.setVisible(true);
+			}else if(dataPackage.stateA.equals("科研报名")){
+				messageButton.setText("查看消息");
+				messagelabel_1.setText("<html>咦？收到了一条消息</html>");
+				messagePanel.setVisible(true);
+			}else if(dataPackage.stateA.equals("报名结果")){
+				messageButton.setText("查看消息");
+				messagelabel_1.setText("<html>咦？收到了一条消息</html>");
+				messagePanel.setVisible(true);
+			}else if(dataPackage.stateA.equals("选课")){
+				messageButton.setText("选课系统");
+				messagelabel_1.setText("<html>今天是新学期的第1天，我需要去选课系统选一下课程。9102年的选课系统真不赖，一选完课就能出结果了哦～</html>");
+				messagePanel.setVisible(true);
 			}
 			sleepButton.setVisible(false);
 			selfstudyButton.setVisible(false);
@@ -444,9 +566,9 @@ public class WinInDom extends WinBase{
 			todoList.add(label3);
 			label3.setFont(new Font("STFangsong", Font.PLAIN, 16));
 				
-			JLabel label4 = new JLabel("3.");
+			JLabel label4 = new JLabel(dataPackage.stateE);
 			label4.setForeground(Color.WHITE);
-			label4.setBounds(20, 115, 100, 18);
+			label4.setBounds(20, 115, 400, 20);
 			todoList.add(label4);
 			label4.setFont(new Font("STFangsong", Font.PLAIN, 16));
 			
@@ -512,18 +634,27 @@ public class WinInDom extends WinBase{
 		demoMouseListener clickOut=new demoMouseListener(2);//设置鼠标监听器，发生2号事件
 		demoMouseListener clickwake=new demoMouseListener(3);//设置鼠标监听器，发生3号事件
 		demoMouseListener clickstay=new demoMouseListener(4);//设置鼠标监听器，发生4号事件
-
+		demoMouseListener clickexam = new demoMouseListener(5);//设置鼠标监听器，发生4号事件
+		demoMouseListener clickhomework=new demoMouseListener(6);//设置鼠标监听器，发生4号事件
+		demoMouseListener clickpaper = new demoMouseListener(7);//设置鼠标监听器，发生4号事件
+		
+		clickexam.setButton(messageButton);
 		clicksleep.setButton(sleepButton);
 		clickselfstudy.setButton(selfstudyButton);
 		clickOut.setButton(OutButton);
 		clickwake.setButton(wakeButton);
 		clickstay.setButton(stayButton);
+		clickhomework.setButton(homeWork);
+		clickpaper.setButton(paper);
 		
     	sleepButton.addMouseListener(clicksleep);//0号事件是 睡觉按钮 被点击
 		selfstudyButton.addMouseListener(clickselfstudy);//1号事件是 去自习按钮 被点击
 		OutButton.addMouseListener(clickOut);//2号事件是 去上课按钮 被点击
 		wakeButton.addMouseListener(clickwake);//3号事件是 叫醒舍友 被点击
 		stayButton.addMouseListener(clickstay);//4号事件是 按兵不动 被点击
+		messageButton.addMouseListener(clickexam);//5号事件是 出发考试 被点击
+		homeWork.addMouseListener(clickhomework);//6号事件是 出发考试 被点击
+		paper.addMouseListener(clickpaper);//7号事件是 出发考试 被点击
 		/*		END OF YOUR CODE		*/
     	    	
     	/*****************************************************************				

@@ -11,25 +11,18 @@ package THUgame.Game;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Random;
 import java.util.Stack;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.Timer;
 
-import THUgame.Game.RememberGame.EnderListener;
 import THUgame.Game.RememberGame.TimerListener;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
@@ -82,25 +75,36 @@ class Lattice{
 		return this.Intree;
 	}
 	
+	public void SetWhite(Graphics g,int padding,int width) {
+		int tx,ty;
+		tx = padding + x*width;
+		ty = padding + y*width - 100;
+		g.drawLine(tx, ty, tx+width, ty);
+		g.drawLine(tx, ty, tx, ty+width);
+		g.drawLine(tx, ty, tx, ty+width);
+		g.drawLine(tx+width, ty, tx+width, ty+width);
+		g.drawLine(tx, ty+width, tx+width, ty+width);
+	}
+	
 }
 
 public class MazeGame extends JPanel implements KeyListener{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	static public EventManager mainGame;
 	static public DataPack dataPackage;
 	private JButton StartButton;
 	private Timer timer;
 	private int delay;
 	private Lattice[][] maze;
-	private int num, width, padding;
+	private int num, padding,width;
 	static private boolean MazeReady;
 	private int Ballx,Bally;
-	
-	
+    private JLabel scoreTime;
+    private int timeLeft=300;
+    private int count=0;
+    private boolean failed=false;
 	MazePanel EventPanel;
+	
+	
 	/**
 	 * 构造函数
 	 * @param x 
@@ -111,7 +115,7 @@ public class MazeGame extends JPanel implements KeyListener{
 		this.padding = 150;
 		this.width = (540-padding - padding) / num;
 		this.maze = new Lattice[num][num];
-		this.MazeReady = false;
+		MazeGame.MazeReady = false;
 		this.Ballx = 0;
 		this.Bally = 0;
 	    for (int i = 0; i <= num - 1; i++)
@@ -125,9 +129,22 @@ public class MazeGame extends JPanel implements KeyListener{
     	/*
     	 * 开始界面的按钮设置
     	 */
-    	this.StartButton = new JButton("开始游戏");
-    	this.StartButton.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-        this.StartButton.setBounds(225, 266, 100, 50);
+		EventPanel = new MazePanel();
+		EventPanel.setOpaque(false);//注意要设成透明的
+		EventPanel.setBounds(0, 0, 540, 350);
+		EventPanel.setLayout(null);
+		
+        JTextPane txtpnshi = new JTextPane();
+		txtpnshi.setBounds(170, 100, 220, 100);
+		txtpnshi.setOpaque(false);
+		txtpnshi.setEditable(false);
+		txtpnshi.setText("这一次的作业稍微有些难度，需要花点心思来做。规则：尽快从迷宫的一头走向另一头");
+		txtpnshi.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+		EventPanel.add(txtpnshi);
+		
+        this.StartButton = new JButton("开始");
+    	this.StartButton.setFont(new Font("Lucida Grande", Font.BOLD, 18));
+        this.StartButton.setBounds(175, 266, 80, 50);
         this.StartButton.addActionListener(new ActionListener(){
     		@Override
     		public void actionPerformed(ActionEvent e) {
@@ -137,27 +154,24 @@ public class MazeGame extends JPanel implements KeyListener{
     	    	timer.start();
     			}
     		});
-        //this.add(StartButton);//感觉这一句好像不用加
-        
-        /*
-         * 开始界面的文字显示
-         */
-        
-        JTextPane txtpnshi = new JTextPane();
-		txtpnshi.setBounds(170, 100, 220, 70);
-		txtpnshi.setOpaque(false);
-		txtpnshi.setEditable(false);
-		txtpnshi.setText("你开始走迷宫了！规则：从迷宫的一头走向另一头");
-		txtpnshi.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-		this.add(txtpnshi);
-		
-		EventPanel = new MazePanel();
-		EventPanel.setOpaque(false);//注意要设成透明的
-		EventPanel.setBounds(0, 0, 540, 350);
-		EventPanel.setLayout(null);
         EventPanel.add(StartButton);
-		EventPanel.add(txtpnshi);
-		
+        JButton backbutton = new JButton("放弃");
+        backbutton.setFont(new Font("Lucida Grande", Font.BOLD, 18));
+        backbutton.setBounds(285, 266, 80, 50);
+        backbutton.addActionListener(new ActionListener(){
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			dataPackage.trigSubEvent=false;
+    			dataPackage.choiceA="";
+    			dataPackage.notification = "我发现作业非常困难，于是我不写作业了";
+	   			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+	   			synchronized(mainGame) {
+	   				mainGame.notify();
+	   			}//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+    		}
+    	});
+        EventPanel.add(backbutton);
+        
 		JPanel EventBackgound = new ImagePanel("imgsrc//shootGame/eb.png",0, 0, 540, 350);	
 		EventBackgound.setBounds(0, 0, 540, 350);
 		EventBackgound.setOpaque(false);//注意要设成透明的
@@ -166,54 +180,6 @@ public class MazeGame extends JPanel implements KeyListener{
 		this.add(EventPanel);
 		this.add(EventBackgound);
 	}
-	/***
-	 private class move implements KeyListener() {
-		   // int tx = this.Ballx, ty = this.Bally;
-		    // System.out.println(c);
-		    public void keyTyped(KeyEvent e) {
-   
-		         
-		    }
-		 
-		    @Override
-		    public void keyPressed(KeyEvent e) {
-		        // TODO Auto-generated method stub
-			 	System.out.println("Move!");
-			 	int c =e.getKeyCode();
-			    switch (c) {
-			      case KeyEvent.VK_LEFT :
-			        Bally--;
-			        break;
-			      case KeyEvent.VK_RIGHT :
-			        Bally++;
-			        break;
-			      case KeyEvent.VK_UP :
-			        Ballx--;
-			        break;
-			      case KeyEvent.VK_DOWN :
-			        Ballx++;
-			        break;
-			      case KeyEvent.VK_SPACE :
-
-			        break;
-			      default:
-			    }
-		       
-		         
-		    }
-		 
-		    @Override
-		    public void keyReleased(KeyEvent e) {
-		        // TODO Auto-generated method stub
-		         
-		    }
-
-
-		    
-		    
-	 }
-	 **/
-	 
 	
 	class MazePanel extends JPanel{
 		
@@ -233,45 +199,87 @@ public class MazeGame extends JPanel implements KeyListener{
 		    g.setColor(Color.white);
 		    for(int i = num-1;i>=0;i--)
 		    	for(int j = num-1;j>=0;j--) {
+		    		
 		    		Lattice f = maze[i][j].getFather();
 		    		if(f!=null) {
 		    			int fx = f.GetX();
 		    			int fy = f.GetY();
 		    			clearFence(i,j,fx,fy,g);
 		    		}
+		    		if(dist(i,j,Ballx,Bally)>4)
+		    			maze[i][j].SetWhite(g,padding,width);
 		    	}
+		    g.setColor(Color.white);
+		    
 		    g.drawLine(padding, padding + 1-100, padding, padding + width - 1-100);
 		    int last = padding + num * width;
 		    g.drawLine(last, last - 1-100, last, last - width + 1-100);
 		    
 			g.setColor(Color.red);
 			g.fillOval(getcenterx(Ballx) - width / 3, getcentery(Bally) - width / 3,
-				
 			        width / 2, width / 2);
-			}
+			g.setColor(Color.blue);
+			g.fillOval(getcenterx(num-1) - width / 3, getcentery(num-1) - width / 3,
+			        width / 2, width / 2);
+			
+			} 
 		}
 	}
 	/**
 	 * TimerListener，每次timer会调用repaint
 	 */
-    class TimerListener implements ActionListener {
+    
+	class TimerListener implements ActionListener {
         /** Handle ActionEvent */
         public void actionPerformed(ActionEvent e) {
-        		repaint();
-        		
+        		repaint();	
         	}
         }
     
+    class EnderListener implements ActionListener{
+    	
+    	public EventManager mainGame;
+    	public DataPack dataPackage;
+    	
+    	public EnderListener(DataPack dataPackage, EventManager mainGame){
+    		this.mainGame=mainGame;
+    		this.dataPackage=dataPackage;
+    	}
+    		@Override
+    	public void actionPerformed(ActionEvent e) {
+    			this.dataPackage.trigSubEvent=false;
+    			this.dataPackage.time+=1;
+    			this.dataPackage.characterIQ+=timeLeft/10;//在这里改属性
+    			this.dataPackage.notification = "<html>我发现作业有些，沉迷其中，过去了4个小时";
+    			this.dataPackage.notification += "<br>学习进度+1，心情值-1，体力消耗5点";
+    			this.dataPackage.notification += "<br>沉浸在知识海洋里让我的智力值发生了"+String.valueOf((timeLeft-100)/50)+"点的变化</html>";
+	   			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+	   			synchronized(mainGame) {
+	   				this.mainGame.notify();
+	   			}//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+   			}
+    }
+	
 	public void InitGame() {
 		EventPanel.removeAll();
+		scoreTime=new JLabel("剩余时间："+String.valueOf(timeLeft/10)+"."+String.valueOf(timeLeft%10)+"s");
+        scoreTime.setBounds(40,30,100,20);
+        EventPanel.add(scoreTime);
 		initMaze();
-		System.out.println("Init start");
+		/***
+		 * 为实现监听键盘的功能，addKeyListener，requestFocus非常重要
+		 */
+		
 		this.addKeyListener(this);
-		//this.setFocusable(true);
 		this.requestFocus();
+		//上面两句一定要加
 		return;
 	}
 	
+	private double dist(int x, int y, int ballx, int bally) {
+		double dist = Math.sqrt((x-ballx)*(x-ballx)+(y-bally)*(y-bally));
+		return dist;
+	}
 	/****
 	 * 
 	 * @param p是当前需要获得邻域的点
@@ -296,18 +304,17 @@ public class MazeGame extends JPanel implements KeyListener{
 		return pn;
 	}
 	
-	
 	private boolean isOutOfBorder(Lattice p) {
 		if(p.GetX()<0||p.GetY()<0||p.GetX()>=this.num||p.GetY()>=this.num)
 			return true;
 		return false;
 	}
+	
 	private boolean isOutOfBorder(int x,int y) {
 		if(x<0||y<0||x>=num||y>=num)
 			return true;
 		return false;
 	}
-	
 	
 	public void initMaze() {
 		Random r = new Random();
@@ -333,6 +340,7 @@ public class MazeGame extends JPanel implements KeyListener{
 		this.MazeReady = true;
 		
 	}
+	
 	private void clearFence(int i, int j, int fx, int fy, Graphics g) {
 		int sx = padding + ((j > fy ? j : fy) * width),
 	        sy = padding-100 + ((i > fx ? i : fx) * width),
@@ -352,25 +360,40 @@ public class MazeGame extends JPanel implements KeyListener{
 	public int getcenterx(int x) {
 		return this.padding+ x*this.width+width/2; 
 	}
+
 	public int getcentery(int x) {
 		return this.padding+ x*this.width+width/2-100; 
 	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-		//先划线，再擦线
-
-		
-
-
+		try {
+			Thread.sleep(this.delay);
+	    	count+=1;
+	    	if(count==100/delay) {
+	    		this.timeLeft-=1;  	
+	    		count=0;
+	    		}
+	    	if (scoreTime!=null)
+	    		scoreTime.setText("剩余时间："+String.valueOf(timeLeft/10)+"."+String.valueOf(timeLeft%10)+"s");
+	    	if (this.timeLeft==0) {
+	    		failed=true;
+	    		endGame();
+	    	}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+       
 	}
 	@Override
+	
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 	
 	}
 	@Override
+
+	
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		//if(MazeReady)
@@ -404,51 +427,48 @@ public class MazeGame extends JPanel implements KeyListener{
 	    this.checkWin();
 		
 	}
+	
 	public void checkWin() {
 		if(Ballx == num-1&&Bally == num-1) {
-			System.out.println("You win!");
 			endGame();
 		}
 	}
-    public void endGame() {
+   
+	public void endGame() {
     	//flag=false;
+		JPanel EventBackgound = new ImagePanel("imgsrc//shootGame/eb.png",0, 0, 540, 350);	
+		EventBackgound.setBounds(0, 0, 540, 350);
+		EventBackgound.setOpaque(false);//注意要设成透明的
+		EventBackgound.setLayout(null);
+		
+		EventPanel = new MazePanel();
+		EventPanel.setOpaque(false);//注意要设成透明的
+		EventPanel.setBounds(0, 0, 540, 350);
+		EventPanel.setLayout(null);
+		
     	this.timer.stop();
-    	EventPanel.removeAll();
+   
     	JTextPane txtpnshi = new JTextPane();
 		txtpnshi.setBounds(175, 100, 200, 200);
 		txtpnshi.setOpaque(false);
 		txtpnshi.setEditable(false);
-		txtpnshi.setText("自习结束，你的得分："+"在这个珍贵的机会之中，你的智力值发生了"+"点的变化");
-		txtpnshi.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+		txtpnshi.setText("我在规定时间内完成了任务！");
+		if(failed) {
+			txtpnshi.setText("啊…这个作业实在是有点难，我放弃了……");
+		}
+		txtpnshi.setFont(new Font("Lucida Grande", Font.BOLD, 18));
 		this.StartButton = new JButton("结束");
-		this.StartButton.setBounds(245, 266, 100, 20);
+		this.setFont(new Font("Lucida Grande", Font.BOLD, 18)); 
+		this.StartButton.setBounds(230, 180, 70, 40);
 		this.StartButton.addActionListener(new EnderListener(dataPackage,mainGame));
         EventPanel.add(this.StartButton);
 		EventPanel.add(txtpnshi);
+		
+		this.removeAll();
+		this.add(EventPanel);
+		this.add(EventBackgound);
     }
     
-    class EnderListener implements ActionListener{
-    	
-    	public EventManager mainGame;
-    	public DataPack dataPackage;
-    	
-    	public EnderListener(DataPack dataPackage, EventManager mainGame){
-    		this.mainGame=mainGame;
-    		this.dataPackage=dataPackage;
-    	}
-    		@Override
-    	public void actionPerformed(ActionEvent e) {
-    			this.dataPackage.trigSubEvent=false;
-    			this.dataPackage.choiceA="";
-    			this.dataPackage.notification = "<html>我发现作业非常困难，沉迷其中，过去了五个小时";
-    			this.dataPackage.notification += "<br>学习进度+1，心情值-1，体力消耗5点";
-    			this.dataPackage.notification += "<br>漫长的五小时后，我可能错过了一些事情，但是<br>沉浸在知识海洋里让我的智力值发生了"+"点的变化</html>";
-	   			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-	   			synchronized(mainGame) {
-	   				this.mainGame.notify();
-	   			}//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
-   			}
-    }
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub

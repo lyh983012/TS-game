@@ -3,6 +3,7 @@ package THUgame.event;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
+import javax.swing.JOptionPane;
 import THUgame.datapack.DataPack;
 
 /*
@@ -14,6 +15,7 @@ import THUgame.datapack.DataPack;
  * */
 
 public class EventSaveAndLoad extends EventBase{
+	@SuppressWarnings("resource")
 	public void actOn(DataPack oldDataPack) {
 		
 		if(!(oldDataPack.choiceA.equals(""))) {

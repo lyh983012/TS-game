@@ -6,15 +6,16 @@ import THUgame.event.EventBase;
 public class EventSTA extends EventBase{
 	public void actOn(DataPack oldDataPack) {
 		/*test*/
-		if(oldDataPack.contibuteSTA>=3)
+		if(oldDataPack.contibuteSTA>=20)
 			oldDataPack.beAChairMan=true;
+			oldDataPack.notification += "<html>因为我对科协的贡献足够多，我成了实验室的管理员<br>";
 		/*test*/
 		if(oldDataPack.beAChairMan) {
 			if(oldDataPack.choiceA.equals("server")){
 				oldDataPack.stateA="3.gif";
 				oldDataPack.stateB="gif";
 				oldDataPack.time+=4;		
-				oldDataPack.characterEnergy -= 40;
+				oldDataPack.characterEnergy -= 30;
 				oldDataPack.characterHealth -= 3;
 				oldDataPack.contibuteSTA += 1;
 				oldDataPack.STcap += 5;
@@ -24,7 +25,7 @@ public class EventSTA extends EventBase{
 				oldDataPack.stateA="2.gif";
 				oldDataPack.stateB="gif";
 				oldDataPack.time+=2;		
-				oldDataPack.characterEnergy -= 20;
+				oldDataPack.characterEnergy -= 15;
 				oldDataPack.characterHealth -= 3;
 				oldDataPack.contibuteSTA += 1;
 				oldDataPack.notification += "<html>我需要写写材料啦<br>过去了2小时，体力下降20点，对科协的贡献+1</html>";
@@ -38,7 +39,7 @@ public class EventSTA extends EventBase{
 				oldDataPack.stateA="1.gif";
 				oldDataPack.stateB="gif";
 				oldDataPack.time+=4;		
-				oldDataPack.characterEnergy -= 40;
+				oldDataPack.characterEnergy -= 30;
 				oldDataPack.characterHealth -= 3;
 				oldDataPack.contibuteSTA += 1;
 				oldDataPack.STcap += 5;

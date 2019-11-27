@@ -158,10 +158,10 @@ public class WinMorningClass extends WinBase{
 	
 			JLabel lblNewLabel_1 = new JLabel("已经下课了！");
 			lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblNewLabel_1.setBounds(226, 107, 220, 68);
+			lblNewLabel_1.setBounds(200, 107, 220, 68);
 			
 			JButton btnNewButton_3 = new JButton("离开教室……");
-			btnNewButton_3.setBounds(190, 242, 190, 47);
+			btnNewButton_3.setBounds(165, 242, 190, 47);
 			
 		upperlevel.add(lblNewLabel_1);
 		upperlevel.add(btnNewButton_3);	

@@ -149,10 +149,11 @@ public class RememberGame extends JPanel{
     	public void actionPerformed(ActionEvent e) {
     			this.dataPackage.trigSubEvent=false;
     			this.dataPackage.choiceA="";
-    			this.dataPackage.characterIQ+=score/10;//在这里改属性
-    			this.dataPackage.notification = "<html>我发现作业非常困难，沉迷其中，过去了五个小时";
+    			this.dataPackage.characterIQ+=score*2/10;//在这里改属性
+    			this.dataPackage.time+=3;
+    			this.dataPackage.notification = "<html>我发现作业非常困难，沉迷其中，过去了6个小时";
     			this.dataPackage.notification += "<br>学习进度+1，心情值-1，体力消耗5点";
-    			this.dataPackage.notification += "<br>漫长的五小时后，我可能错过了一些事情，但是<br>沉浸在知识海洋里让我的智力值发生了"+String.valueOf(score/10)+"点的变化</html>";
+    			this.dataPackage.notification += "<br>漫长的五小时后，我可能错过了一些事情，但是<br>沉浸在知识海洋里让我的智力值发生了"+String.valueOf(score*2/10)+"点的变化</html>";
 	   			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 	   			synchronized(mainGame) {
 	   				this.mainGame.notify();
@@ -170,9 +171,14 @@ public class RememberGame extends JPanel{
     	RememberGame.Answer =new ArrayList<Integer>();
     	RememberGame.Buttons=new ArrayList<Button>();
     	
-    	this.HeroNewButton = new JButton("开始游戏");
+		EventPanel = new JPanel();
+		EventPanel.setOpaque(false);//注意要设成透明的
+		EventPanel.setBounds(0, 0, 540, 350);
+		EventPanel.setLayout(null);
+		
+    	this.HeroNewButton = new JButton("开始");
     	this.HeroNewButton.setFont(new Font("Lucida Grande", Font.BOLD, 18));
-        this.HeroNewButton.setBounds(225, 266, 100, 50);
+        this.HeroNewButton.setBounds(175, 266, 80, 50);
         this.HeroNewButton.addActionListener(new ActionListener(){
     		@Override
     		public void actionPerformed(ActionEvent e) {
@@ -183,21 +189,31 @@ public class RememberGame extends JPanel{
     	    	timer.start();
     			}
     		});
-        this.add(HeroNewButton);
+        EventPanel.add(HeroNewButton);
+        
+        JButton backbutton = new JButton("放弃");
+        backbutton.setFont(new Font("Lucida Grande", Font.BOLD, 18));
+        backbutton.setBounds(285, 266, 80, 50);
+        backbutton.addActionListener(new ActionListener(){
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			dataPackage.trigSubEvent=false;
+    			dataPackage.choiceA="";
+    			dataPackage.notification = "我发现作业非常困难，于是我不写作业了";
+	   			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+	   			synchronized(mainGame) {
+	   				mainGame.notify();
+	   			}//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+    		}
+    	});
+        EventPanel.add(backbutton);
         
         JTextPane txtpnshi = new JTextPane();
-		txtpnshi.setBounds(170, 100, 220, 70);
+		txtpnshi.setBounds(150, 100, 260, 140);
 		txtpnshi.setOpaque(false);
 		txtpnshi.setEditable(false);
-		txtpnshi.setText("你开始写作业了！规则：记忆点击顺序，按顺序点击对应的方块，一共有"+Maxturn+"轮");
+		txtpnshi.setText("这一次作业十分困难，需要完成这个任务！规则：记忆点击顺序，按顺序点击对应的方块，一共有"+Maxturn+"轮。但是相应地有更多的奖励");
 		txtpnshi.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-		this.add(txtpnshi);
-		
-		EventPanel = new JPanel();
-		EventPanel.setOpaque(false);//注意要设成透明的
-		EventPanel.setBounds(0, 0, 540, 350);
-		EventPanel.setLayout(null);
-        EventPanel.add(HeroNewButton);
 		EventPanel.add(txtpnshi);
 		
 		JPanel EventBackgound = new ImagePanel("imgsrc//shootGame/eb.png",0, 0, 540, 350);	
@@ -278,7 +294,7 @@ public class RememberGame extends JPanel{
 	    	Random r = new Random();
 	    	if(this.RememStart  == false) {
 	    		try {
-					Thread.sleep(800);
+					Thread.sleep(400);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -313,13 +329,13 @@ public class RememberGame extends JPanel{
 	    		this.turn-=1;
 		    	if(GameLose)
 		    	{
-		    		this.score=this.score-2;
+		    		this.score=this.score-4;
 		    		scoreShow.setText("第"+(Maxturn-turn)+"轮你输了");
 		            scoreTime.setText("当前得分为:"+this.score);
 
 		    	}
 		    	else if(GameVictory) {
-		    		this.score=this.score+5;
+		    		this.score=this.score+7;
 		    		scoreShow.setText("第"+(Maxturn-turn)+"轮你赢了");
 		            scoreTime.setText("当前得分为:"+this.score);
 		    	}

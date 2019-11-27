@@ -164,6 +164,7 @@ public class WinInputName extends WinBase{
 		backgroundPanel.add(sexlabel);
 		
 		formattedTextField = new JFormattedTextField();
+		formattedTextField.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		formattedTextField.setText("建议在4个字符以内");
 		formattedTextField.setBounds(500, 200, 183, 50);
 		backgroundPanel.add(formattedTextField);

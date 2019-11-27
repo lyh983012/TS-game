@@ -2,6 +2,8 @@ package THUgame.datapack;
 import java.io.Serializable;
 
 import THUgame.tool.CourseGrade;
+import THUgame.tool.Courses;
+import THUgame.tool.ResearchData;
 
 /*数据包模板（请保持最新）
  * update:20191114 00:47
@@ -38,7 +40,6 @@ public class DataPack implements Serializable , Cloneable{
 	public int characterEQ=50;
 	public int characterlucky=50;
 	public int characterArt=50;
-	
 	public int characterHealth=100;		//可变的
 	public int characterHappiness=50;
 	public int characterEnergy=100;
@@ -72,7 +73,6 @@ public class DataPack implements Serializable , Cloneable{
 	public boolean paperPublised=false;	//paper发表了				//state011
 	public boolean holdStudentFestival=false;//负责学生节筹办		//state012
 	public boolean holdFreshmanGame=false;	 //负责新生赛筹办		//state013
-	
 	public int contibuteSTA=0;		//科协贡献度
 	public int STcap=0;				//科创能力，和新生赛以及挑战杯等有关系
 	
@@ -83,11 +83,11 @@ public class DataPack implements Serializable , Cloneable{
 	 *将转场动画、成就系统显示、初始等都设计为分支事件
 	 *******************************************************/
 	public int ID=0;
-
-	/* 与课程有关的属性
-	 * 
+	/*******************************************************
+	* 与课程有关的属性
 	 * 已修课程成绩单courseGrade:每一门修过的课是CourseGrade类的一个对象
-	 */
+	 ********************************************************/
+	public boolean course_selected=false;
 	public CourseGrade[] courseGrade; //已修课程成绩单及本学期选课课程
 	public int courseGradeCount=0; //“已修课程成绩单”数组中有多少个元素
 	/*******************************************************
@@ -102,7 +102,7 @@ public class DataPack implements Serializable , Cloneable{
 	public String nextStep="";//表示下一步
 	public String notification="";//表示对话信息
 	public String todayMorningClass="";//表示早上的课
-	public String todayAfternoonClass="";//表示早上的课
+	public String todayAfternoonClass="";//表示下午的课
 	public String choiceA="";//表示事件的A选项
 	public String choiceB="";//表示事件的B选项
 	public String choiceC="";//表示事件的C选项
@@ -119,10 +119,12 @@ public class DataPack implements Serializable , Cloneable{
 	public boolean eventFinished=false;
 	public boolean trigSubEvent =false;
 	
+	public ResearchData researchDataPackage;
+	
 	public void clearEventState() {
 		notification="";//表示对话信息
 		todayMorningClass="";//表示早上的课
-		todayAfternoonClass="";//表示早上的课
+		todayAfternoonClass="";//表示下午的课
 		choiceA="";//表示事件的A选项
 		choiceB="";//表示事件的B选项
 		choiceC="";//表示事件的C选项
@@ -140,28 +142,35 @@ public class DataPack implements Serializable , Cloneable{
 		trigSubEvent = false;
 		nextStep="";
 		stateInEvent="";
-		count=0;
-		this.courseGrade=new CourseGrade[100];
-		this.courseGradeCount=0;
+		
 	}
 	public DataPack(String type){
-		if(type.equals("demo")) {
-			this.ID=0;
-			this.date=1;
-			this.term=1;
-			this.studentID="";
-			this.characterIQ=50;
+		if(type.equals("test")) {
+			this.ID=-1;
+			this.date=6;
+			this.week=4;
+			this.term=2;
+			this.time=8;
+			this.studentID="2016000001";
+			this.characterIQ=70;
 			this.characterEQ=50;
-			this.characterHealth=90;
+			this.characterlucky=50;
+			this.characterArt=50;
+			this.characterHealth=100;		//可变的
 			this.characterHappiness=50;
+			this.characterEnergy=100;
+			this.studyProgress=0;			//每个学期的进度
+			this.studyAim=999999;			//每个学期的目标
 			this.count=0;
 			this.eventFinished=false;
 			this.stateA="自习";
+			//课程相关属性
+			this.researchDataPackage= new ResearchData();
+			this.courseGrade=new CourseGrade[14*4]; //这里14*4是假设每学期最多选14门课（每学期最多选多少门课写在Courses类里了，注意同步
+			this.courseGradeCount=0;
 		}
-		if(type.equals("choice demo")) {
+		if(type.equals("main")) {
 			this.ID=-1;
-			this.date=1;
-			this.term=1;
 			this.studentID="2016000001";
 			this.characterIQ=50;
 			this.characterEQ=50;
@@ -175,11 +184,15 @@ public class DataPack implements Serializable , Cloneable{
 			this.count=0;
 			this.eventFinished=false;
 			this.stateA="自习";
+			//课程相关属性
+			this.researchDataPackage= new ResearchData();
+			this.courseGrade=new CourseGrade[14*4]; //这里14*4是假设每学期最多选14门课（每学期最多选多少门课写在Courses类里了，注意同步
+			this.courseGradeCount=0;
 		}
 	}
-	
 	public void copyElements(DataPack tmp) {
 		date=tmp.date;
+		researchDataPackage=tmp.researchDataPackage;
 		week=tmp.week;
 		term=tmp.term;
 		time=tmp.time;
@@ -241,5 +254,6 @@ public class DataPack implements Serializable , Cloneable{
 		count=tmp.count;//表示第几次点击该事件
 		eventFinished=tmp.eventFinished;
 		trigSubEvent =tmp.trigSubEvent;
+		course_selected=tmp.course_selected;
 	}
 }

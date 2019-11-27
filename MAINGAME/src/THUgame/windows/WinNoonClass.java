@@ -151,11 +151,11 @@ public class WinNoonClass extends WinBase{
 		background.setLayout(null);
 		
 			JButton btnNewButton_3 = new JButton("溜了溜了");
-			btnNewButton_3.setBounds(185, 242, 190, 47);	
+			btnNewButton_3.setBounds(165, 242, 190, 47);	
 	
 			JLabel lblNewLabel_1 = new JLabel("已经下课了！");
 			lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblNewLabel_1.setBounds(226, 107, 220, 68);
+			lblNewLabel_1.setBounds(200, 107, 220, 68);
 
 		upperlevel.add(lblNewLabel_1);
 		upperlevel.add(btnNewButton_3);	
