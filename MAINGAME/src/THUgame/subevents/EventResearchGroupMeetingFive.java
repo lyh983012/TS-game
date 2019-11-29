@@ -23,10 +23,10 @@ public class EventResearchGroupMeetingFive extends EventBase{
 			oldDataPack.eventFinished=true;
 		}
 		else if(oldDataPack.count==0){
-			if(oldDataPack.paperFinished>0/*已经探索到可以发论文的点*/) {
+			if(oldDataPack.paperFinished>0) {
 				oldDataPack.count=2;
 			}
-			else if(true/*ResearchData.hasJeep||ResearchData.hasGun||ResearchData.hasSled||ResearchData.hasInsulationSuit已经拿到高级装备*/){
+			else if(oldDataPack.researchDataPackage.hasJeep||oldDataPack.researchDataPackage.hasGun||oldDataPack.researchDataPackage.hasSled||oldDataPack.researchDataPackage.hasInsulationSuit){
 				oldDataPack.count=1;
 			}
 			else {
