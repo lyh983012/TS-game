@@ -236,8 +236,20 @@ public class WinResearchGroupmeetingThree extends WinBase{
 			break;
 		case 3:
 			speaker=4;
-			/*依据方向不同生成不同文字*/
-			text="<html>我要做“物理算法/热工耦合/数值模拟/堆型设计”方向，已经读了一些这个方向的文献。</html>";
+			switch(dataPackage.researchDataPackage.i_map) {
+			case 1:
+				text="<html>看了这些文献，我觉得对“物理算法”方向比较有兴趣，希望进行进一步的研究。</html>";
+				break;
+			case 2:
+				text="<html>看了这些文献，我觉得对“热工耦合”方向比较有兴趣，希望进行进一步的研究。</html>";
+				break;
+			case 3:
+				text="<html>看了这些文献，我觉得对“数值模拟”方向比较有兴趣，希望进行进一步的研究。</html>";
+				break;
+			case 4:
+				text="<html>看了这些文献，我觉得对“堆型设计”方向比较有兴趣，希望进行进一步的研究。</html>";
+				break;
+			}
 			break;
 		case 4:
 			speaker=0;
