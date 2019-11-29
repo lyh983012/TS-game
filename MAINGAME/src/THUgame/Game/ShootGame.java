@@ -78,7 +78,8 @@ public class ShootGame extends JPanel {
     	this.setOpaque(false);//注意要设成透明的
     	this.delay=20;
         this.HeroNewButton = new JButton("开始课堂小游戏");
-        this.HeroNewButton.setBounds(245, 266, 100, 20);
+        HeroNewButton.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+        this.HeroNewButton.setBounds(205, 266, 140, 50);
         this.HeroNewButton.addActionListener(new ActionListener(){
     		@Override
     		public void actionPerformed(ActionEvent e) {

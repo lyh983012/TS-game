@@ -18,7 +18,7 @@ public class Entry {
 	 
 	   	public static void main(String args[]) {
 		    //DataPack dataPackage=new DataPack("demo");
-	   		DataPack dataPackage=new DataPack("choice demo");
+	   		DataPack dataPackage=new DataPack("test");
 		    EventManager.dataPackage=dataPackage;
 		    WindowManager.dataPackage=dataPackage;
 			/*********************************		

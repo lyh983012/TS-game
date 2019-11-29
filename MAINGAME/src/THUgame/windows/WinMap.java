@@ -61,7 +61,7 @@ public class WinMap extends WinBase{
 		public void setButton(JButton button) {
 			this.button=button;
 		}
-		
+
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
@@ -82,9 +82,13 @@ public class WinMap extends WinBase{
 				}else if(mode ==2){
 					dataPackage.choiceA="clickGoToClassMorning";//点按钮2（上课按钮）返回gotoclass
 				}else if(mode ==3){
-					dataPackage.choiceA="clickGoToSTA";//点按钮2（上课按钮）返回gotoclass
-				}			
-		    	
+					dataPackage.choiceA="clickGoToSTA";//点按钮3（科协按钮）返回gotoclass
+				}else if(mode ==4){
+					dataPackage.choiceA="clickGoToExam";//点按钮4（考试按钮）返回gotoclass
+				}else if(mode ==5){
+					int K=(dataPackage.term-3)*4+dataPackage.week;
+					dataPackage.choiceA="clickGoToLab"+K;//点按钮4（考试按钮）返回gotoclass
+				}					
 				timer=new Timer(200,new ActionListener()
 			    	{
 		    			int count=0;
@@ -158,6 +162,16 @@ public class WinMap extends WinBase{
 		setSelectedIcon("/imgsrc/WinMap/BackToDom_Press.png",backToDom);
 		backgroundPanel.add(backToDom);
 		
+		JButton goToExam = new JButton();
+		goToExam.setBorderPainted(false);
+		goToExam.setContentAreaFilled(false);
+		goToExam.setBounds(425, 400, 75, 50);
+		setIcon("/imgsrc/WinMap/GoToExam.png",goToExam);
+		setSelectedIcon("/imgsrc/WinMap/GoToExam_Press.png",goToExam);
+		if(dataPackage.date==7 && dataPackage.week==4) {
+			backgroundPanel.add(goToExam);
+		}
+		
 		JButton GoToClassMorning = new JButton();
 		GoToClassMorning.setBorderPainted(false);
 		GoToClassMorning.setBounds(600, 350, 75, 50);
@@ -183,10 +197,19 @@ public class WinMap extends WinBase{
 		GoToSTA.setBounds(720, 640, 75, 50);
 		setIcon("/imgsrc/WinMap/GoToSTA.png",GoToSTA);
 		setSelectedIcon("/imgsrc/WinMap/GoToSTA_Press.png",GoToSTA);
-		if(dataPackage.time>=8 && dataPackage.time<=18 ) {
+		if(dataPackage.time>=8 && dataPackage.time<=18) {
 			backgroundPanel.add(GoToSTA);
 		}
-
+		
+		JButton GoToLab = new JButton();
+		GoToLab.setContentAreaFilled(false);
+		GoToLab.setBorderPainted(false);
+		GoToLab.setBounds(860, 320, 75, 50);
+		setIcon("/imgsrc/WinMap/GoToLab.png",GoToLab);
+		setSelectedIcon("/imgsrc/WinMap/GoToLab_Press.png",GoToLab);
+		if(dataPackage.joinResearch && dataPackage.date==4 && dataPackage.time<17 && 12<=dataPackage.time) {
+			backgroundPanel.add(GoToLab);
+		}
 		/*************************************************************	
 		 * 【镶时钟】
 		 * 		不需要修改
@@ -288,16 +311,22 @@ public class WinMap extends WinBase{
 		demoMouseListener clickGoToClassAfternoon=new demoMouseListener(1);//设置鼠标监听器，发生1号事件
 		demoMouseListener clickGoToClassMorning=new demoMouseListener(2);//设置鼠标监听器，发生2号事件
 		demoMouseListener clickGoToSTA=new demoMouseListener(3);//设置鼠标监听器，发生2号事件
+		demoMouseListener clickGoToExam=new demoMouseListener(4);//设置鼠标监听器，发生2号事件
+		demoMouseListener clickGoToLab=new demoMouseListener(5);//设置鼠标监听器，发生2号事件
 
 		clickbackToDom.setButton(backToDom);
 		clickGoToClassAfternoon.setButton(GoToClassAfternoon);
 		clickGoToClassMorning.setButton(GoToClassMorning);
 		clickGoToSTA.setButton(GoToSTA);
+		clickGoToExam.setButton(goToExam);
+		clickGoToLab.setButton(GoToLab);
 		
 		backToDom.addMouseListener(clickbackToDom);//0号事件是 睡觉按钮 被点击
 		GoToClassAfternoon.addMouseListener(clickGoToClassAfternoon);//1号事件是 去自习按钮 被点击
 		GoToClassMorning.addMouseListener(clickGoToClassMorning);
 		GoToSTA.addMouseListener(clickGoToSTA);
+		goToExam.addMouseListener(clickGoToExam);
+		GoToLab.addMouseListener(clickGoToLab);
 		/*		  END OF YOUR CODE		*/
     	    	
     	/*****************************************************************				

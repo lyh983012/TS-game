@@ -1,5 +1,7 @@
 package THUgame.tool;
 
+import java.io.Serializable;
+
 /*
  * Course Management System 课程管理系统
 	 * 表示开设的所有课程
@@ -10,7 +12,7 @@ package THUgame.tool;
 	 */
 
 
-public class Courses{
+public class Courses implements Serializable {
 	/* 课程属性：显示在选课界面里的
 	 * 包含如下内容
 	 * 
@@ -52,6 +54,10 @@ public class Courses{
 	public static Courses[] courseList;
 	public static int courseListCount=0; //已开设课程总数（courseList中有效数据的个数）
 	
+	/* 一些统一规定的常量 */
+	public static int COURSE_MAX_COUNT_IN_ONE_TERM=14; //每学期选课数量上限
+	public static int COURSE_MIN_COUNT_IN_ONE_TERM=1; //每学期选课数量下限
+	
 	/* default constructor */
 	Courses(){
 		courseListCount++;
@@ -82,14 +88,22 @@ public class Courses{
 		this.courseFeatures=courseFeatures; //课程特色
 		this.courseTerm=courseTerm; //上课学期
 		this.classPlace=classPlace; //上课地点
-		
 		courseListCount++;
 	}
-
+	public static boolean classTimeConflict(Courses course1, Courses course2) {
+		int class1Time1, class1Time2, class2Time1, class2Time2; 
+		class1Time1=course1.classTime1;
+		class1Time2=course1.classTime2;
+		if(0 == class1Time2) class1Time2=-1; //这门课只有一个上课时间
+		class2Time1=course2.classTime1;
+		class2Time2=course2.classTime2;
+		if(0 == class2Time2) class2Time2=-2; //这门课只有一个上课时间
+		//把classTime2置为-1和-2是为了防止两门课都只有一个上课时间时下面的逻辑出问题
+		return (class1Time1==class2Time1) || (class1Time1==class2Time2) || (class1Time2==class2Time1) || (class1Time2==class2Time2);
+	}
 	/* 初始化课程列表 courseList: 目前采用人工录入的方式*/
-	public static void courseListInit() {
+	public static void courseListInit(int term) {
 		courseList=new Courses [30];
-		
 		courseList[courseListCount]=new Courses("10421055", //课程号
 				"微积分A(1)", //课程名
 				32,52, //上课时间
@@ -98,9 +112,21 @@ public class Courses{
 				15, //总学时
 				150, //课容量
 				20, //课余量
-				"", //课程特色
+				"你学不会", //课程特色
 				1, //上课学期
 				1); //上课地点
+		
+		courseList[courseListCount]=new Courses("10421055", //课程号
+				"毕业设计(1)", //课程名
+				32,52, //上课时间
+				"R", //必修/限选/任选
+				"", //限选课程组
+				15, //总学时
+				150, //课容量
+				20, //课余量
+				"你学不会", //课程特色
+				4, //上课学期
+				4); //上课地点
 		
 		courseList[courseListCount]=new Courses("10421324",  //课程号
 				"线性代数(1)", //课程名
@@ -110,7 +136,7 @@ public class Courses{
 				15, //总学时
 				150, //课容量
 				30, //课余量
-				"", //课程特色
+				"你也学不会", //课程特色
 				1, //上课学期
 				1); //上课地点
 		
@@ -122,7 +148,7 @@ public class Courses{
 				12, //总学时
 				80, //课容量
 				10, //课余量
-				"", //课程特色
+				"要一直画啊画", //课程特色
 				1, //上课学期
 				1); //上课地点
 		
@@ -150,7 +176,7 @@ public class Courses{
 				2, //上课学期
 				1); //上课地点
 		
-		courseList[courseListCount]=new Courses("10430484", //课程号
+		courseList[courseListCount]=new Courses("10430494", //课程号
 				"大学物理B(2)", //课程名
 				11,42, //上课时间
 				"R", //必修/限选/任选
@@ -223,7 +249,7 @@ public class Courses{
 				3, //上课学期
 				1); //上课地点
 
-		courseList[courseListCount]=new Courses("10220012", //课程号
+		courseList[courseListCount]=new Courses("10450012", //课程号
 				"现代生物学导论", //课程名
 				12,0, //上课时间
 				"E", //必修/限选/任选
@@ -234,6 +260,52 @@ public class Courses{
 				"", //课程特色
 				1, //上课学期
 				1); //上课地点
+		
+		courseList[courseListCount]=new Courses("20220044", //课程号
+				"电工技术与电子技术", //课程名
+				11,31, //上课时间
+				"R", //必修/限选/任选
+				"", //限选课程组
+				20, //总学时
+				150, //课容量
+				40, //课余量
+				"", //课程特色
+				1, //上课学期
+				1); //上课地点
+		
+		courseList[courseListCount]=new Courses("20310334", //课程号
+				"理论力学", //课程名
+				12,41, //上课时间
+				"R", //必修/限选/任选
+				"", //限选课程组
+				20, //总学时
+				150, //课容量
+				35, //课余量
+				"", //课程特色
+				1, //上课学期
+				1); //上课地点
+		
+		courseList[courseListCount]=new Courses("00240074", //课程号
+				"数据结构", //课程名
+				22,42, //上课时间
+				"E", //必修/限选/任选
+				"", //限选课程组
+				20, //总学时
+				100, //课容量
+				-900, //课余量
+				"", //课程特色
+				1, //上课学期
+				1); //上课地点
+	}
+	
+	//根据课程ID返回对该课程的引用 （没找到的课程号返回null
+	public static Courses IDToCourses(String ID) {
+		int i;
+		for(i=0;i<courseListCount;i++) {
+			if(courseList[i].courseID.equals(ID))
+				return courseList[i];
+		}
+		return null;
 	}
 	
 	/*把一个Courses[]数组转化成用字符串表示，格式如下：
@@ -249,10 +321,27 @@ public class Courses{
 		return ret;
 	}
 	
-	/*将上述格式的字符串转换回Courses[]数组，返回课程总个数*/
-	public static int strToCourses(String str, Courses[] ret) {
-		
-		return 0;
+	/*将上述格式的字符串转换回Courses[]数组并返回对该数组的引用*/
+	public static Courses[] strToCourses(String str) {
+		int cut=str.indexOf(',');
+		if(-1==cut) return null; //str里只有一个0，表示没有课程
+		int courseCount=Integer.parseInt(str.substring(0, cut)); //str中课程总个数
+		int i;
+		Courses[] ret=new Courses[courseCount+2]; //（+2以防万一）
+		cut++;
+		for(i=0;i<courseCount;i++) {
+			int endCut = cut+8; //课程号字符串长度一定是8
+			ret[i]=IDToCourses(str.substring(cut, endCut) );
+			cut=endCut+1;
+		}
+		return ret;
+	}
+	
+	/*求上述字符串中有多少门课程*/
+	public static int strToCoursesCount(String str) {
+		int cut=str.indexOf(',');
+		if(-1==cut) return 0; //str里只有一个0，表示没有课程
+		return Integer.parseInt(str.substring(0, cut)); //str中课程总个数
 	}
 }
 	

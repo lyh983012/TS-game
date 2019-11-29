@@ -1,5 +1,8 @@
 package THUgame.event;
+import java.util.Iterator;
 import THUgame.datapack.DataPack;
+import THUgame.tool.CourseGrade;
+import THUgame.tool.Courses;
 
 /*
  * 时间管理类
@@ -35,13 +38,95 @@ public class EventStateManager extends EventBase{
     		switch(dataPackage.ID) {
 				case -1://开始界面过后，进入选择界面
 					if(dataPackage.stateA.equals("新游戏")) 
-						dataPackage.ID=30001;
+						dataPackage.ID=30003;
+					else if(dataPackage.stateA.equals("继续")) 
+						dataPackage.ID=30004;
 					break;	
+				case 30003:
+					dataPackage.ID=30001;
+					break;
+				case 30001:
+					dataPackage.ID=30000;
+					break;
+				case 30000:
+					dataPackage.ID=30002;
+					break;
+				case 30002:
+					dataPackage.ID=0;//进入宿舍系统
+					break;
+				case 4:
+					dataPackage.ID=0;//选颗界面过后，进入游戏界面
+					break;
+				case 30004:
+					if(dataPackage.stateA.equals("backhome")) {
+						dataPackage.ID=-1;//如果没有选择，回到主界面开始新游戏
+					}else {
+						dataPackage.ID=0;//如果选择了，就进入宿舍
+					}
+					break;
     			case 0://dom界面
     				if(dataPackage.choiceA.equals("gooutside")) {
     					dataPackage.ID=3;
     				}
+    				if(dataPackage.choiceA.equals("takeExam")) {
+    					dataPackage.ID=3;
+    				}
+    				if(dataPackage.choiceA.equals("readMessage_research_login")) {
+    					dataPackage.ID=21000;//进入阅读信息
+    				}
+    				if(dataPackage.choiceA.equals("readMessage_research_result")) {
+    					dataPackage.ID=21001;//进入阅读信息
+    				}
+    				if(dataPackage.choiceA.equals("need_course_reg")) {
+    					Courses.courseListInit(dataPackage.term);
+    					dataPackage.ID=4;//选课
+    				}
+    				if(dataPackage.choiceA.equals("endgame")) {
+    					dataPackage.ID=40000;//animated
+    				}
+    				if(dataPackage.choiceA.equals("readpaper")) {
+    					dataPackage.ID=21010;//animated
+    				}
     				break;
+				case 20016://STA
+					dataPackage.ID=3;//to map
+					break;
+				case 21000:
+					dataPackage.ID=0;
+					break;
+				case 21001:
+					dataPackage.ID=0;
+					break;
+				case 21002:
+					dataPackage.ID=3;//to map
+					break;
+				case 21003:
+					dataPackage.ID=3;//to map
+					break;
+				case 21004:
+					dataPackage.ID=3;//to map
+					break;
+				case 21005:
+					dataPackage.ID=3;//to map
+					break;
+				case 21006:
+					dataPackage.ID=3;//to map
+					break;
+				case 21007:
+					dataPackage.ID=3;//to map
+					break;
+				case 21008:
+					dataPackage.ID=3;//to map
+					break;
+				case 21009:
+					dataPackage.ID=3;//to map
+					break;
+				case 21010:
+					dataPackage.ID=0;//to dom
+					break;
+				case 40000:
+					dataPackage.ID=40001;
+					break;
 				case 1://上午界面
 					if(dataPackage.choiceA.equals("back")){
     					dataPackage.ID=3;
@@ -53,27 +138,33 @@ public class EventStateManager extends EventBase{
 					}
 					break;	
 				case 3://MAP
-					if(dataPackage.choiceA=="clickbackToDom") {
+					if(dataPackage.choiceA.equals("clickbackToDom")) {
 						dataPackage.ID=0;
-					}else if(dataPackage.choiceA=="clickGoToClassAfternoon"){
+					}else if(dataPackage.choiceA.equals("clickGoToClassAfternoon")){
 						dataPackage.ID=2;
-					}else if(dataPackage.choiceA=="clickGoToClassMorning"){
+					}else if(dataPackage.choiceA.equals("clickGoToClassMorning")){
 						dataPackage.ID=1;
-					}else if(dataPackage.choiceA=="clickGoToSTA"){
+					}else if(dataPackage.choiceA.equals("clickGoToSTA")){
 						dataPackage.ID=20016;
+					}else if(dataPackage.choiceA.equals("clickGoToExam")){
+						dataPackage.ID=20003;
+					}else if(dataPackage.choiceA.equals("clickGoToLab1")) {
+						dataPackage.ID=21002;
+					}else if(dataPackage.choiceA.equals("clickGoToLab2")) {
+						dataPackage.ID=21003;
+					}else if(dataPackage.choiceA.equals("clickGoToLab3")) {
+						dataPackage.ID=21004;
+					}else if(dataPackage.choiceA.equals("clickGoToLab4")) {
+						dataPackage.ID=21005;
+					}else if(dataPackage.choiceA.equals("clickGoToLab5")) {
+						dataPackage.ID=21006;
+					}else if(dataPackage.choiceA.equals("clickGoToLab6")) {
+						dataPackage.ID=21007;
+					}else if(dataPackage.choiceA.equals("clickGoToLab7")) {
+						dataPackage.ID=21008;
+					}else if(dataPackage.choiceA.equals("clickGoToLab8")) {
+						dataPackage.ID=21009;
 					}
-					break;
-				case 20016://STA
-					dataPackage.ID=3;/*存疑*/
-					break;
-				case 30000://选择界面过后，进入游戏界面
-					dataPackage.ID=30002;
-					break;
-				case 30001:
-					dataPackage.ID=30000;
-					break;
-				case 30002:
-					dataPackage.ID=0;
 					break;
         		}
         		dataPackage.clearEventState();//复原状态，以免别人的分支出问题
@@ -100,35 +191,17 @@ public class EventStateManager extends EventBase{
 		/*********************************		
 		 * 固定课表
 		 *********************************/
-		switch(dataPackage.date) {
-			case 1:
-				dataPackage.todayMorningClass="微积分A";//表示早上的课
-				dataPackage.todayAfternoonClass="抽象代数";//表示早上的课
-				break;
-			case 2:
-				dataPackage.todayMorningClass="----";//表示早上的课
-				dataPackage.todayAfternoonClass="抽象代数";//表示早上的课
-				break;
-			case 3:
-				dataPackage.todayMorningClass="体育课";//表示早上的课
-				dataPackage.todayAfternoonClass="英语课";//表示早上的课
-				break;
-			case 4:
-				dataPackage.todayMorningClass="微积分A";//表示早上的课
-				dataPackage.todayAfternoonClass="微积分A习题课";//表示早上的课
-				break;
-			case 5:
-				dataPackage.todayMorningClass="机械制图";//表示早上的课
-				dataPackage.todayAfternoonClass="大学语文";//表示早上的课
-				break;
-			case 6:
-				dataPackage.todayMorningClass="----";//表示早上的课
-				dataPackage.todayAfternoonClass="经济学双学位课";//表示早上的课
-				break;
-			case 7:
-				dataPackage.todayMorningClass="----";//表示早上的课
-				dataPackage.todayAfternoonClass="----";//表示早上的课
-				break;
+		dataPackage.todayMorningClass="----";//表示早上的课
+		dataPackage.todayAfternoonClass="----";//表示早上的课
+		for(int i=0;i<dataPackage.courseGradeCount;i++) {
+			CourseGrade tmp=dataPackage.courseGrade[i];
+			Courses course=tmp.course;
+			if(course.courseTerm==dataPackage.term)
+				if(course.classTime1==dataPackage.date*10+1 || course.classTime2==dataPackage.date*10+1) {
+					dataPackage.todayMorningClass=course.courseTitle;//表示早上的课
+				}else if (course.classTime1==dataPackage.date*10+2 || course.classTime2==dataPackage.date*10+2) {
+					dataPackage.todayAfternoonClass=course.courseTitle;
+				}
 		}
 		if(dataPackage.time>=12){
 			dataPackage.todayMorningClass="----";//表示早上的课

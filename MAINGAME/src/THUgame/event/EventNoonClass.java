@@ -42,46 +42,53 @@ public class EventNoonClass extends EventBase{
 		 *******************************************/
 		/*		START OF YOUR CODE		*/	
 		Random r = new Random();
-		oldDataPack.time+=1;					//当某个操作需要耗时，时间+1（原本的版本是计数器+1）
-		int a = r.nextInt(10) + 1;
-		oldDataPack.trigSubEvent=false;
+		int a = r.nextInt(10) + 5;
 		switch(oldDataPack.choiceA) {
-		case "answer":
-			if(oldDataPack.characterEnergy<5) {
-				oldDataPack.notification="我没有力气站起来回答。";
+			case "answer":
+				if(oldDataPack.characterEnergy<5) {
+					oldDataPack.notification="我没有力气站起来回答。";
+					break;
+				}else {
+					if(a<=5)
+						oldDataPack.trigSubEvent=true;
+					else {
+						oldDataPack.time+=1;					//当某个操作需要耗时，时间+1（原本的版本是计数器+1）
+						oldDataPack.characterHappiness+=3;
+						oldDataPack.characterEnergy-=a;
+						oldDataPack.studyProgress+=1;
+						oldDataPack.notification="<html>回答了一个问题，不管有没有答对，学到的东西能用上了。有些开心";
+						oldDataPack.notification += "<br>时间过去了1小时，学习进度+1，心情值+3，体力减少了一些</html>";
+					}
+				}
 				break;
-			}else {
-				oldDataPack.characterHappiness+=1;
-				oldDataPack.characterEnergy-=a-3;
-				oldDataPack.studyProgress+=1;
-				oldDataPack.notification="<html>回答了一个问题，不管有没有答对，学到的东西能用上了。有些开心，也有些疲惫。";
-				oldDataPack.notification += "<br>时间过去了1小时，学习进度+1，心情值+1，体力随机减少</html>";
-				if(a<=5)
-					oldDataPack.trigSubEvent=true;
-			}
-			break;
-		case "ask":
-			if(oldDataPack.characterEnergy<5) {
-				oldDataPack.notification="我没有力气站起来提问。";
+			case "ask":
+				if(oldDataPack.characterEnergy<5) {
+					oldDataPack.notification="我没有力气站起来提问。";
+					break;
+				}else if(oldDataPack.characterIQ<10){
+					oldDataPack.notification="我的学力似乎不支持我听懂任何人说话。";
+					break;
+				}else {
+					oldDataPack.time+=1;					//当某个操作需要耗时，时间+1（原本的版本是计数器+1）
+					oldDataPack.characterHappiness+=1;
+					oldDataPack.characterEnergy-=a;
+					oldDataPack.studyProgress+=2;
+					oldDataPack.notification="<html>提了一个问题，解决了一些学习上的困惑";
+					oldDataPack.notification += "<br>时间过去了1小时，学习进度+2，心情值+1，体力减少了一些</html>";
+					break;
+				}
+			case "next":
+				oldDataPack.time+=1;
+				oldDataPack.characterEnergy-=1;
+				oldDataPack.characterHappiness-=2;
+				oldDataPack.notification="<html>老师开始讲下一题了，不知道刚才有没有听懂呢，真是难啊";
+				oldDataPack.notification +="<br>时间过去了1小时，学习进度没变化，心情值-2，体力消耗1点</html>";
 				break;
-			}else if(oldDataPack.characterIQ<10){
-				oldDataPack.notification="我的学力似乎不支持我听懂任何人说话。";
-				break;
-			}else {
-				oldDataPack.characterHappiness+=1;
-				oldDataPack.characterEnergy-=a-3;
-				oldDataPack.studyProgress+=1;
-				oldDataPack.notification="<html>提了一个问题，解决了一些学习上的困惑";
-				oldDataPack.notification += "<br>时间过去了1小时，学习进度+1，心情值+1，体力随机减少</html>";
-				break;
-			}
-		case "next":
-			oldDataPack.characterEnergy-=1;
-			oldDataPack.characterHappiness-=3;
-			oldDataPack.notification="<html>老师开始讲下一题了，不知道刚才有没有听懂呢，真是难啊";
-			oldDataPack.notification += "<br>时间过去了1小时，学习进度没变化，心情值-3，体力消耗一点</html>";
-			break;
-	}
+		}
+		if(oldDataPack.characterEnergy<30) {
+			oldDataPack.characterHealth-=1;
+			oldDataPack.notification +="<br>由于体力过低，强行活动导致健康减少了</html>";
+		}
 		if (oldDataPack.time==18) {
 			oldDataPack.trigSubEvent=true; 		//到达下课时间！下午课程仅仅允许回宿舍
 		}
