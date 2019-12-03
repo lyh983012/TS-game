@@ -18,6 +18,7 @@ import THUgame.Game.ShootGame;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
+import THUgame.tool.StateList;
 
 /*
  * 【宿舍界面】
@@ -76,28 +77,24 @@ import THUgame.tool.ImagePanel;
 
 public class WinInDom extends WinBase{
 	
+	static JPanel studychoice;
+	static JPanel messagePanel;
+	static boolean showStudychoices=false;
+	
 	/*************************************************************	
-	 *
 	 *【内部的事件响应类】
-	 * 		这里只写了鼠标的动作，如果之后熟悉了可以加入键盘的操作
-	 * 		写成类内部的类是为了防止别的分支事件访问到它，所以可以乱命名
-	 * 		所有必要实现的接口都实现了。
-	 * 
-	 * 
 	 *************************************************************/
 	static private class demoMouseListener extends BaseMouseListener{
 		static public DataPack dataPackage;
 		static public EventManager mainGame;
-		private JFrame frame;
+		static public JFrame frame;
 		private JButton button;
 		private int mode;
 		
 		public demoMouseListener(int i){
 			this.mode=i;
 		}
-		public void setFrame(JFrame frame) {
-			this.frame=frame;
-		}
+
 		public void setButton(JButton button) {
 			this.button=button;
 		}
@@ -111,25 +108,44 @@ public class WinInDom extends WinBase{
 		}
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			/*		START OF YOUR CODE		*/
+			/*允许多次点击*/
+			if(mode ==1){
+				if(showStudychoices) {
+					showStudychoices=false;
+				}else {
+					showStudychoices=true;
+				}
+				studychoice.setVisible(showStudychoices);//TODO:不知道为什么收不起来
+				return;
+			}
+			if(mode ==8){
+				if(showToDoList) {
+					showToDoList=false;
+					button.setText("查看更多");
+				}else {
+					showToDoList=true;
+					button.setText("收起");
+				}
+				todolistPanel.setVisible(showToDoList);//TODO:不知道为什么收不起来
+				return;
+			}
+			
+			/*只允许单次点击*/
 			if(safeGuardCount==0) {
 				safeGuardCount++;
 				if(mode==0) {
 					dataPackage.choiceA="sleep";	//点按钮0（睡觉按钮）返回sleep
-				}else if(mode ==1){
-					if(studychoice.isVisible()) {
-						studychoice.setVisible(false);//TODO:不知道为什么收不起来
-					}else {
-						studychoice.setVisible(true); 
-					}
-					return;
-				}else if(mode ==2){
+				}
+				else if(mode ==2){
 					dataPackage.choiceA="gooutside";//点按钮2（上课按钮）返回gotoclass
-				}else if(mode ==3){
+				}
+				else if(mode ==3){
 					dataPackage.choiceA="wakehimup";//点按钮3（唤醒按钮）返回wakehimup
-				}else if(mode ==4){
+				}
+				else if(mode ==4){
 					dataPackage.choiceA="stayup";//点按钮4（待着按钮）返回stayup
-				}else if(mode ==5){
+				}
+				else if(mode ==5){
 					if(dataPackage.stateA.equals("期末考")){
 						dataPackage.choiceA="takeExam";//点按钮4（待着按钮）返回stayup
 					}else if(dataPackage.stateA.equals("科研报名")){
@@ -138,10 +154,15 @@ public class WinInDom extends WinBase{
 						dataPackage.choiceA="readMessage_research_result";//点按钮4（待着按钮）返回stayup
 					}else if(dataPackage.stateA.equals("选课")){
 						dataPackage.choiceA="need_course_reg";//点按钮4（待着按钮）返回stayup
+					}else if(dataPackage.stateA.equals("每周报告")){
+						messagePanel.setVisible(false);
+						dataPackage.stateA=null;
 					}
-				}else if(mode ==6){
+				}
+				else if(mode ==6){
 					dataPackage.choiceA="dohomework";//点按钮1（自习按钮）返回selfstudy
-				}else if(mode ==7){
+				}
+				else if(mode ==7){
 					dataPackage.choiceA="readpaper";//点按钮1（自习按钮）返回selfstudy
 				}
 				/*		END OF YOUR CODE		*/
@@ -164,38 +185,27 @@ public class WinInDom extends WinBase{
 		}
 	}
 	
-	static JPanel studychoice;
-
 	/*************************************************************
-	 * 	
 	 * 【构造函数】
-	 * 		不要新建JFrame窗口对象，而是把上层传进来的窗口对象里面的东西扔了，重新添加
-	 * 
 	 *************************************************************/
 	public WinInDom(EventManager mainGame,JFrame frame) {
-		
-		//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+		DataPack o=dataPackage;
+		dataPackage.stateE=StateList.getEventNotification(o.term,o.week,o.date,
+							o.joinResearch,o.joinClub,o.joinSTA,
+							o.joinChallengeCup>0,o.joinSA);//生成提醒
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		this.mainGame=mainGame;
-		//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		/*************************************************************	
 		 *【背景镶板】
-		 * 		所有的组件都在里面，两个按钮直接用插件拖进去的
-		 * 		这一部分按照流程做的话就会自然消失的，推荐直接在可视化界面编辑属性 
 		 *************************************************************/
 		JPanel backgroundPanel=new JPanel();
 		backgroundPanel.setBackground(Color.WHITE);
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
+		
 		/*************************************************************	
-		 *【按钮】
-		 *		按钮设置流程：
-		 *		1.创建按钮
-		 *		2.取消默认的边框
-		 *		3.设置坐标和大小
-		 *		4.设置一下两种状态的图片，调用的是虚基类里的接口
-		 *		5.把按钮加入panel里
+		 *【右下侧按钮】
 		 *************************************************************/
 		
 		studychoice = new JPanel();
@@ -203,13 +213,13 @@ public class WinInDom extends WinBase{
 		backgroundPanel.add(studychoice);
 		studychoice.setOpaque(false);
 		studychoice.setLayout(null);
+		studychoice.setVisible(showStudychoices);
 		
 		JPanel choicepanel = new JPanel();
 		choicepanel.setBounds(0, 0, 150, 200);
 		studychoice.add(choicepanel);
 		choicepanel.setOpaque(false);
 		choicepanel.setLayout(null);
-		studychoice.setVisible(false);
 		
 		JButton homeWork = new JButton();
 		homeWork.setBorderPainted(false);
@@ -253,10 +263,11 @@ public class WinInDom extends WinBase{
 		setIcon("/imgsrc/Windom/out.png",OutButton);
 		setSelectedIcon("/imgsrc/Windom/out_press.png",OutButton);
 		backgroundPanel.add(OutButton);
+		
+		
+		
 		/*************************************************************	
 		 * 【小事件】 
-		 *  	这一部分需要用dataPackage.trigSubEvent决定是否绘制
-		 *  	具体用法见MorninigClass窗口
 		 *************************************************************/
 		JPanel SnorePanel = new JPanel();	//1.跟打呼噜相关的小事件在这里触发
 		SnorePanel.setOpaque(false);
@@ -275,21 +286,23 @@ public class WinInDom extends WinBase{
 		background.setLayout(null);
 		
 			JLabel label_1 = new JLabel("你被舍友的呼噜吵醒了，睡眠质量大跌");
-			label_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-			label_1.setBounds(95, 130, 388, 16);
+			label_1.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+			label_1.setBounds(95, 130, 285, 16);
 		
 			JLabel label_2 = new JLabel("好烦啊，要不要叫醒他");
-			label_2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			label_2.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 			label_2.setBounds(95, 173, 388, 16);
 			
 			JButton wakeButton = new JButton();
+			wakeButton.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 			wakeButton.setBorderPainted(true);
-			wakeButton.setBounds(95, 250, 120, 50);
+			wakeButton.setBounds(130, 250, 120, 50);
 			wakeButton.setText("叫醒舍友");
 			
 			JButton stayButton = new JButton();
+			stayButton.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 			stayButton.setBorderPainted(true);
-			stayButton.setBounds(300, 250, 120, 50);
+			stayButton.setBounds(260, 250, 120, 50);
 			stayButton.setText("保持沉默");
 		
 		upperlevel.add(label_1);
@@ -300,7 +313,7 @@ public class WinInDom extends WinBase{
 		SnorePanel.add(upperlevel);
 		SnorePanel.add(background);
 		
-		JPanel messagePanel = new JPanel();//2.跟转场相关
+		messagePanel = new JPanel();//2.跟转场相关的小事件在这里触发
 		messagePanel.setOpaque(false);
 		messagePanel.setBounds(254, 129, 531, 363);
 		backgroundPanel.add(messagePanel);
@@ -317,11 +330,11 @@ public class WinInDom extends WinBase{
 		messagebackground.setLayout(null);
 		
 			JLabel messagelabel_1 = new JLabel();
-			messagelabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			messagelabel_1.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 			messagelabel_1.setBounds(100, 50, 300, 200);
 
 			JButton messageButton = new JButton();
-			messageButton.setBorderPainted(true);//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI//waiting foe GUI
+			messageButton.setBorderPainted(true);//TODO：GUI还没设计
 			messageButton.setBounds(197, 250, 120, 50);		
 		
 		messageupperlevel.add(messagelabel_1);
@@ -372,6 +385,10 @@ public class WinInDom extends WinBase{
 				messageButton.setText("出发去考点");
 				messagelabel_1.setText("<html>天哪期末考要开始了！差点就睡过头了，快点赶去考试！</html>");
 				messagePanel.setVisible(true);
+			}else if(dataPackage.stateA.equals("每周报告")){
+				messageButton.setText("关闭");
+				messagelabel_1.setText("<html>这周又是精彩的一周</html>");
+				messagePanel.setVisible(true);
 			}else if(dataPackage.stateA.equals("科研报名")){
 				messageButton.setText("查看消息");
 				messagelabel_1.setText("<html>咦？收到了一条消息</html>");
@@ -388,12 +405,11 @@ public class WinInDom extends WinBase{
 			sleepButton.setVisible(false);
 			selfstudyButton.setVisible(false);
 			OutButton.setVisible(false);
+			studychoice.setVisible(false);
 		}
 		
 		/*************************************************************	
 		 * 【镶时钟】
-		 * 		不需要修改
-		 * 		简而言之就是显示一个Table
 		 *************************************************************/
 		JPanel timePack = new JPanel();
 		timePack.setLayout(null);
@@ -412,10 +428,12 @@ public class WinInDom extends WinBase{
 			JLabel timeText = new JLabel("当前时间为："+String.valueOf(dataPackage.time)+" 时");
 			timeText.setBounds(6, 60, 172, 16);
 			timePanel.add(timeText);
+			timeText.setFont(new Font("STFangsong", Font.BOLD, 14));
 			
 			JLabel dateText = new JLabel("今天是：第"+String.valueOf(dataPackage.term)+"学期"+String.valueOf(dataPackage.week)+"周"+String.valueOf(dataPackage.date)+"日");
 			dateText.setBounds(6, 35, 172, 16);
 			timePanel.add(dateText);
+			dateText.setFont(new Font("STFangsong", Font.BOLD, 14));
 			
 		timePack.add(timePanel);
 		timePack.add(timeBackgoundPanel);
@@ -430,24 +448,24 @@ public class WinInDom extends WinBase{
 		panel.setBorder(new LineBorder(new Color(0, 0, 0), 5));
 		panel.setLayout(null);
 		
-		JLabel StudentIDLable = new JLabel("学号");
-		StudentIDLable.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
-		StudentIDLable.setBounds(26, 78, 32, 16);
+		JLabel StudentIDLable = new JLabel("学号：");
+		StudentIDLable.setFont(new Font("Lucida Grande", Font.BOLD, 14));
+		StudentIDLable.setBounds(10, 78, 48, 16);
 		panel.add(StudentIDLable);
 		
-		JTextPane nameShow = new JTextPane();
-		nameShow.setEditable(false);
-		nameShow.setBounds(84, 42, 73, 20);
+		JLabel nameShow = new JLabel();
+		nameShow.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		nameShow.setBounds(70, 45, 114, 20);
 		panel.add(nameShow);
 		
-		JLabel nameLable = new JLabel("姓名");
+		JLabel nameLable = new JLabel("姓名：");
 		nameLable.setFont(new Font("Lucida Grande", Font.BOLD, 14));
-		nameLable.setBounds(26, 42, 32, 24);
+		nameLable.setBounds(10, 42, 48, 24);
 		panel.add(nameLable);
 		
-		JTextPane IDshow = new JTextPane();
-		IDshow.setEditable(false);
-		IDshow.setBounds(84, 76, 73, 20);
+		JLabel IDshow = new JLabel();
+		IDshow.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		IDshow.setBounds(70, 76, 114, 20);
 		panel.add(IDshow);
 		
 		JProgressBar healthBar = new JProgressBar();
@@ -455,7 +473,7 @@ public class WinInDom extends WinBase{
 		panel.add(healthBar);
 		
 		JProgressBar Bar_progress = new JProgressBar();
-		Bar_progress.setBounds(70, 139, 114, 20);
+		Bar_progress.setBounds(70, 140, 114, 20);
 		panel.add(Bar_progress);
 		
 		JProgressBar Bar_Energy = new JProgressBar();
@@ -467,45 +485,50 @@ public class WinInDom extends WinBase{
 		panel.add(Bar_happiness);
 		
 		JLabel label_workProgress = new JLabel("学习进度");
-		label_workProgress.setBounds(10, 142, 52, 16);
+		label_workProgress.setBounds(10, 142, 60, 16);
+		label_workProgress.setFont(new Font("Lucida Grande", Font.BOLD, 14));
 		panel.add(label_workProgress);
 		
 		JLabel label_Energy = new JLabel("体力值");
 		label_Energy.setBounds(10, 166, 52, 16);
+		label_Energy.setFont(new Font("Lucida Grande", Font.BOLD, 14));
 		panel.add(label_Energy);
 		
 		JLabel label_health = new JLabel("健康值");
 		label_health.setBounds(10, 118, 52, 16);
+		label_health.setFont(new Font("Lucida Grande", Font.BOLD, 14));
 		panel.add(label_health);
 		
 		JLabel label_happy = new JLabel("心   情");
 		label_happy.setBounds(10, 189, 52, 16);
+		label_happy.setFont(new Font("Lucida Grande", Font.BOLD, 14));
 		panel.add(label_happy);
 		
 		JLabel label_social = new JLabel("社交能力:");
 		label_social.setBounds(10, 219, 92, 16);
+		label_social.setFont(new Font("Lucida Grande", Font.BOLD, 14));
 		panel.add(label_social);
 		
 		
 		JLabel label_Art = new JLabel("才艺能力:");
 		label_Art.setBounds(10, 245, 92, 16);
+		label_Art.setFont(new Font("Lucida Grande", Font.BOLD, 14));
 		panel.add(label_Art);
 		
 		JLabel label_IQ = new JLabel("智商:");
 		label_IQ.setBounds(100, 219, 84, 16);
+		label_IQ.setFont(new Font("Lucida Grande", Font.BOLD, 14));
 		panel.add(label_IQ);
 		
 		JLabel label_lucky = new JLabel("幸运值:");
 		label_lucky.setBounds(100, 245, 84, 16);
+		label_lucky.setFont(new Font("Lucida Grande", Font.BOLD, 14));
 		panel.add(label_lucky);
+		
 		/*************************************************************	
 		 * 【镶对话框】
-		 * 		建立一个带背景的Panel的流程设setBounds(x, y, 宽, 高);
-		 *  	1.建一个Panel	
-		 * 		2.Panel里建两个subPanel，全部都设成setBounds(0, 0, 宽, 高);
-		 * 		3.底下的用imagePanel工具类放图片，上面的放控件
-		 * 		4.设置两个Panel为透明这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
+		
 		JPanel dialogPack = new JPanel();
 		dialogPack.setBounds(66, 475, 689, 189);
 		dialogPack.setOpaque(false);//注意要设成透明的
@@ -515,7 +538,6 @@ public class WinInDom extends WinBase{
 			dialogPanel.setBounds(0, 0, 689, 189);//(0, 0, 宽, 高);
 			
 			JPanel dialogBackgoundPanel = new ImagePanel("imgsrc//Dialog.png",0, 0, 689, 189);	//第2个subPanel，放图
-																								//(0, 0, 宽, 高);
 			dialogBackgoundPanel.setBounds(0, 0, 689, 189);//(0, 0, 宽, 高);
 			dialogBackgoundPanel.setOpaque(false);//注意要设成透明的
 			dialogPanel.setOpaque(false);		//注意要设成透明的
@@ -524,11 +546,11 @@ public class WinInDom extends WinBase{
 			JLabel dialogName = new JLabel();
 			dialogName.setBounds(17, 6, 89, 40);
 			dialogPanel.add(dialogName);
-			dialogName.setText("独白");
+			dialogName.setText(dataPackage.name);
 			
 			JLabel dialogContent = new JLabel();
-			dialogName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-			dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			dialogName.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+			dialogContent.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 			dialogContent.setBounds(15, 42, 677, 141);
 			dialogPanel.add(dialogContent);
 			
@@ -537,12 +559,42 @@ public class WinInDom extends WinBase{
 			else
 				dialogContent.setText("回到了宿舍～");//设置默认对话内容
 		
-		dialogPack.add(dialogPanel);		//注意：先放的在上层，所以先放带控件的
+		dialogPack.add(dialogPanel);//注意：先放的在上层，所以先放带控件的
 		dialogPack.add(dialogBackgoundPanel);
 		backgroundPanel.add(dialogPack);
+		
 		/*************************************************************	
 		 * 镶待办事项 这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
+		
+		todolistPanel = new JPanel();//2.跟转场相关的小事件在这里触发
+		todolistPanel.setBounds(360, 120, 215, 337);
+		backgroundPanel.add(todolistPanel);
+		todolistPanel.setVisible(showToDoList);
+		todolistPanel.setOpaque(false);//注意要设成透明的
+		todolistPanel.setLayout(null);
+			
+			JPanel todolistPanelText = new JPanel();//2.跟转场相关的小事件在这里触发
+			todolistPanelText.setBounds(0, 0, 215, 337);
+			todolistPanel.add(todolistPanelText);
+			todolistPanelText.setLayout(null);
+			todolistPanelText.setOpaque(false);//注意要设成透明的
+			
+			JLabel todolistExtra = new JLabel();
+			todolistExtra.setForeground(Color.BLACK);
+			todolistExtra.setBounds(40, 25, 150, 250);
+			todolistPanelText.add(todolistExtra);
+			todolistExtra.setFont(new Font("STFangsong", Font.BOLD, 16));
+			todolistExtra.setText(dataPackage.stateE);
+			
+			JPanel todolistPanelBackground =  new ImagePanel("imgsrc//Windom//dbsx.png",0, 0,215, 337);//2.跟转场相关的小事件在这里触发
+			todolistPanelBackground.setBounds(0, 0, 215, 337);
+			todolistPanel.add(todolistPanelBackground);
+			todolistPanelBackground.setLayout(null);
+			todolistPanelBackground.setOpaque(false);//注意要设成透明的
+			
+		backgroundPanel.add(todolistPanel);
+			
 		JPanel todoList = new JPanel();
 		todoList.setLayout(null);
 		todoList.setOpaque(false);	
@@ -566,11 +618,16 @@ public class WinInDom extends WinBase{
 			todoList.add(label3);
 			label3.setFont(new Font("STFangsong", Font.PLAIN, 16));
 				
-			JLabel label4 = new JLabel(dataPackage.stateE);
+			JLabel label4 = new JLabel("3.");
 			label4.setForeground(Color.WHITE);
-			label4.setBounds(20, 115, 400, 20);
+			label4.setBounds(20, 115, 20, 20);
 			todoList.add(label4);
 			label4.setFont(new Font("STFangsong", Font.PLAIN, 16));
+			
+			JButton readToDoList = new JButton("查看更多");
+			readToDoList.setBounds(35, 113, 100, 34);
+			todoList.add(readToDoList);
+			backgroundPanel.add(todoList);
 			
 			JPanel dbsxBackgruond = new ImagePanel("imgsrc//todoList.png",0, 0, 263, 189);
 			dbsxBackgruond.setOpaque(false);	
@@ -578,7 +635,7 @@ public class WinInDom extends WinBase{
 		
 		todoList.add(dbsxBackgruond);
 		dbsxBackgruond.setLayout(null);
-		backgroundPanel.add(todoList);
+		
 		/*************************************************************	
 		 * 【放背景图】
 		 * 		最后放。
@@ -587,7 +644,7 @@ public class WinInDom extends WinBase{
 		JPanel Background=new ImagePanel("imgsrc//Windom/dom3.jpg",0, 0, 1080, 720);
 		if(dataPackage.choiceA.equals("sleep")) {
 			Background=new ImagePanel("imgsrc//Windom/dom2.jpg",0, 0, 1080, 720);
-		}else if(dataPackage.choiceA.equals("selfstudy")) {
+		}else if(dataPackage.choiceA.equals("readpaper") || dataPackage.choiceA.equals("dohomework")) {
 			Background=new ImagePanel("imgsrc//Windom/dom1.jpg",0, 0, 1080, 720);
 		}
 		Background.setBounds(0, 0, 1080, 720);
@@ -628,7 +685,6 @@ public class WinInDom extends WinBase{
 		demoMouseListener.dataPackage=dataPackage;//数据包注册，不需要改
 		demoMouseListener.mainGame=mainGame;
 		
-		
 		demoMouseListener clicksleep=new demoMouseListener(0);//设置鼠标监听器，发生0号事件
 		demoMouseListener clickselfstudy=new demoMouseListener(1);//设置鼠标监听器，发生1号事件
 		demoMouseListener clickOut=new demoMouseListener(2);//设置鼠标监听器，发生2号事件
@@ -637,7 +693,8 @@ public class WinInDom extends WinBase{
 		demoMouseListener clickexam = new demoMouseListener(5);//设置鼠标监听器，发生4号事件
 		demoMouseListener clickhomework=new demoMouseListener(6);//设置鼠标监听器，发生4号事件
 		demoMouseListener clickpaper = new demoMouseListener(7);//设置鼠标监听器，发生4号事件
-		
+		demoMouseListener clickToDoList = new demoMouseListener(8);//设置鼠标监听器，发生4号事件
+
 		clickexam.setButton(messageButton);
 		clicksleep.setButton(sleepButton);
 		clickselfstudy.setButton(selfstudyButton);
@@ -646,6 +703,7 @@ public class WinInDom extends WinBase{
 		clickstay.setButton(stayButton);
 		clickhomework.setButton(homeWork);
 		clickpaper.setButton(paper);
+		clickToDoList.setButton(readToDoList);
 		
     	sleepButton.addMouseListener(clicksleep);//0号事件是 睡觉按钮 被点击
 		selfstudyButton.addMouseListener(clickselfstudy);//1号事件是 去自习按钮 被点击
@@ -655,6 +713,7 @@ public class WinInDom extends WinBase{
 		messageButton.addMouseListener(clickexam);//5号事件是 出发考试 被点击
 		homeWork.addMouseListener(clickhomework);//6号事件是 出发考试 被点击
 		paper.addMouseListener(clickpaper);//7号事件是 出发考试 被点击
+		readToDoList.addMouseListener(clickToDoList);//7号事件是 出发考试 被点击
 		/*		END OF YOUR CODE		*/
     	    	
     	/*****************************************************************				

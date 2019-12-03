@@ -116,7 +116,7 @@ public class WinBackground extends WinBase{
 
 		JButton button= new JButton();	
 		button.setBorderPainted(false);
-		button.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		button.setFont(new Font("印品黑体", Font.BOLD, 19));
 		button.setForeground(Color.BLACK);
 		button.setBounds(850, 550, 80, 80);
 		button.setContentAreaFilled(false);
@@ -130,7 +130,7 @@ public class WinBackground extends WinBase{
 		textLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		textLabel.setText("<html>这样会自动换行</html>");
 		textLabel.setOpaque(false);
-		textLabel.setFont(new Font("印品黑体", Font.PLAIN, 30));
+		textLabel.setFont(new Font("印品黑体", Font.BOLD, 30));
 		textLabel.setBounds(80, 60, 948, 460);
 		
 		backgroundPanel.add(button);

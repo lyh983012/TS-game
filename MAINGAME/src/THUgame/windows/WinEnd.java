@@ -17,57 +17,6 @@ import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
 
-/*
- * 【宿舍界面】
- * 
- * --DIALOG--
- * 
- * update:20191030
- * via：林逸晗
- * 更新：加入safeGuardCount
- * 
- * update:20191028 01:07
- * via：林逸晗
- * 更新：更改了界面UI，使之适配MAP，加入了游戏
- * 
- * update:20191018 01:07
- * via：余冬杰
- * 更新：加入了打呼噜的子事件
- * 
- * update:20191014 18:30
- * via：林逸晗
- * 更新：加入了游戏界面（在morning class的窗口里）
- * 		游戏panel直接添加就可以运行，但是需要注册一下数据包和控制进程（maingame）具体用法见morning
- * 		游戏panel在tool里有，在Game里有一个可运行的例程，现已更新完第一个game
- * 
- * update:20191010 18:30
- * via：林逸晗
- * 更新：加入了UI及使用方法
- * 		更新了按钮的UI和对话框的UI，设置UI的方法可以看本类中【按钮】和【对话框】的部分
- * 
- * update:20191010 18:30
- * via：林逸晗
- * 更新：加入对话框
- * 		加入对话的逻辑
- * 
- * update:20191006 18:30
- * via：林逸晗
- * 更新：加入了按钮的可见／不可见
- * 		加入了时钟（简陋）
- * 		鼠标事件响应不需要再写set game了，使用方法和dataPack的传递一样
- * 
- * update:20190930 18:30
- * via：林逸晗
- * 更新：解决了界面闪烁的问题
- * 		跟新了一些类的结构和注释的问题
- * 		注释中：//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥***¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥表示最重要的事情
- * 		蓝色的部分则是表示对代码块的解释
- * 		细节用单句注释阐述
- * 		推荐收起后再看代码
- * 		推荐看WinInDom.java的注释
- * 
- **/
-
 
 public class WinEnd extends WinBase{
 	

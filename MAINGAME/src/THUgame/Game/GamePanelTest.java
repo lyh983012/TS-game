@@ -48,7 +48,7 @@ public class GamePanelTest{
 		DataPack dataPackage=new DataPack("choice demo");
 		ShootGame.dataPackage=dataPackage;
 		/************/
-		JPanel EventPack=new MazeGame(254, 134);
+		JPanel EventPack=new ShootGame(254, 134);
 		backgroundPanel.add(EventPack);
 
 		frame.getContentPane().removeAll();

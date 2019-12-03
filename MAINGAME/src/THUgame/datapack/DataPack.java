@@ -147,9 +147,9 @@ public class DataPack implements Serializable , Cloneable{
 	public DataPack(String type){
 		if(type.equals("test")) {
 			this.ID=-1;
-			this.date=6;
-			this.week=4;
-			this.term=2;
+			this.date=1;
+			this.week=1;
+			this.term=1;
 			this.time=8;
 			this.studentID="2016000001";
 			this.characterIQ=70;
