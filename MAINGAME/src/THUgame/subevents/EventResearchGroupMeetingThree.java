@@ -23,7 +23,7 @@ public class EventResearchGroupMeetingThree extends EventBase{
 			oldDataPack.eventFinished=true;
 		}
 		else if(oldDataPack.count==0){
-			if(true/*ResearchData.i_map==0科研进度：没有找到方向*/) {
+			if(oldDataPack.researchDataPackage.i_map==0) {
 				oldDataPack.count=1;
 			}
 			else{

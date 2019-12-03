@@ -23,7 +23,7 @@ public class EventResearchGroupMeetingTwo extends EventBase{
 			oldDataPack.eventFinished=true;
 		}
 		else if(oldDataPack.count==2){
-			if(true/*ResearchData.numberofPaperRead>0科研进度！=0*/) {
+			if(oldDataPack.researchDataPackage.numberofPaperRead>0) {
 				oldDataPack.count=5;
 			}
 			else{
@@ -36,7 +36,7 @@ public class EventResearchGroupMeetingTwo extends EventBase{
 			oldDataPack.eventFinished=true;
 		}
 		else if(oldDataPack.count==7) {
-			if(true/*ResearchData.i_map>0找到方向*/) {
+			if(oldDataPack.researchDataPackage.i_map>0) {
 				oldDataPack.count=8;
 			}
 			else {
