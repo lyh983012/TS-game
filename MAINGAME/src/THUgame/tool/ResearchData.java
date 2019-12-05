@@ -301,6 +301,7 @@ public class ResearchData implements Serializable{
 		public ResearchMapEvent[] IceBorneMapEvent = new ResearchMapEvent[20];
 		public ResearchMapEvent[] VolcanoMapEvent = new ResearchMapEvent[20];
 		public boolean justGetTool=false;
+		public boolean justReadThesis=false;
 		public String tool="";
 
 		public class ResearchMapEvent implements Serializable{

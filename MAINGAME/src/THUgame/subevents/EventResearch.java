@@ -12,8 +12,11 @@ public class EventResearch extends EventBase{
 			oldDataPack.time+=1;
 			oldDataPack.eventFinished=true;
 		}
-		else if(oldDataPack.choiceA.equals("confirm")) {
+		else if(oldDataPack.choiceA.equals("confirmTool")) {
 			oldDataPack.researchDataPackage.justGetTool=false;
+		}
+		else if(oldDataPack.choiceA.equals("confirmThesis")) {
+			oldDataPack.researchDataPackage.justReadThesis=false;
 		}
 		else if(oldDataPack.choiceA.equals("RandomEffect")) {
 			
@@ -53,6 +56,7 @@ public class EventResearch extends EventBase{
 	
 	//每次阅读一篇文章或进行一个研究的时候，都调用这个函数
 	public boolean ReadThesis(DataPack oldDataPack) {
+		oldDataPack.researchDataPackage.justReadThesis = true;
 		switch(oldDataPack.researchDataPackage.i_map) {
 		case 0:
 			return ReadBasis( oldDataPack);

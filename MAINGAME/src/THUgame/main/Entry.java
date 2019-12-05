@@ -17,7 +17,7 @@ public class Entry {
 		private static WindowManager mainGUI;
 	 
 	   	public static void main(String args[]) {
-		    //DataPack dataPackage=new DataPack("demo");
+		    //DataPack dataPackage=new DataPack("main");
 	   		DataPack dataPackage=new DataPack("test");
 		    EventManager.dataPackage=dataPackage;
 		    WindowManager.dataPackage=dataPackage;
