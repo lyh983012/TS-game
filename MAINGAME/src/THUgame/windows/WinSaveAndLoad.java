@@ -95,7 +95,6 @@ public class WinSaveAndLoad extends WinBase{
         				mainGame.notify();
         			}
             	}else{
-            		System.out.println(suffix);
             		JOptionPane.showMessageDialog(null, "文件格式不对？", "oops",JOptionPane.WARNING_MESSAGE);  
             	}
             }   
@@ -145,7 +144,7 @@ public class WinSaveAndLoad extends WinBase{
 		
 		JButton button= new JButton();	
 		button.setBorderPainted(false);
-		button.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		button.setFont(new Font("印品黑体", Font.BOLD, 19));
 		button.setForeground(Color.BLACK);
 		button.setBounds(850, 550, 80, 80);
 		button.setContentAreaFilled(false);
@@ -155,7 +154,7 @@ public class WinSaveAndLoad extends WinBase{
 		setSelectedIcon("/imgsrc/WinBackground/cb.png",button);
 		
 		JLabel title = new JLabel("请选择一个合法的thu后缀名的存档文件");
-		title.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
+		title.setFont(new Font("Lucida Grande", Font.BOLD, 24));
 		title.setBounds(360, 200, 500, 30);
 		backgroundPanel.add(title);
 		
@@ -165,7 +164,7 @@ public class WinSaveAndLoad extends WinBase{
 		backgroundPanel.add(lblNewLabel);
 		
 		JButton open=new JButton("选择存档");  
-		open.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		open.setFont(new Font("Lucida Grande", Font.BOLD, 30));
 		open.setBounds(420, 320, 300, 100);  
 		open.setVisible(true);   
         open.addActionListener(new ActionListener(){
@@ -183,7 +182,7 @@ public class WinSaveAndLoad extends WinBase{
         });  
         
 		JButton close=new JButton("取消选择");  
-		close.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		close.setFont(new Font("Lucida Grande", Font.BOLD, 30));
 		close.setBounds(420, 450, 300, 100);  
 		close.setVisible(true);   
         close.addActionListener(new ActionListener(){

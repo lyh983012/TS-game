@@ -159,7 +159,7 @@ public class WinChoice extends WinBase{
 		textLast.setHorizontalAlignment(SwingConstants.CENTER);
 		textLast.setText("<html>这样会自动换行</html>");
 		textLast.setOpaque(false);
-		textLast.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		textLast.setFont(new Font("印品黑体", Font.BOLD, 19));
 		textLast.setBounds(0, 5, 800, 60);
 		
 		
@@ -168,7 +168,7 @@ public class WinChoice extends WinBase{
 		textThis.setHorizontalAlignment(SwingConstants.CENTER);
 		textThis.setText("<html>这样会自动换行</html>");
 		textThis.setOpaque(false);
-		textThis.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		textThis.setFont(new Font("印品黑体", Font.BOLD, 19));
 		textThis.setBounds(10, 80, 780, 180);
 		
 
@@ -185,14 +185,14 @@ public class WinChoice extends WinBase{
 		panelA.setLayout(null);
 	
 		JLabel choiceAText = new JLabel("E");
-		choiceAText.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		choiceAText.setFont(new Font("印品黑体", Font.BOLD, 19));
 		choiceAText.setForeground(Color.BLACK);
 		choiceAText.setBounds(0, 0, 805, 60);
 		choiceAText.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JButton choiceAButton= new JButton();	
 		choiceAButton.setBorderPainted(false);
-		choiceAButton.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		choiceAButton.setFont(new Font("印品黑体", Font.BOLD, 19));
 		choiceAButton.setForeground(Color.BLACK);
 		choiceAButton.setBounds(0, 0, 805, 60);
 		choiceAButton.setContentAreaFilled(false);
@@ -210,14 +210,14 @@ public class WinChoice extends WinBase{
 		panelB.setLayout(null);
 	
 		JLabel choiceBText = new JLabel("E");
-		choiceBText.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		choiceBText.setFont(new Font("印品黑体", Font.BOLD, 19));
 		choiceBText.setForeground(Color.BLACK);
 		choiceBText.setBounds(0, 0, 805, 60);
 		choiceBText.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JButton choiceBButton= new JButton();	
 		choiceBButton.setBorderPainted(false);
-		choiceBButton.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		choiceBButton.setFont(new Font("印品黑体", Font.BOLD, 19));
 		choiceBButton.setForeground(Color.BLACK);
 		choiceBButton.setBounds(0, 0, 805, 60);
 		choiceBButton.setContentAreaFilled(false);
@@ -235,14 +235,14 @@ public class WinChoice extends WinBase{
 		panelC.setLayout(null);
 	
 		JLabel choiceCText = new JLabel("E");
-		choiceCText.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		choiceCText.setFont(new Font("印品黑体", Font.BOLD, 19));
 		choiceCText.setForeground(Color.BLACK);
 		choiceCText.setBounds(0, 0, 805, 60);
 		choiceCText.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JButton choiceCButton= new JButton();	
 		choiceCButton.setBorderPainted(false);
-		choiceCButton.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		choiceCButton.setFont(new Font("印品黑体", Font.BOLD, 19));
 		choiceCButton.setForeground(Color.BLACK);
 		choiceCButton.setBounds(0, 0, 805, 60);
 		choiceCButton.setContentAreaFilled(false);
@@ -261,14 +261,14 @@ public class WinChoice extends WinBase{
 		panelD.setLayout(null);
 	
 		JLabel choiceDText = new JLabel("E");
-		choiceDText.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		choiceDText.setFont(new Font("印品黑体", Font.BOLD, 19));
 		choiceDText.setForeground(Color.BLACK);
 		choiceDText.setBounds(0, 0, 805, 60);
 		choiceDText.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JButton choiceDButton= new JButton();	
 		choiceDButton.setBorderPainted(false);
-		choiceDButton.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		choiceDButton.setFont(new Font("印品黑体", Font.BOLD, 19));
 		choiceDButton.setForeground(Color.BLACK);
 		choiceDButton.setBounds(0, 0, 805, 60);
 		choiceDButton.setContentAreaFilled(false);
@@ -286,14 +286,14 @@ public class WinChoice extends WinBase{
 		panelE.setLayout(null);
 		
 		JLabel choiceEText = new JLabel("E");
-		choiceEText.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		choiceEText.setFont(new Font("印品黑体", Font.BOLD, 19));
 		choiceEText.setForeground(Color.BLACK);
 		choiceEText.setBounds(0, 0, 805, 60);
 		choiceEText.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JButton choiceEButton= new JButton();	
 		choiceEButton.setBorderPainted(false);
-		choiceEButton.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		choiceEButton.setFont(new Font("印品黑体", Font.BOLD, 19));
 		choiceEButton.setForeground(Color.BLACK);
 		choiceEButton.setBounds(0, 0, 805, 60);
 		choiceEButton.setContentAreaFilled(false);

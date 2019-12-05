@@ -168,7 +168,7 @@ public class WinMap extends WinBase{
 		goToExam.setBounds(425, 400, 75, 50);
 		setIcon("/imgsrc/WinMap/GoToExam.png",goToExam);
 		setSelectedIcon("/imgsrc/WinMap/GoToExam_Press.png",goToExam);
-		if(dataPackage.date==7 && dataPackage.week==4) {
+		if(dataPackage.date==6 && dataPackage.week==4 && dataPackage.time>=8 && dataPackage.time<=18) {
 			backgroundPanel.add(goToExam);
 		}
 		
@@ -197,7 +197,7 @@ public class WinMap extends WinBase{
 		GoToSTA.setBounds(720, 640, 75, 50);
 		setIcon("/imgsrc/WinMap/GoToSTA.png",GoToSTA);
 		setSelectedIcon("/imgsrc/WinMap/GoToSTA_Press.png",GoToSTA);
-		if(dataPackage.time>=8 && dataPackage.time<=18) {
+		if(dataPackage.time>=8 && dataPackage.time<=18 && dataPackage.week<=3 && (dataPackage.date==2||dataPackage.date==5)) {
 			backgroundPanel.add(GoToSTA);
 		}
 		

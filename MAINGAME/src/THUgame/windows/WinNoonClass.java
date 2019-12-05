@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
-
 import THUgame.Game.ShootGame;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
@@ -77,6 +76,18 @@ public class WinNoonClass extends WinBase{
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			/*		START OF YOUR CODE		*/
+			if(mode ==8){
+				if(showToDoList) {
+					showToDoList=false;
+					button.setText("查看更多");
+				}else {
+					showToDoList=true;
+					button.setText("收起");
+				}
+				todolistPanel.setVisible(showToDoList);//TODO:不知道为什么收不起来
+				return;
+			}
+			
 			if(safeGuardCount==0) {
 				safeGuardCount++;
 				if(mode==0) {
@@ -318,6 +329,35 @@ public class WinNoonClass extends WinBase{
 		/*************************************************************	
 		 * 镶待办事项 这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
+
+		todolistPanel = new JPanel();//2.跟转场相关的小事件在这里触发
+		todolistPanel.setBounds(360, 120, 215, 337);
+		backgroundPanel.add(todolistPanel);
+		todolistPanel.setVisible(showToDoList);
+		todolistPanel.setOpaque(false);//注意要设成透明的
+		todolistPanel.setLayout(null);
+			
+			JPanel todolistPanelText = new JPanel();//2.跟转场相关的小事件在这里触发
+			todolistPanelText.setBounds(0, 0, 215, 337);
+			todolistPanel.add(todolistPanelText);
+			todolistPanelText.setLayout(null);
+			todolistPanelText.setOpaque(false);//注意要设成透明的
+			
+			JLabel todolistExtra = new JLabel();
+			todolistExtra.setForeground(Color.BLACK);
+			todolistExtra.setBounds(40, 25, 150, 300);
+			todolistPanelText.add(todolistExtra);
+			todolistExtra.setFont(new Font("STFangsong", Font.PLAIN, 16));
+			todolistExtra.setText(dataPackage.stateE);
+			
+			JPanel todolistPanelBackground =  new ImagePanel("imgsrc//Windom//dbsx.png",0, 0,215, 337);//2.跟转场相关的小事件在这里触发
+			todolistPanelBackground.setBounds(0, 0, 215, 337);
+			todolistPanel.add(todolistPanelBackground);
+			todolistPanelBackground.setLayout(null);
+			todolistPanelBackground.setOpaque(false);//注意要设成透明的
+			
+		backgroundPanel.add(todolistPanel);
+			
 		JPanel todoList = new JPanel();
 		todoList.setLayout(null);
 		todoList.setOpaque(false);	
@@ -343,9 +383,14 @@ public class WinNoonClass extends WinBase{
 				
 			JLabel label4 = new JLabel("3.");
 			label4.setForeground(Color.WHITE);
-			label4.setBounds(20, 115, 100, 18);
+			label4.setBounds(20, 115, 20, 20);
 			todoList.add(label4);
 			label4.setFont(new Font("STFangsong", Font.PLAIN, 16));
+			
+			JButton readToDoList = new JButton("查看更多");
+			readToDoList.setBounds(35, 113, 100, 34);
+			todoList.add(readToDoList);
+			backgroundPanel.add(todoList);
 			
 			JPanel dbsxBackgruond = new ImagePanel("imgsrc//todoList.png",0, 0, 263, 189);
 			dbsxBackgruond.setOpaque(false);	
@@ -353,7 +398,10 @@ public class WinNoonClass extends WinBase{
 		
 		todoList.add(dbsxBackgruond);
 		dbsxBackgruond.setLayout(null);
-		backgroundPanel.add(todoList);
+		InClassMouseListener clickToDoList = new InClassMouseListener(8);//设置鼠标监听器，发生4号事件
+		clickToDoList.setButton(readToDoList);
+		readToDoList.addMouseListener(clickToDoList);//7号事件是 出发考试 被点击
+		
 		/*************************************************************	
 		 * 【镶对话框】
 		 * 		建立一个带背景的Panel的流程设setBounds(x, y, 宽, 高);

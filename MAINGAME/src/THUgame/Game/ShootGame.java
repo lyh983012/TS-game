@@ -118,7 +118,7 @@ public class ShootGame extends JPanel {
         
     	timeLeft=200;
     	Ew=100;
-        Eh=20;
+        Eh=30;
 		Hw=40;
 		Hh=40;
         HeroNewButton = new JButton("你");
@@ -207,6 +207,7 @@ public class ShootGame extends JPanel {
 	        	Bullets.add(newBullet);
 	        	EventPanel.add(newBullet);
 	        	newBullet.setBounds(250,10+Hh,Ew,Eh);
+	        	newBullet.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 	        }
 	        
 	        /************************************
@@ -368,6 +369,7 @@ public class ShootGame extends JPanel {
     		this.mainGame=mainGame;
     		this.dataPackage=dataPackage;
     	}
+    	
     		@Override
     	public void actionPerformed(ActionEvent e) {
     			this.dataPackage.trigSubEvent=false;

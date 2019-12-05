@@ -154,39 +154,39 @@ public class WinInputName extends WinBase{
 		backgroundImage.setLayout(null);
 		
 		JLabel namelabel = new JLabel("在这输入你的名字：");
-		namelabel.setFont(new Font("STIXGeneral", Font.PLAIN, 20));
+		namelabel.setFont(new Font("STIXGeneral", Font.BOLD, 20));
 		namelabel.setBounds(300, 200, 200, 50);
 		backgroundPanel.add(namelabel);
 		
 		JLabel sexlabel = new JLabel("选择你的性别：");
-		sexlabel.setFont(new Font("STIXGeneral", Font.PLAIN, 20));
+		sexlabel.setFont(new Font("STIXGeneral", Font.BOLD, 20));
 		sexlabel.setBounds(300, 350, 200, 50);
 		backgroundPanel.add(sexlabel);
 		
 		formattedTextField = new JFormattedTextField();
-		formattedTextField.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		formattedTextField.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		formattedTextField.setText("建议在4个字符以内");
 		formattedTextField.setBounds(500, 200, 183, 50);
 		backgroundPanel.add(formattedTextField);
 		
 	    boy = new JRadioButton("男生");
-		boy.setFont(new Font("STIXGeneral", Font.PLAIN, 20));
+		boy.setFont(new Font("STIXGeneral", Font.BOLD, 20));
 		boy.setBounds(500, 300, 141, 50);
 		backgroundPanel.add(boy);
 		
 		girl = new JRadioButton("女生");
-		girl.setFont(new Font("STIXGeneral", Font.PLAIN, 20));
+		girl.setFont(new Font("STIXGeneral", Font.BOLD, 20));
 		girl.setBounds(500, 350, 141, 50);
 		backgroundPanel.add(girl);
 		
 		other = new JRadioButton("其他");
-		other.setFont(new Font("STIXGeneral", Font.PLAIN, 20));
+		other.setFont(new Font("STIXGeneral", Font.BOLD, 20));
 		other.setBounds(500, 400, 141, 50);
 		backgroundPanel.add(other);
 		
 		JButton button= new JButton();	
 		button.setBorderPainted(false);
-		button.setFont(new Font("印品黑体", Font.PLAIN, 19));
+		button.setFont(new Font("印品黑体", Font.BOLD, 19));
 		button.setForeground(Color.BLACK);
 		button.setBounds(850, 550, 80, 80);
 		button.setContentAreaFilled(false);

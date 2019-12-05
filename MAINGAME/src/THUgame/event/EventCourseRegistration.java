@@ -111,12 +111,12 @@ public class EventCourseRegistration extends EventBase{
 			int selectedCourseCount=__getSelectedCoursesCount();
 			if(selectedCourseCount < Courses.COURSE_MIN_COUNT_IN_ONE_TERM) {
 				oldDataPack.stateA="MsgSD"; //以MsgSD而不是MsgFinish返回回去——选课事件不结束
-				oldDataPack.stateB="选课数目过少，请重新选课！\n每学期至少选择"+Courses.COURSE_MIN_COUNT_IN_ONE_TERM+"门课";
+				oldDataPack.stateB="【系统提示】选课数目过少，请重新选课！\n每学期至少选择"+Courses.COURSE_MIN_COUNT_IN_ONE_TERM+"门课";
 				return;
 			}
 			if(selectedCourseCount > Courses.COURSE_MAX_COUNT_IN_ONE_TERM) {
 				oldDataPack.stateA="MsgSD"; //同上
-				oldDataPack.stateB="选课数目过多，请重新选课！\n每学期至多选择"+Courses.COURSE_MAX_COUNT_IN_ONE_TERM+"门课";
+				oldDataPack.stateB="【系统提示】选课数目过多，请重新选课！\n每学期至多选择"+Courses.COURSE_MAX_COUNT_IN_ONE_TERM+"门课";
 				return;
 			}
 			
@@ -145,9 +145,10 @@ public class EventCourseRegistration extends EventBase{
 				index--;
 			}
 			oldDataPack.stateA="MsgFinish";
-			if(0 == courseCount) oldDataPack.stateB="恭喜！你所有课程全部成功选上！！（太尴尬了，这句话得改一下。。。。。。。。";
+			if(0 == courseCount) 
+				oldDataPack.stateB="我仿佛使用了金手指，欧气满满！所有课程全部成功选上！！";
 			else {
-				String msg="你这几门课掉了：【这句话也有点尴尬，得重写一下。。。。】";
+				String msg="啊！几门课掉了：";
 				int i;
 				for(i=0;i<courseCount;i++) {
 					msg=msg+'\n'+courseToShow[i].courseTitle+"课程，课程号"+courseToShow[i].courseID+"；";
@@ -272,7 +273,7 @@ public class EventCourseRegistration extends EventBase{
 			oldDataPack.stateA="MsgSD";
 			if(0 == courseCount) oldDataPack.stateB="提交选课成功！";
 			else {
-				String msg="以下课程已修或已经提交选课，或者与其它已选课程时间冲突，提交选课失败：";
+				String msg="【系统提示】以下课程已修或已经提交选课，或者与其它已选课程时间冲突，提交选课失败：";
 				for(i=0;i<courseCount;i++) {
 					msg=msg+'\n'+courseToShow[i].courseTitle+"课程，课程号"+courseToShow[i].courseID+"；";
 				}
@@ -295,7 +296,7 @@ public class EventCourseRegistration extends EventBase{
 					}
 			}
 			oldDataPack.stateA="MsgSD";
-			oldDataPack.stateB="删除选课成功！";
+			oldDataPack.stateB="【系统提示】删除选课成功！";
 		}
 	}
 }

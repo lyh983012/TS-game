@@ -10,6 +10,8 @@ import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 
@@ -42,6 +44,8 @@ import THUgame.main.EventManager;
 	abstract public class WinBase {
 		public EventManager mainGame;
 		static public DataPack dataPackage;
+		static protected JPanel todolistPanel;
+		static protected boolean showToDoList=false;
 		
 		static protected abstract class BaseMouseListener implements MouseListener{
 			private EventManager mainGame;

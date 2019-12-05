@@ -4,6 +4,7 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 
 import THUgame.datapack.DataPack;
+import THUgame.tool.StateList;
 
 
 /*
@@ -48,67 +49,42 @@ public class EventInDom extends EventBase{
 		 * 		转换一个标记，必要时存储一些信息
 		 *******************************************/
 		if (oldDataPack.choiceA.equals("gooutside")) {
-			oldDataPack.eventFinished=true;			//并且点击了去上课这个按钮，那么宿舍事件结束
+			oldDataPack.eventFinished=true;			
 			return;									//直接返回，避免属性乱变
 		}
 		if (oldDataPack.choiceA.equals("takeExam")) {
-			oldDataPack.eventFinished=true;			//并且点击了去上课这个按钮，那么宿舍事件结束
+			oldDataPack.eventFinished=true;			
 			return;									//直接返回，避免属性乱变
 		}
 		if (oldDataPack.choiceA.equals("readMessage_research_login")) {
-			oldDataPack.eventFinished=true;			//并且点击了去上课这个按钮，那么宿舍事件结束
+			oldDataPack.eventFinished=true;			
 			return;									//直接返回，避免属性乱变
 		}
 		if (oldDataPack.choiceA.equals("readMessage_research_result")) {
-			oldDataPack.eventFinished=true;			//并且点击了去上课这个按钮，那么宿舍事件结束
+			oldDataPack.eventFinished=true;			
 			return;									//直接返回，避免属性乱变
 		}
 		if (oldDataPack.choiceA.equals("need_course_reg")) {
-			oldDataPack.eventFinished=true;			//并且点击了去上课这个按钮，那么宿舍事件结束
+			oldDataPack.eventFinished=true;			
 			return;									//直接返回，避免属性乱变
 		}
 		if(oldDataPack.term==5) {
-			oldDataPack.eventFinished=true;			//并且点击了去上课这个按钮，那么宿舍事件结束
+			oldDataPack.eventFinished=true;			
 			oldDataPack.choiceA="endgame";
 			return;
 		}
-		oldDataPack.stateA="";
-		//StateC用于触发游戏
-		//StateA用于判断上午下午
-		//StateB用于判断是否上课
-		//StateE用于代办事项
-		oldDataPack.stateE="3.";
-		if(oldDataPack.joinResearch && oldDataPack.term>=3 && oldDataPack.date>3 && oldDataPack.time<=16) {
-			oldDataPack.stateE+="周四12~16点必须去组会";
-		}
-		
 		if(oldDataPack.term<4 && oldDataPack.date==7 && oldDataPack.week==4) {
 			oldDataPack.course_selected=false;
 		}
 		else if(oldDataPack.term==4) {
 			oldDataPack.course_selected=true;
 		}
-		/****
-		 * ***************************************
-		 * 在下面进行dataPack的处理
-		 * this.characterIQ=50;
-			this.characterEQ=50;
-			this.characterlucky=50;
-			this.characterArt=50;
-			this.characterHealth=100;		//可变的
-			this.characterHappiness=50;
-			this.characterEnergy=100;
-			this.studyProgress=0;			//每个学期的进度
-			this.studyAim=999999;			//每个学期的目标
-		 *******************************************/
+		
 		/*		START OF YOUR CODE		*/	
-		if(oldDataPack.characterHealth<0) {
-			oldDataPack.notification="我死了。";
-		}
 		Random r = new Random();
-		int randomTime = r.nextInt(2) + 1;
 		int randomSnore = r.nextInt(10) + 1;  // 生成被吵醒的随机数
 		int randomGame = r.nextInt(10) + 1;  // 生成被吵醒的随机数
+		boolean isNewday=false;
 		
 		switch(oldDataPack.choiceA) {
 			case "sleep":
@@ -123,27 +99,15 @@ public class EventInDom extends EventBase{
 					oldDataPack.time=3;			//3点被吵醒
 					oldDataPack.trigSubEvent = true; // 触发子事件
 					oldDataPack.stateA="被吵醒";
-					oldDataPack.notification += "<br>到了3点……</html>";
+					oldDataPack.notification += "<br>天哪！！！现在是三点！！</html>";
 				}else { // 一日之际在于晨
 					oldDataPack.trigSubEvent = false;  // 吵醒之后睡着，取消子事件
-					oldDataPack.time=7+randomTime;	//睡大觉，有机率睡爆，时间等于7点+0～2（原本的版本是计数器+1） 
+					oldDataPack.time=8;	
 					oldDataPack.characterEnergy=100;
 					oldDataPack.characterHealth+=5;
 					oldDataPack.characterHappiness+=5;
-					oldDataPack.notification += "<br>新的一天开始了～，起床的时候已经"+String.valueOf(oldDataPack.time)+"点了<br>健康+10，心情+5，体力回复满。[游戏已保存]</html>";
-					if(oldDataPack.week==4 && oldDataPack.date==7) {
-						oldDataPack.stateA="期末考";
-						oldDataPack.trigSubEvent = true; // 触发子事件
-					}
-					if(oldDataPack.term==3 && oldDataPack.week==1 && oldDataPack.date==2) {
-						oldDataPack.stateA="科研报名";
-						oldDataPack.trigSubEvent = true; // 触发子事件
-					}
-					if(oldDataPack.term==3 && oldDataPack.week==1 && oldDataPack.date==4 && oldDataPack.joinResearch){
-						oldDataPack.stateA="报名结果";
-						oldDataPack.trigSubEvent = true; // 触发子事件
-					}
-					saveGame();
+					oldDataPack.notification += "<br>新的一天开始了，快看看今天有什么要做的事儿吧~<br>健康+10，心情+5，体力回复满。[游戏已保存]</html>";
+					isNewday=true;
 				}
 				break;
 			case "dohomework":
@@ -202,17 +166,39 @@ public class EventInDom extends EventBase{
 				}
 				break;
 		}
-		if (oldDataPack.time>=8 && oldDataPack.time<=10) { //只在特定时间可以去上课
-			oldDataPack.stateB="classtime";				   //用于判断是否显示按钮
-		}else if(oldDataPack.time>=13 && oldDataPack.time<=15){
-			oldDataPack.stateB="classtime";
-		}else if(oldDataPack.trigSubEvent){				   //如果触发被吵醒子事件	
-			oldDataPack.stateB="othertime";
-		}else{
-			oldDataPack.stateB="othertime";
-		}		
+		
+		if(isNewday) {
+			if(oldDataPack.week==1 && oldDataPack.date==4) {
+				oldDataPack.stateA="招新报名";
+				//oldDataPack.trigSubEvent = true; // 触发子事件
+			}
+			if(oldDataPack.date==7) {
+				oldDataPack.stateA="每周报告";
+				oldDataPack.trigSubEvent = true; // 触发子事件
+			}
+			if(oldDataPack.week==4 && oldDataPack.date==6) {
+				oldDataPack.stateA="期末考";
+				oldDataPack.trigSubEvent = true; // 触发子事件
+			}
+			if(oldDataPack.term==3 && oldDataPack.week==1 && oldDataPack.date==2) {
+				oldDataPack.stateA="科研报名";
+				oldDataPack.trigSubEvent = true; // 触发子事件
+			}
+			if(oldDataPack.term==3 && oldDataPack.week==1 && oldDataPack.date==4 && oldDataPack.joinResearch){
+				oldDataPack.stateA="报名结果";
+				oldDataPack.trigSubEvent = true; // 触发子事件
+			}
+			saveGame();
+		}
+
 		if (oldDataPack.characterHealth<=0)
 			JOptionPane.showMessageDialog(null, "你猝死了", "", JOptionPane.ERROR_MESSAGE);//弹出猝死界面
+		
+		DataPack o=oldDataPack;
+		oldDataPack.stateE=StateList.getEventNotification(o.term,o.week,o.date,
+							o.joinResearch,o.joinClub,o.joinSTA,
+							o.joinChallengeCup>0,o.joinSA);//生成提醒
+		
 		/*		END OF YOUR CODE		*/
 		return;
 	}

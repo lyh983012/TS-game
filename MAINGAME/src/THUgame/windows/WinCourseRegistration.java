@@ -299,7 +299,6 @@ public class WinCourseRegistration extends WinBase{
 				classCapacityLabel.setVisible(false);
 				classVacancyLabel.setVisible(false);
 				courseFeaturesLabel.setVisible(false);
-				System.out.println("out_of_range");
 				return;
 			}
 			courseChooseCheckBox.setSelected(checkBoxChecked[index]);
@@ -432,27 +431,27 @@ public class WinCourseRegistration extends WinBase{
 		 *************************************************************/
 		
 		JButton selectRCourseButton = new JButton("选择必修课");
-		selectRCourseButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		selectRCourseButton.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		selectRCourseButton.setBounds(50, 25, 150, 50);
 		backgroundPanel.add(selectRCourseButton);
 		
 		JButton selectRECourseButton = new JButton("选择限选课");
-		selectRECourseButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		selectRECourseButton.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		selectRECourseButton.setBounds(300, 25, 150, 50);
 		backgroundPanel.add(selectRECourseButton);
 		
 		JButton selectFailedCourseButton = new JButton("选择重修课");
-		selectFailedCourseButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		selectFailedCourseButton.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		selectFailedCourseButton.setBounds(900, 25, 150, 50);
 		backgroundPanel.add(selectFailedCourseButton);
 		
 		JButton selectECourseButton = new JButton("选择任选课");
-		selectECourseButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		selectECourseButton.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		selectECourseButton.setBounds(600, 25, 150, 50);
 		backgroundPanel.add(selectECourseButton);
 		
 		JButton finishButton = new JButton("结束选课");
-		finishButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		finishButton.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		finishButton.setBounds(800, 625, 150, 50);
 		backgroundPanel.add(finishButton);
 		JPanel msgPanel = new JPanel();
@@ -473,7 +472,7 @@ public class WinCourseRegistration extends WinBase{
 		timetablePanel.add(timetableLabel);
 		
 		JButton timetableOKButton = new JButton("OK");
-		timetableOKButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		timetableOKButton.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		timetableOKButton.setBounds(625, 325, 150, 50);
 		timetablePanel.add(timetableOKButton);
 		
@@ -509,7 +508,7 @@ public class WinCourseRegistration extends WinBase{
 		JTextArea timeTable11 = new JTextArea();
 		timeTable11.setBackground(new Color(240, 255, 240));
 		timeTable11.setWrapStyleWord(true);
-		timeTable11.setFont(new Font("Dialog", Font.PLAIN, 20));
+		timeTable11.setFont(new Font("Dialog", Font.BOLD, 20));
 		timeTable11.setEditable(false);
 		timeTable11.setBorder(new LineBorder(new Color(119, 136, 153)));
 		timeTable11.setBounds(100, 100, 126, 101);
@@ -518,7 +517,7 @@ public class WinCourseRegistration extends WinBase{
 		JTextArea timeTable12 = new JTextArea();
 		timeTable12.setBackground(new Color(240, 255, 240));
 		timeTable12.setWrapStyleWord(true);
-		timeTable12.setFont(new Font("Dialog", Font.PLAIN, 20));
+		timeTable12.setFont(new Font("Dialog", Font.BOLD, 20));
 		timeTable12.setEditable(false);
 		timeTable12.setBorder(new LineBorder(new Color(119, 136, 153)));
 		timeTable12.setBounds(100, 200, 126, 100);
@@ -527,7 +526,7 @@ public class WinCourseRegistration extends WinBase{
 		JTextArea timeTable21 = new JTextArea();
 		timeTable21.setBackground(new Color(240, 255, 240));
 		timeTable21.setWrapStyleWord(true);
-		timeTable21.setFont(new Font("Dialog", Font.PLAIN, 20));
+		timeTable21.setFont(new Font("Dialog", Font.BOLD, 20));
 		timeTable21.setEditable(false);
 		timeTable21.setBorder(new LineBorder(new Color(119, 136, 153)));
 		timeTable21.setBounds(225, 100, 126, 101);
@@ -536,7 +535,7 @@ public class WinCourseRegistration extends WinBase{
 		JTextArea timeTable22 = new JTextArea();
 		timeTable22.setBackground(new Color(240, 255, 240));
 		timeTable22.setWrapStyleWord(true);
-		timeTable22.setFont(new Font("Dialog", Font.PLAIN, 20));
+		timeTable22.setFont(new Font("Dialog", Font.BOLD, 20));
 		timeTable22.setEditable(false);
 		timeTable22.setBorder(new LineBorder(new Color(119, 136, 153)));
 		timeTable22.setBounds(225, 200, 126, 100);
@@ -545,7 +544,7 @@ public class WinCourseRegistration extends WinBase{
 		JTextArea timeTable31 = new JTextArea();
 		timeTable31.setBackground(new Color(240, 255, 240));
 		timeTable31.setWrapStyleWord(true);
-		timeTable31.setFont(new Font("Dialog", Font.PLAIN, 20));
+		timeTable31.setFont(new Font("Dialog", Font.BOLD, 20));
 		timeTable31.setEditable(false);
 		timeTable31.setBorder(new LineBorder(new Color(119, 136, 153)));
 		timeTable31.setBounds(350, 100, 126, 101);
@@ -554,7 +553,7 @@ public class WinCourseRegistration extends WinBase{
 		JTextArea timeTable32 = new JTextArea();
 		timeTable32.setBackground(new Color(240, 255, 240));
 		timeTable32.setWrapStyleWord(true);
-		timeTable32.setFont(new Font("Dialog", Font.PLAIN, 20));
+		timeTable32.setFont(new Font("Dialog", Font.BOLD, 20));
 		timeTable32.setEditable(false);
 		timeTable32.setBorder(new LineBorder(new Color(119, 136, 153)));
 		timeTable32.setBounds(350, 200, 126, 100);
@@ -563,7 +562,7 @@ public class WinCourseRegistration extends WinBase{
 		JTextArea timeTable41 = new JTextArea();
 		timeTable41.setBackground(new Color(240, 255, 240));
 		timeTable41.setWrapStyleWord(true);
-		timeTable41.setFont(new Font("Dialog", Font.PLAIN, 20));
+		timeTable41.setFont(new Font("Dialog", Font.BOLD, 20));
 		timeTable41.setEditable(false);
 		timeTable41.setBorder(new LineBorder(new Color(119, 136, 153)));
 		timeTable41.setBounds(475, 100, 126, 101);
@@ -572,7 +571,7 @@ public class WinCourseRegistration extends WinBase{
 		JTextArea timeTable42 = new JTextArea();
 		timeTable42.setBackground(new Color(240, 255, 240));
 		timeTable42.setWrapStyleWord(true);
-		timeTable42.setFont(new Font("Dialog", Font.PLAIN, 20));
+		timeTable42.setFont(new Font("Dialog", Font.BOLD, 20));
 		timeTable42.setEditable(false);
 		timeTable42.setBorder(new LineBorder(new Color(119, 136, 153)));
 		timeTable42.setBounds(475, 200, 126, 100);
@@ -581,7 +580,7 @@ public class WinCourseRegistration extends WinBase{
 		JTextArea timeTable51 = new JTextArea();
 		timeTable51.setBackground(new Color(240, 255, 240));
 		timeTable51.setWrapStyleWord(true);
-		timeTable51.setFont(new Font("Dialog", Font.PLAIN, 20));
+		timeTable51.setFont(new Font("Dialog", Font.BOLD, 20));
 		timeTable51.setEditable(false);
 		timeTable51.setBorder(new LineBorder(new Color(119, 136, 153)));
 		timeTable51.setBounds(600, 100, 125, 101);
@@ -590,7 +589,7 @@ public class WinCourseRegistration extends WinBase{
 		JTextArea timeTable52 = new JTextArea();
 		timeTable52.setBackground(new Color(240, 255, 240));
 		timeTable52.setWrapStyleWord(true);
-		timeTable52.setFont(new Font("Dialog", Font.PLAIN, 20));
+		timeTable52.setFont(new Font("Dialog", Font.BOLD, 20));
 		timeTable52.setEditable(false);
 		timeTable52.setBorder(new LineBorder(new Color(119, 136, 153)));
 		timeTable52.setBounds(600, 200, 125, 100);
@@ -601,14 +600,14 @@ public class WinCourseRegistration extends WinBase{
 		
 		JTextArea msgTextAera = new JTextArea();
 		msgTextAera.setWrapStyleWord(true);
-		msgTextAera.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		msgTextAera.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		msgTextAera.setBorder(new LineBorder(new Color(119, 136, 153)));
 		msgTextAera.setEditable(false);
 		msgTextAera.setBounds(48, 34, 400, 200);
 		msgPanel.add(msgTextAera);
 		
 		JButton msgOKButton = new JButton("OK");
-		msgOKButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		msgOKButton.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		msgOKButton.setBounds(301, 263, 150, 50);
 		msgPanel.add(msgOKButton);
 		
@@ -628,12 +627,12 @@ public class WinCourseRegistration extends WinBase{
 		courseSelectionPanel.setLayout(null);
 		
 		JButton submitCourseButton = new JButton("提交选课");
-		submitCourseButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		submitCourseButton.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		submitCourseButton.setBounds(650, 225, 150, 50);
 		courseSelectionPanel.add(submitCourseButton);
 		
 		JButton deleteCourseButton = new JButton("删除选课");
-		deleteCourseButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		deleteCourseButton.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		deleteCourseButton.setBounds(825, 225, 150, 50);
 		courseSelectionPanel.add(deleteCourseButton);
 		
@@ -751,33 +750,33 @@ public class WinCourseRegistration extends WinBase{
 		courseToSelectPanel.add(classTimeLabel);
 		
 		JLabel classTimeLabel0 = new JLabel("");
-		classTimeLabel0.setHorizontalAlignment(SwingConstants.CENTER);
-		classTimeLabel0.setBounds(195, 25, 50, 25);
+		classTimeLabel0.setHorizontalAlignment(SwingConstants.LEFT);
+		classTimeLabel0.setBounds(195, 25, 80, 25);
 		courseToSelectPanel.add(classTimeLabel0);
 		
 		JLabel classTimeLabel1 = new JLabel("");
-		classTimeLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-		classTimeLabel1.setBounds(195, 50, 50, 25);
+		classTimeLabel1.setHorizontalAlignment(SwingConstants.LEFT);
+		classTimeLabel1.setBounds(195, 50, 80, 25);
 		courseToSelectPanel.add(classTimeLabel1);
 		
 		JLabel classTimeLabel2 = new JLabel("");
-		classTimeLabel2.setHorizontalAlignment(SwingConstants.CENTER);
-		classTimeLabel2.setBounds(195, 75, 50, 25);
+		classTimeLabel2.setHorizontalAlignment(SwingConstants.LEFT);
+		classTimeLabel2.setBounds(195, 75, 80, 25);
 		courseToSelectPanel.add(classTimeLabel2);
 		
 		JLabel classTimeLabel3 = new JLabel("");
-		classTimeLabel3.setHorizontalAlignment(SwingConstants.CENTER);
-		classTimeLabel3.setBounds(195, 100, 50, 25);
+		classTimeLabel3.setHorizontalAlignment(SwingConstants.LEFT);
+		classTimeLabel3.setBounds(195, 100, 80, 25);
 		courseToSelectPanel.add(classTimeLabel3);
 		
 		JLabel classTimeLabel4 = new JLabel("");
-		classTimeLabel4.setHorizontalAlignment(SwingConstants.CENTER);
-		classTimeLabel4.setBounds(195, 125, 50, 25);
+		classTimeLabel4.setHorizontalAlignment(SwingConstants.LEFT);
+		classTimeLabel4.setBounds(195, 125, 80, 25);
 		courseToSelectPanel.add(classTimeLabel4);
 		
 		JLabel classTimeLabel5 = new JLabel("");
-		classTimeLabel5.setHorizontalAlignment(SwingConstants.CENTER);
-		classTimeLabel5.setBounds(195, 150, 50, 25);
+		classTimeLabel5.setHorizontalAlignment(SwingConstants.LEFT);
+		classTimeLabel5.setBounds(195, 150, 80, 25);
 		courseToSelectPanel.add(classTimeLabel5);
 		
 		JLabel coursePropertyLabel = new JLabel("属性");
