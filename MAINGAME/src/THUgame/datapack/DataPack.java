@@ -168,6 +168,8 @@ public class DataPack implements Serializable , Cloneable{
 			this.researchDataPackage= new ResearchData();
 			this.courseGrade=new CourseGrade[14*4]; //这里14*4是假设每学期最多选14门课（每学期最多选多少门课写在Courses类里了，注意同步
 			this.courseGradeCount=0;
+			//仅用于调试科研地图
+			this.joinResearch = true;
 		}
 		if(type.equals("main")) {
 			this.ID=-1;

@@ -378,15 +378,22 @@ public class WinResearch extends WinBase{
 				noticePanelforThesis.setBackground(new Color(255, 255, 204));
 				noticePanelforThesis.setBounds(253, 129, 536, 398);
 				noticePanelforThesis.setLayout(null);
+					
+					JPanel noticeBackgroundforThesis = new ImagePanel("imgsrc//shootGame/eb.png",0, 0, 531, 363);
+					noticeBackgroundforThesis.setOpaque(false);
+					noticeBackgroundforThesis.setBounds(0, 0, 536, 398);
+					noticeBackgroundforThesis.setLayout(null);
 				
 					JLabel ThesisConfirmLabel = new JLabel("<html>"+dataPackage.notification+"</html>");
 					ThesisConfirmLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-					ThesisConfirmLabel.setBounds(126, 107, 400, 68);
+					ThesisConfirmLabel.setBounds(63, 107, 400, 68);
 					noticePanelforThesis.add(ThesisConfirmLabel);
 					
 					JButton ThesisConfirmButton = new JButton("确认");
 					ThesisConfirmButton.setBounds(190, 242, 190, 47);
 					noticePanelforThesis.add(ThesisConfirmButton);
+					
+					noticePanelforThesis.add(noticeBackgroundforThesis);
 				
 				if(dataPackage.researchDataPackage.justReadThesis==true)
 					backgroundPanel.add(noticePanelforThesis);
@@ -396,9 +403,14 @@ public class WinResearch extends WinBase{
 				noticePanelforTool.setBounds(253, 129, 536, 398);
 				noticePanelforTool.setLayout(null);
 			
+					JPanel noticeBackgroundforTool = new ImagePanel("imgsrc//shootGame/eb.png",0, 0, 531, 363);
+					noticeBackgroundforTool.setOpaque(false);
+					noticeBackgroundforTool.setBounds(0, 0, 536, 398);
+					noticeBackgroundforTool.setLayout(null);
+				
 					JLabel lblNewLabel_1 = new JLabel("恭喜你获得了道具——"+dataPackage.researchDataPackage.tool);
 					lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-					lblNewLabel_1.setBounds(126, 107, 400, 68);
+					lblNewLabel_1.setBounds(63, 107, 400, 68);
 					noticePanelforTool.add(lblNewLabel_1);
 					
 					JButton ToolConfirmButton = new JButton("确认");
