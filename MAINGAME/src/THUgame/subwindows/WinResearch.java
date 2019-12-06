@@ -223,6 +223,9 @@ public class WinResearch extends WinBase{
 			else if(mode==102) {
 				dataPackage.choiceA="confirmThesis";
 			}
+			else if(mode==105) {
+				dataPackage.choiceA="confirmHelp";
+			}
 			
 			// 判断点击的方格是否有效，如果无效则返回
 			else if(JudgeSelectValid(mode, dataPackage.researchDataPackage.i_map) != 1) {
@@ -374,12 +377,37 @@ public class WinResearch extends WinBase{
 				/*************************************************************
 				 * 【小事件提示框】
 				 */
+				JPanel guidePanel = new JPanel(); //在首次进入科研地图的时候提示玩家如何做
+				guidePanel.setBackground(new Color(255, 255, 204));
+				guidePanel.setBounds(253, 129, 536, 398);
+				guidePanel.setLayout(null);
+				
+					JPanel guideBackgroundImage = new ImagePanel("imgsrc//shootGame/eb.png",0, 0, 536, 398);
+					guideBackgroundImage.setOpaque(false);
+					guideBackgroundImage.setBounds(0, 0, 536, 398);
+					guideBackgroundImage.setLayout(null);
+					
+					JLabel guideLabel = new JLabel("<html>恭喜你，终于踏上科研之路,欢迎在科研岛上探索。"
+							+ "浅绿色的区域表示你已阅读的文献/进行的研究，点击周围的区域来阅读文献</html>");
+					guideLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+					guideLabel.setBounds(63, 107, 400, 136);
+					guidePanel.add(guideLabel);
+					
+					JButton HelpConfirmButton = new JButton("确认");
+					HelpConfirmButton.setBounds(190, 272, 190, 47);
+					guidePanel.add(HelpConfirmButton);
+					
+					guidePanel.add(guideBackgroundImage);
+				
+				if(dataPackage.researchDataPackage.firstEnter==true)
+					backgroundPanel.add(guidePanel);
+				
 				JPanel noticePanelforThesis = new JPanel();//在读完一篇文章后显示的小事件框
 				noticePanelforThesis.setBackground(new Color(255, 255, 204));
 				noticePanelforThesis.setBounds(253, 129, 536, 398);
 				noticePanelforThesis.setLayout(null);
 					
-					JPanel noticeBackgroundforThesis = new ImagePanel("imgsrc//shootGame/eb.png",0, 0, 531, 363);
+					JPanel noticeBackgroundforThesis = new ImagePanel("imgsrc//shootGame/eb.png",0, 0, 536, 398);
 					noticeBackgroundforThesis.setOpaque(false);
 					noticeBackgroundforThesis.setBounds(0, 0, 536, 398);
 					noticeBackgroundforThesis.setLayout(null);
@@ -403,7 +431,7 @@ public class WinResearch extends WinBase{
 				noticePanelforTool.setBounds(253, 129, 536, 398);
 				noticePanelforTool.setLayout(null);
 			
-					JPanel noticeBackgroundforTool = new ImagePanel("imgsrc//shootGame/eb.png",0, 0, 531, 363);
+					JPanel noticeBackgroundforTool = new ImagePanel("imgsrc//shootGame/eb.png",0, 0, 536, 398);
 					noticeBackgroundforTool.setOpaque(false);
 					noticeBackgroundforTool.setBounds(0, 0, 536, 398);
 					noticeBackgroundforTool.setLayout(null);
@@ -416,6 +444,8 @@ public class WinResearch extends WinBase{
 					JButton ToolConfirmButton = new JButton("确认");
 					ToolConfirmButton.setBounds(190, 242, 190, 47);
 					noticePanelforTool.add(ToolConfirmButton);
+					
+					noticePanelforTool.add(noticeBackgroundforTool);
 				
 				if(dataPackage.researchDataPackage.justGetTool==true)
 					backgroundPanel.add(noticePanelforTool);
@@ -744,6 +774,7 @@ public class WinResearch extends WinBase{
 				demoMouseListener clickBack=new demoMouseListener(99);//设置鼠标监听器，发生99号事件
 				demoMouseListener clickConfirmTool=new demoMouseListener(101);
 				demoMouseListener clickConfirmThesis=new demoMouseListener(102);
+				demoMouseListener clickConfirmHelp=new demoMouseListener(105);
 				
 				clickBack.setButton(backButton);
 				
@@ -761,6 +792,7 @@ public class WinResearch extends WinBase{
 				backButton.addMouseListener(clickBack);//2号事件是 去上课按钮 被点击
 				ToolConfirmButton.addMouseListener(clickConfirmTool); //返回事件
 				ThesisConfirmButton.addMouseListener(clickConfirmThesis);
+				HelpConfirmButton.addMouseListener(clickConfirmHelp);
 
 				/*		END OF YOUR CODE		*/
 		    	    	

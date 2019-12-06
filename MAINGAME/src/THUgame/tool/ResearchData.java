@@ -11,6 +11,8 @@ import java.util.*;
 
 public class ResearchData implements Serializable{
 	
+	public boolean firstEnter = true;  //是否是首次进入科研地图
+	
 	public int numberofPaperRead=0;  //阅读的文献数目
 	public int TheoryPaperRead=0;  //阅读的理论文献
 	public int ThermalPaperRead=0;  //阅读的热工文献

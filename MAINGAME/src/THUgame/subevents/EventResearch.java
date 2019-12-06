@@ -18,6 +18,9 @@ public class EventResearch extends EventBase{
 		else if(oldDataPack.choiceA.equals("confirmThesis")) {
 			oldDataPack.researchDataPackage.justReadThesis=false;
 		}
+		else if(oldDataPack.choiceA.equals("confirmHelp")) {
+			oldDataPack.researchDataPackage.firstEnter=false;
+		}
 		else if(oldDataPack.choiceA.equals("RandomEffect")) {
 			
 			boolean isEnergyEnough=ReadThesis(oldDataPack);
