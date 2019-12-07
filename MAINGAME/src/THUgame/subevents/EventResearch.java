@@ -21,6 +21,10 @@ public class EventResearch extends EventBase{
 		else if(oldDataPack.choiceA.equals("confirmHelp")) {
 			oldDataPack.researchDataPackage.firstEnter=false;
 		}
+		else if(oldDataPack.choiceA.equals("FinishResearch")) {
+			oldDataPack.eventFinished=true;
+			oldDataPack.paperFinished = 10; //论文进度从0设置为10
+		}
 		else if(oldDataPack.choiceA.equals("RandomEffect")) {
 			
 			boolean isEnergyEnough=ReadThesis(oldDataPack);
@@ -152,21 +156,35 @@ public class EventResearch extends EventBase{
 				}
 				break;
 			case 1:
-				number = r.nextInt(10) + 10;
-				while(oldDataPack.researchDataPackage.ThesisRead.contains(number+100)) {
-					number = r.nextInt(10) + 10;
+				if(oldDataPack.researchDataPackage.lastEvent == 0) {
+					if (oldDataPack.researchDataPackage.ResearchWorkDone == 9)
+						number = 20;
+					else {
+						number = r.nextInt(10) + 10;
+						while(oldDataPack.researchDataPackage.ThesisRead.contains(number+100) || number==20) {
+							number = r.nextInt(10) + 10;
+						}
+					}
 				}
+				// 如果上个事件有后续事件
+				else {
+					number = oldDataPack.researchDataPackage.lastEvent;
+				}
+				oldDataPack.researchDataPackage.ResearchWorkDone ++;
 			}
 			oldDataPack.researchDataPackage.CurrentPaper = number;
 			oldDataPack.researchDataPackage.ThesisRead.add(number+100);
 			oldDataPack.characterIQ += 2*oldDataPack.researchDataPackage.DesertMapEvent[number].effect;
 			oldDataPack.notification = oldDataPack.researchDataPackage.DesertMapEvent[number].content;
 			oldDataPack.researchDataPackage.DesignPaperRead ++;
+			oldDataPack.researchDataPackage.lastEvent = oldDataPack.researchDataPackage.DesertMapEvent[number].eventafter;
 			if(oldDataPack.researchDataPackage.DesignPaperRead ==20) {
 				oldDataPack.researchDataPackage.hasJeep = true;
 				oldDataPack.researchDataPackage.justGetTool = true;
 				oldDataPack.researchDataPackage.tool = "越野车";
 			}
+			if(number==20)
+				oldDataPack.researchDataPackage.researchFinished = true;
 			return true;
 		}
 	}
@@ -187,10 +205,21 @@ public class EventResearch extends EventBase{
 				}
 				break;
 			case 1:
-				number = r.nextInt(10) + 10;
-				while(oldDataPack.researchDataPackage.ThesisRead.contains(number+200)) {
-					number = r.nextInt(10) + 10;
+				if(oldDataPack.researchDataPackage.lastEvent == 0) {
+					if (oldDataPack.researchDataPackage.ResearchWorkDone == 9)
+						number = 20;
+					else {
+						number = r.nextInt(10) + 10;
+						while(oldDataPack.researchDataPackage.ThesisRead.contains(number+200) || number==20) {
+							number = r.nextInt(10) + 10;
+						}
+					}
 				}
+				// 如果上个事件有后续事件
+				else {
+					number = oldDataPack.researchDataPackage.lastEvent;
+				}
+				oldDataPack.researchDataPackage.ResearchWorkDone ++;
 			}
 			oldDataPack.researchDataPackage.CurrentPaper = number;
 			oldDataPack.researchDataPackage.ThesisRead.add(number+200);
@@ -202,6 +231,8 @@ public class EventResearch extends EventBase{
 				oldDataPack.researchDataPackage.justGetTool = true;
 				oldDataPack.researchDataPackage.tool = "猎枪";
 			}
+			if(number==20)
+				oldDataPack.researchDataPackage.researchFinished = true;
 			return true;
 		}
 	}
@@ -222,10 +253,21 @@ public class EventResearch extends EventBase{
 				}
 				break;
 			case 1:
-				number = r.nextInt(10) + 10;
-				while(oldDataPack.researchDataPackage.ThesisRead.contains(number+300)) {
-					number = r.nextInt(10) + 10;
+				if(oldDataPack.researchDataPackage.lastEvent == 0) {
+					if (oldDataPack.researchDataPackage.ResearchWorkDone == 9)
+						number = 20;
+					else {
+						number = r.nextInt(10) + 10;
+						while(oldDataPack.researchDataPackage.ThesisRead.contains(number+300) || number==20) {
+							number = r.nextInt(10) + 10;
+						}
+					}
 				}
+				// 如果上个事件有后续事件
+				else {
+					number = oldDataPack.researchDataPackage.lastEvent;
+				}
+				oldDataPack.researchDataPackage.ResearchWorkDone ++;
 			}
 			oldDataPack.researchDataPackage.CurrentPaper = number;
 			oldDataPack.researchDataPackage.ThesisRead.add(number+300);
@@ -237,7 +279,8 @@ public class EventResearch extends EventBase{
 				oldDataPack.researchDataPackage.justGetTool = true;
 				oldDataPack.researchDataPackage.tool = "雪橇";
 			}
-			
+			if(number==20)
+				oldDataPack.researchDataPackage.researchFinished = true;
 			return true;
 		}
 	}
@@ -258,10 +301,21 @@ public class EventResearch extends EventBase{
 				}
 				break;
 			case 1:
-				number = r.nextInt(10) + 10;
-				while(oldDataPack.researchDataPackage.ThesisRead.contains(number+400)) {
-					number = r.nextInt(10) + 10;
+				if(oldDataPack.researchDataPackage.lastEvent == 0) {
+					if (oldDataPack.researchDataPackage.ResearchWorkDone == 9)
+						number = 20;
+					else {
+						number = r.nextInt(10) + 10;
+						while(oldDataPack.researchDataPackage.ThesisRead.contains(number+400) || number==20) {
+							number = r.nextInt(10) + 10;
+						}
+					}
 				}
+				// 如果上个事件有后续事件
+				else {
+					number = oldDataPack.researchDataPackage.lastEvent;
+				}
+				oldDataPack.researchDataPackage.ResearchWorkDone ++;
 			}
 			oldDataPack.researchDataPackage.CurrentPaper = number;
 			oldDataPack.researchDataPackage.ThesisRead.add(number+400);
@@ -273,6 +327,8 @@ public class EventResearch extends EventBase{
 				oldDataPack.researchDataPackage.justGetTool = true;
 				oldDataPack.researchDataPackage.tool = "隔热服";
 			}
+			if(number==20)
+				oldDataPack.researchDataPackage.researchFinished = true;
 			return true;
 		}
 	}

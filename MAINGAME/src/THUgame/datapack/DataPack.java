@@ -169,7 +169,7 @@ public class DataPack implements Serializable , Cloneable{
 			this.courseGrade=new CourseGrade[14*4]; //这里14*4是假设每学期最多选14门课（每学期最多选多少门课写在Courses类里了，注意同步
 			this.courseGradeCount=0;
 			//仅用于调试科研地图
-			this.joinResearch = true;
+			//this.joinResearch = true;
 		}
 		if(type.equals("main")) {
 			this.ID=-1;

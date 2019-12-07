@@ -226,6 +226,9 @@ public class WinResearch extends WinBase{
 			else if(mode==105) {
 				dataPackage.choiceA="confirmHelp";
 			}
+			else if(mode==999) {
+				dataPackage.choiceA="FinishResearch";
+			}
 			
 			// 判断点击的方格是否有效，如果无效则返回
 			else if(JudgeSelectValid(mode, dataPackage.researchDataPackage.i_map) != 1) {
@@ -446,6 +449,30 @@ public class WinResearch extends WinBase{
 					noticePanelforTool.add(ToolConfirmButton);
 					
 					noticePanelforTool.add(noticeBackgroundforTool);
+				
+				if(dataPackage.researchDataPackage.justGetTool==true)
+					backgroundPanel.add(noticePanelforTool);
+				
+				JPanel noticePanelforFinish = new JPanel();//在研究结束，可以开始写论文时的提示
+				noticePanelforFinish.setBackground(new Color(255, 255, 204));
+				noticePanelforFinish.setBounds(253, 129, 536, 398);
+				noticePanelforFinish.setLayout(null);
+			
+					JPanel noticeBackgroundforFinish = new ImagePanel("imgsrc//shootGame/eb.png",0, 0, 536, 398);
+					noticeBackgroundforFinish.setOpaque(false);
+					noticeBackgroundforFinish.setBounds(0, 0, 536, 398);
+					noticeBackgroundforFinish.setLayout(null);
+				
+					JLabel FinishConfirmLabel = new JLabel("我可以开始写论文了");
+					FinishConfirmLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+					FinishConfirmLabel.setBounds(63, 107, 400, 68);
+					noticePanelforTool.add(FinishConfirmLabel);
+					
+					JButton FinishConfirmButton = new JButton("确认");
+					FinishConfirmButton.setBounds(190, 242, 190, 47);
+					noticePanelforTool.add(FinishConfirmButton);
+					
+					noticePanelforTool.add(noticeBackgroundforFinish);
 				
 				if(dataPackage.researchDataPackage.justGetTool==true)
 					backgroundPanel.add(noticePanelforTool);
@@ -775,6 +802,7 @@ public class WinResearch extends WinBase{
 				demoMouseListener clickConfirmTool=new demoMouseListener(101);
 				demoMouseListener clickConfirmThesis=new demoMouseListener(102);
 				demoMouseListener clickConfirmHelp=new demoMouseListener(105);
+				demoMouseListener clickConfirmFinish=new demoMouseListener(999);
 				
 				clickBack.setButton(backButton);
 				
@@ -793,6 +821,7 @@ public class WinResearch extends WinBase{
 				ToolConfirmButton.addMouseListener(clickConfirmTool); //返回事件
 				ThesisConfirmButton.addMouseListener(clickConfirmThesis);
 				HelpConfirmButton.addMouseListener(clickConfirmHelp);
+				FinishConfirmButton.addMouseListener(clickConfirmFinish);
 
 				/*		END OF YOUR CODE		*/
 		    	    	
