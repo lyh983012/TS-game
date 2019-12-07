@@ -63,6 +63,8 @@ public class WindowManager extends JFrame {
 		WinSaveAndLoad.dataPackage=dataPackage;
 		WinOrganization.dataPackage = dataPackage;
 		WinOrgEnroll.dataPackage = dataPackage;
+		WinSUPE1.dataPackage = dataPackage;
+		WinSUPE21.dataPackage = dataPackage;
 		//TODO:WinSUPEX
 		/*		END OF YOUR CODE		*/
 	}
@@ -105,11 +107,22 @@ public class WindowManager extends JFrame {
 			case 20001:
 				generator = new WinOrganization(mainGame, mainFrame);
 				break;
+			case 200010:
+				generator = new WinSUPE0(mainGame, mainFrame);
+				break;
 			case 200011:
 				generator = new WinOrgEnroll(mainGame, mainFrame);
 				break;
 			case 200012:
 				generator = new WinSUPE1(mainGame, mainFrame);
+				break;
+			case 200013:	
+				if (dataPackage.SUPEmentor == 1) {
+					generator = new WinSUPE21(mainGame, mainFrame);
+				}
+				else if (dataPackage.SUPEmentor == 2) {
+					
+				}
 				break;
 			case 30003:
 				generator = new WinInputName(mainGame,mainFrame);

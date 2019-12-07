@@ -9,41 +9,35 @@ import THUgame.event.EventBase;
 
 
 /*
- * 招新事件 * 
+ * 体育部第二次活动——宣传线 * 
  * 
  *  ---- LOG ----
- *  update:20191123
+ *  update:20191203
  *  via：余冬杰
- *  更新：招新的大致过程明确了
- *  TODO:
- *      1.
+ *  
  * 
  * */
 
-public class EventSUPE1 extends EventBase{
+public class EventSUPE21 extends EventBase{
 
 	public void actOn(DataPack oldDataPack) {
 		/*******************************************
 		 * 事件结束
 		 * 		转换一个标记，必要时存储一些信息
 		 *******************************************/
-		if (oldDataPack.stateA.equals("endEnroll")) {    //事件按照流程结束
-			
-		} 
 		
 		/*		START OF YOUR CODE		*/	
-		if (oldDataPack.count == 7 || oldDataPack.count == 8){
-			oldDataPack.count = 9;
-		}else if (oldDataPack.count == 6) {
-			if (oldDataPack.SUPEmentor==1) { // 汪赫谦
-				oldDataPack.count = 7;
-			}else {  // 章昭焕
-				oldDataPack.count = 8;
+		if (oldDataPack.count == 0){
+			if (oldDataPack.time == 21) { // 准时到达
+				oldDataPack.count = 2;
+			}else {  					  // 迟到了一会 
+				oldDataPack.count = 4;
 			}
-		}else if (oldDataPack.count == 9){
+		}else if (oldDataPack.count == 3 || oldDataPack.count == 5) {
+				oldDataPack.count = 6;
+		}else if (oldDataPack.count == 11){
 			oldDataPack.eventFinished=true;
 			oldDataPack.time += 2;
-			oldDataPack.SUPEprocess=3;
 		}else {
 			oldDataPack.count = oldDataPack.count + 1;
 		}	

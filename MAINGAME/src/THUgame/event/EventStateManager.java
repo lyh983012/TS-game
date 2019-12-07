@@ -88,7 +88,27 @@ public class EventStateManager extends EventBase{
 					}else if(dataPackage.choiceA=="clickGoToSTA"){
 						dataPackage.ID=20016;
 					}else if(dataPackage.choiceA.equals("clickGoToSUPE")) {
-						dataPackage.ID=200010 + dataPackage.SUPEprocess;  //20001X, X>=2
+						boolean inEvent = false;  // 标记是否处于子事件的发生时间
+						switch (dataPackage.SUPEprocess) {
+						case 2:
+							if (dataPackage.term == 1 && dataPackage.week == 1 && 
+								dataPackage.time >= 13 && dataPackage.time <= 14) {
+								inEvent = true;
+							}
+							break;
+						case 3:
+							if (dataPackage.term == 1 && dataPackage.week == 2 && 
+								dataPackage.time >= 21 && dataPackage.time <= 22) {
+								inEvent = true;
+							}
+							break;
+						}
+						if (inEvent) {
+							dataPackage.ID=200010 + dataPackage.SUPEprocess;  //20001X, X>=2
+						}else {
+							dataPackage.ID = 200010;
+						}
+						
 					}
 					//TODO:MAP中加入517A
 					break;
@@ -103,6 +123,12 @@ public class EventStateManager extends EventBase{
 					break;
 				case 200012:
 					dataPackage.ID=0;
+					break;
+				case 200013:	// 体育部第二次事件结束后，进入宿舍界面
+					dataPackage.ID=0;
+					break;
+				case 200010:    // 到了体育部但是什么也没有发生
+					dataPackage.ID = 3;
 					break;
 				//TODO:case20001X 体育部例会
         		}

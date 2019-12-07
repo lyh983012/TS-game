@@ -80,6 +80,7 @@ public class DataPack implements Serializable , Cloneable{
 	public int SUPEmentor = 0;       //体育部导师
 	public int SUPEchair = 0;        //学生会体育部长
 	public int SUPEprocess = 2;      //体育部剧情进度 1-加入体育部 2-准备第一次例会
+	public String SUPEstate = "10";      //体育部剧情进度 1-加入体育部 2-准备第一次例会
 	/*******************************************************
 	 * 自己定义的分支事件的ID，之后写在同一个文件中方便查阅
 	 *例如：考试的事件ID:"123123；
@@ -226,6 +227,7 @@ public class DataPack implements Serializable , Cloneable{
 		SUPEmentor = tmp.SUPEmentor;       //体育部导师
 		SUPEchair = tmp.SUPEchair;        //学生会体育部长
 		SUPEprocess = tmp.SUPEprocess;
+		SUPEstate = tmp.SUPEstate;
 		ID=tmp.ID;
 		courseGrade=tmp.courseGrade; //已修课程成绩单及本学期选课课程
 		courseGradeCount=tmp.courseGradeCount; //“已修课程成绩单”数组中有多少个元素

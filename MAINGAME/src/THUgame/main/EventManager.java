@@ -40,7 +40,9 @@ public class EventManager extends Thread{
     		 *  20001.社工招新->0（耗时1小时）
     		 *  20001-1：发布聘书与第一次例会通知（耗时两小时，必须满足加入SA）
     		 *  TODO:
-    		 *  20001-X
+    		 *  20001-0：非活动时间段前往517A，啥事都没
+    		 *  20001-2：第一次例会
+    		 *  20001-3：第二次例会：双支线
     		 *  
     		 *  20016. STA科协的事件。只要满足加入了科协，任意白天时间都可以去
     		 *  
@@ -87,6 +89,14 @@ public class EventManager extends Thread{
 					break;
 				case 200012:
 					pushForward = new EventSUPE1();
+					break;
+				case 200013:	
+					if (dataPackage.SUPEmentor == 1) {
+						pushForward = new EventSUPE21();
+					}
+					else if (dataPackage.SUPEmentor == 2) {
+						
+					}
 					break;
 				case 30003:
 					pushForward = new EventInputName();

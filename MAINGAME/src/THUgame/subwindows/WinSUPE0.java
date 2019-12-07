@@ -1,37 +1,42 @@
-package THUgame.windows;
+package THUgame.subwindows;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
 
-import javax.swing.ImageIcon;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.Timer;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
 import java.awt.Font;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
+import THUgame.datapack.DataPack;
+import THUgame.main.EventManager;
+import THUgame.tool.ImagePanel;
+import THUgame.windows.WinBase;
 
 /*
- * 【地图界面】
+ * 【517A界面】
  * 
- * update:20191030
- * via：林逸晗
- * 更新：加入safeGuardCount
- * 
- *  update:20191028 01:07 
- *  via：林逸晗
- *  更新：绘制地图转换以及过场动画
- * 
+ * --DIALOG--
+ *  update:20191207
+ *  via：余冬杰  
+ *  在不符合子事件时间时来到517A触发的场景
+ *  
  **/
 
 
-public class WinMap extends WinBase{
+public class WinSUPE0 extends WinBase{
 	
 	/*************************************************************	
 	 *
@@ -42,13 +47,18 @@ public class WinMap extends WinBase{
 	 * 
 	 * 
 	 *************************************************************/
+	static JRadioButton studentUnion;
+	static JRadioButton hobbyClub;
+	static JRadioButton STA;
+	
 	static private class demoMouseListener extends BaseMouseListener{
 		static public DataPack dataPackage;
 		static public EventManager mainGame;
-		static public JFrame frame;
+		private JFrame frame;
 		private JButton button;
 		private int mode;
-		Timer timer;
+		
+		
 		
 		public demoMouseListener(int i){
 			this.mode=i;
@@ -73,42 +83,18 @@ public class WinMap extends WinBase{
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			/*		START OF YOUR CODE		*/
-			if(safeGuardCount==0) {
-				safeGuardCount++;
-				if(mode==0) {
-					dataPackage.choiceA="clickbackToDom";	//点按钮0（睡觉按钮）返回sleep
-				}else if(mode ==1){
-					dataPackage.choiceA="clickGoToClassAfternoon";//点按钮1（自习按钮）返回selfstudy
-				}else if(mode ==2){
-					dataPackage.choiceA="clickGoToClassMorning";//点按钮2（上课按钮）返回gotoclass
-				}else if(mode ==3){
-					dataPackage.choiceA="clickGoToSTA";//点按钮2（上课按钮）返回gotoclass
-				}else if(mode == 4) {
-					dataPackage.choiceA="clickGoToSUPE";//点按钮3（体育部按钮）
-				}
-		    	
-				timer=new Timer(200,new ActionListener()
-			    	{
-		    			int count=0;
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							count+=1;
-							frame.getContentPane().removeAll();
-							JPanel bc = new ImagePanel("imgsrc//WinMap//"+(count%4+1)+".png",0, 0, 1080, 720);	
-							bc.setBounds(0, 0, 1080, 720);
-							frame.getContentPane().add(bc);
-							frame.getContentPane().repaint();
-							if(count==10) {
-								timer.stop();
-								dataPackage.eventFinished=true;
-								synchronized(mainGame) {
-									mainGame.notify();
-								}
-							}
-						}
-			    	});
-		    	timer.start();
+			if(mode==0) {
+				dataPackage.choiceA = "clickNext";
+				dataPackage.eventFinished = true;
 			}
+
+			/*		END OF YOUR CODE		*/
+			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
+			EventManager.dataPackage=dataPackage;
+			synchronized(mainGame) {
+				mainGame.notify();
+			}
+			//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		}
 		@Override
 		public void mouseEntered(MouseEvent e) {
@@ -121,13 +107,14 @@ public class WinMap extends WinBase{
 		}
 	}
 
+
 	/*************************************************************
 	 * 	
 	 * 【构造函数】
 	 * 		不要新建JFrame窗口对象，而是把上层传进来的窗口对象里面的东西扔了，重新添加
 	 * 
 	 *************************************************************/
-	public WinMap(EventManager mainGame,JFrame frame) {
+	public WinSUPE0(EventManager mainGame,JFrame frame) {
 		
 		//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -143,71 +130,71 @@ public class WinMap extends WinBase{
 		backgroundPanel.setBackground(Color.WHITE);
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
+		
+		
 		/*************************************************************	
-		 *【按钮】
-		 *		按钮设置流程：
-		 *		1.创建按钮
-		 *		2.取消默认的边框
-		 *		3.设置坐标和大小
-		 *		4.设置一下两种状态的图片，调用的是虚基类里的接口
-		 *		5.把按钮加入panel里
+		 * 【镶对话框】
+		 * 		建立一个带背景的Panel的流程设setBounds(x, y, 宽, 高);
+		 *  	1.建一个Panel	
+		 * 		2.Panel里建两个subPanel，全部都设成setBounds(0, 0, 宽, 高);
+		 * 		3.底下的用imagePanel工具类放图片，上面的放控件
+		 * 		4.设置两个Panel为透明这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
-		JButton backToDom = new JButton();
-		backToDom.setBorderPainted(false);
-		backToDom.setContentAreaFilled(false);
-		backToDom.setBounds(425, 50, 75, 50);
-		setIcon("/imgsrc/WinMap/BackToDom.png",backToDom);
-		setSelectedIcon("/imgsrc/WinMap/BackToDom_Press.png",backToDom);
-		backgroundPanel.add(backToDom);
+		JPanel dialogPack = new JPanel();
+		dialogPack.setBounds(66, 475, 689, 189);
+		dialogPack.setOpaque(false);//注意要设成透明的
+		dialogPack.setLayout(null);
 		
-		JButton GoToClassMorning = new JButton();
-		GoToClassMorning.setBorderPainted(false);
-		GoToClassMorning.setBounds(600, 350, 75, 50);
-		GoToClassMorning.setContentAreaFilled(false);
-		setIcon("/imgsrc/WinMap/GoToClassMorning.png",GoToClassMorning);
-		setSelectedIcon("/imgsrc/WinMap/GoToClassMorning_Press.png",GoToClassMorning);
-		if(!dataPackage.todayMorningClass.equals("----") && dataPackage.time>=8 && dataPackage.time<=10) {
-			backgroundPanel.add(GoToClassMorning);
-		}
-		JButton GoToClassAfternoon = new JButton();
-		GoToClassAfternoon.setContentAreaFilled(false);
-		GoToClassAfternoon.setBorderPainted(false);
-		GoToClassAfternoon.setBounds(280, 200, 75, 50);
-		setIcon("/imgsrc/WinMap/GoToClassNoon.png",GoToClassAfternoon);
-		setSelectedIcon("/imgsrc/WinMap/GoToClassNoon_Press.png",GoToClassAfternoon);
-		if(!dataPackage.todayAfternoonClass.equals("----") && dataPackage.time>=13 && dataPackage.time<=15) {
-			backgroundPanel.add(GoToClassAfternoon);
-		}
-		
-		JButton GoToSTA = new JButton();
-		GoToSTA.setContentAreaFilled(false);
-		GoToSTA.setBorderPainted(false);
-		GoToSTA.setBounds(720, 640, 75, 50);
-		setIcon("/imgsrc/WinMap/GoToSTA.png",GoToSTA);
-		setSelectedIcon("/imgsrc/WinMap/GoToSTA_Press.png",GoToSTA);
-		if(dataPackage.time>=8 && dataPackage.time<=18 ) {
-			backgroundPanel.add(GoToSTA);
-		}
-		
-		JButton GoToSUPE = new JButton();
-		GoToSUPE.setContentAreaFilled(false);
-		GoToSUPE.setBorderPainted(false);
-		GoToSUPE.setBounds(340, 40, 75, 50);
-		setIcon("/imgsrc/WinOrganization/517.png",GoToSUPE);
-		setSelectedIcon("/imgsrc/WinOrganization/517pressed.png",GoToSUPE);
-		backgroundPanel.add(GoToSUPE);
-		GoToSUPE.setVisible(false);
-		if(dataPackage.joinSA) {  //加入体育部后，13点517A开放
-			GoToSUPE.setVisible(true);
-		}
+			JPanel dialogPanel = new JPanel();//第1个subPanel，放控件
+			dialogPanel.setBounds(0, 0, 689, 189);//(0, 0, 宽, 高);
+			
+			JPanel dialogBackgoundPanel = new ImagePanel("imgsrc//Dialog.png",0, 0, 689, 189);	//第2个subPanel，放图
+																								//(0, 0, 宽, 高);
+			dialogBackgoundPanel.setBounds(0, 0, 689, 189);//(0, 0, 宽, 高);
+			dialogBackgoundPanel.setOpaque(false);//注意要设成透明的
+			dialogPanel.setOpaque(false);		//注意要设成透明的
+			dialogPanel.setLayout(null);
+			
+			JLabel dialogName = new JLabel();
+			dialogName.setBounds(17, 6, 89, 40);
+			dialogPanel.add(dialogName);
+					
+			JLabel dialogContent = new JLabel();
+			dialogName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			dialogContent.setBounds(27, 42, 632, 137);
+			dialogPanel.add(dialogContent);
+			
+			String text="<html>看起来现在体育部并没有什么事。</html>";       //说话内容
+			dialogName.setText("<html>独白</html>");
 
+		dialogContent.setText(text);
+		dialogPack.add(dialogPanel);		//注意：先放的在上层，所以先放带控件的
+		
+		/*************************************************************	
+		* 【下一步按钮】 
+		*  	特殊步骤下才会触发
+		*  	具体用法见MorninigClass窗口
+		*************************************************************/
+
+		JButton nextButton = new JButton();
+		nextButton.setBounds(597, 113, 52, 48);
+		dialogPanel.add(nextButton);
+		nextButton.setBorderPainted(false);
+		nextButton.setContentAreaFilled(false);
+		setIcon("/imgsrc/WinOrganization/next.png", nextButton);
+		setSelectedIcon("/imgsrc/WinOrganization/nextPressed.png", nextButton);
+			
+		dialogPack.add(dialogBackgoundPanel);
+		backgroundPanel.add(dialogPack);
+
+		
 		/*************************************************************	
 		 * 【镶时钟】
 		 * 		不需要修改
 		 * 		简而言之就是显示一个Table
 		 *************************************************************/
-		
-		
+
 		JPanel timePack = new JPanel();
 		timePack.setLayout(null);
 		timePack.setOpaque(false);//注意要设成透明的
@@ -233,8 +220,8 @@ public class WinMap extends WinBase{
 		timePack.add(timePanel);
 		timePack.add(timeBackgoundPanel);
 		backgroundPanel.add(timePack);
-			
-
+		
+		
 		/*************************************************************	
 		 * 镶待办事项 这一部分按照流程做的话就会自然消失的
 		 *************************************************************/
@@ -274,49 +261,30 @@ public class WinMap extends WinBase{
 		todoList.add(dbsxBackgruond);
 		dbsxBackgruond.setLayout(null);
 		backgroundPanel.add(todoList);
+		
+		
 		/*************************************************************	
 		 * 【放背景图】
 		 * 		最后放。
 		 *************************************************************/
 		
-		JPanel Background=new ImagePanel("imgsrc//WinMap/map.png",0, 0, 1080, 720);
+		JPanel Background=new ImagePanel("imgsrc//WinOrganization/SUPEbackground.png",0, 0, 1080, 720);
 		Background.setBounds(0, 0, 1080, 720);
 		backgroundPanel.add(Background);
 		Background.setLayout(null);
-		/*****************************************************************				
-		 * 
-		 * 【细节设定】
-		 * 在用插件绘制完界面之后进行界面内数值设定
-		 * 利用数据包进行显示控件的输出的设置
-		 * 
-		 *****************************************************************/
-		/*		START OF YOUR CODE		*/
+		
 
 		/*********************************************			
 		 * 【鼠标动作的设置】
 		 ********************************************/
 		demoMouseListener.dataPackage=dataPackage;//数据包注册，不需要改
 		demoMouseListener.mainGame=mainGame;
-		demoMouseListener.frame=frame;
-		demoMouseListener clickbackToDom=new demoMouseListener(0);//设置鼠标监听器，发生0号事件
-		demoMouseListener clickGoToClassAfternoon=new demoMouseListener(1);//设置鼠标监听器，发生1号事件
-		demoMouseListener clickGoToClassMorning=new demoMouseListener(2);//设置鼠标监听器，发生2号事件
-		demoMouseListener clickGoToSTA=new demoMouseListener(3);//设置鼠标监听器，发生2号事件
-
-		clickbackToDom.setButton(backToDom);
-		clickGoToClassAfternoon.setButton(GoToClassAfternoon);
-		clickGoToClassMorning.setButton(GoToClassMorning);
-		clickGoToSTA.setButton(GoToSTA);
 		
-		backToDom.addMouseListener(clickbackToDom);//0号事件是 睡觉按钮 被点击
-		GoToClassAfternoon.addMouseListener(clickGoToClassAfternoon);//1号事件是 去自习按钮 被点击
-		GoToClassMorning.addMouseListener(clickGoToClassMorning);
-		GoToSTA.addMouseListener(clickGoToSTA);
-		
-		demoMouseListener clickGoToSUPE=new demoMouseListener(4);
-		clickGoToSUPE.setButton(GoToSUPE);
-		GoToSUPE.addMouseListener(clickGoToSUPE);
-		/*		  END OF YOUR CODE		*/
+		demoMouseListener clickNext=new demoMouseListener(0);//设置鼠标监听器，发生0号事件
+		clickNext.setButton(nextButton);
+		nextButton.addMouseListener(clickNext);//0号事件是 下一步按钮 被点击
+		System.out.println("SUPE0");
+		/*		END OF YOUR CODE		*/
     	    	
     	/*****************************************************************				
 		 * 【恢复显示】

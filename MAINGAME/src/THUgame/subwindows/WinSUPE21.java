@@ -42,7 +42,7 @@ import THUgame.windows.WinBase;
  **/
 
 
-public class WinSUPE1 extends WinBase{
+public class WinSUPE21 extends WinBase{
 	
 	/*************************************************************	
 	 *
@@ -92,9 +92,9 @@ public class WinSUPE1 extends WinBase{
 			if(mode==0) {
 				dataPackage.choiceA = "clickNext";
 			}else if(mode ==1){
-				dataPackage.SUPEmentor = 1;  // 选择汪赫谦-设计线
+				
 			}else if(mode ==2){
-				dataPackage.SUPEmentor = 2;  // 选择章昭焕-后勤线
+				
 			}else if(mode ==3){
 				
 			}else if(mode ==4){
@@ -127,7 +127,7 @@ public class WinSUPE1 extends WinBase{
 	 * 		不要新建JFrame窗口对象，而是把上层传进来的窗口对象里面的东西扔了，重新添加
 	 * 
 	 *************************************************************/
-	public WinSUPE1(EventManager mainGame,JFrame frame) {
+	public WinSUPE21(EventManager mainGame,JFrame frame) {
 		
 		//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -183,23 +183,21 @@ public class WinSUPE1 extends WinBase{
 		System.out.println(dataPackage.count);
 		switch(dataPackage.count) {
 		case 0:
-			text = "<html>各位体育部的新生力量和老面孔大家新学期好呀！</html>";
-			break;
-		case 1:
-			speaker = 4;
-			text = "<html>吼！</html>";
+			text = "<html>哈，<font style=\"color:red\">"+dataPackage.name+"</font>你来啦！</html>";
 			break;
 		case 2:
-			speaker = 0;
-			text = "<html>新一年的马杯征程就要开始了~这半个学期我们旧成员要做好交接的工作，让新人熟悉工作，学期结束后放心大胆的交给他们！</html>";
+			speaker = 1;
+			text = "<html>汪师傅你好！</html>";
 			break;
 		case 3:
 			speaker = 0;
-			text = "<html>体育部目前采用师徒制，每一位新成员都要选择一个学长/学姐作为师傅，协助他/她工作了解内容。</html>";
+			text = "<html>嘿嘿，我们开始工作吧。今天主要是把中午男篮比赛的图片筛选一下用于推送素材，"+
+				   "我们需要从6张图中选取3张。<font style=\"color:red\">\"不同的图片代表不同的得分，</font>"+
+				   "只有满足得分要求才可以开始做推送噢。</html>";
 			break;
 		case 4:
 			speaker = 1;
-			text = "<html>……看着其他同学决定</html>";
+			text = "<html></html>";
 			break;
 		case 5:
 			speaker = 0;
@@ -207,48 +205,30 @@ public class WinSUPE1 extends WinBase{
 			break;
 		case 6:
 			speaker = 1;
-			String name = "";
-			if (dataPackage.SUPEmentor==1) {
-				name = "汪赫谦";
-			}else if (dataPackage.SUPEmentor==2){
-				name = "章昭焕";
-			}	
-			text = "<html>最终选择了<font style=\"color:red\">"+name+"</font>作为自己的师傅</html>";
+			text = "<html>明白了，我们开始吧！</html>";
 			break;
 		case 7:
 			speaker = 3;			
-			text = "<html>你眼光真不赖233333选我做师傅，下周我们应该会有第一件事，做当天男篮比赛的推送。<font style=\"color:red\">"+"下周四9点"+
-					"</font>我们<font style=\"color:red\">"+"517A"+"</font>见，做好准备哦。</html>";
+			text = "<html></html>";
 			break;
 		case 8:
 			speaker = 2;	
-			text = "<html>谢谢你信任我做师傅！键绳运动会快到了，<font style=\"color:red\">"+"下周四晚8点C楼"+
-					"</font>会有训练，到时候得麻烦你7点提前去<font style=\"color:red\">"+"黑猫超市"+"</font>购买好物资，辛苦啦！</html>";
+			text = "<html></html>";
 			break;
 		case 9:
 			speaker = 0;	
-			text = "<html>好的，今天的例会就到这里。第2周我们只有运动服务的任务，不需要参加例会，大家按照师傅的要求做就好；第三次例会在第三周周二晚上10点，地点还是517A哈。如果两次例会没有参加，就会视为退出体育部，大家注意安排。</html>";
+			text = "<html></html>";
 			break;
 		}
 		
 		
-		
 		//<html><font style=\"color:blue\">庚敬</font><font style=\"color:red\">煊</font></html>"
 		switch (speaker) {
-		case 0:
-			dialogName.setText("<html>庚敬煊</html>");
-			break;
-		case 1:
-			dialogName.setText("<html>独白</html>");
-			break;
-		case 2:
-			dialogName.setText("<html>章昭焕</html>");
-			break;
-		case 3:
+		case 0:	
 			dialogName.setText("<html>汪赫谦</html>");
 			break;
-		case 4:
-			dialogName.setText("<html>所有人</html>");
+		case 1:
+			dialogName.setText("<html>我</html>");
 			break;
 		}
 		dialogContent.setText(text);
