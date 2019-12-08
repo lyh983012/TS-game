@@ -11,11 +11,14 @@ import java.util.*;
 
 public class ResearchData implements Serializable{
 	
+	public boolean firstEnter = true;  //是否是首次进入科研地图
+	
 	public int numberofPaperRead=0;  //阅读的文献数目
 	public int TheoryPaperRead=0;  //阅读的理论文献
 	public int ThermalPaperRead=0;  //阅读的热工文献
 	public int SimulationPaperRead=0;  //阅读的模拟方面的文献
 	public int DesignPaperRead=0;  //阅读的设计方面的文献
+	public int ResearchWorkDone=0; //进行的研究次数
 	public int CurrentPaper=0;  //阅读的上一篇文献号
 	
 	public boolean hasKettle = false; //是否有水壶
@@ -26,6 +29,12 @@ public class ResearchData implements Serializable{
 	public boolean hasSled = false;  //是否有雪橇
 	public boolean hasTrekkingPole = false;  //是否有登山杖
 	public boolean hasInsulationSuit = false;  //是否有隔热服
+	
+	public boolean justGetTool=false;
+	public boolean justReadThesis=false;
+	public String tool="";
+	public int lastEvent = 0;
+	public boolean researchFinished = false;
 	
 	
 	/* 科研格子状态：
@@ -245,9 +254,9 @@ public class ResearchData implements Serializable{
 				"我接到任务，编写了一个小型的组件模型并对它进行了分析，对我的项目没有什么影响。智力值提高了0.5", 0.5, 3, 0);
 			IceBorneMapEvent[17] = new ResearchMapEvent(318, "改变人工智能模型",
 				"在多次调整参数未果后，我把人工智能模型从原来的决策树改成了神经网络。", 0.5, 3, 316);
-			IceBorneMapEvent[18] = new ResearchMapEvent(301, "debuging",
+			IceBorneMapEvent[18] = new ResearchMapEvent(319, "debuging",
 				"艰难的debug···半天时间就这么过去了。智力值提高了0.5", 0.5, 3, 0);
-			IceBorneMapEvent[0] = new ResearchMapEvent(301, "我终于实现了一种新的分析方法",
+			IceBorneMapEvent[0] = new ResearchMapEvent(320, "我终于实现了一种新的分析方法",
 				"在这么多次尝试之后，我终于把人工智能模型放入了反应堆实时分析的框架中，我想我可以为此写篇paper了。智力值提高了1", 0.5, 3, 0);
 
 			//沙漠地图（新堆型设计方向）
@@ -300,8 +309,6 @@ public class ResearchData implements Serializable{
 		public ResearchMapEvent[] ForestMapEvent = new ResearchMapEvent[20];
 		public ResearchMapEvent[] IceBorneMapEvent = new ResearchMapEvent[20];
 		public ResearchMapEvent[] VolcanoMapEvent = new ResearchMapEvent[20];
-		public boolean justGetTool=false;
-		public String tool="";
 
 		public class ResearchMapEvent implements Serializable{
 			/**得到的

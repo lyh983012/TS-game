@@ -218,7 +218,16 @@ public class WinResearch extends WinBase{
 				dataPackage.choiceA="back";
 			}
 			else if(mode==101) {
-				dataPackage.choiceA="confirm";
+				dataPackage.choiceA="confirmTool";
+			}
+			else if(mode==102) {
+				dataPackage.choiceA="confirmThesis";
+			}
+			else if(mode==105) {
+				dataPackage.choiceA="confirmHelp";
+			}
+			else if(mode==999) {
+				dataPackage.choiceA="FinishResearch";
 			}
 			
 			// 判断点击的方格是否有效，如果无效则返回
@@ -371,22 +380,102 @@ public class WinResearch extends WinBase{
 				/*************************************************************
 				 * 【小事件提示框】
 				 */
-				JPanel noticePanel = new JPanel();//将来可以用它来放临时小事件
-				noticePanel.setBackground(new Color(255, 255, 204));
-				noticePanel.setBounds(253, 129, 536, 398);
-				noticePanel.setLayout(null);
+				JPanel guidePanel = new JPanel(); //在首次进入科研地图的时候提示玩家如何做
+				guidePanel.setBackground(new Color(255, 255, 204));
+				guidePanel.setBounds(253, 129, 536, 398);
+				guidePanel.setLayout(null);
+				
+					JPanel guideBackgroundImage = new ImagePanel("imgsrc//shootGame/eb.png",0, 0, 536, 398);
+					guideBackgroundImage.setOpaque(false);
+					guideBackgroundImage.setBounds(0, 0, 536, 398);
+					guideBackgroundImage.setLayout(null);
+					
+					JLabel guideLabel = new JLabel("<html>恭喜你，终于踏上科研之路,欢迎在科研岛上探索。"
+							+ "浅绿色的区域表示你已阅读的文献/进行的研究，点击周围的区域来阅读文献</html>");
+					guideLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+					guideLabel.setBounds(63, 107, 400, 136);
+					guidePanel.add(guideLabel);
+					
+					JButton HelpConfirmButton = new JButton("确认");
+					HelpConfirmButton.setBounds(190, 272, 190, 47);
+					guidePanel.add(HelpConfirmButton);
+					
+					guidePanel.add(guideBackgroundImage);
+				
+				if(dataPackage.researchDataPackage.firstEnter==true)
+					backgroundPanel.add(guidePanel);
+				
+				JPanel noticePanelforThesis = new JPanel();//在读完一篇文章后显示的小事件框
+				noticePanelforThesis.setBackground(new Color(255, 255, 204));
+				noticePanelforThesis.setBounds(253, 129, 536, 398);
+				noticePanelforThesis.setLayout(null);
+					
+					JPanel noticeBackgroundforThesis = new ImagePanel("imgsrc//shootGame/eb.png",0, 0, 536, 398);
+					noticeBackgroundforThesis.setOpaque(false);
+					noticeBackgroundforThesis.setBounds(0, 0, 536, 398);
+					noticeBackgroundforThesis.setLayout(null);
+				
+					JLabel ThesisConfirmLabel = new JLabel("<html>"+dataPackage.notification+"</html>");
+					ThesisConfirmLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+					ThesisConfirmLabel.setBounds(63, 107, 400, 68);
+					noticePanelforThesis.add(ThesisConfirmLabel);
+					
+					JButton ThesisConfirmButton = new JButton("确认");
+					ThesisConfirmButton.setBounds(190, 242, 190, 47);
+					noticePanelforThesis.add(ThesisConfirmButton);
+					
+					noticePanelforThesis.add(noticeBackgroundforThesis);
+				
+				if(dataPackage.researchDataPackage.justReadThesis==true)
+					backgroundPanel.add(noticePanelforThesis);
+				
+				JPanel noticePanelforTool = new JPanel();//在获得道具的时候显示的小事件框
+				noticePanelforTool.setBackground(new Color(255, 255, 204));
+				noticePanelforTool.setBounds(253, 129, 536, 398);
+				noticePanelforTool.setLayout(null);
 			
+					JPanel noticeBackgroundforTool = new ImagePanel("imgsrc//shootGame/eb.png",0, 0, 536, 398);
+					noticeBackgroundforTool.setOpaque(false);
+					noticeBackgroundforTool.setBounds(0, 0, 536, 398);
+					noticeBackgroundforTool.setLayout(null);
+				
 					JLabel lblNewLabel_1 = new JLabel("恭喜你获得了道具——"+dataPackage.researchDataPackage.tool);
 					lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-					lblNewLabel_1.setBounds(126, 107, 400, 68);
-					noticePanel.add(lblNewLabel_1);
+					lblNewLabel_1.setBounds(63, 107, 400, 68);
+					noticePanelforTool.add(lblNewLabel_1);
 					
-					JButton btnNewButton_3 = new JButton("确认");
-					btnNewButton_3.setBounds(190, 242, 190, 47);
-					noticePanel.add(btnNewButton_3);
+					JButton ToolConfirmButton = new JButton("确认");
+					ToolConfirmButton.setBounds(190, 242, 190, 47);
+					noticePanelforTool.add(ToolConfirmButton);
+					
+					noticePanelforTool.add(noticeBackgroundforTool);
 				
 				if(dataPackage.researchDataPackage.justGetTool==true)
-					backgroundPanel.add(noticePanel);
+					backgroundPanel.add(noticePanelforTool);
+				
+				JPanel noticePanelforFinish = new JPanel();//在研究结束，可以开始写论文时的提示
+				noticePanelforFinish.setBackground(new Color(255, 255, 204));
+				noticePanelforFinish.setBounds(253, 129, 536, 398);
+				noticePanelforFinish.setLayout(null);
+			
+					JPanel noticeBackgroundforFinish = new ImagePanel("imgsrc//shootGame/eb.png",0, 0, 536, 398);
+					noticeBackgroundforFinish.setOpaque(false);
+					noticeBackgroundforFinish.setBounds(0, 0, 536, 398);
+					noticeBackgroundforFinish.setLayout(null);
+				
+					JLabel FinishConfirmLabel = new JLabel("我可以开始写论文了");
+					FinishConfirmLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+					FinishConfirmLabel.setBounds(63, 107, 400, 68);
+					noticePanelforTool.add(FinishConfirmLabel);
+					
+					JButton FinishConfirmButton = new JButton("确认");
+					FinishConfirmButton.setBounds(190, 242, 190, 47);
+					noticePanelforTool.add(FinishConfirmButton);
+					
+					noticePanelforTool.add(noticeBackgroundforFinish);
+				
+				if(dataPackage.researchDataPackage.justGetTool==true)
+					backgroundPanel.add(noticePanelforTool);
 				
 				/*************************************************************	
 				 * 【镶对话框】
@@ -710,7 +799,10 @@ public class WinResearch extends WinBase{
 				demoMouseListener.mainGame=mainGame;
 				
 				demoMouseListener clickBack=new demoMouseListener(99);//设置鼠标监听器，发生99号事件
-				demoMouseListener clickConfirm=new demoMouseListener(101);
+				demoMouseListener clickConfirmTool=new demoMouseListener(101);
+				demoMouseListener clickConfirmThesis=new demoMouseListener(102);
+				demoMouseListener clickConfirmHelp=new demoMouseListener(105);
+				demoMouseListener clickConfirmFinish=new demoMouseListener(999);
 				
 				clickBack.setButton(backButton);
 				
@@ -726,7 +818,10 @@ public class WinResearch extends WinBase{
 				
 
 				backButton.addMouseListener(clickBack);//2号事件是 去上课按钮 被点击
-				btnNewButton_3.addMouseListener(clickConfirm); //返回事件
+				ToolConfirmButton.addMouseListener(clickConfirmTool); //返回事件
+				ThesisConfirmButton.addMouseListener(clickConfirmThesis);
+				HelpConfirmButton.addMouseListener(clickConfirmHelp);
+				FinishConfirmButton.addMouseListener(clickConfirmFinish);
 
 				/*		END OF YOUR CODE		*/
 		    	    	
