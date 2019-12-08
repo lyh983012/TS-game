@@ -32,12 +32,46 @@ public class EventSUPE21 extends EventBase{
 				oldDataPack.count = 2;
 			}else {  					  // 迟到了一会 
 				oldDataPack.count = 4;
+				oldDataPack.characterEQ -= 2;
 			}
 		}else if (oldDataPack.count == 3 || oldDataPack.count == 5) {
 				oldDataPack.count = 6;
-		}else if (oldDataPack.count == 11){
+		}else if (oldDataPack.count == 8) {
+			switch (oldDataPack.stateB) {
+			case "Success":
+				System.out.println("奥利给！");
+				int timePasses = 1 + Integer.valueOf(oldDataPack.stateA) / 4;
+				if (timePasses == 1) {
+					oldDataPack.count = 9;
+				}else if (timePasses == 2) {
+					oldDataPack.count = 10;
+				}else if (timePasses == 3) {
+					oldDataPack.count = 11;
+				}
+				oldDataPack.time += timePasses;
+				break;
+			case "justStop":
+				System.out.println("给力嗷！");
+				oldDataPack.count = 13;
+				break;
+			}
+		}else if (oldDataPack.count >=9 && oldDataPack.count <= 11){
+			oldDataPack.count = 12;
+		}else if (oldDataPack.count == 12){
 			oldDataPack.eventFinished=true;
-			oldDataPack.time += 2;
+			// SUPE贡献值+3，心情+5，体力-时间*2
+			oldDataPack.SUPEcontribution += 3;
+			oldDataPack.characterHappiness += 5;
+			oldDataPack.characterEnergy -= (1 + Integer.valueOf(oldDataPack.stateA) / 4) * 2;
+			oldDataPack.SUPEprocess=4;
+			
+		}else if (oldDataPack.count == 14){
+			oldDataPack.eventFinished=true;
+			oldDataPack.SUPEcontribution += 2;
+			oldDataPack.characterHappiness += 1;
+			oldDataPack.characterEnergy -= 8;
+			oldDataPack.time += 4;
+			oldDataPack.SUPEprocess=4;
 		}else {
 			oldDataPack.count = oldDataPack.count + 1;
 		}	

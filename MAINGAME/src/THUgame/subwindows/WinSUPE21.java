@@ -28,16 +28,11 @@ import THUgame.windows.WinBase;
 /*
  * 【宿舍界面】
  * 
- * --DIALOG--
- *  update:20191123
- *  via：余冬杰  
- *  
- *  update:20191029
+ * 体育部第二次活动——宣传线 * 
+ * 
+ *  ---- LOG ----
+ *  update:20191203
  *  via：余冬杰
- *  更新：
- *  TODO:
- *      1.
- *  TODO LIST in line:
  *  
  **/
 
@@ -53,9 +48,12 @@ public class WinSUPE21 extends WinBase{
 	 * 
 	 * 
 	 *************************************************************/
-	static JRadioButton studentUnion;
-	static JRadioButton hobbyClub;
-	static JRadioButton STA;
+	static JRadioButton img1;
+	static JRadioButton img2;
+	static JRadioButton img3;
+	static JRadioButton img4;
+	static JRadioButton img5;
+	static JRadioButton img6;
 	
 	static private class demoMouseListener extends BaseMouseListener{
 		static public DataPack dataPackage;
@@ -92,9 +90,73 @@ public class WinSUPE21 extends WinBase{
 			if(mode==0) {
 				dataPackage.choiceA = "clickNext";
 			}else if(mode ==1){
-				
+				dataPackage.choiceA = "chooseImg";
 			}else if(mode ==2){
-				
+				// 开始结算分数
+				// 1-3  2-6  3-1  4-4  5-2  6-5
+				if (safeGuardCount == 0 && dataPackage.count==8) {
+					int choose1 = 0;
+					int choose2 = 0;
+					int choose3 = 0;
+					int choose4 = 0;
+					int choose5 = 0;
+					int choose6 = 0;
+					int point = 0;  // 总得分
+					if (img1.isSelected()) {
+						choose1 = 1;
+						point += 3;
+					}
+					if (img2.isSelected()) {
+						choose2 = 1;
+						point += 6;
+					}
+					if (img3.isSelected()) {
+						choose3 = 1;
+						point += 1;
+					}
+					if (img4.isSelected()) {
+						choose4 = 1;
+						point += 4;
+					}
+					if (img5.isSelected()) {
+						choose5 = 1;
+						point += 2;
+					}
+					if (img6.isSelected()) {
+						choose6 = 1;
+						point += 5;
+					}
+					if( choose1+choose2+choose3+choose4+choose5+choose6<3) {
+						JOptionPane.showMessageDialog(null, "没选满3张图片噢", "oops",JOptionPane.WARNING_MESSAGE);  
+						return;
+					}
+					if( choose1+choose2+choose3+choose4+choose5+choose6>3) {
+						JOptionPane.showMessageDialog(null, "图片选的太多啦", "oops",JOptionPane.WARNING_MESSAGE);  
+						return;
+					}
+					if(choose1+choose2+choose3+choose4+choose5+choose6 == 3) {
+						if (dataPackage.stateA.equals("")) {
+							dataPackage.stateA = "1";
+						}else {
+							dataPackage.stateA = "" + (Integer.valueOf(dataPackage.stateA)+1); // 记录选取次数
+						}
+						System.out.println(dataPackage.stateA+"!");
+						if(point >= 10) {
+							dataPackage.stateB = "Success";
+							safeGuardCount++;
+						}else if(10 - point > 1) {  // 分数差的比较多
+							dataPackage.stateB = "farFromSuccess";
+							if (Integer.valueOf(dataPackage.stateA) >= 12) {
+								dataPackage.stateB = "justStop";
+							}
+						}else if(10 - point == 1) { // 分数很接近了
+							dataPackage.stateB = "nearlySuccess";
+							if (Integer.valueOf(dataPackage.stateA) >= 12) {
+								dataPackage.stateB = "justStop";
+							}
+						} 
+					}
+				}
 			}else if(mode ==3){
 				
 			}else if(mode ==4){
@@ -192,32 +254,60 @@ public class WinSUPE21 extends WinBase{
 		case 3:
 			speaker = 0;
 			text = "<html>嘿嘿，我们开始工作吧。今天主要是把中午男篮比赛的图片筛选一下用于推送素材，"+
-				   "我们需要从6张图中选取3张。<font style=\"color:red\">\"不同的图片代表不同的得分，</font>"+
+				   "我们需要从6张图中选取3张。<font style=\"color:red\">不同的图片代表不同的得分，</font>"+
 				   "只有满足得分要求才可以开始做推送噢。</html>";
 			break;
 		case 4:
 			speaker = 1;
-			text = "<html></html>";
+			text = "<html>抱歉抱歉学长，我迟到了......<br>社交值-2</html>";
 			break;
 		case 5:
 			speaker = 0;
-			text = "<html><font style=\"color:red\">"+dataPackage.name+"</font>该你作出决定啦</html>";
+			text =  "<html>哈哈没事没事，我们尽快开始。今天主要是把中午男篮比赛的图片筛选一下用于推送素材，"+
+					"我们需要从6张图中选取3张。<font style=\"color:red\">不同的图片代表不同的得分，</font>"+
+					"只有满足得分要求才可以开始做推送噢。</html>";
 			break;
 		case 6:
 			speaker = 1;
 			text = "<html>明白了，我们开始吧！</html>";
 			break;
-		case 7:
-			speaker = 3;			
-			text = "<html></html>";
-			break;
 		case 8:
-			speaker = 2;	
-			text = "<html></html>";
+			speaker = 0;
+			switch (dataPackage.stateB) {
+			case "nearlySuccess":
+				text = "<html>再选择一下呢？感觉效果很接近了</html>";
+				break;
+			case "farFromSuccess":
+				text = "<html>看起来效果不是很好~</html>";
+				break;
+			case "":
+				text = "<html>开始选择吧~</html>";
+				break;
+			}
 			break;
 		case 9:
 			speaker = 0;	
-			text = "<html></html>";
+			text = "<html>嗯，看起来效果不错！你很有做推送的天赋嘛2333333！今天就到这里，辛苦你啦，记得下周二晚上10点的例会~</html>";
+			break;
+		case 10:
+			speaker = 0;	
+			text = "<html>嗯，调到了不错的效果！今天也不早啦，辛苦！记得下周二晚上10点的例会~</html>";
+			break;
+		case 11:
+			speaker = 0;	
+			text = "<html>嗯！虽然试了好多次，但是最终的效果很好！设计这事情的确需要灵感和勤勉。辛苦啦，快回去睡觉吧~记得下周二晚上10点的例会~</html>";
+			break;
+		case 12:
+			speaker = 1;	
+			text = "<html>谢谢师傅，我先撤啦！再见~ <br>SUPE贡献值+3，心情+5，体力减少了一部分</html>";
+			break;
+		case 13:
+			speaker = 0;	
+			text = "<html>今天也不早啦，你先回去休息吧！我再来调整一下推送的排版~</html>";
+			break;
+		case 14:
+			speaker = 1;
+			text = "<html>谢谢师傅，那我先回去了，拜拜！<br>SUPE贡献值+2，心情+1，体力-8</html>";
 			break;
 		}
 		
@@ -251,14 +341,81 @@ public class WinSUPE21 extends WinBase{
 		dialogPack.add(dialogBackgoundPanel);
 		backgroundPanel.add(dialogPack);
 
-		if (dataPackage.count == 5) {              //触发聘书，不显示next，通过×交互  
+		if (dataPackage.count == 7 || dataPackage.count == 8) {  //触发选图，不显示next，通过确认交互
 			nextButton.setVisible(false);
 		}
 		
+		/*************************************************************	
+		* 【选取图片】 
+		*  	count=8 触发
+		*  
+		*************************************************************/
+		JPanel chooseImgPack = new JPanel();
+		chooseImgPack.setLayout(null);
+		chooseImgPack.setOpaque(false);//注意要设成透明的
+		chooseImgPack.setBounds(221, 136, 512, 354);
+		chooseImgPack.setVisible(false);
+		JPanel chooseImgPanel = new JPanel();
+		chooseImgPanel.setBounds(0, 0, 512, 354);
+		chooseImgPanel.setOpaque(false);//注意要设成透明的
+		chooseImgPanel.setLayout(null);
+		
+			JPanel chooseImgBackground = new ImagePanel("imgsrc//WinOrganization/chooseImg.png",0, 0, 512, 354);
+			chooseImgBackground.setBounds(0, 0, 512, 354);
+			chooseImgBackground.setLayout(null);
+			
+				img1 = new JRadioButton();
+				img1.setBounds(150, 101, 30, 30);
+				img1.setOpaque(false);//注意要设成透明的
+				img1.setSelected(true);
+				chooseImgPanel.add(img1);
+				
+				img2 = new JRadioButton();
+				img2.setBounds(303, 101, 30, 30);
+				img2.setOpaque(false);//注意要设成透明的
+				chooseImgPanel.add(img2);
+				
+				img3 = new JRadioButton();
+				img3.setBounds(456, 101, 30, 30);
+				img3.setOpaque(false);//注意要设成透明的
+				img3.setSelected(true);
+				chooseImgPanel.add(img3);
+				
+				img4 = new JRadioButton();
+				img4.setBounds(150, 234, 30, 30);
+				img4.setOpaque(false);//注意要设成透明的
+				chooseImgPanel.add(img4);
+				
+				img5 = new JRadioButton();
+				img5.setBounds(303, 234, 30, 30);
+				img5.setOpaque(false);//注意要设成透明的
+				img5.setSelected(true);
+				chooseImgPanel.add(img5);
+				
+				img6 = new JRadioButton();
+				img6.setBounds(456, 234, 30, 30);
+				img6.setOpaque(false);//注意要设成透明的
+				chooseImgPanel.add(img6);
+				
+				JButton submit = new JButton();
+				submit.setBounds(193, 305, 120, 40);
+				submit.setBorderPainted(false);
+				submit.setContentAreaFilled(false);
+				setIcon("/imgsrc/WinOrganization/buttonUp.png", submit);
+				setSelectedIcon("/imgsrc/WinOrganization/buttonDown.png", submit);
+				chooseImgPanel.add(submit);
+				
+			chooseImgPack.add(chooseImgPanel);
+			chooseImgPack.add(chooseImgBackground);
+			backgroundPanel.add(chooseImgPack);
+		
+		if (dataPackage.count == 8) {
+			chooseImgPack.setVisible(true);
+		}
 		
 		/*************************************************************	
-		* 【选择师傅】 
-		*  	count=5触发
+		* 【规则解释】 
+		*  	count=7 触发
 		*  
 		*************************************************************/
 		JPanel choosePack = new JPanel();
@@ -272,92 +429,32 @@ public class WinSUPE21 extends WinBase{
 			choosePanel.setOpaque(false);//注意要设成透明的
 			choosePanel.setLayout(null);
 			
-			JPanel chooseBackground = new ImagePanel("imgsrc//WinOrganization/chooseBG.png",0, 0, 512, 354);
+			JPanel chooseBackground = new ImagePanel("imgsrc//WinOrganization/ruleExplain.png",0, 0, 512, 354);
 			chooseBackground.setBounds(0, 0, 512, 354);
 			chooseBackground.setLayout(null);
 			
-				// 标题
-				JLabel textTitle = new JLabel();
-				textTitle.setVerticalAlignment(SwingConstants.CENTER);
-				textTitle.setHorizontalAlignment(SwingConstants.CENTER);
-				textTitle.setText("<html>你选择哪位师傅呢？</html>");
-				textTitle.setOpaque(false);
-				textTitle.setFont(new Font("华文黑体", Font.BOLD, 30));
-				textTitle.setBounds(10, 0, 502, 50);
-				choosePanel.add(textTitle);
-				
-				// 汪赫谦区
-				JPanel masterWang = new JPanel();
-				masterWang.setBounds(40, 60, 200, 220);
-				masterWang.setOpaque(false);//注意要设成透明的
-				masterWang.setLayout(null);
-				choosePanel.add(masterWang);
-					JLabel wangContent = new JLabel();
-					wangContent.setVerticalAlignment(SwingConstants.TOP);
-					wangContent.setOpaque(false);
-					wangContent.setFont(new Font("印品黑体", Font.PLAIN, 15));
-					wangContent.setBounds(10, 150, 190, 70);
-					wangContent.setText("<html>喜欢说骚话<br>想象力丰富<br>主要负责推送和海报的制作</html>");
-					masterWang.add(wangContent);
-				
-					JPanel imageWang = new ImagePanel("imgsrc//WinOrganization/whq.png",0, 0, 132, 220);
-					imageWang.setBounds(34, 0, 132, 220);
-					imageWang.setLayout(null);
-					masterWang.add(imageWang);
-					
-					
-				
-				//章昭焕区
-				JPanel masterZhang = new JPanel();
-				masterZhang.setBounds(272, 60, 200, 220);
-				masterZhang.setOpaque(false);//注意要设成透明的
-				masterZhang.setLayout(null);
-				choosePanel.add(masterZhang);
-					JLabel zhangContent = new JLabel();
-					zhangContent.setVerticalAlignment(SwingConstants.TOP);
-					//zhangContent.setHorizontalAlignment(SwingConstants.CENTER);
-					zhangContent.setOpaque(false);
-					zhangContent.setFont(new Font("印品黑体", Font.PLAIN, 15));
-					zhangContent.setBounds(0, 150, 190, 70);
-					zhangContent.setText("<html>认真负责<br>但不善言谈<br>主要负责后勤的事务</html>");
-					masterZhang.add(zhangContent);
-					
-					JPanel imageZhang = new ImagePanel("imgsrc//WinOrganization/zzh.png",0, 0, 132, 220);
-					imageZhang.setBounds(34, 0, 132, 220);
-					imageZhang.setLayout(null);
-					masterZhang.add(imageZhang);
-					
-				
-				// 选择按钮
-				JButton WButton = new JButton();
-				WButton.setBounds(85, 290, 120, 40);
-				WButton.setBorderPainted(false);
-				WButton.setContentAreaFilled(false);
-				setIcon("/imgsrc/WinOrganization/wang.png", WButton);
-				setSelectedIcon("/imgsrc/WinOrganization/wangPressed.png", WButton);
-				choosePanel.add(WButton);
-				
-				JButton ZButton = new JButton();
-				ZButton.setBounds(317, 290, 120, 40);
-				ZButton.setBorderPainted(false);
-				ZButton.setContentAreaFilled(false);
-				setIcon("/imgsrc/WinOrganization/zhang.png", ZButton);
-				setSelectedIcon("/imgsrc/WinOrganization/zhangPressed.png", ZButton);
-				choosePanel.add(ZButton);
-				
-				demoMouseListener clickWang=new demoMouseListener(1);//设置鼠标监听器，发生1号事件——选择汪赫谦
-				clickWang.setButton(WButton);
-				WButton.addMouseListener(clickWang);
-				
-				demoMouseListener clickZhang=new demoMouseListener(2);//设置鼠标监听器，发生2号事件——选择章昭焕
-				clickZhang.setButton(ZButton);
-				ZButton.addMouseListener(clickZhang);
-				
-				choosePack.add(choosePanel);
-				choosePack.add(chooseBackground);
+			JLabel textTitle = new JLabel();
+			textTitle.setVerticalAlignment(SwingConstants.CENTER);
+			textTitle.setHorizontalAlignment(SwingConstants.CENTER);
+			textTitle.setText("<html>从6张给定的图片中选择3张，汪师傅会对你选择的图片给出评价。如果他不够满意的话，需要重新选择。机会不限，但是时间流逝与选择次数有关。加油，奥利给！</html>");
+			textTitle.setOpaque(false);
+			textTitle.setFont(new Font("仿宋", Font.BOLD, 30));
+			textTitle.setBounds(10, 73, 492, 200);
+			choosePanel.add(textTitle);
+			
+			JButton confirm = new JButton();
+			confirm.setBounds(193, 283, 120, 40);
+			confirm.setBorderPainted(false);
+			confirm.setContentAreaFilled(false);
+			setIcon("/imgsrc/WinOrganization/buttonUp.png", confirm);
+			setSelectedIcon("/imgsrc/WinOrganization/buttonDown.png", confirm);
+			choosePanel.add(confirm);
+			
+			choosePack.add(choosePanel);
+			choosePack.add(chooseBackground);
 		backgroundPanel.add(choosePack);     //触发聘书，不显示next，通过×交互
 		
-		if (dataPackage.count == 5) {
+		if (dataPackage.count == 7) {
 			choosePack.setVisible(true);
 		}
 		
@@ -455,6 +552,14 @@ public class WinSUPE21 extends WinBase{
 		demoMouseListener clickNext=new demoMouseListener(0);//设置鼠标监听器，发生0号事件
 		clickNext.setButton(nextButton);
 		nextButton.addMouseListener(clickNext);//0号事件是 下一步按钮 被点击
+		
+		demoMouseListener clickConfirm=new demoMouseListener(1);//设置鼠标监听器，发生0号事件
+		clickConfirm.setButton(confirm);
+		confirm.addMouseListener(clickConfirm);//0号事件是 下一步按钮 被点击
+		
+		demoMouseListener clickSubmit=new demoMouseListener(2);//设置鼠标监听器，发生0号事件
+		clickSubmit.setButton(submit);
+		submit.addMouseListener(clickSubmit);//0号事件是 下一步按钮 被点击
 
 		/*		END OF YOUR CODE		*/
     	    	
