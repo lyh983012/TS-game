@@ -42,7 +42,7 @@ import THUgame.windows.WinBase;
  **/
 
 
-public class WinSUPE1 extends WinBase{
+public class WinSUPE22 extends WinBase{
 	
 	/*************************************************************	
 	 *
@@ -127,7 +127,7 @@ public class WinSUPE1 extends WinBase{
 	 * 		不要新建JFrame窗口对象，而是把上层传进来的窗口对象里面的东西扔了，重新添加
 	 * 
 	 *************************************************************/
-	public WinSUPE1(EventManager mainGame,JFrame frame) {
+	public WinSUPE22(EventManager mainGame,JFrame frame) {
 		
 		//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -222,8 +222,8 @@ public class WinSUPE1 extends WinBase{
 			break;
 		case 8:
 			speaker = 2;	
-			text = "<html>谢谢你信任我做师傅！键绳运动会快到了，<font style=\"color:red\">"+"下周四晚9点C楼"+
-					"</font>会有训练，到时候得麻烦你8点提前去<font style=\"color:red\">"+"黑猫超市"+"</font>购买好物资，辛苦啦！</html>";
+			text = "<html>谢谢你信任我做师傅！键绳运动会快到了，<font style=\"color:red\">"+"下周四晚8点C楼"+
+					"</font>会有训练，到时候得麻烦你7点提前去<font style=\"color:red\">"+"黑猫超市"+"</font>购买好物资，辛苦啦！</html>";
 			break;
 		case 9:
 			speaker = 0;	

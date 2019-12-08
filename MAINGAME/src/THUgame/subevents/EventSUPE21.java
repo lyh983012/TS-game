@@ -64,7 +64,7 @@ public class EventSUPE21 extends EventBase{
 			oldDataPack.characterHappiness += 5;
 			oldDataPack.characterEnergy -= (1 + Integer.valueOf(oldDataPack.stateA) / 4) * 2;
 			oldDataPack.SUPEprocess=4;
-			
+			oldDataPack.SUPEstate="11";
 		}else if (oldDataPack.count == 14){
 			oldDataPack.eventFinished=true;
 			oldDataPack.SUPEcontribution += 2;
@@ -72,6 +72,7 @@ public class EventSUPE21 extends EventBase{
 			oldDataPack.characterEnergy -= 8;
 			oldDataPack.time += 4;
 			oldDataPack.SUPEprocess=4;
+			oldDataPack.SUPEstate="11";
 		}else {
 			oldDataPack.count = oldDataPack.count + 1;
 		}	

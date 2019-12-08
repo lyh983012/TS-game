@@ -95,7 +95,7 @@ public class EventManager extends Thread{
 						pushForward = new EventSUPE21();
 					}
 					else if (dataPackage.SUPEmentor == 2) {
-						
+						pushForward = new EventSUPE22();
 					}
 					break;
 				case 30003:

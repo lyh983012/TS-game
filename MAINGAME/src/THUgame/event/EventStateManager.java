@@ -92,14 +92,16 @@ public class EventStateManager extends EventBase{
 						switch (dataPackage.SUPEprocess) {
 						case 2:
 							if (dataPackage.term == 1 && dataPackage.week == 1 && 
+								dataPackage.date == 4 &&
 								dataPackage.time >= 13 && dataPackage.time <= 14) {
 								inEvent = true;
 							}
 							break;
 						case 3:
 							if (dataPackage.term == 1 && dataPackage.week == 2 && 
+								dataPackage.date == 4 &&
 								dataPackage.time >= 21 && dataPackage.time <= 22) {
-								inEvent = true;
+								if (dataPackage.SUPEmentor == 1) inEvent = true; //  汪师傅才会触发517A的第二次活动
 							}
 							break;
 						}
@@ -108,7 +110,8 @@ public class EventStateManager extends EventBase{
 						}else {
 							dataPackage.ID = 200010;
 						}
-						
+					}else if (dataPackage.choiceA.contentEquals("clickGoToC")) {
+						dataPackage.ID=2000131;
 					}
 					//TODO:MAP中加入517A
 					break;
@@ -128,6 +131,19 @@ public class EventStateManager extends EventBase{
 					dataPackage.ID=0;
 					break;
 				case 200010:    // 到了体育部但是什么也没有发生
+					dataPackage.ID = 3;
+					break;
+				case 2000131:    // 到了C楼但是什么也没有发生
+					switch (dataPackage.choiceA) {
+					case "backToMap":
+						dataPackage.ID = 3;
+						break;
+					case "goToMarket":
+						dataPackage.ID = 2000132;
+						break;
+					}
+					break;
+				case 2000132:    // 到了超市但是什么也没有发生
 					dataPackage.ID = 3;
 					break;
 				//TODO:case20001X 体育部例会

@@ -85,6 +85,8 @@ public class WinMap extends WinBase{
 					dataPackage.choiceA="clickGoToSTA";//点按钮2（上课按钮）返回gotoclass
 				}else if(mode == 4) {
 					dataPackage.choiceA="clickGoToSUPE";//点按钮3（体育部按钮）
+				}else if(mode == 5) {
+					dataPackage.choiceA="clickGoToC";//点按钮5（C楼按钮）
 				}
 		    	
 				timer=new Timer(200,new ActionListener()
@@ -199,6 +201,18 @@ public class WinMap extends WinBase{
 		GoToSUPE.setVisible(false);
 		if(dataPackage.joinSA) {  //加入体育部后，13点517A开放
 			GoToSUPE.setVisible(true);
+		}
+		
+		JButton GoToC = new JButton();
+		GoToC.setContentAreaFilled(false);
+		GoToC.setBorderPainted(false);
+		GoToC.setBounds(240, 270, 75, 50);
+		setIcon("/imgsrc/WinOrganization/CUp.png",GoToC);
+		setSelectedIcon("/imgsrc/WinOrganization/CDown.png",GoToC);
+		backgroundPanel.add(GoToC);
+		GoToC.setVisible(false);
+		if(dataPackage.joinSA) {  //加入体育部后，13点517A开放
+			GoToC.setVisible(true);
 		}
 
 		/*************************************************************	
@@ -316,6 +330,10 @@ public class WinMap extends WinBase{
 		demoMouseListener clickGoToSUPE=new demoMouseListener(4);
 		clickGoToSUPE.setButton(GoToSUPE);
 		GoToSUPE.addMouseListener(clickGoToSUPE);
+		
+		demoMouseListener clickGoToC=new demoMouseListener(5);
+		clickGoToC.setButton(GoToC);
+		GoToC.addMouseListener(clickGoToC);
 		/*		  END OF YOUR CODE		*/
     	    	
     	/*****************************************************************				
