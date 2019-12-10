@@ -68,6 +68,10 @@ public class EventInDom extends EventBase{
 			oldDataPack.eventFinished=true;			
 			return;									//直接返回，避免属性乱变
 		}
+		if (oldDataPack.choiceA.equals("need_course_withdraw")) {
+			oldDataPack.eventFinished=true;			
+			return;									//直接返回，避免属性乱变
+		}
 		if(oldDataPack.term==5) {
 			oldDataPack.eventFinished=true;			
 			oldDataPack.choiceA="endgame";
@@ -85,7 +89,6 @@ public class EventInDom extends EventBase{
 		int randomSnore = r.nextInt(10) + 1;  // 生成被吵醒的随机数
 		int randomGame = r.nextInt(10) + 1;  // 生成被吵醒的随机数
 		boolean isNewday=false;
-		
 		switch(oldDataPack.choiceA) {
 			case "sleep":
 				oldDataPack.notification="<html>转眼过去了3个小时，睡醒了！头脑有些不清醒，但是健康和体力都增加了，人的心情也变好了。";
@@ -184,9 +187,15 @@ public class EventInDom extends EventBase{
 				oldDataPack.stateA="科研报名";
 				oldDataPack.trigSubEvent = true; // 触发子事件
 			}
-			if(oldDataPack.term==3 && oldDataPack.week==1 && oldDataPack.date==4 && oldDataPack.joinResearch){
-				oldDataPack.stateA="报名结果";
+			if(oldDataPack.term>=3 && oldDataPack.date==4 && oldDataPack.joinResearch){
+				oldDataPack.stateA="提醒组会";
 				oldDataPack.trigSubEvent = true; // 触发子事件
+				if(oldDataPack.term==3 && oldDataPack.week==1 && oldDataPack.date==4 && oldDataPack.joinResearch){
+					oldDataPack.stateA="报名结果";
+				}
+			}if(oldDataPack.week==3 && oldDataPack.date==1) {
+				oldDataPack.trigSubEvent=true;
+				oldDataPack.stateA="退课";
 			}
 			saveGame();
 		}

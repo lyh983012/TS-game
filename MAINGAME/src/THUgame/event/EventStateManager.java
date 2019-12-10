@@ -57,6 +57,9 @@ public class EventStateManager extends EventBase{
 				case 4:
 					dataPackage.ID=0;//选颗界面过后，进入游戏界面
 					break;
+				case 5:
+					dataPackage.ID=0;//退颗界面过后，进入游戏界面
+					break;
 				case 30004:
 					if(dataPackage.stateA.equals("backhome")) {
 						dataPackage.ID=-1;//如果没有选择，回到主界面开始新游戏
@@ -80,6 +83,10 @@ public class EventStateManager extends EventBase{
     				if(dataPackage.choiceA.equals("need_course_reg")) {
     					Courses.courseListInit(dataPackage.term);
     					dataPackage.ID=4;//选课
+    				}
+    				if(dataPackage.choiceA.equals("need_course_withdraw")) {
+    					Courses.courseListInit(dataPackage.term);
+    					dataPackage.ID=5;//退课
     				}
     				if(dataPackage.choiceA.equals("endgame")) {
     					dataPackage.ID=40000;//animated

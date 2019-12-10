@@ -5,16 +5,17 @@ import javax.swing.JPanel;
 import java.awt.event.MouseEvent;
 import java.util.Random;
 import java.awt.Color;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import java.awt.Font;
+import java.awt.Image;
 
 import THUgame.Game.MazeGame;
 import THUgame.Game.RememberGame;
-import THUgame.Game.ShootGame;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
@@ -79,7 +80,12 @@ public class WinInDom extends WinBase{
 	
 	static JPanel studychoice;
 	static JPanel messagePanel;
-	static boolean showStudychoices=false;
+	static JButton sleepButton;
+	static JButton selfstudyButton;
+	static JButton OutButton;
+	static boolean showStudychoices;
+	static boolean showButton;
+
 	
 	/*************************************************************	
 	 *【内部的事件响应类】
@@ -121,10 +127,28 @@ public class WinInDom extends WinBase{
 			if(mode ==8){
 				if(showToDoList) {
 					showToDoList=false;
-					button.setText("查看更多");
+					ImageIcon ico=new ImageIcon(getClass().getResource("/imgsrc/Windom/seemore1.png")); 
+			        ico.getImage();
+					Image temp=ico.getImage().getScaledInstance(button.getWidth(),button.getHeight(),Image.SCALE_DEFAULT);
+			        ico=new ImageIcon(temp); 
+			        button.setIcon(ico); 
+			        ico=new ImageIcon(getClass().getResource("/imgsrc/Windom/seemore2.png")); 
+			        ico.getImage();
+					temp=ico.getImage().getScaledInstance(button.getWidth(),button.getHeight(),Image.SCALE_DEFAULT);
+			        ico=new ImageIcon(temp); 
+			        button.setPressedIcon(ico); 
 				}else {
 					showToDoList=true;
-					button.setText("收起");
+					ImageIcon ico=new ImageIcon(getClass().getResource("/imgsrc/Windom/pack1.png")); 
+			        ico.getImage();
+					Image temp=ico.getImage().getScaledInstance(button.getWidth(),button.getHeight(),Image.SCALE_DEFAULT);
+			        ico=new ImageIcon(temp); 
+			        button.setIcon(ico); 
+			        ico=new ImageIcon(getClass().getResource("/imgsrc/Windom/pack2.png")); 
+			        ico.getImage();
+					temp=ico.getImage().getScaledInstance(button.getWidth(),button.getHeight(),Image.SCALE_DEFAULT);
+			        ico=new ImageIcon(temp); 
+			        button.setPressedIcon(ico); 
 				}
 				todolistPanel.setVisible(showToDoList);//TODO:不知道为什么收不起来
 				return;
@@ -154,9 +178,20 @@ public class WinInDom extends WinBase{
 						dataPackage.choiceA="readMessage_research_result";//点按钮4（待着按钮）返回stayup
 					}else if(dataPackage.stateA.equals("选课")){
 						dataPackage.choiceA="need_course_reg";//点按钮4（待着按钮）返回stayup
-					}else if(dataPackage.stateA.equals("每周报告")){
+					}else if(dataPackage.stateA.equals("退课")){
+						dataPackage.choiceA="need_course_withdraw";//点按钮4（待着按钮）返回stayup
+					}else if(dataPackage.stateA.equals("每周报告")||
+							dataPackage.stateA.equals("提醒组会")){
 						messagePanel.setVisible(false);
-						dataPackage.stateA=null;
+						dataPackage.trigSubEvent=false;
+						dataPackage.stateA="";
+						showStudychoices=true;
+						showButton=true;
+						sleepButton.setVisible(showButton);
+						selfstudyButton.setVisible(showButton);
+						OutButton.setVisible(showButton);
+						studychoice.setVisible(showStudychoices);
+						return;
 					}
 				}
 				else if(mode ==6){
@@ -189,6 +224,9 @@ public class WinInDom extends WinBase{
 	 * 【构造函数】
 	 *************************************************************/
 	public WinInDom(EventManager mainGame,JFrame frame) {
+		showStudychoices=false;
+		showButton=true;
+		
 		DataPack o=dataPackage;
 		dataPackage.stateE=StateList.getEventNotification(o.term,o.week,o.date,
 							o.joinResearch,o.joinClub,o.joinSTA,
@@ -242,7 +280,7 @@ public class WinInDom extends WinBase{
 		studychoice.add(imgpanel);
 		imgpanel.setOpaque(false);
 		
-		JButton sleepButton = new JButton();
+		sleepButton = new JButton();
 		sleepButton.setBorderPainted(false);
 		sleepButton.setBounds(819, 477, 150, 50);
 		sleepButton.setContentAreaFilled(false);
@@ -250,14 +288,14 @@ public class WinInDom extends WinBase{
 		setSelectedIcon("/imgsrc/Windom/sleepUn.png",sleepButton);
 		backgroundPanel.add(sleepButton);
 
-		JButton selfstudyButton = new JButton();
+		selfstudyButton = new JButton();
 		selfstudyButton.setBorderPainted(false);
 		selfstudyButton.setBounds(819, 544, 150, 50);
 		setIcon("/imgsrc/Windom/study.png",selfstudyButton);
 		setSelectedIcon("/imgsrc/Windom/studyUn.png",selfstudyButton);
 		backgroundPanel.add(selfstudyButton);
 		
-		JButton OutButton = new JButton();
+		OutButton = new JButton();
 		OutButton.setBorderPainted(false);
 		OutButton.setBounds(819, 611, 150, 50);
 		setIcon("/imgsrc/Windom/out.png",OutButton);
@@ -369,7 +407,7 @@ public class WinInDom extends WinBase{
 			dataPackage.stateA="选课";
 			dataPackage.course_selected=true;
 		}
-		if (dataPackage.trigSubEvent){ // 触发子事件，小事情可见。。  d
+		if (dataPackage!=null && dataPackage.trigSubEvent){ // 触发子事件，小事情可见。。  d
 			if(dataPackage.stateA.equals("game")) {
 				Random r = new Random();
 				int dice = r.nextInt(10);
@@ -387,7 +425,11 @@ public class WinInDom extends WinBase{
 				messagePanel.setVisible(true);
 			}else if(dataPackage.stateA.equals("每周报告")){
 				messageButton.setText("关闭");
-				messagelabel_1.setText("<html>这周又是精彩的一周</html>");
+				messagelabel_1.setText("<html>这周又是精彩的一周,周末好好整理一下心情吧～</html>");
+				messagePanel.setVisible(true);
+			}else if(dataPackage.stateA.equals("提醒组会")){
+				messageButton.setText("关闭");
+				messagelabel_1.setText("<html>记得下午12～18点的组会哦，没去可是要被开除的</html>");
 				messagePanel.setVisible(true);
 			}else if(dataPackage.stateA.equals("科研报名")){
 				messageButton.setText("查看消息");
@@ -399,15 +441,20 @@ public class WinInDom extends WinBase{
 				messagePanel.setVisible(true);
 			}else if(dataPackage.stateA.equals("选课")){
 				messageButton.setText("选课系统");
-				messagelabel_1.setText("<html>今天是新学期的第1天，我需要去选课系统选一下课程。9102年的选课系统真不赖，一选完课就能出结果了哦～</html>");
+				messagelabel_1.setText("<html>今天是新学期的第1天，我需要去选课系统选一下课程。9102年的选课系统真不赖，一选完课就立马出结果了！</html>");
+				messagePanel.setVisible(true);
+			}else if(dataPackage.stateA.equals("退课")){
+				messageButton.setText("退课系统");
+				messagelabel_1.setText("<html>唉，上了半个学期的课了，感觉好忙，也不知道能不能学的完，让我看看是不是要退课吧，希望学分足够我毕业。</html>");
 				messagePanel.setVisible(true);
 			}
-			sleepButton.setVisible(false);
-			selfstudyButton.setVisible(false);
-			OutButton.setVisible(false);
-			studychoice.setVisible(false);
+			showStudychoices=false;
+			showButton=false;
 		}
-		
+		sleepButton.setVisible(showButton);
+		selfstudyButton.setVisible(showButton);
+		OutButton.setVisible(showButton);
+		studychoice.setVisible(showStudychoices);
 		/*************************************************************	
 		 * 【镶时钟】
 		 *************************************************************/
@@ -625,7 +672,11 @@ public class WinInDom extends WinBase{
 			label4.setFont(new Font("STFangsong", Font.PLAIN, 16));
 			
 			JButton readToDoList = new JButton("查看更多");
-			readToDoList.setBounds(35, 113, 100, 34);
+			readToDoList.setBorderPainted(false);
+			readToDoList.setContentAreaFilled(false);
+			readToDoList.setBounds(37, 113, 80, 27);
+			setIcon("/imgsrc/Windom/seemore1.png",readToDoList);
+			setSelectedIcon("/imgsrc/Windom/seemore2.png",readToDoList);
 			todoList.add(readToDoList);
 			backgroundPanel.add(todoList);
 			

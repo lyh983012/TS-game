@@ -4,11 +4,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.border.LineBorder;
 import THUgame.Game.ShootGame;
 import THUgame.datapack.DataPack;
@@ -79,10 +83,28 @@ public class WinNoonClass extends WinBase{
 			if(mode ==8){
 				if(showToDoList) {
 					showToDoList=false;
-					button.setText("查看更多");
+					ImageIcon ico=new ImageIcon(getClass().getResource("/imgsrc/Windom/seemore1.png")); 
+			        ico.getImage();
+					Image temp=ico.getImage().getScaledInstance(button.getWidth(),button.getHeight(),Image.SCALE_DEFAULT);
+			        ico=new ImageIcon(temp); 
+			        button.setIcon(ico); 
+			        ico=new ImageIcon(getClass().getResource("/imgsrc/Windom/seemore2.png")); 
+			        ico.getImage();
+					temp=ico.getImage().getScaledInstance(button.getWidth(),button.getHeight(),Image.SCALE_DEFAULT);
+			        ico=new ImageIcon(temp); 
+			        button.setPressedIcon(ico); 
 				}else {
 					showToDoList=true;
-					button.setText("收起");
+					ImageIcon ico=new ImageIcon(getClass().getResource("/imgsrc/Windom/pack1.png")); 
+			        ico.getImage();
+					Image temp=ico.getImage().getScaledInstance(button.getWidth(),button.getHeight(),Image.SCALE_DEFAULT);
+			        ico=new ImageIcon(temp); 
+			        button.setIcon(ico); 
+			        ico=new ImageIcon(getClass().getResource("/imgsrc/Windom/pack2.png")); 
+			        ico.getImage();
+					temp=ico.getImage().getScaledInstance(button.getWidth(),button.getHeight(),Image.SCALE_DEFAULT);
+			        ico=new ImageIcon(temp); 
+			        button.setPressedIcon(ico); 
 				}
 				todolistPanel.setVisible(showToDoList);//TODO:不知道为什么收不起来
 				return;
@@ -388,7 +410,11 @@ public class WinNoonClass extends WinBase{
 			label4.setFont(new Font("STFangsong", Font.PLAIN, 16));
 			
 			JButton readToDoList = new JButton("查看更多");
-			readToDoList.setBounds(35, 113, 100, 34);
+			readToDoList.setBorderPainted(false);
+			readToDoList.setContentAreaFilled(false);
+			readToDoList.setBounds(37, 113, 80, 27);
+			setIcon("/imgsrc/Windom/seemore1.png",readToDoList);
+			setSelectedIcon("/imgsrc/Windom/seemore2.png",readToDoList);
 			todoList.add(readToDoList);
 			backgroundPanel.add(todoList);
 			

@@ -149,6 +149,7 @@ public class RememberGame extends JPanel{
     	public void actionPerformed(ActionEvent e) {
     			this.dataPackage.trigSubEvent=false;
     			this.dataPackage.choiceA="";
+    			this.dataPackage.stateA="";
     			this.dataPackage.characterIQ+=score*2/10;//在这里改属性
     			this.dataPackage.time+=3;
     			this.dataPackage.notification = "<html>我发现作业非常困难，沉迷其中，过去了6个小时";

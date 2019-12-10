@@ -11,6 +11,7 @@ import THUgame.subwindows.WinSTA;
 import THUgame.windows.WinBase;
 import THUgame.windows.WinChoice;
 import THUgame.windows.WinCourseRegistration;
+import THUgame.windows.WinCourseWithdraw;
 import THUgame.windows.WinHome;
 import THUgame.windows.WinInDom;
 import THUgame.windows.WinInputName;
@@ -83,6 +84,7 @@ public class WindowManager extends JFrame {
 		WinEnd2050_1.dataPackage=dataPackage;
 		WinEndAnimate.dataPackage=dataPackage;
 		WinResearch.dataPackage=dataPackage;
+		WinCourseWithdraw.dataPackage=dataPackage;
 		/*		END OF YOUR CODE		*/
 	}
 	
@@ -111,6 +113,9 @@ public class WindowManager extends JFrame {
 				break;
 			case 4:
 				generator = new WinCourseRegistration(mainGame,mainFrame);
+				break;
+			case 5:
+				generator = new WinCourseWithdraw(mainGame,mainFrame);
 				break;
 			case 20016:
 				generator = new WinSTA(mainGame,mainFrame);

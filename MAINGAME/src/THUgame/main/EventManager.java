@@ -3,6 +3,7 @@ import THUgame.datapack.DataPack;
 import THUgame.event.EventBase;
 import THUgame.event.EventChoice;
 import THUgame.event.EventCourseRegistration;
+import THUgame.event.EventCourseWithdraw;
 import THUgame.event.EventInDom;
 import THUgame.event.EventInputName;
 import THUgame.event.EventMorningClass;
@@ -79,6 +80,9 @@ public class EventManager extends Thread{
 					break;	
 				case 4:
 					pushForward = new EventCourseRegistration();
+					break;	
+				case 5:
+					pushForward = new EventCourseWithdraw();
 					break;	
 				case 20016:
 					pushForward = new EventSTA();

@@ -19,6 +19,8 @@ public class StateList {
 					note+="今天有科协科创实验室的值日。得记得去。<br>";
 				break;
 			case 3:
+				if (date==1)
+					note+="今天退课了。<br>";
 				if (date==4 && joinclub)
 					note+="今天有社团的培训。得记得去。<br>";
 				if ((date==5||date==2) && joinSTA)
@@ -51,6 +53,8 @@ public class StateList {
 					note+="今天有科协科创实验室的值日。得记得去。<br>";
 				break;
 			case 3:
+				if (date==1)
+					note+="今天退课了。<br>";
 				if (date==6 && joinTZB)
 					note+="今天挑战杯答辩，别忘记去了。<br>";
 				if ((date==5||date==2) && joinSTA)
@@ -81,6 +85,8 @@ public class StateList {
 					note+="今天下午有SRT组会，记得外出参加。<br>";
 				break;				
 			case 3:
+				if (date==1)
+					note+="今天退课了。<br>";
 				if (date==4 && joinreaserch)
 					note+="今天下午有SRT组会，记得外出参加。<br>";
 				break;				
@@ -107,6 +113,8 @@ public class StateList {
 					note+="今天下午有SRT组会，记得外出参加。<br>";
 				break;				
 			case 3:
+				if (date==1)
+					note+="今天退课了。<br>";
 				if (date==4 && joinreaserch)
 					note+="今天下午有SRT组会，记得外出参加。<br>";
 				break;				
