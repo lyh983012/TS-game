@@ -52,7 +52,7 @@ public class EventSUPE3 extends EventBase{
 			oldDataPack.count = 8;
 		}else if (oldDataPack.count == 11){
 			oldDataPack.eventFinished=true;
-			oldDataPack.SUPEstate += "10";
+			oldDataPack.SUPEstate = "1110";
 			oldDataPack.time += 2;
 			oldDataPack.SUPEprocess=5;
 		}else {
