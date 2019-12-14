@@ -296,7 +296,7 @@ public class WinCBuilding extends WinBase{
 		 * 		最后放。
 		 *************************************************************/
 		
-		JPanel Background=new ImagePanel("imgsrc//WinOrganization/SUPEbackground.png",0, 0, 1080, 720);
+		JPanel Background=new ImagePanel("imgsrc//WinOrganization/CBuilding.jpg",0, 0, 1080, 720);
 		Background.setBounds(0, 0, 1080, 720);
 		backgroundPanel.add(Background);
 		Background.setLayout(null);

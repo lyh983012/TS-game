@@ -171,7 +171,7 @@ public class WinMarket extends WinBase{
 				dataPackage.date == 4 && dataPackage.time <= 20) {  // 购买物资
 				if (dataPackage.SUPEmentor == 2) {
 					text = "<html>这黑猫超市可真是黑呀，幸好体育部有经费报销这些。<br>[购买了键绳训练的物资]</html>";
-					dataPackage.stateA = "boughtGoods";
+					dataPackage.SUPEstate = "13";
 				}
 			}
 			dialogName.setText("<html>独白</html>");

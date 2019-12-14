@@ -26,20 +26,19 @@ import THUgame.tool.ImagePanel;
 import THUgame.windows.WinBase;
 
 /*
- * 【宿舍界面】
+ * 第一次活动-2 后勤分支 * 
  * 
- * --DIALOG--
- *  update:20191123
- *  via：余冬杰  
- *  
- *  update:20191029
+ *  ---- LOG ----
+ *  update:20191214
  *  via：余冬杰
- *  更新：
- *  TODO:
- *      1.
- *  TODO LIST in line:
- *  
- **/
+ *  对话流程
+ *  	购买物资且准时：1-2-10-11-12-13-14-15-16-17-18
+ *  	购买物资但迟到：3-4-5-6-7-8-9
+ *      没买物资但准时：19-20-21-2-10-11-12-13-14-15-16-17-18
+ * 		没买物资且迟到：19-20-22-4-5-6-7-8-9
+ * stateA-分支方向
+ * stateB-分支方向判断的flag
+ * */
 
 
 public class WinSUPE22 extends WinBase{
@@ -91,10 +90,6 @@ public class WinSUPE22 extends WinBase{
 			/*		START OF YOUR CODE		*/
 			if(mode==0) {
 				dataPackage.choiceA = "clickNext";
-			}else if(mode ==1){
-				dataPackage.SUPEmentor = 1;  // 选择汪赫谦-设计线
-			}else if(mode ==2){
-				dataPackage.SUPEmentor = 2;  // 选择章昭焕-后勤线
 			}else if(mode ==3){
 				
 			}else if(mode ==4){
@@ -144,6 +139,46 @@ public class WinSUPE22 extends WinBase{
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
 		
+		if (dataPackage.stateB.equals("")){
+			/*
+			 * 确定物资的购买与迟到情况
+			 */
+			if (dataPackage.SUPEstate.charAt(1) == '3') {
+				if (dataPackage.time == 21) {   // 购买物资且准时
+					dataPackage.stateA = "1";
+				}else {                         // 购买物资但迟到
+					dataPackage.stateA = "2";
+					dataPackage.characterEQ -= 3;
+				}
+			}else {
+				if (dataPackage.time == 21) {   // 没买物资但准时
+					dataPackage.stateA = "3";
+					dataPackage.characterEQ -= 3;
+				}else {                         // 没买物资且迟到
+					dataPackage.stateA = "4";
+					dataPackage.characterEQ -= 5;
+				}
+			}
+			
+			
+			switch (dataPackage.stateA) {
+			case "1":
+				dataPackage.count = 1;
+				break;
+			case "2":
+				dataPackage.count = 3;
+				break;
+			case "3":
+				dataPackage.count = 19;
+				break;
+			case "4":
+				dataPackage.count = 19;
+				break;
+			}
+			
+			dataPackage.stateB = "flag";
+		}
+		
 		
 		/*************************************************************	
 		 * 【镶对话框】
@@ -182,73 +217,103 @@ public class WinSUPE22 extends WinBase{
 			String text="";       //说话内容
 		System.out.println(dataPackage.count);
 		switch(dataPackage.count) {
-		case 0:
-			text = "<html>各位体育部的新生力量和老面孔大家新学期好呀！</html>";
-			break;
 		case 1:
-			speaker = 4;
-			text = "<html>吼！</html>";
+			speaker = 0;
+			text = "<html>嘿你好，辛苦你买物资啦。现在我们只要在这里陪队员按照计划训练就好。整个训练大概需要2小时，我们聊聊天就好。</html>";
 			break;
 		case 2:
-			speaker = 0;
-			text = "<html>新一年的马杯征程就要开始了~这半个学期我们旧成员要做好交接的工作，让新人熟悉工作，学期结束后放心大胆的交给他们！</html>";
+			speaker = 1;
+			text = "<html>好的。诶师傅当初为什么你加入体育部呀？</html>";
 			break;
 		case 3:
 			speaker = 0;
-			text = "<html>体育部目前采用师徒制，每一位新成员都要选择一个学长/学姐作为师傅，协助他/她工作了解内容。</html>";
+			text = "<html>嘿你好，辛苦你买物资啦。现在我们只要在这里陪队员按照计划训练就好。你晚到了一会，训练过程还有1小时就结束啦。我们聊聊天就结束了。</html>";
 			break;
 		case 4:
 			speaker = 1;
-			text = "<html>……看着其他同学决定</html>";
+			text = "<html>好的。诶师傅当初为什么你加入体育部呀。</html>";
 			break;
 		case 5:
 			speaker = 0;
-			text = "<html><font style=\"color:red\">"+dataPackage.name+"</font>该你作出决定啦</html>";
+			text = "<html>我平时体育也不错，就想着多参加点体育活动。后来也是被上一届部长拉进部门的。现在发现体育部做的事情跟运动本身关系不是特别大。</html>";
 			break;
 		case 6:
 			speaker = 1;
-			String name = "";
-			if (dataPackage.SUPEmentor==1) {
-				name = "汪赫谦";
-			}else if (dataPackage.SUPEmentor==2){
-				name = "章昭焕";
-			}	
-			text = "<html>最终选择了<font style=\"color:red\">"+name+"</font>作为自己的师傅</html>";
+			text = "<html>差别在哪里呢？</html>";
 			break;
 		case 7:
-			speaker = 3;			
-			text = "<html>你眼光真不赖233333选我做师傅，下周我们应该会有第一件事，做当天男篮比赛的推送。<font style=\"color:red\">"+"下周四9点"+
-					"</font>我们<font style=\"color:red\">"+"517A"+"</font>见，做好准备哦。</html>";
+			speaker = 0;			
+			text = "<html>体育部是一个服务组织。我们需要把运动员的赛前赛后考虑周到，比如训练、物资、比赛记录和赛后的推送。但是比赛本身，我们除了给运动员加油外能做的不是特别多。专业的人做专业的事情嘛。</html>";
 			break;
 		case 8:
-			speaker = 2;	
-			text = "<html>谢谢你信任我做师傅！键绳运动会快到了，<font style=\"color:red\">"+"下周四晚8点C楼"+
-					"</font>会有训练，到时候得麻烦你7点提前去<font style=\"color:red\">"+"黑猫超市"+"</font>购买好物资，辛苦啦！</html>";
+			speaker = 0;	
+			text = "<html>啊哈时候不早啦，各位今天的训练就到这里，辛苦各位运动员。<font style=\"color:red\">"+dataPackage.name+"</font>你也早点回去吧！</html>";
 			break;
 		case 9:
+			speaker = 1;	
+			text = "<html>回去的路上对学长的话若有所思，感到体育部的工作虽然零碎辛苦，但是也很重要。【体育部贡献值提升，心情提升】</html>";
+			break;
+		case 10:
 			speaker = 0;	
-			text = "<html>好的，今天的例会就到这里。第2周我们只有运动服务的任务，不需要参加例会，大家按照师傅的要求做就好；第三次例会在第三周周二晚上10点，地点还是517A哈。如果两次例会没有参加，就会视为退出体育部，大家注意安排。</html>";
+			text = "<html>我平时体育也不错，就想着多参加点体育活动。后来也是被上一届部长拉进部门的。现在发现体育部做的事情跟运动本身关系不是特别大。</html>";
+			break;
+		case 11:
+			speaker = 1;	
+			text = "<html>差别在哪里呢？</html>";
+			break;
+		case 12:
+			speaker = 0;	
+			text = "<html>体育部是一个服务组织。我们需要把运动员的赛前赛后考虑周到，比如训练、物资、比赛记录和赛后的推送。但是比赛本身，我们除了给运动员加油外能做的不是特别多。专业的人做专业的事情嘛。</html>";
+			break;
+		case 13:
+			speaker = 1;	
+			text = "<html>若有所思地点了点头。</html>";
+			break;
+		case 14:
+			speaker = 0;	
+			text = "<html>有时候别人也挺不理解的吧，为什么要在社工上投入很多？不过我觉得，运动员在奋战的时候能感受到对院系的体育氛围的归属感，我就非常满意了。</html>";
+			break;
+		case 15:
+			speaker = 1;	
+			text = "<html>其实生活就像一个个小圈子吧，大家都可能对自己圈外的事物有一些不理解。</html>";
+			break;
+		case 16:
+			speaker = 0;	
+			text = "<html>没错。</html>";
+			break;
+		case 17:
+			speaker = 0;	
+			text = "<html>啊哈时候不早啦，各位今天的训练就到这里，辛苦各位运动员。<font style=\"color:red\">"+dataPackage.name+"</font>你也早点回去吧！</html>";
+			break;
+		case 18:
+			speaker = 1;	
+			text = "<html>回去的路上对章师傅学长的话若有所思，感到体育部的工作虽然零碎辛苦，但是也很重要。<br>【体育部贡献值提升，心情提升】</html>";
+			break;
+		case 19:
+			speaker = 0;	
+			text = "<html>嘿嘿，忘记了吧。幸好我买了物资，下次要记得啊！</html>";
+			break;
+		case 20:
+			speaker = 1;	
+			text = "<html>抱歉抱歉师傅，我下次注意。</html>";
+			break;
+		case 21:
+			speaker = 0;	
+			text = "<html>现在我们只要在这里陪队员按照计划训练就好。整个训练大概需要2小时，我们聊聊天就好。</html>";
+			break;
+		case 22:
+			speaker = 0;	
+			text = "<html>现在我们只要在这里陪队员按照计划训练就好。你晚到了一会，整个训练大概还有1小时，我们聊聊天就好。</html>";
 			break;
 		}
-		
-		
 		
 		//<html><font style=\"color:blue\">庚敬</font><font style=\"color:red\">煊</font></html>"
 		switch (speaker) {
 		case 0:
-			dialogName.setText("<html>庚敬煊</html>");
-			break;
-		case 1:
-			dialogName.setText("<html>独白</html>");
-			break;
-		case 2:
 			dialogName.setText("<html>章昭焕</html>");
 			break;
-		case 3:
-			dialogName.setText("<html>汪赫谦</html>");
-			break;
-		case 4:
-			dialogName.setText("<html>所有人</html>");
+		case 1:
+			dialogName.setText("<html>我</html>");
 			break;
 		}
 		dialogContent.setText(text);
@@ -271,115 +336,10 @@ public class WinSUPE22 extends WinBase{
 		dialogPack.add(dialogBackgoundPanel);
 		backgroundPanel.add(dialogPack);
 
-		if (dataPackage.count == 5) {              //触发聘书，不显示next，通过×交互  
-			nextButton.setVisible(false);
-		}
+//		if (dataPackage.count == 5) {              //触发聘书，不显示next，通过×交互  
+//			nextButton.setVisible(false);
+//		}
 		
-		
-		/*************************************************************	
-		* 【选择师傅】 
-		*  	count=5触发
-		*  
-		*************************************************************/
-		JPanel choosePack = new JPanel();
-		choosePack.setLayout(null);
-		choosePack.setOpaque(false);//注意要设成透明的
-		choosePack.setBounds(221, 136, 512, 354);
-		choosePack.setVisible(false);
-		
-			JPanel choosePanel = new JPanel();
-			choosePanel.setBounds(0, 0, 512, 354);
-			choosePanel.setOpaque(false);//注意要设成透明的
-			choosePanel.setLayout(null);
-			
-			JPanel chooseBackground = new ImagePanel("imgsrc//WinOrganization/chooseBG.png",0, 0, 512, 354);
-			chooseBackground.setBounds(0, 0, 512, 354);
-			chooseBackground.setLayout(null);
-			
-				// 标题
-				JLabel textTitle = new JLabel();
-				textTitle.setVerticalAlignment(SwingConstants.CENTER);
-				textTitle.setHorizontalAlignment(SwingConstants.CENTER);
-				textTitle.setText("<html>你选择哪位师傅呢？</html>");
-				textTitle.setOpaque(false);
-				textTitle.setFont(new Font("华文黑体", Font.BOLD, 30));
-				textTitle.setBounds(10, 0, 502, 50);
-				choosePanel.add(textTitle);
-				
-				// 汪赫谦区
-				JPanel masterWang = new JPanel();
-				masterWang.setBounds(40, 60, 200, 220);
-				masterWang.setOpaque(false);//注意要设成透明的
-				masterWang.setLayout(null);
-				choosePanel.add(masterWang);
-					JLabel wangContent = new JLabel();
-					wangContent.setVerticalAlignment(SwingConstants.TOP);
-					wangContent.setOpaque(false);
-					wangContent.setFont(new Font("印品黑体", Font.PLAIN, 15));
-					wangContent.setBounds(10, 150, 190, 70);
-					wangContent.setText("<html>喜欢说骚话<br>想象力丰富<br>主要负责推送和海报的制作</html>");
-					masterWang.add(wangContent);
-				
-					JPanel imageWang = new ImagePanel("imgsrc//WinOrganization/whq.png",0, 0, 132, 220);
-					imageWang.setBounds(34, 0, 132, 220);
-					imageWang.setLayout(null);
-					masterWang.add(imageWang);
-					
-					
-				
-				//章昭焕区
-				JPanel masterZhang = new JPanel();
-				masterZhang.setBounds(272, 60, 200, 220);
-				masterZhang.setOpaque(false);//注意要设成透明的
-				masterZhang.setLayout(null);
-				choosePanel.add(masterZhang);
-					JLabel zhangContent = new JLabel();
-					zhangContent.setVerticalAlignment(SwingConstants.TOP);
-					//zhangContent.setHorizontalAlignment(SwingConstants.CENTER);
-					zhangContent.setOpaque(false);
-					zhangContent.setFont(new Font("印品黑体", Font.PLAIN, 15));
-					zhangContent.setBounds(0, 150, 190, 70);
-					zhangContent.setText("<html>认真负责<br>但不善言谈<br>主要负责后勤的事务</html>");
-					masterZhang.add(zhangContent);
-					
-					JPanel imageZhang = new ImagePanel("imgsrc//WinOrganization/zzh.png",0, 0, 132, 220);
-					imageZhang.setBounds(34, 0, 132, 220);
-					imageZhang.setLayout(null);
-					masterZhang.add(imageZhang);
-					
-				
-				// 选择按钮
-				JButton WButton = new JButton();
-				WButton.setBounds(85, 290, 120, 40);
-				WButton.setBorderPainted(false);
-				WButton.setContentAreaFilled(false);
-				setIcon("/imgsrc/WinOrganization/wang.png", WButton);
-				setSelectedIcon("/imgsrc/WinOrganization/wangPressed.png", WButton);
-				choosePanel.add(WButton);
-				
-				JButton ZButton = new JButton();
-				ZButton.setBounds(317, 290, 120, 40);
-				ZButton.setBorderPainted(false);
-				ZButton.setContentAreaFilled(false);
-				setIcon("/imgsrc/WinOrganization/zhang.png", ZButton);
-				setSelectedIcon("/imgsrc/WinOrganization/zhangPressed.png", ZButton);
-				choosePanel.add(ZButton);
-				
-				demoMouseListener clickWang=new demoMouseListener(1);//设置鼠标监听器，发生1号事件——选择汪赫谦
-				clickWang.setButton(WButton);
-				WButton.addMouseListener(clickWang);
-				
-				demoMouseListener clickZhang=new demoMouseListener(2);//设置鼠标监听器，发生2号事件——选择章昭焕
-				clickZhang.setButton(ZButton);
-				ZButton.addMouseListener(clickZhang);
-				
-				choosePack.add(choosePanel);
-				choosePack.add(chooseBackground);
-		backgroundPanel.add(choosePack);     //触发聘书，不显示next，通过×交互
-		
-		if (dataPackage.count == 5) {
-			choosePack.setVisible(true);
-		}
 		
 		/*************************************************************	
 		 * 【镶时钟】
@@ -460,7 +420,7 @@ public class WinSUPE22 extends WinBase{
 		 * 		最后放。
 		 *************************************************************/
 		
-		JPanel Background=new ImagePanel("imgsrc//WinOrganization/SUPEbackground.png",0, 0, 1080, 720);
+		JPanel Background=new ImagePanel("imgsrc//WinOrganization/CBuilding.jpg",0, 0, 1080, 720);
 		Background.setBounds(0, 0, 1080, 720);
 		backgroundPanel.add(Background);
 		Background.setLayout(null);

@@ -110,8 +110,18 @@ public class EventStateManager extends EventBase{
 						}else {
 							dataPackage.ID = 200010;
 						}
-					}else if (dataPackage.choiceA.contentEquals("clickGoToC")) {
-						dataPackage.ID=2000131;
+					}else if (dataPackage.choiceA.equals("clickGoToC")) {
+						boolean inEvent = false;  // 标记是否处于子事件的发生时间
+						if (dataPackage.term == 1 && dataPackage.week == 2 && 
+							dataPackage.date == 4 &&
+							dataPackage.time >= 21 && dataPackage.time <= 22) {
+							if (dataPackage.SUPEmentor == 2)   inEvent = true; //  章师傅才会触发C楼的第二次活动
+						}
+						if (inEvent) {
+							dataPackage.ID=200010 + dataPackage.SUPEprocess;  //20001X, X>=2
+						}else {
+							dataPackage.ID = 2000131;
+						}
 					}
 					//TODO:MAP中加入517A
 					break;

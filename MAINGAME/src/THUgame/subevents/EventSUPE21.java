@@ -60,7 +60,7 @@ public class EventSUPE21 extends EventBase{
 		}else if (oldDataPack.count == 12){
 			oldDataPack.eventFinished=true;
 			// SUPE贡献值+3，心情+5，体力-时间*2
-			oldDataPack.SUPEcontribution += 3;
+			oldDataPack.SUPEcontribution += 4;
 			oldDataPack.characterHappiness += 5;
 			oldDataPack.characterEnergy -= (1 + Integer.valueOf(oldDataPack.stateA) / 4) * 2;
 			oldDataPack.SUPEprocess=4;

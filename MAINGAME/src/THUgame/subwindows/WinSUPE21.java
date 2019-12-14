@@ -299,11 +299,11 @@ public class WinSUPE21 extends WinBase{
 			break;
 		case 12:
 			speaker = 1;	
-			text = "<html>谢谢师傅，我先撤啦！再见~ <br>SUPE贡献值+3，心情+5，体力减少了一部分</html>";
+			text = "<html>谢谢师傅，我先撤啦！再见~ <br>SUPE贡献值+4，心情+5，体力减少了一部分</html>";
 			break;
 		case 13:
 			speaker = 0;	
-			text = "<html>今天也不早啦，你先回去休息吧！我再来调整一下推送的排版~</html>";
+			text = "<html>今天也不早啦，你先回去休息吧！我再来调整一下推送的排版~记得下周二晚上10点的例会~</html>";
 			break;
 		case 14:
 			speaker = 1;
