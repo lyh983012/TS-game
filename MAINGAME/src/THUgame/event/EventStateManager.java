@@ -104,6 +104,13 @@ public class EventStateManager extends EventBase{
 								if (dataPackage.SUPEmentor == 1) inEvent = true; //  汪师傅才会触发517A的第二次活动
 							}
 							break;
+						case 4:
+							if (dataPackage.term == 1 && dataPackage.week == 3 && 
+								dataPackage.date == 2 &&
+								dataPackage.time >= 22 && dataPackage.time <= 23) {
+								inEvent = true; //  汪师傅才会触发517A的第二次活动
+						}
+						break;
 						}
 						if (inEvent) {
 							dataPackage.ID=200010 + dataPackage.SUPEprocess;  //20001X, X>=2
@@ -138,6 +145,9 @@ public class EventStateManager extends EventBase{
 					dataPackage.ID=0;
 					break;
 				case 200013:	// 体育部第二次事件结束后，进入宿舍界面
+					dataPackage.ID=0;
+					break;
+				case 200014:	// 体育部第二次例会结束后，进入宿舍界面
 					dataPackage.ID=0;
 					break;
 				case 200010:    // 到了体育部但是什么也没有发生
