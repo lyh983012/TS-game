@@ -42,8 +42,9 @@ public class EventManager extends Thread{
     		 *  TODO:
     		 *  20001-0：非活动时间段前往517A，啥事都没
     		 *  20001-2：第一次例会
-    		 *  20001-3：第二次例会：双支线
-    		 *  
+    		 *  20001-3：第一次活动：双支线
+    		 *  20001-4：第二次例会
+    		 *  20001-5：第三次例会
     		 *  20016. STA科协的事件。只要满足加入了科协，任意白天时间都可以去
     		 *  
     		 *  30000.通过选择确定人物模板事件->30002
@@ -100,6 +101,9 @@ public class EventManager extends Thread{
 					break;
 				case 200014:
 					pushForward = new EventSUPE3();
+					break;
+				case 200015:
+					pushForward = new EventSUPE4();
 					break;
 				case 30003:
 					pushForward = new EventInputName();

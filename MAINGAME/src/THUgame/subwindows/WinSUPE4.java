@@ -26,19 +26,20 @@ import THUgame.tool.ImagePanel;
 import THUgame.windows.WinBase;
 
 /*
- * 第二次例会 
+ * 第三次例会 
  * 
  *  ---- LOG ----
- *  update:20191214
+ *  update:20191215
  *  via：余冬杰
  *  对话流程:
- *      0-1-2-3-6-7-8-9-10-11
- * 			 \
- * 			  4-5-7-8-9-10-11
- **/
+ *      0-1-2-3-6-7-8-10-11-12-13-14
+ * 		   \   /   \     /
+ * 			4-5     9----
+ */
 
 
-public class WinSUPE3 extends WinBase{
+
+public class WinSUPE4 extends WinBase{
 	
 	/*************************************************************	
 	 *
@@ -50,7 +51,6 @@ public class WinSUPE3 extends WinBase{
 	 * 
 	 *************************************************************/
 
-	
 	static private class demoMouseListener extends BaseMouseListener{
 		static public DataPack dataPackage;
 		static public EventManager mainGame;
@@ -86,9 +86,9 @@ public class WinSUPE3 extends WinBase{
 			if(mode==0) {
 				dataPackage.choiceA = "clickNext";
 			}else if(mode ==1){
-				dataPackage.SUPEmentor = 1;  // 选择汪赫谦-设计线
+				dataPackage.choiceB = "yes";
 			}else if(mode ==2){
-				dataPackage.SUPEmentor = 2;  // 选择章昭焕-后勤线
+				dataPackage.choiceB = "no";
 			}else if(mode ==3){
 				
 			}else if(mode ==4){
@@ -121,7 +121,7 @@ public class WinSUPE3 extends WinBase{
 	 * 		不要新建JFrame窗口对象，而是把上层传进来的窗口对象里面的东西扔了，重新添加
 	 * 
 	 *************************************************************/
-	public WinSUPE3(EventManager mainGame,JFrame frame) {
+	public WinSUPE4(EventManager mainGame,JFrame frame) {
 		
 		//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -167,70 +167,95 @@ public class WinSUPE3 extends WinBase{
 			dialogPanel.add(dialogName);
 					
 			JLabel dialogContent = new JLabel();
-			dialogName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-			dialogContent.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+			dialogName.setFont(new Font("华文细黑", Font.BOLD, 16));
+			dialogContent.setFont(new Font("华文仿宋", Font.BOLD, 18));
 			dialogContent.setBounds(27, 42, 632, 137);
 			dialogPanel.add(dialogContent);
 			
 			int speaker=0;    //说话人0-庚敬煊 1-独白 2-章昭焕 3-汪赫谦
 			String text="";       //说话内容
-			
 		System.out.println(dataPackage.count);
 		switch(dataPackage.count) {
 		case 0:
-			text = "<html>各位，大家晚上好呀！</html>";
+			text = "<html>今天我们进行新的部长选举。那么，请有意向在新学期带领体育部的同学站到我旁边来。</html>";
 			break;
-		case 1:
-			speaker = 2;
-			text = "<html>好！</html>";
-			break;
+//		case 1:
+//			speaker = 4;
+//			text = "<html>吼！</html>";
+//			break;
 		case 2:
-			speaker = 0;
-			text = "<html>这学期的马杯工作进行的差不多啦，我们系的成果不错！</html>";
+			speaker = 1;
+			text = "<html>（站到了庚敬煊旁边）。</html>";
 			break;
 		case 3:
 			speaker = 0;
-			text = "<html>首先是男篮打进了4强，而且上周宣传做的推送反响很好，恭喜汪赫谦和<font style=\"color:red\">"+dataPackage.name+"</font>！"+
-				   "<br>【收到了夸奖，心情好起来了+5】</html>";
+			text = "<html>那么，最终是<font style=\"color:red\">"+dataPackage.name+"</font>与王山决定竞选。请大家根据他们的竞选纲领与发言给出自己的选择。</html>";
 			break;
 		case 4:
-			speaker = 0;
-			text = "<html>首先是男篮打进了4强，而且上周宣传做的推送反响很好，恭喜汪赫谦和康孟博！</html>";
+			speaker = 1;
+			text = "<html>（可能觉得自己还不够格吧……）</html>";
 			break;
 		case 5:
 			speaker = 0;
-			text = "<html>另外，键绳运动会我们总分并列第一。但是遗憾的是我们的第一名数目不够，所以无法拿到冠军奖杯。有点可惜。"+
-				   "<br>【心中非常遗憾，心情-3】</html>";
+			text = "<html>那么，最终是赵超与王山决定竞选。请大家根据他们的竞选纲领与发言给出自己的选择。</html>";
 			break;
 		case 6:
-			speaker = 0;
-			text = "<html>另外，键绳运动会我们总分并列第一。但是遗憾的是我们的第一名数目不够，所以无法拿到冠军奖杯。有点可惜。"+
-				   "<br>【同伴负责的项目，心里不是滋味，心情-2】</html>";
+			speaker = 3;
+			text = "<html>......</html>";
 			break;
 		case 7:
-			speaker = 0;			
-			text = "<html>另外，还有个好消息：男足小组赛我们头名出线了，晋级了下赛季的淘汰赛。"+
-				   "<br>【心情再次回复了一些+1】</html>";
+			speaker = 3;
+			text = "<html>(笔尖沙沙声)。</html>";
 			break;
 		case 8:
 			speaker = 0;	
-			text = "<html>这学期我们工作顺利，马杯总分上小有领先。下学期，我们老伙计们就退役了，就要靠年轻的大一各位了！</html>";
+			text = "<html>那么，我宣布，最终是<font style=\"color:red\">"+dataPackage.name
+				 + "</font>当选新一届的体育部长。希望在接下来的日子里，大家好好帮助他，我们一起拿下今年的大马杯！下面由<font style=\"color:red\">"
+				 + dataPackage.name+"</font>继续主持。</html>";
 			break;
 		case 9:
 			speaker = 0;	
-			text = "<html>相信大家跟着师傅，已经稍微熟悉了一些体育部的工作。大家要加油啊！下学期"+
-				   "<font style=\"color:red\">第一周周二晚上10点</font>，大家需要继续参加例会，地点仍然是517A，主题是体育部部长选举。</html>";
+			text = "<html>那么，我宣布，最终是王山当选新一届的体育部长。希望在接下来的日子里，大家好好帮助他，我们一起拿下今年的大马杯！下面由王山继续主持。</html>";
 			break;
 		case 10:
-			speaker = 0;	
-			text = "<html>大家最近就好好学习，准备期末考试，加油！今天的例会就到这里。</html>";
+			speaker = 1;	
+			text = "<html>（喵喵喵就这么成了部长？）</html>";
 			break;
 		case 11:
-			speaker = 1;	
-			text = "<html>走出517A，心情复杂。</html>";
+			if (dataPackage.SUPEchair == 1) {
+				speaker = 1;
+			}else {
+				speaker = 2;
+			}
+			text = "<html>大家好！虽然我当选部长，但是我们没有什么指挥与被指挥关系，我们只是为了同一个目标一起努力的团体。</html>";
+			break;
+		case 12:
+			if (dataPackage.SUPEchair == 1) {
+				speaker = 1;
+			}else {
+				speaker = 2;
+			}
+			text = "<html>这学期，我们的最基础目标就是把平时的工作做好，让每一位运动员专注于比赛。</html>";
+			break;
+		case 13:
+			if (dataPackage.SUPEchair == 1) {
+				speaker = 1;
+			}else {
+				speaker = 2;
+			}
+			text = "<html>这学期的第一个要费神的事是校园马拉松，本周日进行。<font style=\"color:red\">周六上午10点，我们在517碰头</font>。我们需要分配一下1/4马与半马的物资，明确一下服务点的工作安排。</html>";
+			break;
+		case 14:
+			if (dataPackage.SUPEchair == 1) {
+				speaker = 1;
+			}else {
+				speaker = 2;
+			}
+			text = "<html>下一次例会是<font style=\"color:red\">第二周周二晚上10点，地点在517</font>，大家记得准时参加哈！</html>";
 			break;
 		}
-
+		
+		
 		
 		//<html><font style=\"color:blue\">庚敬</font><font style=\"color:red\">煊</font></html>"
 		switch (speaker) {
@@ -241,7 +266,10 @@ public class WinSUPE3 extends WinBase{
 			dialogName.setText("<html>我</html>");
 			break;
 		case 2:
-			dialogName.setText("<html>所有人</html>");
+			dialogName.setText("<html>王山</html>");
+			break;
+		case 3:
+			dialogName.setText("<html>大家</html>");
 			break;
 		}
 		dialogContent.setText(text);
@@ -264,6 +292,68 @@ public class WinSUPE3 extends WinBase{
 		dialogPack.add(dialogBackgoundPanel);
 		backgroundPanel.add(dialogPack);
 
+		if (dataPackage.count == 1) {              //触发聘书，不显示next，通过×交互  
+			nextButton.setVisible(false);
+		}
+		
+		
+		/*************************************************************	
+		* 【选择师傅】 
+		*  	count=5触发
+		*  
+		*************************************************************/
+		JPanel choosePack = new JPanel();
+		choosePack.setBounds(298, 160, 432, 277);
+		choosePack.setOpaque(false);//注意要设成透明的
+		choosePack.setLayout(null);
+			JPanel choosePanel = new JPanel();
+			choosePanel.setBounds(0, 0, 432, 277);
+			choosePanel.setLayout(null);
+			choosePanel.setOpaque(false);
+			
+			JPanel chooseImagePanel = new ImagePanel("imgsrc//WinOrganization/smallDialog.png", 0, 0, 432, 277);
+			chooseImagePanel.setBounds(0, 0, 432, 277);
+			chooseImagePanel.setOpaque(false);
+			
+				JLabel textLabel = new JLabel();
+				textLabel.setHorizontalAlignment(SwingConstants.CENTER);
+				textLabel.setText("<html>是否要竞选部长呢？</html>");
+				textLabel.setFont(new Font("华文细黑", Font.PLAIN, 20));
+				textLabel.setBounds(81, 51, 270,77);
+				
+				JButton tryButton = new JButton();	
+				tryButton.setBorderPainted(false);
+				tryButton.setFont(new Font("华文仿宋", Font.PLAIN, 16));
+				tryButton.setForeground(Color.BLACK);
+				tryButton.setBounds(138, 124, 120,40);
+				tryButton.setContentAreaFilled(false);
+				tryButton.setHorizontalAlignment(SwingConstants.CENTER);
+				setIcon("/imgsrc/WinOrganization/yesUp.png", tryButton);
+				setSelectedIcon("/imgsrc/WinOrganization/yesDown.png", tryButton);
+				
+				JButton refuseButton = new JButton();
+				refuseButton.setHorizontalAlignment(SwingConstants.CENTER);
+				refuseButton.setForeground(Color.BLACK);
+				refuseButton.setFont(new Font("Dialog", Font.PLAIN, 16));
+				refuseButton.setContentAreaFilled(false);
+				refuseButton.setBorderPainted(false);
+				refuseButton.setBounds(138, 174, 120, 40);
+				setIcon("/imgsrc/WinOrganization/noUp.png", refuseButton);
+				setSelectedIcon("/imgsrc/WinOrganization/noDown.png", refuseButton);
+				
+				choosePanel.add(refuseButton);
+				choosePanel.add(tryButton);
+				choosePanel.add(textLabel);
+			choosePack.add(choosePanel);
+			choosePack.add(chooseImagePanel);
+		backgroundPanel.add(choosePack);
+		
+		if (dataPackage.count == 1) {
+			choosePack.setVisible(true);
+		}else {
+			choosePack.setVisible(false);
+		}
+		
 		/*************************************************************	
 		 * 【镶时钟】
 		 * 		不需要修改
@@ -358,7 +448,14 @@ public class WinSUPE3 extends WinBase{
 		demoMouseListener clickNext=new demoMouseListener(0);//设置鼠标监听器，发生0号事件
 		clickNext.setButton(nextButton);
 		nextButton.addMouseListener(clickNext);//0号事件是 下一步按钮 被点击
-
+		
+		demoMouseListener clickYes=new demoMouseListener(1);//设置鼠标监听器，发生1号事件
+		clickYes.setButton(tryButton);
+		tryButton.addMouseListener(clickYes);//1号事件是 竞选按钮 被点击
+		
+		demoMouseListener clickNo=new demoMouseListener(2);//设置鼠标监听器，发生2号事件
+		clickNo.setButton(refuseButton);
+		refuseButton.addMouseListener(clickNo);//2号事件是 不竞选按钮 被点击
 		/*		END OF YOUR CODE		*/
     	    	
     	/*****************************************************************				

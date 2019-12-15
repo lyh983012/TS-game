@@ -108,8 +108,15 @@ public class EventStateManager extends EventBase{
 							if (dataPackage.term == 1 && dataPackage.week == 3 && 
 								dataPackage.date == 2 &&
 								dataPackage.time >= 22 && dataPackage.time <= 23) {
-								inEvent = true; //  汪师傅才会触发517A的第二次活动
-						}
+								inEvent = true; // 第二次例会
+							}
+						break;
+						case 5:
+							if (dataPackage.term == 1 && dataPackage.week == 3 && 
+								dataPackage.date == 4 &&
+								dataPackage.time >= 22 && dataPackage.time <= 23) {
+								inEvent = true; // 第三次例会
+							}
 						break;
 						}
 						if (inEvent) {
@@ -144,10 +151,13 @@ public class EventStateManager extends EventBase{
 				case 200012:
 					dataPackage.ID=0;
 					break;
-				case 200013:	// 体育部第二次事件结束后，进入宿舍界面
+				case 200013:	// 体育部第一次活动事件结束后，进入宿舍界面
 					dataPackage.ID=0;
 					break;
 				case 200014:	// 体育部第二次例会结束后，进入宿舍界面
+					dataPackage.ID=0;
+					break;
+				case 200015:	// 体育部第三次例会结束后，进入宿舍界面
 					dataPackage.ID=0;
 					break;
 				case 200010:    // 到了体育部但是什么也没有发生

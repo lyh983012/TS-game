@@ -9,17 +9,17 @@ import THUgame.event.EventBase;
 
 
 /*
- * 招新事件 * 
+/*
+ * 第二次例会 
  * 
  *  ---- LOG ----
- *  update:20191123
+ *  update:20191214
  *  via：余冬杰
- *  更新：招新的大致过程明确了
- *  TODO:
+ *  对话流程:
  *      0-1-2-3-6-7-8-9-10-11
  * 			 \
  * 			  4-5-7-8-9-10-11
- * */
+ */
 
 public class EventSUPE3 extends EventBase{
 
