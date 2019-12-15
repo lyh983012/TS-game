@@ -101,7 +101,7 @@ public class EventStateManager extends EventBase{
 							if (dataPackage.term == 1 && dataPackage.week == 2 && 
 								dataPackage.date == 4 &&
 								dataPackage.time >= 21 && dataPackage.time <= 22) {
-								if (dataPackage.SUPEmentor == 1) inEvent = true; //  汪师傅才会触发517A的第二次活动
+								if (dataPackage.SUPEmentor == 1) inEvent = true; //  汪师傅才会触发517A的第一次活动
 							}
 							break;
 						case 4:
@@ -110,14 +110,28 @@ public class EventStateManager extends EventBase{
 								dataPackage.time >= 22 && dataPackage.time <= 23) {
 								inEvent = true; // 第二次例会
 							}
-						break;
-						case 5:
+							break;
+						case 5:  // 正式T2W1D2 22:00-23:00
 							if (dataPackage.term == 1 && dataPackage.week == 3 && 
 								dataPackage.date == 4 &&
 								dataPackage.time >= 22 && dataPackage.time <= 23) {
 								inEvent = true; // 第三次例会
 							}
-						break;
+							break;
+						case 6:  // 正式T2W1D6 10:00-12:00
+							if (dataPackage.term == 1 && dataPackage.week == 3 && 
+								dataPackage.date == 5 &&
+								dataPackage.time >= 10 && dataPackage.time <= 12) {
+								inEvent = true; // 第二次活动
+							}
+							break;
+						case 7:  // 正式T2W2D2 22:00-23:00
+							if (dataPackage.term == 1 && dataPackage.week == 3 && 
+								dataPackage.date == 6 &&
+								dataPackage.time >= 22 && dataPackage.time <= 23) {
+								inEvent = true; // 第四次例会
+							}
+							break;
 						}
 						if (inEvent) {
 							dataPackage.ID=200010 + dataPackage.SUPEprocess;  //20001X, X>=2
@@ -158,6 +172,12 @@ public class EventStateManager extends EventBase{
 					dataPackage.ID=0;
 					break;
 				case 200015:	// 体育部第三次例会结束后，进入宿舍界面
+					dataPackage.ID=0;
+					break;
+				case 200016:	// 体育部第二次活动结束后，进入宿舍界面
+					dataPackage.ID=0;
+					break;
+				case 200017:	// 体育部第四次例会结束后，进入宿舍界面
 					dataPackage.ID=0;
 					break;
 				case 200010:    // 到了体育部但是什么也没有发生
