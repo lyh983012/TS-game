@@ -72,6 +72,7 @@ public class WindowManager extends JFrame {
 		WinSUPE4.dataPackage = dataPackage;
 		WinSUPE5.dataPackage = dataPackage;
 		WinSUPE6.dataPackage = dataPackage;
+		WinSUPE7.dataPackage = dataPackage;
 		//TODO:WinSUPEX
 		/*		END OF YOUR CODE		*/
 	}
@@ -148,6 +149,9 @@ public class WindowManager extends JFrame {
 				break;
 			case 200017:
 				generator = new WinSUPE6(mainGame,mainFrame);
+				break;
+			case 200018:
+				generator = new WinSUPE7(mainGame,mainFrame);
 				break;
 			case 30003:
 				generator = new WinInputName(mainGame,mainFrame);

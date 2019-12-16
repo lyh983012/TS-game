@@ -88,67 +88,70 @@ public class EventStateManager extends EventBase{
 					}else if(dataPackage.choiceA=="clickGoToSTA"){
 						dataPackage.ID=20016;
 					}else if(dataPackage.choiceA.equals("clickGoToSUPE")) {
-						boolean inEvent = false;  // 标记是否处于子事件的发生时间
-						switch (dataPackage.SUPEprocess) {
-						case 2:
+						int inEvent = 0;  // 标记是否处于子事件的发生时间
 							if (dataPackage.term == 1 && dataPackage.week == 1 && 
 								dataPackage.date == 4 &&
 								dataPackage.time >= 13 && dataPackage.time <= 14) {
-								inEvent = true;
+								inEvent = 2;
 							}
-							break;
-						case 3:
+
 							if (dataPackage.term == 1 && dataPackage.week == 2 && 
 								dataPackage.date == 4 &&
 								dataPackage.time >= 21 && dataPackage.time <= 22) {
-								if (dataPackage.SUPEmentor == 1) inEvent = true; //  汪师傅才会触发517A的第一次活动
+								if (dataPackage.SUPEmentor == 1) inEvent = 3; //  汪师傅才会触发517A的第一次活动
 							}
-							break;
-						case 4:
+
 							if (dataPackage.term == 1 && dataPackage.week == 3 && 
 								dataPackage.date == 2 &&
 								dataPackage.time >= 22 && dataPackage.time <= 23) {
-								inEvent = true; // 第二次例会
+								inEvent = 4; // 第二次例会
 							}
-							break;
-						case 5:  // 正式T2W1D2 22:00-23:00
-							if (dataPackage.term == 1 && dataPackage.week == 3 && 
-								dataPackage.date == 4 &&
+
+						// 正式T2W1D2 22:00-23:00
+						// 调试T1W3D4 22:00-23:00	
+							if (dataPackage.term == 2 && dataPackage.week == 1 && 
+								dataPackage.date == 2 &&
 								dataPackage.time >= 22 && dataPackage.time <= 23) {
-								inEvent = true; // 第三次例会
+								inEvent = 5; // 第三次例会
 							}
-							break;
-						case 6:  // 正式T2W1D6 10:00-12:00
-							if (dataPackage.term == 1 && dataPackage.week == 3 && 
-								dataPackage.date == 5 &&
-								dataPackage.time >= 10 && dataPackage.time <= 12) {
-								inEvent = true; // 第二次活动
-							}
-							break;
-						case 7:  // 正式T2W2D2 22:00-23:00
-							if (dataPackage.term == 1 && dataPackage.week == 3 && 
+						// 正式T2W1D6 10:00-12:00
+						// 调试T1W3D5 10:00-12:00
+							if (dataPackage.term == 2 && dataPackage.week == 1 && 
 								dataPackage.date == 6 &&
-								dataPackage.time >= 22 && dataPackage.time <= 23) {
-								inEvent = true; // 第四次例会
+								dataPackage.time >= 10 && dataPackage.time <= 12) {
+								inEvent = 6; // 第二次活动
 							}
-							break;
-						}
-						if (inEvent) {
-							dataPackage.ID=200010 + dataPackage.SUPEprocess;  //20001X, X>=2
+						// 正式T2W2D2 22:00-23:00
+						// 正式T1W3D6 10:00-12:00	
+							if (dataPackage.term == 2 && dataPackage.week == 2 && 
+								dataPackage.date == 2 &&
+								dataPackage.time >= 22 && dataPackage.time <= 23) {
+								inEvent = 7; // 第四次例会
+							}
+						if (inEvent > 0) {
+							dataPackage.ID=200010 + inEvent;  //20001X, X>=2
 						}else {
 							dataPackage.ID = 200010;
 						}
 					}else if (dataPackage.choiceA.equals("clickGoToC")) {
-						boolean inEvent = false;  // 标记是否处于子事件的发生时间
+						boolean inevent = false;  // 标记是否处于子事件的发生时间
 						if (dataPackage.term == 1 && dataPackage.week == 2 && 
 							dataPackage.date == 4 &&
 							dataPackage.time >= 21 && dataPackage.time <= 22) {
-							if (dataPackage.SUPEmentor == 2)   inEvent = true; //  章师傅才会触发C楼的第二次活动
+							if (dataPackage.SUPEmentor == 2)   inevent = true; //  章师傅才会触发C楼的第二次活动
 						}
-						if (inEvent) {
-							dataPackage.ID=200010 + dataPackage.SUPEprocess;  //20001X, X>=2
+						if (inevent) {
+							dataPackage.ID=200013;  //20001X, X>=2
 						}else {
 							dataPackage.ID = 2000131;
+						}
+					}else if (dataPackage.choiceA.equals("clickGoToEast")){
+						// 正式T2W2D4 12:00-13:00
+						// 调试T1W3D7 12:00-13:00
+						if (dataPackage.term == 2 && dataPackage.week == 2 && 
+							dataPackage.date == 4 &&
+							dataPackage.time >= 12 && dataPackage.time <= 13) {
+							dataPackage.ID=200018;
 						}
 					}
 					//TODO:MAP中加入517A
@@ -178,6 +181,9 @@ public class EventStateManager extends EventBase{
 					dataPackage.ID=0;
 					break;
 				case 200017:	// 体育部第四次例会结束后，进入宿舍界面
+					dataPackage.ID=0;
+					break;
+				case 200018:	// 体育部第三次活动结束后，进入宿舍界面
 					dataPackage.ID=0;
 					break;
 				case 200010:    // 到了体育部但是什么也没有发生

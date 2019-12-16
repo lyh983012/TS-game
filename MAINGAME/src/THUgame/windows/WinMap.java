@@ -87,6 +87,8 @@ public class WinMap extends WinBase{
 					dataPackage.choiceA="clickGoToSUPE";//点按钮3（体育部按钮）
 				}else if(mode == 5) {
 					dataPackage.choiceA="clickGoToC";//点按钮5（C楼按钮）
+				}else if(mode == 6 ) {
+					dataPackage.choiceA="clickGoToEast";//点按钮6（东操按钮）
 				}
 		    	
 				timer=new Timer(200,new ActionListener()
@@ -199,7 +201,7 @@ public class WinMap extends WinBase{
 		setSelectedIcon("/imgsrc/WinOrganization/517pressed.png",GoToSUPE);
 		backgroundPanel.add(GoToSUPE);
 		GoToSUPE.setVisible(false);
-		if(dataPackage.joinSA) {  //加入体育部后，13点517A开放
+		if(dataPackage.joinSA) {  //加入体育部后，517A开放
 			GoToSUPE.setVisible(true);
 		}
 		
@@ -213,6 +215,22 @@ public class WinMap extends WinBase{
 		GoToC.setVisible(false);
 		if(dataPackage.joinSA) {  //加入体育部后，13点517A开放
 			GoToC.setVisible(true);
+		}
+		
+		// 正式T2W2D4 12:00-13:00	
+		// 调试T1W3D7 12:00-13:00
+		JButton GoToEast = new JButton();
+		GoToEast.setContentAreaFilled(false);
+		GoToEast.setBorderPainted(false);
+		GoToEast.setBounds(800, 250, 75, 50);
+		setIcon("/imgsrc/WinOrganization/eastplayUp.png",GoToEast);
+		setSelectedIcon("/imgsrc/WinOrganization/eastplayDown.png",GoToEast);
+		backgroundPanel.add(GoToEast);
+		GoToEast.setVisible(false);
+		if(dataPackage.joinSA && dataPackage.term == 2 &&
+		   dataPackage.week == 2 && dataPackage.date == 4 &&
+		   dataPackage.time <= 13 &&  dataPackage.time >= 12) {
+			GoToEast.setVisible(true);
 		}
 
 		/*************************************************************	
@@ -334,6 +352,10 @@ public class WinMap extends WinBase{
 		demoMouseListener clickGoToC=new demoMouseListener(5);
 		clickGoToC.setButton(GoToC);
 		GoToC.addMouseListener(clickGoToC);
+		
+		demoMouseListener clickGoToEast=new demoMouseListener(6);
+		clickGoToEast.setButton(GoToEast);
+		GoToEast.addMouseListener(clickGoToEast);
 		/*		  END OF YOUR CODE		*/
     	    	
     	/*****************************************************************				
