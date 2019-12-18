@@ -46,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void run() {
+    	/*
     	JPanel EventPanel = new JPanel();
         JTextPane txtpnshi = new JTextPane();
         EventPanel.setBounds(0, 0, 50, 50);
@@ -57,7 +58,8 @@ public class GamePanel extends JPanel implements Runnable {
 		EventPanel.add(txtpnshi);
 		this.add(EventPanel);
 		update();
-		boolean start = false;
+		*/
+		boolean start = true;
 		
         try {
             while (start) {
