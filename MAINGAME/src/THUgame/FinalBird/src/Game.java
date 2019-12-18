@@ -3,7 +3,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
-
+//需要初始化的时候更改maingame和datapackage
 public class Game {
 
     public static final int PIPE_DELAY = 100;
