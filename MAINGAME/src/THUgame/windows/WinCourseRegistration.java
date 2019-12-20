@@ -1,35 +1,31 @@
 package THUgame.windows;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
-import java.awt.Color;
+
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import java.awt.Font;
-
-
-import javax.swing.border.LineBorder;
-
-import THUgame.datapack.DataPack;
-import THUgame.main.EventManager;
-import THUgame.tool.ImagePanel;
-import THUgame.tool.Courses;
-
-
-import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
 /*
  * 
  **/
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+
+import THUgame.datapack.DataPack;
+import THUgame.main.EventManager;
+import THUgame.tool.Courses;
+import THUgame.tool.ImagePanel;
 
 
 public class WinCourseRegistration extends WinBase{

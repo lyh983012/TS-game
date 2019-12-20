@@ -443,17 +443,18 @@ public class WinCourseWithdraw extends WinBase{
 		confirmationPanel.setLayout(null);
 		
 		JLabel label_9 = new JLabel("退课后不可撤销！是否确认退课？");
-		label_9.setBounds(100, 30, 200, 15);
+		label_9.setBounds(100, 30, 200, 60);
+		label_9.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		confirmationPanel.add(label_9);
 		
 		JButton noButton = new JButton("否");
-		noButton.setFont(new Font("Dialog", Font.PLAIN, 20));
-		noButton.setBounds(340, 90, 150, 50);
+		noButton.setFont(new Font("Dialog", Font.BOLD, 20));
+		noButton.setBounds(290, 90, 150, 50);
 		confirmationPanel.add(noButton);
 		
 		JButton yesButton = new JButton("是");
-		yesButton.setFont(new Font("Dialog", Font.PLAIN, 20));
-		yesButton.setBounds(150, 90, 150, 50);
+		yesButton.setFont(new Font("Dialog", Font.BOLD, 20));
+		yesButton.setBounds(100, 90, 150, 50);
 		confirmationPanel.add(yesButton);
 		msgPanel.setBounds(244, 200, 495, 330);
 		backgroundPanel.add(msgPanel);

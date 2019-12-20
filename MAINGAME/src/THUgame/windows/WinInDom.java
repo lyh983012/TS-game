@@ -180,8 +180,13 @@ public class WinInDom extends WinBase{
 						dataPackage.choiceA="need_course_reg";//点按钮4（待着按钮）返回stayup
 					}else if(dataPackage.stateA.equals("退课")){
 						dataPackage.choiceA="need_course_withdraw";//点按钮4（待着按钮）返回stayup
+					}else if(dataPackage.stateA.equals("每周五社团")){
+						dataPackage.choiceA="go_to_club";//点按钮4（待着按钮）返回stayup
+					}else if(dataPackage.stateA.equals("每周四组会")){
+						dataPackage.choiceA="go_to_lab";//点按钮4（待着按钮）返回stayup
 					}else if(dataPackage.stateA.equals("每周报告")||
-							dataPackage.stateA.equals("提醒组会")){
+							dataPackage.stateA.equals("提醒组会")||
+							dataPackage.stateA.equals("学生会")){
 						messagePanel.setVisible(false);
 						dataPackage.trigSubEvent=false;
 						dataPackage.stateA="";
@@ -192,6 +197,8 @@ public class WinInDom extends WinBase{
 						OutButton.setVisible(showButton);
 						studychoice.setVisible(showStudychoices);
 						return;
+					}else if(dataPackage.stateA.equals("毕业")){
+						dataPackage.choiceA="goCeremony";//点按钮4（待着按钮）返回stayup
 					}
 				}
 				else if(mode ==6){
@@ -199,6 +206,18 @@ public class WinInDom extends WinBase{
 				}
 				else if(mode ==7){
 					dataPackage.choiceA="readpaper";//点按钮1（自习按钮）返回selfstudy
+				}
+				else if(mode ==9){
+					messagePanel.setVisible(false);
+					dataPackage.trigSubEvent=false;
+					dataPackage.stateA="";
+					showStudychoices=true;
+					showButton=true;
+					sleepButton.setVisible(showButton);
+					selfstudyButton.setVisible(showButton);
+					OutButton.setVisible(showButton);
+					studychoice.setVisible(showStudychoices);
+					return;
 				}
 				/*		END OF YOUR CODE		*/
 				//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥要刷新事件这部分一定要加¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
@@ -373,7 +392,13 @@ public class WinInDom extends WinBase{
 
 			JButton messageButton = new JButton();
 			messageButton.setBorderPainted(true);//TODO：GUI还没设计
-			messageButton.setBounds(197, 250, 120, 50);		
+			messageButton.setBounds(197, 250, 120, 50);	
+			messageButton.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+			
+			JButton messageButton2 = new JButton();
+			messageButton2.setBorderPainted(true);//TODO：GUI还没设计
+			messageButton2.setBounds(197, 250, 120, 50);	
+			messageButton2.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		
 		messageupperlevel.add(messagelabel_1);
 		messageupperlevel.add(messageButton);	
@@ -402,7 +427,7 @@ public class WinInDom extends WinBase{
 		Remember.setVisible(false);
 		Maze.setVisible(false);
 		
-		if(dataPackage.week==1 && dataPackage.date==1 && dataPackage.course_selected==false) {
+		if((dataPackage.term==1 || dataPackage.term==2 )&& dataPackage.week==1 && dataPackage.date==1 && dataPackage.time==8 && dataPackage.course_selected==false) {
 			dataPackage.trigSubEvent=true;
 			dataPackage.stateA="选课";
 			dataPackage.course_selected=true;
@@ -419,6 +444,10 @@ public class WinInDom extends WinBase{
 				}
 			}else if(dataPackage.stateA.equals("被吵醒")){
 				SnorePanel.setVisible(true);
+			}else if(dataPackage.stateA.equals("毕业")){
+				messagelabel_1.setText("<html>一晃就要毕业了，快去参加毕业典礼吧！</html>");
+				messageButton.setText("前去毕业典礼");
+				messagePanel.setVisible(true);
 			}else if(dataPackage.stateA.equals("期末考")){
 				messageButton.setText("出发去考点");
 				messagelabel_1.setText("<html>天哪期末考要开始了！差点就睡过头了，快点赶去考试！</html>");
@@ -446,6 +475,33 @@ public class WinInDom extends WinBase{
 			}else if(dataPackage.stateA.equals("退课")){
 				messageButton.setText("退课系统");
 				messagelabel_1.setText("<html>唉，上了半个学期的课了，感觉好忙，也不知道能不能学的完，让我看看是不是要退课吧，希望学分足够我毕业。</html>");
+				messagePanel.setVisible(true);
+			}else if(dataPackage.stateA.equals("每周五社团")){
+				messageupperlevel.add(messageButton2);	
+				messageButton.setText("看看");
+				messageButton2.setText("不去");
+				if(dataPackage.week==1)
+					messagelabel_1.setText("<html>下午社团活动报名，快【外出】看看吧。</html>");
+				else
+					messagelabel_1.setText("<html>下午有我报名的社团活动，快【外出】看看吧。</html>");
+				messageButton.setBounds(140, 250, 80, 50);	
+				messageButton2.setBounds(240, 250, 80, 50);
+				messagePanel.setVisible(true);
+			}else if(dataPackage.stateA.equals("每周四组会")){
+				messageupperlevel.add(messageButton2);	
+				messageButton.setText("赶紧去");
+				messageButton2.setText("不去");
+				messagelabel_1.setText("<html>下午有我报名的科研训练的组会，快【外出】吧。</html>");
+				messageButton.setBounds(140, 250, 80, 50);	
+				messageButton2.setBounds(240, 250, 80, 50);
+				messagePanel.setVisible(true);
+			}else if(dataPackage.stateA.equals("学生会")){
+				messageupperlevel.add(messageButton2);	
+				messageButton.setText("赶紧去");
+				messageButton2.setText("不去");
+				messagelabel_1.setText("<html>学生会要开会，办活动了，我得快点【外出】了。</html>");
+				messageButton.setBounds(140, 250, 80, 50);	
+				messageButton2.setBounds(240, 250, 80, 50);
 				messagePanel.setVisible(true);
 			}
 			showStudychoices=false;
@@ -745,6 +801,7 @@ public class WinInDom extends WinBase{
 		demoMouseListener clickhomework=new demoMouseListener(6);//设置鼠标监听器，发生4号事件
 		demoMouseListener clickpaper = new demoMouseListener(7);//设置鼠标监听器，发生4号事件
 		demoMouseListener clickToDoList = new demoMouseListener(8);//设置鼠标监听器，发生4号事件
+		demoMouseListener clickrefuse= new demoMouseListener(9);//设置鼠标监听器，发生4号事件
 
 		clickexam.setButton(messageButton);
 		clicksleep.setButton(sleepButton);
@@ -755,7 +812,9 @@ public class WinInDom extends WinBase{
 		clickhomework.setButton(homeWork);
 		clickpaper.setButton(paper);
 		clickToDoList.setButton(readToDoList);
+		clickrefuse.setButton(readToDoList);
 		
+		messageButton2.addMouseListener(clickrefuse);//
     	sleepButton.addMouseListener(clicksleep);//0号事件是 睡觉按钮 被点击
 		selfstudyButton.addMouseListener(clickselfstudy);//1号事件是 去自习按钮 被点击
 		OutButton.addMouseListener(clickOut);//2号事件是 去上课按钮 被点击

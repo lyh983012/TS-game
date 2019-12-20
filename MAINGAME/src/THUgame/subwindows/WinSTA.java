@@ -37,6 +37,12 @@ import THUgame.windows.WinBase;
 public class WinSTA extends WinBase{
 	static private JLabel dialogContent;
 	static private JLabel dialogName;
+	static private JButton useServer;
+	static private JButton readDocument;
+	static private JButton backButton;
+	static private JButton useLaserCutterButton;
+	static private JButton use3DPrinterButton;
+	static private JButton useToolButton;
 	
 	static private class demoMouseListener extends BaseMouseListener{
 		static public DataPack dataPackage;
@@ -115,6 +121,9 @@ public class WinSTA extends WinBase{
 								+ "这些对我以后参与比赛、挑战杯、科研以及竞选骨干一定都有帮助呢</html>");//设置默认对话内
 						this.button.setVisible(false);
 						this.button.setEnabled(false);
+						useLaserCutterButton.setVisible(true);
+						use3DPrinterButton.setVisible(true);
+						useToolButton.setVisible(true);
 						break;
 				}
 				safeGuardCount++;
@@ -159,6 +168,9 @@ public class WinSTA extends WinBase{
 						dialogContent.setText("<html>看看我要做些什么，看看服务器？写一下材料？</html>");
 						this.button.setVisible(false);
 						this.button.setEnabled(false);
+						useServer.setVisible(true);
+						readDocument.setVisible(true);
+						backButton.setVisible(true);
 						break;
 				}
 				safeGuardCount++;
@@ -253,7 +265,7 @@ public class WinSTA extends WinBase{
 			if(dataPackage.stateA.equals("")) {
 				dialogPanel.add(nextDialog);
 				dialogName.setText("独白");
-				dialogContent.setText("<html>作为管理员，我需要继续为同学们服务</html>");//设置默认对话内
+				dialogContent.setText("<html>作为分管科创实验室的副主席，我需要继续为同学们服务</html>");//设置默认对话内
 			}
 			dialogPanel.add(dialogName);
 			dialogPanel.add(dialogContent);
@@ -262,15 +274,16 @@ public class WinSTA extends WinBase{
 			backgroundPanel.add(dialogPack);
 			/*************************************************************	
 			 *【按钮】
+
 			 *************************************************************/
-			JButton useServer = new JButton();
+			useServer = new JButton();
 			useServer.setBorderPainted(false);
 			useServer.setBounds(120, 500, 80, 80);
 			useServer.setContentAreaFilled(false);
 			setIcon("/imgsrc/WinSTA/2.png",useServer);
 			setSelectedIcon("/imgsrc/WinSTA/2p.png",useServer);
 			
-			JButton readDocument = new JButton();
+			readDocument = new JButton();
 			readDocument.setBorderPainted(false);
 			readDocument.setBounds(240, 440, 80, 80);
 			readDocument.setContentAreaFilled(false);
@@ -278,7 +291,7 @@ public class WinSTA extends WinBase{
 			setSelectedIcon("/imgsrc/WinSTA/1p.png",readDocument);
 			
 			
-			JButton backButton = new JButton("离开");
+			backButton = new JButton("离开");
 			backButton.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 			backButton.setBounds(150, 600, 80, 50);
 			if(dataPackage.stateA.equals("")) {
@@ -496,6 +509,9 @@ public class WinSTA extends WinBase{
 			useServer.addMouseListener(clickserver);
 			readDocument.addMouseListener(clickdoc);
 			backButton.addMouseListener(clickBack);
+			useServer.setVisible(false);
+			readDocument.setVisible(false);
+			backButton.setVisible(false);
 			/*************************************************************	
 			*
 			*
@@ -507,7 +523,7 @@ public class WinSTA extends WinBase{
 			*
 			*
 			*
-			*【主席】
+			*【副主席】
 			*************************************************************/
 		}else{
 			/*************************************************************	
@@ -575,15 +591,14 @@ public class WinSTA extends WinBase{
 			/*************************************************************	
 			 *【按钮】
 			 *************************************************************/
-			JButton use3DPrinterButton = new JButton();
+			use3DPrinterButton = new JButton();
 			use3DPrinterButton.setBorderPainted(false);
 			use3DPrinterButton.setBounds(120, 500, 80, 80);
 			use3DPrinterButton.setContentAreaFilled(false);
 			setIcon("/imgsrc/WinSTA/2.png",use3DPrinterButton);
 			setSelectedIcon("/imgsrc/WinSTA/2p.png",use3DPrinterButton);
 			
-	
-			JButton useLaserCutterButton = new JButton();
+			useLaserCutterButton = new JButton();
 			useLaserCutterButton.setBorderPainted(false);
 			useLaserCutterButton.setBounds(240, 440, 80, 80);
 			useLaserCutterButton.setContentAreaFilled(false);
@@ -591,7 +606,7 @@ public class WinSTA extends WinBase{
 			setSelectedIcon("/imgsrc/WinSTA/1p.png",useLaserCutterButton);
 			
 			
-			JButton useToolButton = new JButton();
+			useToolButton = new JButton();
 			useToolButton.setBorderPainted(false);
 			useToolButton.setBounds(360, 250, 80, 80);
 			useToolButton.setContentAreaFilled(false);
@@ -822,8 +837,11 @@ public class WinSTA extends WinBase{
 			useLaserCutterButton.addMouseListener(clicklaser);//1号事件是 去自习按钮 被点击
 			useToolButton.addMouseListener(clickTool);//2号事件是 去上课按钮 被点击
 			backButton.addMouseListener(clickBack);//2号事件是 去上课按钮 被点击
+			useLaserCutterButton.setVisible(false);
+			use3DPrinterButton.setVisible(false);
+			useToolButton.setVisible(false);
 	
-		}	
+		}
 		//¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥这部分不允许改¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(backgroundPanel);

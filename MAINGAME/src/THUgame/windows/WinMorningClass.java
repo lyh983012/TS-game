@@ -19,8 +19,6 @@ import THUgame.Game.ShootGame;
 import THUgame.datapack.DataPack;
 import THUgame.main.EventManager;
 import THUgame.tool.ImagePanel;
-
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 

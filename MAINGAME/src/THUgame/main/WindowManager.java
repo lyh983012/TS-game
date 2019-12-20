@@ -3,18 +3,40 @@ package THUgame.main;
 import javax.swing.*;
 
 import THUgame.datapack.DataPack;
+import THUgame.event.EventCeremony;
+import THUgame.subwindows.WinClubRecirument;
 import THUgame.subwindows.WinEnd2050_1;
 import THUgame.subwindows.WinEndAnimate;
+import THUgame.subwindows.WinEndCivilServant;
+import THUgame.subwindows.WinEndDropOut;
+import THUgame.subwindows.WinEndFinanceWorker;
+import THUgame.subwindows.WinEndProgrammer;
+import THUgame.subwindows.WinEndWhiteCollar;
+import THUgame.subwindows.WinMarket;
+import THUgame.subwindows.WinOrgEnroll;
+import THUgame.subwindows.WinOrganization;
 import THUgame.subwindows.WinResearch;
 import THUgame.subwindows.WinResearchBegin;
 import THUgame.subwindows.WinSTA;
+import THUgame.subwindows.WinSUPE0;
+import THUgame.subwindows.WinSUPE1;
+import THUgame.subwindows.WinSUPE21;
+import THUgame.subwindows.WinSUPE22;
+import THUgame.subwindows.WinSUPE3;
+import THUgame.subwindows.WinSUPE4;
+import THUgame.subwindows.WinSUPE5;
+import THUgame.subwindows.WinSUPE6;
+import THUgame.subwindows.WinSUPE7;
 import THUgame.windows.WinBase;
+import THUgame.windows.WinCeremony;
+import THUgame.windows.WinCeremonyLec;
 import THUgame.windows.WinChoice;
 import THUgame.windows.WinCourseRegistration;
 import THUgame.windows.WinCourseWithdraw;
 import THUgame.windows.WinHome;
 import THUgame.windows.WinInDom;
 import THUgame.windows.WinInputName;
+import THUgame.windows.WinLeave;
 import THUgame.windows.WinMap;
 import THUgame.windows.WinMorningClass;
 import THUgame.windows.WinNoonClass;
@@ -30,6 +52,14 @@ import THUgame.subwindows.WinResearchGroupmeetingSix;
 import THUgame.subwindows.WinResearchGroupmeetingSeven;
 import THUgame.subwindows.WinResearchGroupmeetingEight;
 import THUgame.subwindows.WinResearchMeetingNotice;
+import THUgame.subwindows.WinCBuilding;
+import THUgame.subwindows.WinClubActivityFive;
+import THUgame.subwindows.WinClubActivityFour;
+import THUgame.subwindows.WinClubActivityOne;
+import THUgame.subwindows.WinClubActivitySeven;
+import THUgame.subwindows.WinClubActivitySix;
+import THUgame.subwindows.WinClubActivityThree;
+import THUgame.subwindows.WinClubActivityTwo;
 /*
  * template version 1.1
  * 窗口管理线程
@@ -85,6 +115,34 @@ public class WindowManager extends JFrame {
 		WinEndAnimate.dataPackage=dataPackage;
 		WinResearch.dataPackage=dataPackage;
 		WinCourseWithdraw.dataPackage=dataPackage;
+		WinCeremony.dataPackage=dataPackage;
+		WinCeremonyLec.dataPackage=dataPackage;
+		WinLeave.dataPackage=dataPackage;
+		WinEndCivilServant.dataPackage=dataPackage;
+		WinEndDropOut.dataPackage=dataPackage;
+		WinEndFinanceWorker.dataPackage=dataPackage;
+		WinEndProgrammer.dataPackage=dataPackage;
+		WinEndWhiteCollar.dataPackage=dataPackage;
+		WinOrganization.dataPackage=dataPackage;
+		WinOrgEnroll.dataPackage=dataPackage;
+		WinSUPE1.dataPackage = dataPackage;
+		WinSUPE21.dataPackage = dataPackage;
+		WinSUPE22.dataPackage = dataPackage;
+		WinCBuilding.dataPackage = dataPackage;
+		WinMarket.dataPackage = dataPackage;
+		WinSUPE3.dataPackage = dataPackage;
+		WinSUPE4.dataPackage = dataPackage;
+		WinSUPE5.dataPackage = dataPackage;
+		WinSUPE6.dataPackage = dataPackage;
+		WinSUPE7.dataPackage = dataPackage;
+		WinClubRecirument.dataPackage=dataPackage;
+		WinClubActivityOne.dataPackage=dataPackage;
+		WinClubActivityTwo.dataPackage=dataPackage;
+		WinClubActivityThree.dataPackage=dataPackage;
+		WinClubActivityFour.dataPackage=dataPackage;
+		WinClubActivityFive.dataPackage=dataPackage;
+		WinClubActivitySix.dataPackage=dataPackage;
+		WinClubActivitySeven.dataPackage=dataPackage;
 		/*		END OF YOUR CODE		*/
 	}
 	
@@ -116,6 +174,56 @@ public class WindowManager extends JFrame {
 				break;
 			case 5:
 				generator = new WinCourseWithdraw(mainGame,mainFrame);
+				break;
+			case 6:
+				generator = new WinCeremony(mainGame,mainFrame);
+				break;
+			case 7:
+				generator = new WinCeremonyLec(mainGame,mainFrame);
+				break;
+			case 8:
+				generator = new WinLeave(mainGame,mainFrame);
+				break;
+			case 20001:
+				generator = new WinOrganization(mainGame, mainFrame);
+				break;
+			case 200010:
+				generator = new WinSUPE0(mainGame, mainFrame);
+				break;
+			case 200011:
+				generator = new WinOrgEnroll(mainGame, mainFrame);
+				break;
+			case 200012:
+				generator = new WinSUPE1(mainGame, mainFrame);
+				break;
+			case 200013:	
+				if (dataPackage.SUPEmentor == 1) {
+					generator = new WinSUPE21(mainGame, mainFrame);
+				}
+				else if (dataPackage.SUPEmentor == 2) {
+					generator = new WinSUPE22(mainGame, mainFrame);
+				}
+				break;
+			case 2000131:
+				generator = new WinCBuilding(mainGame,mainFrame);
+				break;
+			case 2000132:
+				generator = new WinMarket(mainGame,mainFrame);
+				break;
+			case 200014:
+				generator = new WinSUPE3(mainGame,mainFrame);
+				break;
+			case 200015:
+				generator = new WinSUPE4(mainGame,mainFrame);
+				break;
+			case 200016:
+				generator = new WinSUPE5(mainGame,mainFrame);
+				break;
+			case 200017:
+				generator = new WinSUPE6(mainGame,mainFrame);
+				break;
+			case 200018:
+				generator = new WinSUPE7(mainGame,mainFrame);
 				break;
 			case 20016:
 				generator = new WinSTA(mainGame,mainFrame);
@@ -174,6 +282,44 @@ public class WindowManager extends JFrame {
 			case 40001:
 				generator= new WinEnd2050_1(mainGame,mainFrame);
 				break;
+			case 40002:
+				generator= new WinEndCivilServant(mainGame,mainFrame);
+				break;
+			case 40006:
+				generator= new WinEndDropOut(mainGame,mainFrame);
+				break;
+			case 40004:
+				generator= new WinEndFinanceWorker(mainGame,mainFrame);
+				break;
+			case 40005:
+				generator= new WinEndProgrammer(mainGame,mainFrame);
+				break;
+			case 40003:
+				generator= new WinEndWhiteCollar(mainGame,mainFrame);
+				break;
+			case 50000:
+				generator = new WinClubRecirument(mainGame,mainFrame);
+				break;
+			case 50001:
+				generator = new WinClubActivityOne(mainGame,mainFrame);
+				break;
+			case 50002:
+				generator = new WinClubActivityTwo(mainGame,mainFrame);
+				break;
+			case 50003:
+				generator = new WinClubActivityThree(mainGame,mainFrame);
+				break;
+			case 50004:
+				generator = new WinClubActivityFour(mainGame,mainFrame);
+				break;
+			case 50005:
+				generator = new WinClubActivityFive(mainGame,mainFrame);
+				break;
+			case 50006:
+				generator = new WinClubActivitySix(mainGame,mainFrame);
+				break;
+			case 50007:
+				generator = new WinClubActivitySeven(mainGame,mainFrame);
 				
 		}
 		/*		END OF YOUR CODE		*/

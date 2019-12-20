@@ -1,22 +1,7 @@
 package THUgame.subevents;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import java.awt.Font;
 import THUgame.datapack.DataPack;
 import THUgame.event.EventBase;
-import THUgame.main.EventManager;
-import THUgame.tool.ImagePanel;
-import javax.swing.SwingConstants;
 
 
 

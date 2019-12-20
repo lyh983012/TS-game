@@ -104,6 +104,7 @@ public class Courses implements Serializable {
 	/* 初始化课程列表 courseList: 目前采用人工录入的方式*/
 	public static void courseListInit(int term) {
 		courseList=new Courses [30];
+		courseListCount=0;
 		courseList[courseListCount]=new Courses("10421055", //课程号
 				"微积分A(1)", //课程名
 				32,52, //上课时间
@@ -125,7 +126,7 @@ public class Courses implements Serializable {
 				150, //课容量
 				20, //课余量
 				"你学不会", //课程特色
-				4, //上课学期
+				2, //上课学期
 				4); //上课地点
 		
 		courseList[courseListCount]=new Courses("10421324",  //课程号
@@ -209,7 +210,7 @@ public class Courses implements Serializable {
 				150, //课容量
 				50, //课余量
 				"", //课程特色
-				3, //上课学期
+				2, //上课学期
 				1); //上课地点
 		
 		courseList[courseListCount]=new Courses("10420262", //课程号
@@ -233,7 +234,7 @@ public class Courses implements Serializable {
 				150, //课容量
 				50, //课余量
 				"", //课程特色
-				3, //上课学期
+				2, //上课学期
 				1); //上课地点
 		
 
@@ -246,7 +247,7 @@ public class Courses implements Serializable {
 				100, //课容量
 				40, //课余量
 				"", //课程特色
-				3, //上课学期
+				1, //上课学期
 				1); //上课地点
 
 		courseList[courseListCount]=new Courses("10450012", //课程号
@@ -273,29 +274,6 @@ public class Courses implements Serializable {
 				1, //上课学期
 				1); //上课地点
 		
-		courseList[courseListCount]=new Courses("20310334", //课程号
-				"理论力学", //课程名
-				12,41, //上课时间
-				"R", //必修/限选/任选
-				"", //限选课程组
-				20, //总学时
-				150, //课容量
-				35, //课余量
-				"", //课程特色
-				1, //上课学期
-				1); //上课地点
-		
-		courseList[courseListCount]=new Courses("00240034", //课程号
-				"射击课", //课程名
-				11,12, //上课时间
-				"E", //必修/限选/任选
-				"", //限选课程组
-				20, //总学时
-				100, //课容量
-				-900, //课余量
-				"", //课程特色
-				4, //上课学期
-				1); //上课地点
 		courseList[courseListCount]=new Courses("00240324", //课程号
 				"体育课", //课程名
 				22,0, //上课时间
@@ -322,17 +300,6 @@ public class Courses implements Serializable {
 				"天文学导论", //课程名
 				42,0, //上课时间
 				"E", //必修/限选/任选
-				"", //限选课程组
-				20, //总学时
-				100, //课容量
-				-900, //课余量
-				"", //课程特色
-				3, //上课学期
-				1); //上课地点
-		courseList[courseListCount]=new Courses("00240054", //课程号
-				"信号与系统", //课程名
-				22,42, //上课时间
-				"R", //必修/限选/任选
 				"", //限选课程组
 				20, //总学时
 				100, //课容量
@@ -372,28 +339,6 @@ public class Courses implements Serializable {
 				-900, //课余量
 				"", //课程特色
 				4, //上课学期
-				1); //上课地点
-		courseList[courseListCount]=new Courses("00240074", //课程号
-				"数据结构", //课程名
-				22,42, //上课时间
-				"E", //必修/限选/任选
-				"", //限选课程组
-				20, //总学时
-				100, //课容量
-				-900, //课余量
-				"", //课程特色
-				1, //上课学期
-				1); //上课地点
-		courseList[courseListCount]=new Courses("00240072", //课程号
-				"数据结构", //课程名
-				22,42, //上课时间
-				"E", //必修/限选/任选
-				"", //限选课程组
-				20, //总学时
-				100, //课容量
-				-900, //课余量
-				"", //课程特色
-				2, //上课学期
 				1); //上课地点
 	}
 	

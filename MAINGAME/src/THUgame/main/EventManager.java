@@ -1,11 +1,16 @@
 package THUgame.main;
+import java.util.Random;
+
 import THUgame.datapack.DataPack;
 import THUgame.event.EventBase;
+import THUgame.event.EventCeremony;
+import THUgame.event.EventCeremonyLec;
 import THUgame.event.EventChoice;
 import THUgame.event.EventCourseRegistration;
 import THUgame.event.EventCourseWithdraw;
 import THUgame.event.EventInDom;
 import THUgame.event.EventInputName;
+import THUgame.event.EventLeave;
 import THUgame.event.EventMorningClass;
 import THUgame.event.EventNoonClass;
 import THUgame.event.EventSaveAndLoad;
@@ -14,8 +19,31 @@ import THUgame.event.EventHome;
 import THUgame.event.EventBackground;
 import THUgame.event.EventWelcome;
 import THUgame.subevents.EventSTA;
+import THUgame.subevents.EventSUPE1;
+import THUgame.subevents.EventSUPE21;
+import THUgame.subevents.EventSUPE22;
+import THUgame.subevents.EventSUPE3;
+import THUgame.subevents.EventSUPE4;
+import THUgame.subevents.EventSUPE5;
+import THUgame.subevents.EventSUPE6;
+import THUgame.subevents.EventSUPE7;
+import THUgame.subevents.EventClubActivityFive;
+import THUgame.subevents.EventClubActivityFour;
+import THUgame.subevents.EventClubActivityOne;
+import THUgame.subevents.EventClubActivitySeven;
+import THUgame.subevents.EventClubActivitySix;
+import THUgame.subevents.EventClubActivityThree;
+import THUgame.subevents.EventClubActivityTwo;
+import THUgame.subevents.EventClubRecirement;
 import THUgame.subevents.EventEnd2050_1;
 import THUgame.subevents.EventEndAnimate;
+import THUgame.subevents.EventEndCivilServant;
+import THUgame.subevents.EventEndDropOut;
+import THUgame.subevents.EventEndFinanceWorker;
+import THUgame.subevents.EventEndProgrammer;
+import THUgame.subevents.EventEndWhiteCollar;
+import THUgame.subevents.EventOrgEnroll;
+import THUgame.subevents.EventOrganization;
 import THUgame.subevents.EventResearch;
 import THUgame.subevents.EventResearchBegin;
 import THUgame.subevents.EventResearchMeetingNotice;
@@ -84,6 +112,47 @@ public class EventManager extends Thread{
 				case 5:
 					pushForward = new EventCourseWithdraw();
 					break;	
+				case 6:
+					pushForward = new EventCeremony();
+					break;
+				case 7:
+					pushForward = new EventCeremonyLec();
+					break;
+				case 8:
+					 pushForward = new EventLeave(); 
+					 break;
+				case 20001:
+					pushForward = new EventOrganization();
+					break;
+				case 200011:
+					pushForward = new EventOrgEnroll();
+					break;
+				case 200012:
+					pushForward = new EventSUPE1();
+					break;
+				case 200013:	
+					if (dataPackage.SUPEmentor == 1) {
+						pushForward = new EventSUPE21();
+					}
+					else if (dataPackage.SUPEmentor == 2) {
+						pushForward = new EventSUPE22();
+					}
+					break;
+				case 200014:
+					pushForward = new EventSUPE3();
+					break;
+				case 200015:
+					pushForward = new EventSUPE4();
+					break;
+				case 200016:
+					pushForward = new EventSUPE5();
+					break;
+				case 200017:
+					pushForward = new EventSUPE6();
+					break;
+				case 200018:
+					pushForward = new EventSUPE7();
+					break;
 				case 20016:
 					pushForward = new EventSTA();
 					break;
@@ -141,6 +210,45 @@ public class EventManager extends Thread{
 				case 40001:
 					pushForward = new EventEnd2050_1();
 					break;	
+				case 40002:
+					pushForward = new EventEndCivilServant();
+					break;	
+				case 40006:
+					pushForward = new EventEndDropOut();
+					break;	
+				case 40004:
+					pushForward = new EventEndFinanceWorker();
+					break;	
+				case 40005:
+					pushForward = new EventEndProgrammer();
+					break;	
+				case 40003:
+					pushForward = new EventEndWhiteCollar();
+					break;	
+				case 50000:
+					pushForward = new EventClubRecirement();
+					break;
+				case 50001:
+					pushForward = new EventClubActivityOne();
+					break;
+				case 50002:
+					pushForward = new EventClubActivityTwo();
+					break;
+				case 50003:
+					pushForward = new EventClubActivityThree();
+					break;
+				case 50004:
+					pushForward = new EventClubActivityFour();
+					break;
+				case 50005:
+					pushForward = new EventClubActivityFive();
+					break;
+				case 50006:
+					pushForward = new EventClubActivitySix();
+					break;
+				case 50007:
+					pushForward = new EventClubActivitySeven();
+					break;
     		}
     		/*		END OF YOUR CODE		*/
     		pushForward.actOn(dataPackage);

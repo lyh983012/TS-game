@@ -45,6 +45,7 @@ public class DataPack implements Serializable , Cloneable{
 	public int characterEnergy=100;
 	public int studyProgress=0;			//每个学期的进度
 	public int studyAim=999999;			//每个学期的目标
+	public int inClubPorcess=0;
 	/*******************************************************
 	 * 人物隐藏属性
 	 *******************************************************/
@@ -60,7 +61,7 @@ public class DataPack implements Serializable , Cloneable{
 	 *******************************************************/
 	public boolean joinSTA=false;		//加入了科协				//state000
 	public boolean joinClub=false;		//加入兴趣社团-通过隐藏属性设定社团名字
-																//state001
+	//state001
 	public boolean joinSA=false;		//加入学生会				//state002
 	public boolean joinStudentFestival=false; //参加学生节		//state003
 	public boolean joinFreshmanGame=false;	  //报名新生赛		//state004
@@ -75,6 +76,15 @@ public class DataPack implements Serializable , Cloneable{
 	public boolean holdFreshmanGame=false;	 //负责新生赛筹办		//state013
 	public int contibuteSTA=0;		//科协贡献度
 	public int STcap=0;				//科创能力，和新生赛以及挑战杯等有关系
+	public boolean FallinLove=false;
+	public boolean v=false;		
+	public int ClubCharacter=0;
+	public int ClubCount=0;
+	public int SUPEcontribution = 0; 
+	public int SUPEmentor = 0; 
+	public int SUPEchair = 0;
+	public int SUPEprocess = 2;
+	public String SUPEstate ="10";
 	
 	/*******************************************************
 	 * 自己定义的分支事件的ID，之后写在同一个文件中方便查阅
@@ -118,7 +128,8 @@ public class DataPack implements Serializable , Cloneable{
 	public int count=0;//表示第几次点击该事件
 	public boolean eventFinished=false;
 	public boolean trigSubEvent =false;
-	
+	public boolean trigonceSubEvent =false;
+	public boolean trigNightNotification=true;
 	public ResearchData researchDataPackage;
 	
 	public void clearEventState() {
@@ -147,9 +158,9 @@ public class DataPack implements Serializable , Cloneable{
 	public DataPack(String type){
 		if(type.equals("test")) {
 			this.ID=-1;
-			this.date=7;
-			this.week=4;
-			this.term=2;
+			this.date=1;
+			this.week=1;
+			this.term=1;
 			this.time=8;
 			this.studentID="2016000001";
 			this.characterIQ=70;
@@ -235,6 +246,7 @@ public class DataPack implements Serializable , Cloneable{
 		STcap=tmp.STcap;				//科创能力，和新生赛以及挑战杯等有关系
 		ID=tmp.ID;
 		courseGrade=tmp.courseGrade; //已修课程成绩单及本学期选课课程
+		FallinLove=tmp.FallinLove;
 		courseGradeCount=tmp.courseGradeCount; //“已修课程成绩单”数组中有多少个元素
 		stateInEvent=tmp.stateInEvent;
 		nextStep=tmp.nextStep;//表示下一步
@@ -257,5 +269,18 @@ public class DataPack implements Serializable , Cloneable{
 		eventFinished=tmp.eventFinished;
 		trigSubEvent =tmp.trigSubEvent;
 		course_selected=tmp.course_selected;
+		trigNightNotification=tmp.trigNightNotification;
+		inClubPorcess=tmp.inClubPorcess;
+		ClubCount=tmp.ClubCount;
+		ClubCharacter=tmp.ClubCharacter;
+		v=tmp.v;
+		ClubCharacter=tmp.ClubCharacter;
+		ClubCount=tmp.ClubCount;
+		SUPEcontribution=tmp.SUPEcontribution; 
+		SUPEmentor=tmp.SUPEmentor; 
+		SUPEchair=tmp.SUPEchair;
+		SUPEprocess=tmp.SUPEprocess;
+		SUPEstate=tmp.SUPEstate;
+		trigonceSubEvent=tmp.trigonceSubEvent;
 	}
 }

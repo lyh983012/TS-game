@@ -41,50 +41,62 @@ import THUgame.tool.StateList;
  * */
 
 public class EventInDom extends EventBase{
-
 	public void actOn(DataPack oldDataPack) {
 		this.oldDataPack=oldDataPack;
 		/*******************************************
 		 * 事件结束
 		 * 		转换一个标记，必要时存储一些信息
 		 *******************************************/
-		if (oldDataPack.choiceA.equals("gooutside")) {
+		if (oldDataPack.choiceA.equals("gooutside")
+				|| oldDataPack.choiceA.equals("takeExam")
+				|| oldDataPack.choiceA.equals("readMessage_research_login")
+				|| oldDataPack.choiceA.equals("readMessage_research_result")
+				|| oldDataPack.choiceA.equals("need_course_reg")
+				|| oldDataPack.choiceA.equals("need_course_withdraw")
+				|| oldDataPack.choiceA.equals("goCeremony")
+				|| oldDataPack.choiceA.equals("takeExam")
+				|| oldDataPack.choiceA.equals("go_to_club")
+				|| oldDataPack.choiceA.equals("go_to_lab")
+		
+			){
 			oldDataPack.eventFinished=true;			
 			return;									//直接返回，避免属性乱变
 		}
-		if (oldDataPack.choiceA.equals("takeExam")) {
-			oldDataPack.eventFinished=true;			
-			return;									//直接返回，避免属性乱变
-		}
-		if (oldDataPack.choiceA.equals("readMessage_research_login")) {
-			oldDataPack.eventFinished=true;			
-			return;									//直接返回，避免属性乱变
-		}
-		if (oldDataPack.choiceA.equals("readMessage_research_result")) {
-			oldDataPack.eventFinished=true;			
-			return;									//直接返回，避免属性乱变
-		}
-		if (oldDataPack.choiceA.equals("need_course_reg")) {
-			oldDataPack.eventFinished=true;			
-			return;									//直接返回，避免属性乱变
-		}
-		if (oldDataPack.choiceA.equals("need_course_withdraw")) {
-			oldDataPack.eventFinished=true;			
-			return;									//直接返回，避免属性乱变
-		}
-		if(oldDataPack.term==5) {
-			oldDataPack.eventFinished=true;			
-			oldDataPack.choiceA="endgame";
-			return;
-		}
-		if(oldDataPack.term<4 && oldDataPack.date==7 && oldDataPack.week==4) {
-			oldDataPack.course_selected=false;
-		}
-		else if(oldDataPack.term==4) {
-			oldDataPack.course_selected=true;
+
+		/* 晚间的事件触发 */
+		if(oldDataPack.trigNightNotification) {
+			if(oldDataPack.time>18 && oldDataPack.term == 1 && oldDataPack.week == 1 && oldDataPack.date == 2 ){
+				oldDataPack.eventFinished = true;      		//第1学期-第1周-第2天-19点，宿舍时间结束，进入社团招新
+				oldDataPack.trigNightNotification=false;
+				oldDataPack.choiceA = "enrollOrganization"; // 进入社工招新
+				return;	
+			}
+			if(oldDataPack.time>=12 && oldDataPack.date==5 && (oldDataPack.joinClub|| oldDataPack.week==1)) {
+				oldDataPack.trigNightNotification=false;
+				oldDataPack.trigSubEvent = true; // 触发子事件
+				oldDataPack.stateA = "每周五社团"; // 进入社团
+				return;	
+			}
+			if(oldDataPack.time>=12 && oldDataPack.date==4 && oldDataPack.joinResearch) {
+				oldDataPack.trigNightNotification=false;
+				oldDataPack.trigSubEvent = true; // 触发子事件
+				oldDataPack.stateA = "每周四组会"; // 进入社团
+				return;	
+			}
+			if (((oldDataPack.term == 1 &&  oldDataPack.date==3 && oldDataPack.time >= 20 && oldDataPack.time <= 24)||
+					(oldDataPack.term == 2 && oldDataPack.week<=2 &&  oldDataPack.date==3 && oldDataPack.time >= 20 && oldDataPack.time <= 24))
+					&& oldDataPack.joinSA) {
+					oldDataPack.trigNightNotification=false;
+					oldDataPack.trigSubEvent = true; // 触发子事件
+					oldDataPack.stateA = "学生会"; // 进入社团
+					return;	
+				}
 		}
 		
 		/*		START OF YOUR CODE		*/	
+		if(oldDataPack.date==2) {
+			oldDataPack.course_selected=true;
+		}
 		Random r = new Random();
 		int randomSnore = r.nextInt(10) + 1;  // 生成被吵醒的随机数
 		int randomGame = r.nextInt(10) + 1;  // 生成被吵醒的随机数
@@ -169,9 +181,15 @@ public class EventInDom extends EventBase{
 				}
 				break;
 		}
-		
+		/* 起床的事件触发 */
 		if(isNewday) {
-			if(oldDataPack.week==1 && oldDataPack.date==4) {
+			oldDataPack.trigNightNotification=true;
+			if(oldDataPack.term==3) {
+				oldDataPack.stateA="毕业";
+				oldDataPack.trigSubEvent = true; // 触发子事件
+				return;
+			}
+			if(oldDataPack.week==1 && oldDataPack.date==3) {
 				oldDataPack.stateA="招新报名";
 				//oldDataPack.trigSubEvent = true; // 触发子事件
 			}
@@ -183,26 +201,32 @@ public class EventInDom extends EventBase{
 				oldDataPack.stateA="期末考";
 				oldDataPack.trigSubEvent = true; // 触发子事件
 			}
-			if(oldDataPack.term==3 && oldDataPack.week==1 && oldDataPack.date==2) {
+			if(oldDataPack.term==1 && oldDataPack.week==1 && oldDataPack.date==2) {
 				oldDataPack.stateA="科研报名";
 				oldDataPack.trigSubEvent = true; // 触发子事件
 			}
-			if(oldDataPack.term>=3 && oldDataPack.date==4 && oldDataPack.joinResearch){
+			if(oldDataPack.date==4 && oldDataPack.joinResearch){
 				oldDataPack.stateA="提醒组会";
 				oldDataPack.trigSubEvent = true; // 触发子事件
-				if(oldDataPack.term==3 && oldDataPack.week==1 && oldDataPack.date==4 && oldDataPack.joinResearch){
+				if(oldDataPack.term==1 && oldDataPack.week==1 && oldDataPack.date==4 && oldDataPack.joinResearch){
 					oldDataPack.stateA="报名结果";
 				}
 			}if(oldDataPack.week==3 && oldDataPack.date==1) {
 				oldDataPack.trigSubEvent=true;
 				oldDataPack.stateA="退课";
+			}if(oldDataPack.week==4 && oldDataPack.date ==7) {
+				oldDataPack.course_selected=false;
+			}if(oldDataPack.term == 1 && oldDataPack.week==1 
+					&& oldDataPack.date==3 && (oldDataPack.joinSA||oldDataPack.joinSTA)) {
+				oldDataPack.eventFinished = true;      	//第1学期-第1周-第3天-19点，宿舍时间结束，进入招新成功通知
+				oldDataPack.choiceA = "OrgNotification"; // 进入社工招新结果
+				return;	
 			}
 			saveGame();
 		}
 
 		if (oldDataPack.characterHealth<=0)
 			JOptionPane.showMessageDialog(null, "你猝死了", "", JOptionPane.ERROR_MESSAGE);//弹出猝死界面
-		
 		DataPack o=oldDataPack;
 		oldDataPack.stateE=StateList.getEventNotification(o.term,o.week,o.date,
 							o.joinResearch,o.joinClub,o.joinSTA,

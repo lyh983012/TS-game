@@ -148,7 +148,7 @@ public class WinWelcome extends WinBase{
 		textLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		textLabel.setText("<html>这样会自动换行</html>");
 		textLabel.setOpaque(false);
-		textLabel.setFont(new Font("印品黑体", Font.PLAIN, 30));
+		textLabel.setFont(new Font("印品黑体", Font.BOLD, 30));
 		textLabel.setBounds(80, 60, 948, 460);
 		
 		backgroundPanel.add(button);

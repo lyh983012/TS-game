@@ -7,8 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.Timer;
 import javax.swing.JLabel;
@@ -86,8 +84,17 @@ public class WinMap extends WinBase{
 				}else if(mode ==4){
 					dataPackage.choiceA="clickGoToExam";//点按钮4（考试按钮）返回gotoclass
 				}else if(mode ==5){
-					int K=(dataPackage.term-3)*4+dataPackage.week;
+					int K=(dataPackage.term-1)*4+dataPackage.week;
 					dataPackage.choiceA="clickGoToLab"+K;//点按钮4（考试按钮）返回gotoclass
+				}else if(mode ==6){
+					int C = dataPackage.ClubCount;
+					dataPackage.choiceA="clickGoToClub"+C;//点按钮6（社团按钮）返回gotoclub
+				}else if(mode == 7) {
+					dataPackage.choiceA="clickGoToSUPE";//点按钮3（体育部按钮）
+				}else if(mode == 8) {
+					dataPackage.choiceA="clickGoToC";//点按钮5（C楼按钮）
+				}else if(mode == 9 ) {
+					dataPackage.choiceA="clickGoToEast";//点按钮6（东操按钮）
 				}					
 				timer=new Timer(200,new ActionListener()
 			    	{
@@ -168,8 +175,9 @@ public class WinMap extends WinBase{
 		goToExam.setBounds(425, 400, 75, 50);
 		setIcon("/imgsrc/WinMap/GoToExam.png",goToExam);
 		setSelectedIcon("/imgsrc/WinMap/GoToExam_Press.png",goToExam);
-		if(dataPackage.date==6 && dataPackage.week==4 && dataPackage.time>=8 && dataPackage.time<=18) {
+		if(dataPackage.date==6 && dataPackage.week==4 && dataPackage.time>=8 && dataPackage.time<=18 && dataPackage.trigonceSubEvent) {
 			backgroundPanel.add(goToExam);
+			dataPackage.trigonceSubEvent=false;
 		}
 		
 		JButton GoToClassMorning = new JButton();
@@ -207,8 +215,64 @@ public class WinMap extends WinBase{
 		GoToLab.setBounds(860, 320, 75, 50);
 		setIcon("/imgsrc/WinMap/GoToLab.png",GoToLab);
 		setSelectedIcon("/imgsrc/WinMap/GoToLab_Press.png",GoToLab);
-		if(dataPackage.joinResearch && dataPackage.date==4 && dataPackage.time<17 && 12<=dataPackage.time) {
+		if(dataPackage.joinResearch && dataPackage.date==4 && dataPackage.time<17 && 12<=dataPackage.time && dataPackage.trigonceSubEvent) {
 			backgroundPanel.add(GoToLab);
+			dataPackage.trigonceSubEvent=false;
+		}
+		
+		JButton GoToSUPE = new JButton();
+		GoToSUPE.setContentAreaFilled(false);
+		GoToSUPE.setBorderPainted(false);
+		GoToSUPE.setBounds(340, 40, 75, 50);
+		setIcon("/imgsrc/WinOrganization/517.png",GoToSUPE);
+		setSelectedIcon("/imgsrc/WinOrganization/517pressed.png",GoToSUPE);
+		if(dataPackage.joinSA && dataPackage.trigonceSubEvent){ 
+			backgroundPanel.add(GoToSUPE);
+			dataPackage.trigonceSubEvent=false;
+		}
+		
+		JButton GoToC = new JButton();
+		GoToC.setContentAreaFilled(false);
+		GoToC.setBorderPainted(false);
+		GoToC.setBounds(240, 270, 75, 50);
+		setIcon("/imgsrc/WinOrganization/CUp.png",GoToC);
+		setSelectedIcon("/imgsrc/WinOrganization/CDown.png",GoToC);
+		if(dataPackage.joinSA && dataPackage.trigonceSubEvent & dataPackage.time<24 && 20<=dataPackage.time) { 
+			backgroundPanel.add(GoToC);
+			dataPackage.trigonceSubEvent=false;
+		}
+		
+		JButton GoToEast = new JButton();
+		GoToEast.setContentAreaFilled(false);
+		GoToEast.setBorderPainted(false);
+		GoToEast.setBounds(800, 250, 75, 50);
+		setIcon("/imgsrc/WinOrganization/eastplayUp.png",GoToEast);
+		setSelectedIcon("/imgsrc/WinOrganization/eastplayDown.png",GoToEast);
+		if(dataPackage.joinSA && dataPackage.term == 2 &&
+		   dataPackage.week == 2 && dataPackage.date == 4 &&
+		   dataPackage.time <= 13 &&  dataPackage.time >= 12 && dataPackage.trigonceSubEvent) {
+			backgroundPanel.add(GoToEast);
+			dataPackage.trigonceSubEvent=false;
+		}
+		
+		JButton GoToClub = new JButton();
+		GoToClub.setContentAreaFilled(false);
+		GoToClub.setBorderPainted(false);
+		GoToClub.setBounds(100, 200, 150, 50);
+		
+		if (dataPackage.joinClub == true && dataPackage.trigonceSubEvent) {
+			setIcon("/imgsrc/WinMap/GoToClub.png",GoToClub);
+			setSelectedIcon("/imgsrc/WinMap/GoToClub_Press.png",GoToClub);
+		}
+		else {
+			setIcon("/imgsrc/WinMap/GoToRecurit.png",GoToClub);
+			setSelectedIcon("/imgsrc/WinMap/GoToRecurit_Press.png",GoToClub);
+		}
+		if(dataPackage.date==5 && dataPackage.time>=8 && dataPackage.time<=18) {
+				if(!(dataPackage.week==1 && dataPackage.joinClub)) {
+					backgroundPanel.add(GoToClub);
+					dataPackage.trigonceSubEvent=false;
+				}
 		}
 		/*************************************************************	
 		 * 【镶时钟】
@@ -313,13 +377,21 @@ public class WinMap extends WinBase{
 		demoMouseListener clickGoToSTA=new demoMouseListener(3);//设置鼠标监听器，发生2号事件
 		demoMouseListener clickGoToExam=new demoMouseListener(4);//设置鼠标监听器，发生2号事件
 		demoMouseListener clickGoToLab=new demoMouseListener(5);//设置鼠标监听器，发生2号事件
-
+		demoMouseListener clickGoToClub=new demoMouseListener(6);//设置鼠标监听器，发生2号事件
+		demoMouseListener clickGoToSUPE=new demoMouseListener(7);
+		demoMouseListener clickGoToC=new demoMouseListener(8);
+		demoMouseListener clickGoToEast=new demoMouseListener(9);
+		
 		clickbackToDom.setButton(backToDom);
 		clickGoToClassAfternoon.setButton(GoToClassAfternoon);
 		clickGoToClassMorning.setButton(GoToClassMorning);
 		clickGoToSTA.setButton(GoToSTA);
 		clickGoToExam.setButton(goToExam);
 		clickGoToLab.setButton(GoToLab);
+		clickGoToClub.setButton(GoToClub);
+		clickGoToSUPE.setButton(GoToSUPE);
+		clickGoToC.setButton(GoToC);
+		clickGoToEast.setButton(GoToEast);
 		
 		backToDom.addMouseListener(clickbackToDom);//0号事件是 睡觉按钮 被点击
 		GoToClassAfternoon.addMouseListener(clickGoToClassAfternoon);//1号事件是 去自习按钮 被点击
@@ -327,6 +399,10 @@ public class WinMap extends WinBase{
 		GoToSTA.addMouseListener(clickGoToSTA);
 		goToExam.addMouseListener(clickGoToExam);
 		GoToLab.addMouseListener(clickGoToLab);
+		GoToClub.addMouseListener(clickGoToClub);
+		GoToSUPE.addMouseListener(clickGoToSUPE);
+		GoToC.addMouseListener(clickGoToC);
+		GoToEast.addMouseListener(clickGoToEast);
 		/*		  END OF YOUR CODE		*/
     	    	
     	/*****************************************************************				
