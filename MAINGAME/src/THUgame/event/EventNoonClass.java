@@ -43,7 +43,7 @@ public class EventNoonClass extends EventBase{
 		 *******************************************/
 		/*		START OF YOUR CODE		*/	
 		Random r = new Random();
-		int a = r.nextInt(10) + 5;
+		int a = r.nextInt(10) ;
 		switch(oldDataPack.choiceA) {
 			case "answer":
 				if(oldDataPack.characterEnergy<5) {

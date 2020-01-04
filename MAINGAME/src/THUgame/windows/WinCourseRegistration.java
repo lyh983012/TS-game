@@ -321,7 +321,7 @@ public class WinCourseRegistration extends WinBase{
 			classVacancyLabel.setText(""+numSelected);
 			String strCourseFeatures="";
 			//课程特色这部分还没开发
-				strCourseFeatures="还没开发。。。。。。。。。。。。。。。。。";
+				strCourseFeatures="";
 			courseFeaturesLabel.setText(strCourseFeatures);
 			courseChooseCheckBox.setVisible(true);
 			courseIDLabel.setVisible(true);

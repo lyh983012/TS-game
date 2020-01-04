@@ -216,6 +216,47 @@ public class ResearchData implements Serializable{
 				"在多次失败之后，我终于把完成了新物理方法的开发和测试，我可以开始撰写论文了", 1, 1, 999);
 
 			//火山地图（热工方向）
+			VolcanoMapEvent[0] = new ResearchMapEvent(201, "热工综述",
+				"我阅读了一篇热工耦合领域的综述中文文献，多了解了此领域一些基本情况，智力值提高了1点", 1, 2, 0);
+			VolcanoMapEvent[1] = new ResearchMapEvent(202, "热工分析程序介绍",
+					"我阅读了一篇介绍反应堆热工分析程序的英文文献，略有收获，智力值提高了0.5", 0.5, 2, 0);
+			VolcanoMapEvent[2] = new ResearchMapEvent(203, "有无耦合",
+					"我阅读了一篇对比了是否使用热工耦合的模拟结果的文献，智力值提高了0.5", 0.5, 2, 0);
+			VolcanoMapEvent[3] = new ResearchMapEvent(204, "重核中子截面",
+					"我阅读了一篇博士论文中对重核中子截面受温度影响的情况介绍的部分，智力值提高了0.5", 0.5, 2, 0);
+			VolcanoMapEvent[4] = new ResearchMapEvent(205, "截面在线展宽",
+					"我阅读了一篇介绍中子截面在线展宽方法现状的英文文献，智力值提高了0.5", 0.5, 2, 0);
+			VolcanoMapEvent[5] = new ResearchMapEvent(206, "展宽新方法",
+					"我阅读了一篇提出了在线展宽新方法的文献，智力值提高了1", 1, 2, 0);
+			VolcanoMapEvent[6] = new ResearchMapEvent(207, "核数据处理",
+					"我阅读了一篇介绍一种新的核数据处理方法的文献，智力值提高了0.5", 0.5, 2, 0);
+			VolcanoMapEvent[7] = new ResearchMapEvent(208, "计算截面",
+					"我阅读了一篇利用处理后的核数据直接计算截面的文献，智力值提高了0.5", 0.5, 2, 0);
+			VolcanoMapEvent[8] = new ResearchMapEvent(209, "热工综述",
+					"我今天阅读了一篇热工方向的综述文献，智力值提高了0.5", 0.5, 2, 0);
+			VolcanoMapEvent[9] = new ResearchMapEvent(210, "热工综述",
+					"我今天阅读了一篇热工方向的综述文献，智力值提高了0.5", 0.5, 2, 0);
+			VolcanoMapEvent[10] = new ResearchMapEvent(211, "阅读源码",
+					"我阅读了已有程序中核热耦合部分的源代码，并且通过实际使用中验证其性能，智力值提高了1", 1, 2, 0);
+			VolcanoMapEvent[11] = new ResearchMapEvent(212, "认识蒙卡程序",
+					"我了解了课题组所使用的反应堆蒙卡程序，明确了热工耦合部分在整体的地位，智力值提高了1", 1, 2, 0);
+			VolcanoMapEvent[12] = new ResearchMapEvent(213, "研究软件",
+					"我粗略研究了热工计算所用的软件，无奈基础知识不足未能取得多少收获", 0, 2, 214);
+			VolcanoMapEvent[13] = new ResearchMapEvent(214, "深入研究",
+					"我更深入地学习热工计算软件的使用，有了一些收获，智力值提高了1点", 1, 2, 0);
+			VolcanoMapEvent[14] = new ResearchMapEvent(215, "研究展宽公式",
+					"我对截面展宽的公式做了一些研究，对计算机展宽算法的改进有了一些想法，智力值提高了1", 1, 2, 216);
+			VolcanoMapEvent[15] = new ResearchMapEvent(216, "提出新公式",
+					"我提出了一种截面展宽的公式，并且做了数学证明，智力值提高了1", 1, 2, 217);
+			VolcanoMapEvent[16] = new ResearchMapEvent(217, "编程验证",
+					"我编写程序验证我的截面展宽算法，但是程序中出现了一些bug", 0, 2, 218);
+			VolcanoMapEvent[17] = new ResearchMapEvent(218, "得到初步结果",
+					"我编写程序验证我的截面展宽算法，得到较好的初步结果，智力值提高了1", 1, 2, 219);
+			VolcanoMapEvent[18] = new ResearchMapEvent(219, "改进算法",
+					"根据程序的计算情况，我对算法进行了一些改进，使它的性能变得更好了，智力值提高了1", 1, 2, 220);
+			VolcanoMapEvent[19] = new ResearchMapEvent(220, "完成研究",
+					"我将自己的方法与现在的几种主流方法做性能对比，发现了其优势和劣势，我想我可以开始撰写论文了", 0.5, 2, 999);
+
 
 			//冰原地图（模拟方向）
 			IceBorneMapEvent[0] = new ResearchMapEvent(301, "压水堆功率分布",
@@ -256,7 +297,7 @@ public class ResearchData implements Serializable{
 				"在多次调整参数未果后，我把人工智能模型从原来的决策树改成了神经网络。", 0.5, 3, 316);
 			IceBorneMapEvent[18] = new ResearchMapEvent(319, "debuging",
 				"艰难的debug···半天时间就这么过去了。智力值提高了0.5", 0.5, 3, 0);
-			IceBorneMapEvent[0] = new ResearchMapEvent(320, "我终于实现了一种新的分析方法",
+			IceBorneMapEvent[19] = new ResearchMapEvent(320, "我终于实现了一种新的分析方法",
 				"在这么多次尝试之后，我终于把人工智能模型放入了反应堆实时分析的框架中，我想我可以为此写篇paper了。智力值提高了1", 0.5, 3, 0);
 
 			//沙漠地图（新堆型设计方向）

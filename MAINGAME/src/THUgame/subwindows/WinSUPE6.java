@@ -139,7 +139,7 @@ public class WinSUPE6 extends WinBase{
 		dialogPack.setBounds(66, 475, 689, 189);
 		dialogPack.setOpaque(false);//注意要设成透明的
 		dialogPack.setLayout(null);
-		
+		dataPackage.trigonceSA=false;
 			JPanel dialogPanel = new JPanel();//第1个subPanel，放控件
 			dialogPanel.setBounds(0, 0, 689, 189);//(0, 0, 宽, 高);
 			

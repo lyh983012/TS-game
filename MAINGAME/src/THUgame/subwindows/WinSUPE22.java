@@ -128,7 +128,7 @@ public class WinSUPE22 extends WinBase{
 		backgroundPanel.setBackground(Color.WHITE);
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
-		
+		dataPackage.trigonceSA=false;
 		if (dataPackage.stateB.equals("")){
 			/*
 			 * 确定物资的购买与迟到情况

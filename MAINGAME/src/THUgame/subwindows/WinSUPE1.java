@@ -134,7 +134,7 @@ public class WinSUPE1 extends WinBase{
 		backgroundPanel.setBackground(Color.WHITE);
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
-		
+		dataPackage.trigonceSA=false;
 		
 		/*************************************************************	
 		 * 【镶对话框】
@@ -218,7 +218,7 @@ public class WinSUPE1 extends WinBase{
 			break;
 		case 9:
 			speaker = 0;	
-			text = "<html>好的，今天的例会就到这里。第2周我们只有运动服务的任务，不需要参加例会，大家按照师傅的要求做就好；第三次例会在【第三周三周晚上10点】，地点还是517A哈。如果两次例会没有参加，就会视为退出体育部，大家注意安排。</html>";
+			text = "<html>好的，今天的例会就到这里。第2周我们只有运动服务的任务，不需要参加例会，大家按照师傅的要求做就好；第三次例会在【第三周周三晚上10点】，地点还是517A哈。如果两次例会没有参加，就会视为退出体育部，大家注意安排。</html>";
 			break;
 		}
 		

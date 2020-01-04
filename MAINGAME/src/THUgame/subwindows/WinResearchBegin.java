@@ -300,7 +300,7 @@ public class WinResearchBegin extends WinBase{
 			text="<html>我觉得我的能力不足以完成这些课题......</html>";
 			break;
 		case 7:
-			text="<html>“xxxxxxx”这个题目好像不错，是否要报名呢？</html>";
+			text="<html>“反应堆蒙卡计算程序研究”这个题目好像不错，是否要报名呢？</html>";
 			break;
 		case 8:
 			text="<html>是否报名SRT项目？</html>";

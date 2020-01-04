@@ -157,7 +157,7 @@ public class WinMarket extends WinBase{
 			
 			String text="<html>来到了黑猫超市。</html>";       //说话内容
 			if (dataPackage.term == 1 && dataPackage.week == 2 && 
-				dataPackage.date == 4 && dataPackage.time <= 20) {  // 购买物资
+				dataPackage.date == 3 && dataPackage.time <= 20) {  // 购买物资
 				if (dataPackage.SUPEmentor == 2) {
 					text = "<html>这黑猫超市可真是黑呀，幸好体育部有经费报销这些。<br>[购买了键绳训练的物资]</html>";
 					dataPackage.SUPEstate = "13";

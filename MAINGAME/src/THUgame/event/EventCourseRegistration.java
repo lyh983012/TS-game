@@ -61,6 +61,7 @@ public class EventCourseRegistration extends EventBase{
 	static String courseListPanelContent="R"; //记录courseListPanel中显示的是选择必修课/限选课/任选课还是重修课，必修课="R"，限选课="RE"，任选课="E"，重修课="F"
 	//需要一个这样的变量记录，是因为窗口有时需要画返回一些信息的界面，画这些界面的时候DataPack里面没有保存窗体上一次显示的是选择什么课，如果没有这样一个变量记录，在信息窗口结束之后不知道该返回哪个界面
 
+	/*
 	private int __getSelectedCoursesCount() {
 		//返回本学期选了多少门课（即成绩为"CS"或者"TR"的课程，或者等价地说本学期课程中成绩不是"W"的课程）
 		
@@ -94,6 +95,7 @@ public class EventCourseRegistration extends EventBase{
 		}
 		return ret;
 	}
+	*/
 	
 	@Override
 	public void actOn(DataPack oldDataPack) {
@@ -109,10 +111,12 @@ public class EventCourseRegistration extends EventBase{
 		int courseCount=0; //课程列表中的课程数
 		
 		if(oldDataPack.choiceA.equals("Finish")) {
-			int selectedCourseCount=__getSelectedCoursesCount();
-			if(selectedCourseCount < Courses.COURSE_MIN_COUNT_IN_ONE_TERM) {
+			int selectedCourseCount=Courses.__getSelectedCoursesCount(oldDataPack);
+			int selectedCourseTotalHour=Courses.__getCoursesTotalHour(Courses.__getSelectedCourses(oldDataPack), Courses.__getSelectedCoursesCount(oldDataPack));
+			if(selectedCourseCount < Courses.COURSE_MIN_COUNT_IN_ONE_TERM
+				|| selectedCourseTotalHour < Courses.MIN_TOTAL_HOUR_IN_ONE_TERM_AFTER_REGISTRATION) {
 				oldDataPack.stateA="MsgSD"; //以MsgSD而不是MsgFinish返回回去——选课事件不结束
-				oldDataPack.stateB="【系统提示】选课数目过少，请重新选课！\n每学期至少选择"+Courses.COURSE_MIN_COUNT_IN_ONE_TERM+"门课";
+				oldDataPack.stateB="【系统提示】选课数目或学分过少，请重新选课！\n每学期至少选择"+Courses.COURSE_MIN_COUNT_IN_ONE_TERM+"门课，至少选择"+Courses.MIN_TOTAL_HOUR_IN_ONE_TERM_AFTER_REGISTRATION+"学时";
 				return;
 			}
 			if(selectedCourseCount > Courses.COURSE_MAX_COUNT_IN_ONE_TERM) {
@@ -163,7 +167,7 @@ public class EventCourseRegistration extends EventBase{
 		if(oldDataPack.choiceA.equals("RandomResultFinish")) {
 			//显示课表
 			oldDataPack.stateA="TimeTable";
-			oldDataPack.stateB=Courses.coursesToStr(__getSelectedCourses(), __getSelectedCoursesCount());
+			oldDataPack.stateB=Courses.coursesToStr(Courses.__getSelectedCourses(oldDataPack), Courses.__getSelectedCoursesCount(oldDataPack));
 			return;
 		}
 		
@@ -187,7 +191,7 @@ public class EventCourseRegistration extends EventBase{
 			}
 			oldDataPack.stateA=coursePropertyLabel;
 			oldDataPack.stateB=Courses.coursesToStr(courseToShow, courseCount);
-			oldDataPack.stateC=Courses.coursesToStr(__getSelectedCourses(), __getSelectedCoursesCount());
+			oldDataPack.stateC=Courses.coursesToStr(Courses.__getSelectedCourses(oldDataPack), Courses.__getSelectedCoursesCount(oldDataPack));
 			courseListPanelContent=coursePropertyLabel;
 			
 			return;
@@ -233,7 +237,7 @@ public class EventCourseRegistration extends EventBase{
 			}
 			oldDataPack.stateA="F";
 			oldDataPack.stateB=Courses.coursesToStr(courseToShow, courseCount);
-			oldDataPack.stateC=Courses.coursesToStr(__getSelectedCourses(), __getSelectedCoursesCount());
+			oldDataPack.stateC=Courses.coursesToStr(Courses.__getSelectedCourses(oldDataPack), Courses.__getSelectedCoursesCount(oldDataPack));
 			courseListPanelContent="F";
 			
 			return;
@@ -289,7 +293,7 @@ public class EventCourseRegistration extends EventBase{
 			for(i=0;i<coursesChoosedCount;i++) {
 				int j;
 				for(j=oldDataPack.courseGradeCount-1;j>=0;j--) //从后向前遍历oldDataPack.courseGrade，找出要删除的课
-					if(oldDataPack.courseGrade[j].course.equals(coursesChoosed[i])) {
+					if(oldDataPack.courseGrade[j].course.courseID.equals(coursesChoosed[i].courseID)) { //updated on Dec25,2019 （不能拿.equal比两个自定义对象的值是否相等
 						//删除操作：把要删除的一项和数组中最后一项交换，并count--
 						//实际上不需要交换，直接把数组最后一项拿过来覆盖要删除的这一项即可
 						oldDataPack.courseGrade[j]=oldDataPack.courseGrade[(oldDataPack.courseGradeCount--)-1];

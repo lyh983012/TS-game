@@ -1,6 +1,7 @@
 package THUgame.tool;
 
 import java.io.Serializable;
+import THUgame.datapack.*;
 
 /*
  * Course Management System 课程管理系统
@@ -57,6 +58,12 @@ public class Courses implements Serializable {
 	/* 一些统一规定的常量 */
 	public static int COURSE_MAX_COUNT_IN_ONE_TERM=14; //每学期选课数量上限
 	public static int COURSE_MIN_COUNT_IN_ONE_TERM=1; //每学期选课数量下限
+	
+	public static int MIN_TOTAL_CREDIT_IN_ONE_TERM_AFTER_REGISTRATION=12; //选课后最少学分数
+	public static int MIN_TOTAL_CREDIT_IN_ONE_TERM_AFTER_WITHDRAW=12; //退课后最少学分数
+	
+	public static int MIN_TOTAL_HOUR_IN_ONE_TERM_AFTER_REGISTRATION=50; //选课后最少学时数
+	public static int MIN_TOTAL_HOUR_IN_ONE_TERM_AFTER_WITHDRAW=50; //退课后最少学时数
 	
 	/* default constructor */
 	Courses(){
@@ -117,7 +124,7 @@ public class Courses implements Serializable {
 				1, //上课学期
 				1); //上课地点
 		
-		courseList[courseListCount]=new Courses("10421055", //课程号
+		courseList[courseListCount]=new Courses("40130630", //课程号
 				"毕业设计(1)", //课程名
 				32,52, //上课时间
 				"R", //必修/限选/任选
@@ -162,7 +169,7 @@ public class Courses implements Serializable {
 				150, //课容量
 				40, //课余量
 				"", //课程特色
-				2, //上课学期
+				1, //上课学期
 				1); //上课地点
 		
 		courseList[courseListCount]=new Courses("10420165", //课程号
@@ -186,7 +193,7 @@ public class Courses implements Serializable {
 				150, //课容量
 				35, //课余量
 				"", //课程特色
-				1, //上课学期
+				2, //上课学期
 				1); //上课地点
 
 		courseList[courseListCount]=new Courses("10421102", //课程号
@@ -273,6 +280,29 @@ public class Courses implements Serializable {
 				"", //课程特色
 				1, //上课学期
 				1); //上课地点
+		courseList[courseListCount]=new Courses("20220044", //课程号
+				"理论力学", //课程名
+				12,41, //上课时间
+				"R", //必修/限选/任选
+				"", //限选课程组
+				20, //总学时
+				150, //课容量
+				40, //课余量
+				"", //课程特色
+				2, //上课学期
+				1); //上课地点
+		courseList[courseListCount]=new Courses("20240013", //课程号
+				"离散数学", //课程名
+				22,0, //上课时间
+				"E", //必修/限选/任选
+				"", //限选课程组
+				15, //总学时
+				150, //课容量
+				40, //课余量
+				"", //课程特色
+				2, //上课学期
+				1); //上课地点
+		
 		
 		courseList[courseListCount]=new Courses("00240324", //课程号
 				"体育课", //课程名
@@ -294,7 +324,7 @@ public class Courses implements Serializable {
 				100, //课容量
 				-900, //课余量
 				"", //课程特色
-				3, //上课学期
+				1, //上课学期
 				1); //上课地点
 		courseList[courseListCount]=new Courses("00245654", //课程号
 				"天文学导论", //课程名
@@ -305,7 +335,7 @@ public class Courses implements Serializable {
 				100, //课容量
 				-900, //课余量
 				"", //课程特色
-				3, //上课学期
+				1, //上课学期
 				1); //上课地点
 		courseList[courseListCount]=new Courses("00240043", //课程号
 				"艺术英语", //课程名
@@ -316,12 +346,12 @@ public class Courses implements Serializable {
 				100, //课容量
 				-900, //课余量
 				"", //课程特色
-				3, //上课学期
+				2, //上课学期
 				1); //上课地点
 		courseList[courseListCount]=new Courses("00420074", //课程号
 				"近代史纲要", //课程名
 				22,42, //上课时间
-				"RE", //必修/限选/任选
+				"E", //必修/限选/任选
 				"", //限选课程组
 				20, //总学时
 				100, //课容量
@@ -338,7 +368,7 @@ public class Courses implements Serializable {
 				100, //课容量
 				-900, //课余量
 				"", //课程特色
-				4, //上课学期
+				2, //上课学期
 				1); //上课地点
 	}
 	
@@ -386,6 +416,63 @@ public class Courses implements Serializable {
 		int cut=str.indexOf(',');
 		if(-1==cut) return 0; //str里只有一个0，表示没有课程
 		return Integer.parseInt(str.substring(0, cut)); //str中课程总个数
+	}
+	
+	
+	
+	
+	
+	public static int __getCoursesTotalCredit(Courses courses[], int coursesCount) {
+		//计算出courses中的总学分
+		int i, totalHour=0;
+		for(i=0; i<coursesCount; i++)
+			totalHour+=Integer.valueOf(courses[i].courseID) % 10;
+		return totalHour;
+	}
+	
+	public static int __getCoursesTotalHour(Courses courses[], int coursesCount) {
+		//计算出courses中的总学时
+		int i, totalHour=0;
+		for(i=0; i<coursesCount; i++)
+			totalHour+=courses[i].totalHour;
+		return totalHour;
+	}
+	
+	public static int __getSelectedCoursesCount(DataPack oldDataPack) {
+		//返回本学期选了多少门课（即成绩为"CS"或者"TR"的课程，或者等价地说本学期课程中成绩不是"W"的课程）
+		//从后向前搜索oldDataPack.courseGrade
+		int i;
+		int count=0;
+		int thisTerm=oldDataPack.term;
+		i=oldDataPack.courseGradeCount-1;
+		while(i>=0 && oldDataPack.courseGrade[i].term == thisTerm) {
+			if(! oldDataPack.courseGrade[i].grade.equals("W")) count++;
+			i--;
+		}
+		return count;
+	}
+	
+	public static Courses[] __getSelectedCourses(DataPack oldDataPack) {
+		//返回本学期选了哪几门课（即成绩为"CS"或者"TR"的课程，或者等价地说本学期课程中成绩不是"W"的课程）
+		
+		//从后向前搜索oldDataPack.courseGrade
+		int i;
+		int count;
+		int thisTerm=oldDataPack.term;
+		Courses ret[]=new Courses[Courses.COURSE_MAX_COUNT_IN_ONE_TERM+2]; //+2以防万一
+		count=0;
+		i=oldDataPack.courseGradeCount-1;
+		while(i>=0 && oldDataPack.courseGrade[i].term == thisTerm) {
+			if(! oldDataPack.courseGrade[i].grade.equals("W")) {
+				ret[count++]=oldDataPack.courseGrade[i].course;
+			}
+			i--;
+		}
+		return ret;
+	}
+	
+	public static int totalHourThisTerm(DataPack dataPackage) {
+		return __getCoursesTotalHour(__getSelectedCourses(dataPackage),__getSelectedCoursesCount(dataPackage));
 	}
 }
 	

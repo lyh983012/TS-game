@@ -98,8 +98,21 @@ public class EventStateManager extends EventBase{
 					if(dataPackage.choiceA.equals("clickbackToDom")) {
 						dataPackage.ID=0;
 					}else if(dataPackage.choiceA.equals("clickGoToExam")){
-						System.out.println("ss");
 						dataPackage.ID=9;
+					}else if (dataPackage.choiceA.equals("clickGoToC")) {
+					      boolean inevent = false;  // 标记是否处于子事件的发生时间
+					      if (dataPackage.term == 1 && dataPackage.week == 2 && 
+					    		  dataPackage.date == 3 &&dataPackage.time >= 20 && dataPackage.time <= 24) {
+					    	  	if (dataPackage.SUPEmentor == 2)   
+					    	  		inevent = true; //  章师傅才会触发C楼的第二次活动
+					      }
+					      if (inevent) {
+					    	  dataPackage.ID=200013;  //20001X, X>=2
+					      }else {
+					    	  dataPackage.ID = 2000131;
+					      }
+					}else if (dataPackage.choiceA.equals("clickGoToEast")){
+					    dataPackage.ID=200018;
 					}else if(dataPackage.choiceA.equals("clickGoToClassAfternoon")){
 						dataPackage.ID=2;
 					}else if(dataPackage.choiceA.equals("clickGoToClassMorning")){
@@ -149,13 +162,11 @@ public class EventStateManager extends EventBase{
 							dataPackage.time >= 20 && dataPackage.time <= 24) {
 							inEvent = 2;
 						}
-
 						if (dataPackage.term == 1 && dataPackage.week == 2 && 
 							dataPackage.date == 3 &&
 							dataPackage.time >= 20 && dataPackage.time <= 24) {
 							if (dataPackage.SUPEmentor == 1) inEvent = 3; //  汪师傅才会触发517A的第一次活动
 						}
-
 						if (dataPackage.term == 1 && dataPackage.week == 3 && 
 							dataPackage.date == 3 &&
 							dataPackage.time >= 20 && dataPackage.time <= 24) {
@@ -203,7 +214,14 @@ public class EventStateManager extends EventBase{
 					dataPackage.ID=40000;//退颗界面过后，结束
 					break;	
 				case 9:
+					if(dataPackage.choiceA=="Fail")
+					{
+						dataPackage.ID=40007;
+					}
+					else
+					{
 					dataPackage.ID=3;
+					}
 					break;
 				case 30004:
 					if(dataPackage.stateA.equals("backhome")) {
@@ -309,6 +327,34 @@ public class EventStateManager extends EventBase{
 					int cases= 40001+r.nextInt(5);
 					dataPackage.ID=cases;//第一个结局
 					break;
+				case 40001:
+					dataPackage.ID=-1;//返回开始界面
+					dataPackage.copyElements(new DataPack("main"));
+					break;
+				case 40002:
+					dataPackage.ID=-1;//返回开始界面
+					dataPackage.copyElements(new DataPack("main"));
+					break;
+				case 40003:
+					dataPackage.ID=-1;//返回开始界面
+					dataPackage.copyElements(new DataPack("main"));
+					break;
+				case 40004:
+					dataPackage.ID=-1;//返回开始界面
+					dataPackage.copyElements(new DataPack("main"));
+					break;
+				case 40005:
+					dataPackage.ID=-1;//返回开始界面
+					dataPackage.copyElements(new DataPack("main"));
+					break;
+				case 40006:
+					dataPackage.ID=-1;//返回开始界面
+					dataPackage.copyElements(new DataPack("main"));
+					break;
+				case 40007:
+					dataPackage.ID=-1;//返回开始界面
+					dataPackage.copyElements(new DataPack("main"));
+					break;
 				case 50000:
 					dataPackage.ID=3;//进入map
 					break;
@@ -369,14 +415,19 @@ public class EventStateManager extends EventBase{
 		 *********************************/
 		dataPackage.todayMorningClass="----";//表示早上的课
 		dataPackage.todayAfternoonClass="----";//表示早上的课
+		if(dataPackage.term==2 && dataPackage.week==1 &&dataPackage.date==1 &&dataPackage.time==8) {
+			dataPackage.studyProgress=0;
+		}
 		for(int i=0;i<dataPackage.courseGradeCount;i++) {
 			CourseGrade tmp=dataPackage.courseGrade[i];
 			Courses course=tmp.course;
 			if(course.courseTerm==dataPackage.term)
 				if(course.classTime1==dataPackage.date*10+1 || course.classTime2==dataPackage.date*10+1) {
-					dataPackage.todayMorningClass=course.courseTitle;//表示早上的课
+					if(!tmp.grade.equals("W"));
+						dataPackage.todayMorningClass=course.courseTitle;//表示早上的课
 				}else if (course.classTime1==dataPackage.date*10+2 || course.classTime2==dataPackage.date*10+2) {
-					dataPackage.todayAfternoonClass=course.courseTitle;
+					if(!tmp.grade.equals("W"));
+						dataPackage.todayAfternoonClass=course.courseTitle;
 				}
 		}
 		if(dataPackage.time>=12){

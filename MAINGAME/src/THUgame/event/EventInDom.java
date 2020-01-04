@@ -72,20 +72,28 @@ public class EventInDom extends EventBase{
 				oldDataPack.choiceA = "enrollOrganization"; // 进入社工招新
 				return;	
 			}
-			if(oldDataPack.time>=12 && oldDataPack.time<=18 && oldDataPack.date==5 && (oldDataPack.joinClub|| (oldDataPack.week==1 && oldDataPack.term==1))) {
+			if(oldDataPack.time>=12 && oldDataPack.time<18 && oldDataPack.date==5 && (oldDataPack.joinClub|| (oldDataPack.week==1 && oldDataPack.term==1))) {
 				oldDataPack.trigNightNotification=false;
 				oldDataPack.trigSubEvent = true; // 触发子事件
 				oldDataPack.stateA = "每周五社团"; // 进入社团
 				return;	
 			}
-			if(oldDataPack.time>=12 && oldDataPack.date==4 && oldDataPack.joinResearch) {
+			if(oldDataPack.time>=12 && oldDataPack.time<18 &&oldDataPack.date==4 && oldDataPack.joinResearch) {
 				oldDataPack.trigNightNotification=false;
 				oldDataPack.trigSubEvent = true; // 触发子事件
-				oldDataPack.stateA = "每周四组会"; // 进入社团
+				oldDataPack.stateA = "每周四组会"; // 进入组会
 				return;	
 			}
 			if (((oldDataPack.term == 1 &&  oldDataPack.date==3 && oldDataPack.time >= 20 && oldDataPack.time <= 24)||
 					(oldDataPack.term == 2 && oldDataPack.week<=2 &&  oldDataPack.date==3 && oldDataPack.time >= 20 && oldDataPack.time <= 24))
+					&& oldDataPack.joinSA) {
+					oldDataPack.trigNightNotification=false;
+					oldDataPack.trigSubEvent = true; // 触发子事件
+					oldDataPack.stateA = "学生会"; // 进入社团
+					return;	
+				}
+			if ( oldDataPack.term == 2 && oldDataPack.week==3 && 
+					oldDataPack.date==3 && oldDataPack.time >= 13 && oldDataPack.time <= 16
 					&& oldDataPack.joinSA) {
 					oldDataPack.trigNightNotification=false;
 					oldDataPack.trigSubEvent = true; // 触发子事件
@@ -127,7 +135,7 @@ public class EventInDom extends EventBase{
 					oldDataPack.characterEnergy+=20;
 					oldDataPack.characterHealth+=5;
 					oldDataPack.characterHappiness+=5;
-					oldDataPack.notification += "<br>心情值+2，健康值+2，体力回复10点</html>";
+					oldDataPack.notification += "<br>心情值+5，健康值+5，体力回复10点</html>";
 				}else if(randomSnore <= 5 && oldDataPack.time<3 ) {// 0点睡觉5%触发被呼噜打醒
 					oldDataPack.time=3;			//3点被吵醒
 					oldDataPack.trigSubEvent = true; // 触发子事件
@@ -139,7 +147,8 @@ public class EventInDom extends EventBase{
 					oldDataPack.characterEnergy=100;
 					oldDataPack.characterHealth+=5;
 					oldDataPack.characterHappiness+=5;
-					oldDataPack.notification += "<br>新的一天开始了，快看看今天有什么要做的事儿吧~<br>健康+10，心情+5，体力回复满。[游戏已保存]</html>";
+					oldDataPack.studyProgress-=2;
+					oldDataPack.notification += "<br>新的一天开始了，快看看今天有什么要做的事儿吧~(昨天老师讲了啥来着)<br>健康+10，心情+5，学习进度-2，体力回复满。[游戏已保存]</html>";
 					isNewday=true;
 				}
 				break;
@@ -248,7 +257,6 @@ public class EventInDom extends EventBase{
 			}
 			if(oldDataPack.week==1 && oldDataPack.date==3) {
 				oldDataPack.stateA="招新报名";
-				//oldDataPack.trigSubEvent = true; // 触发子事件
 			}
 			if(oldDataPack.date==7) {
 				oldDataPack.stateA="每周报告";

@@ -163,7 +163,7 @@ public class WinCBuilding extends WinBase{
 			
 			String text="<html>来到了C楼前。</html>";       //说话内容
 			if (dataPackage.term == 1 && dataPackage.week == 2 && 
-				dataPackage.date == 4 && dataPackage.time <= 20) {  // 购买物资
+				dataPackage.date == 3 && dataPackage.time <= 20) {  // 购买物资
 				if (dataPackage.SUPEmentor == 2) {
 					text = "<html>键绳训练并没有开始，要不要先去超市买个物资呢？</html>";
 				}

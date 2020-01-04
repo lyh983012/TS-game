@@ -180,6 +180,7 @@ public class WinMap extends WinBase{
 		setSelectedIcon("/imgsrc/WinMap/GoToExam_Press.png",goToExam);
 		if(dataPackage.date==6 && dataPackage.week==4 && dataPackage.time>=8 && dataPackage.time<=18 && dataPackage.trigonceExam) {
 			backgroundPanel.add(goToExam);
+			backgroundPanel.remove(backToDom);
 			dataPackage.trigonceExam=false;
 		}
 		
@@ -192,6 +193,7 @@ public class WinMap extends WinBase{
 		if(!dataPackage.todayMorningClass.equals("----") && dataPackage.time>=8 && dataPackage.time<=10) {
 			backgroundPanel.add(GoToClassMorning);
 		}
+		
 		JButton GoToClassAfternoon = new JButton();
 		GoToClassAfternoon.setContentAreaFilled(false);
 		GoToClassAfternoon.setBorderPainted(false);
@@ -230,7 +232,6 @@ public class WinMap extends WinBase{
 		setSelectedIcon("/imgsrc/WinOrganization/517pressed.png",GoToSUPE);
 		if(dataPackage.joinSA && dataPackage.trigonceSA){ 
 			backgroundPanel.add(GoToSUPE);
-			dataPackage.trigonceSA=false;
 		}
 		
 		JButton GoToC = new JButton();
@@ -239,10 +240,7 @@ public class WinMap extends WinBase{
 		GoToC.setBounds(240, 270, 75, 50);
 		setIcon("/imgsrc/WinOrganization/CUp.png",GoToC);
 		setSelectedIcon("/imgsrc/WinOrganization/CDown.png",GoToC);
-		if(dataPackage.joinSA && dataPackage.trigonceSA && dataPackage.time<24 && 20<=dataPackage.time) { 
-			backgroundPanel.add(GoToC);
-			dataPackage.trigonceSA=false;
-		}
+		backgroundPanel.add(GoToC);
 		
 		JButton GoToEast = new JButton();
 		GoToEast.setContentAreaFilled(false);
@@ -251,10 +249,9 @@ public class WinMap extends WinBase{
 		setIcon("/imgsrc/WinOrganization/eastplayUp.png",GoToEast);
 		setSelectedIcon("/imgsrc/WinOrganization/eastplayDown.png",GoToEast);
 		if(dataPackage.joinSA && dataPackage.term == 2 &&
-		   dataPackage.week == 2 && dataPackage.date == 4 &&
-		   dataPackage.time <= 18 &&  dataPackage.time >= 13 && dataPackage.trigonceSA) {
+		   dataPackage.week == 3 && dataPackage.date == 3 &&
+		   dataPackage.time <= 16 &&  dataPackage.time >= 13){
 			backgroundPanel.add(GoToEast);
-			dataPackage.trigonceSA=false;
 		}
 
 		JButton GoToClub = new JButton();

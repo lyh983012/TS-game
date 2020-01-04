@@ -11,34 +11,44 @@ public class StateList {
 					note+="今天是新学期第一天，需要选课。<br>";
 				if (date==4)
 					note+="今天有各种学生组织的报名，只此一次哦。<br>";
+				if (date==3)
+					note+="今天晚上有体育部例会。<br>";
 				if (date==2)
 					note+="今天SRT报名，让我好好想想。<br>";
 				if (date==4 && joinreaserch)
 					note+="今天下午有SRT组会，记得外出参加。<br>";
+				if (date==5 )
+					note+="今天有社团的报名。<br>";
 				break;		
 			case 2:
 				if (date==4 && joinreaserch)
 					note+="今天下午有SRT组会，记得外出参加。<br>";
-				if (date==4 && joinclub)
+				if (date==5 && joinclub)
 					note+="今天有社团的例会。得记得去。<br>";
 				if ((date==5||date==2) && joinSTA)
 					note+="今天有科协科创实验室的值日。得记得去。<br>";
+				if (date==3 && joinSA)
+					note+="今天有体育部例会。<br>";
 				break;
 			case 3:
 				if (date==1)
 					note+="今天可以退课了。<br>";
 				if (date==4 && joinreaserch)
 					note+="今天下午有SRT组会，记得外出参加。<br>";
-				if (date==4 && joinclub)
+				if (date==5 && joinclub)
 					note+="今天有社团的培训。得记得去。<br>";
 				if ((date==5||date==2) && joinSTA)
 					note+="今天有科协科创实验室的值日。得记得去。<br>";
+				if (date==3 && joinSA)
+					note+="今天有体育部例会。<br>";
 				break;
 			case 4:
-				if (date==4 && joinclub)
+				if (date==5 && joinclub)
 					note+="今天有社团的培训。得记得去。<br>";
 				if ((date==5||date==2) && joinSTA)
 					note+="今天有科协科创实验室的值日。得记得去。<br>";
+				if (date==3 && joinSA)
+					note+="今天有体育部例会。<br>";
 				if (date==5)
 					note+="明天期末考啊啊啊！！千万不要忘记睡过头啊！！。<br>";
 				if (date==6)
@@ -51,6 +61,8 @@ public class StateList {
 		case 2:
 			switch(week){
 			case 1:
+				if (date==3 && joinSA)
+					note+="今天有体育部例会。<br>";
 				if (date==1)
 					note+="今天是新学期第一天，需要选课。<br>";
 				if (date==1)
@@ -59,12 +71,18 @@ public class StateList {
 					note+="今天有科协科创实验室的值日。得记得去。<br>";
 				if (date==4 && joinreaserch)
 					note+="今天下午有SRT组会，记得外出参加。<br>";
+				if (date==5 && joinclub)
+					note+="今天有社团的培训。得记得去。<br>";
 				break;		
 			case 2:
+				if (date==3 && joinSA)
+					note+="今天有体育部例会。<br>";
 				if ((date==5||date==2) && joinSTA)
 					note+="今天有科协科创实验室的值日。得记得去。<br>";
 				if (date==4 && joinreaserch)
 					note+="今天下午有SRT组会，记得外出参加。<br>";
+				if (date==5 && joinclub)
+					note+="今天有社团的培训。得记得去。<br>";
 				break;		
 			case 3:
 				if (date==1)
@@ -77,6 +95,10 @@ public class StateList {
 					note+="今天退课了。<br>";
 				if (date==4 && joinreaserch)
 					note+="今天下午有SRT组会，记得外出参加。<br>";
+				if (date==5 && joinclub)
+					note+="今天有社团的培训。得记得去。<br>";
+				if (date==5 && joinTZB)
+					note+="今天有社团的培训。得记得去。<br>";
 				break;				
 			case 4:
 				if ((date==5||date==2) && joinSTA)
@@ -87,6 +109,8 @@ public class StateList {
 					note+="明天期末考啊啊啊！！千万不要忘记睡过头啊！！。<br>";
 				if (date==6)
 					note+="今天期末考啊啊啊！！千万不要忘记去考场啊！！。<br>";
+				if (date==5 && joinclub)
+					note+="今天有社团的培训。得记得去。<br>";
 				break;				
 			}
 			break;

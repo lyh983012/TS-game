@@ -198,7 +198,7 @@ public class WinInDom extends WinBase{
 						sleepButton.setVisible(showButton);
 						selfstudyButton.setVisible(showButton);
 						OutButton.setVisible(showButton);
-						studychoice.setVisible(showStudychoices);
+						//studychoice.setVisible(showStudychoices);
 						return;
 					}else if(dataPackage.stateA.equals("毕业")){
 						dataPackage.choiceA="goCeremony";//点按钮4（待着按钮）返回stayup

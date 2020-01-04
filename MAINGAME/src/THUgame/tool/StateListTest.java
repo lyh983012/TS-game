@@ -1,4 +1,4 @@
-package THUgame.tool;
+/*package THUgame.tool;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,3 +32,4 @@ class StateListTest {
 	}
 
 }
+*/

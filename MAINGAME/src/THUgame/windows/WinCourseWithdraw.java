@@ -321,7 +321,7 @@ public class WinCourseWithdraw extends WinBase{
 			//////////    classVacancyLabel.setText(""+numSelected);
 			String strCourseFeatures="";
 			//课程特色这部分还没开发
-				strCourseFeatures="还没开发。。。。。。。。。。。。。。。。。";
+				strCourseFeatures="";
 			courseFeaturesLabel.setText(strCourseFeatures);
 			courseChooseCheckBox.setVisible(true);
 			courseIDLabel.setVisible(true);
@@ -431,23 +431,23 @@ public class WinCourseWithdraw extends WinBase{
 		msgPanel.setVisible(false);
 		
 		JPanel confirmationPanel = new JPanel();
-		confirmationPanel.setBounds(250, 300, 500, 150);
+		confirmationPanel.setBounds(50, 300, 900, 200);
 		backgroundPanel.add(confirmationPanel);
 		confirmationPanel.setLayout(null);
 		
-		JLabel label_9 = new JLabel("退课后不可撤销！是否确认退课？");
-		label_9.setBounds(100, 20, 300, 80);
+		JLabel label_9 = new JLabel("【系统提示】退课后不可撤销！且退课后总学时不能少于" + Courses.MIN_TOTAL_HOUR_IN_ONE_TERM_AFTER_WITHDRAW + "学时，是否确认退课？");
+		label_9.setBounds(80, 20, 740, 130);
 		label_9.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		confirmationPanel.add(label_9);
 		
 		JButton noButton = new JButton("否");
 		noButton.setFont(new Font("Dialog", Font.BOLD, 20));
-		noButton.setBounds(290, 90, 150, 50);
+		noButton.setBounds(490, 140, 150, 50);
 		confirmationPanel.add(noButton);
 		
 		JButton yesButton = new JButton("是");
 		yesButton.setFont(new Font("Dialog", Font.BOLD, 20));
-		yesButton.setBounds(100, 90, 150, 50);
+		yesButton.setBounds(300, 140, 150, 50);
 		confirmationPanel.add(yesButton);
 		msgPanel.setBounds(244, 200, 495, 330);
 		backgroundPanel.add(msgPanel);
@@ -1143,6 +1143,7 @@ public class WinCourseWithdraw extends WinBase{
 		case "":
 			//首次进入这个事件，还没有重绘窗口，窗口里面啥都没显示，此时向后台发送一次“MsgOK”，后台会向前台发生“显示已选课程”CS，从而刷新前台窗口
 			dataPackage.choiceA="MsgOK";
+			Courses.courseListInit(dataPackage.term);  //courseList不知道为啥变成null了，但需要它来做strToCourses故重新initialize一遍 (updated on Dec25,2019)
 			break;
 		}
 		

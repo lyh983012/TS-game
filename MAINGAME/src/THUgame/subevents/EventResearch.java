@@ -9,7 +9,6 @@ public class EventResearch extends EventBase{
 	
 	public void actOn(DataPack oldDataPack) {
 		if(oldDataPack.choiceA.equals("back")){
-			oldDataPack.time+=1;
 			oldDataPack.eventFinished=true;
 		}
 		else if(oldDataPack.choiceA.equals("confirmTool")) {
@@ -170,7 +169,7 @@ public class EventResearch extends EventBase{
 				}
 				// 如果上个事件有后续事件
 				else {
-					number = oldDataPack.researchDataPackage.lastEvent;
+					number = oldDataPack.researchDataPackage.lastEvent-401;
 				}
 				oldDataPack.researchDataPackage.ResearchWorkDone ++;
 			}
@@ -223,7 +222,7 @@ public class EventResearch extends EventBase{
 				}
 				// 如果上个事件有后续事件
 				else {
-					number = oldDataPack.researchDataPackage.lastEvent;
+					number = oldDataPack.researchDataPackage.lastEvent-101;
 				}
 				oldDataPack.researchDataPackage.ResearchWorkDone ++;
 			}
@@ -275,7 +274,7 @@ public class EventResearch extends EventBase{
 				}
 				// 如果上个事件有后续事件
 				else {
-					number = oldDataPack.researchDataPackage.lastEvent;
+					number = oldDataPack.researchDataPackage.lastEvent-301;
 				}
 				oldDataPack.researchDataPackage.ResearchWorkDone ++;
 			}
@@ -327,7 +326,7 @@ public class EventResearch extends EventBase{
 				}
 				// 如果上个事件有后续事件
 				else {
-					number = oldDataPack.researchDataPackage.lastEvent;
+					number = oldDataPack.researchDataPackage.lastEvent-201;
 				}
 				oldDataPack.researchDataPackage.ResearchWorkDone ++;
 			}

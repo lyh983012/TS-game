@@ -197,7 +197,7 @@ public class WinSUPE21 extends WinBase{
 		backgroundPanel.setBackground(Color.WHITE);
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
-		
+		dataPackage.trigonceSA=false;
 		
 		/*************************************************************	
 		 * 【镶对话框】

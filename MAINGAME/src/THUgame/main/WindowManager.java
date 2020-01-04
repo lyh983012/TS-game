@@ -251,6 +251,9 @@ public class WindowManager extends JFrame {
 			case 40003:
 				generator= new WinEndWhiteCollar(mainGame,mainFrame);
 				break;
+			case 40007:
+				generator= new WinEndDropOut(mainGame,mainFrame);
+				break;
 			case 50000:
 				generator = new WinClubRecirument(mainGame,mainFrame);
 				break;

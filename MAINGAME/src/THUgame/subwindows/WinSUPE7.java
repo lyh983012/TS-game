@@ -196,7 +196,7 @@ public class WinSUPE7 extends WinBase{
 		backgroundPanel.setBounds(0, 0, 1080, 720);
 		backgroundPanel.setLayout(null);
 		
-		
+		dataPackage.trigonceSA=false;
 		/*************************************************************	
 		 * 【镶对话框】
 		 * 		建立一个带背景的Panel的流程设setBounds(x, y, 宽, 高);

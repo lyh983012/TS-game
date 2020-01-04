@@ -46,14 +46,14 @@ public class EventMorningClass extends EventBase{
 		 *******************************************/
 		/*		START OF YOUR CODE		*/	
 		Random r = new Random();
-		int a = r.nextInt(10) + 5;
+		int a = r.nextInt(10);
 		switch(oldDataPack.choiceA) {
 			case "answer":
 				if(oldDataPack.characterEnergy<5) {
 					oldDataPack.notification="我没有力气站起来回答。";
 					break;
 				}else {
-					if(a<=5)
+					if(a<=3)
 						oldDataPack.trigSubEvent=true;
 					else {
 						oldDataPack.time+=1;					//当某个操作需要耗时，时间+1（原本的版本是计数器+1）

@@ -251,7 +251,8 @@ public class MazeGame extends JPanel implements KeyListener{
     			this.dataPackage.trigSubEvent=false;
     			this.dataPackage.time+=1;
     			this.dataPackage.stateA="";
-    			this.dataPackage.characterIQ+=timeLeft/10;//在这里改属性
+    			this.dataPackage.studyProgress+=3;
+    			this.dataPackage.characterIQ+=timeLeft/100;//在这里改属性
     			this.dataPackage.notification = "<html>我发现作业有些，沉迷其中，过去了4个小时";
     			this.dataPackage.notification += "<br>学习进度+1，心情值-1，体力消耗5点";
     			this.dataPackage.notification += "<br>沉浸在知识海洋里让我的智力值发生了"+String.valueOf((timeLeft-100)/50)+"点的变化</html>";

@@ -87,15 +87,7 @@ public class ExamPanel extends JPanel implements Runnable {
 
     protected void paintComponent(Graphics g) {
     	if(game.gameover&& Game.revive <=0) {
-    		if(Game.score<60) {
-    			dialogContent.setText("你挂科了，等待你的将是审判");
-    		}else {
-    			dialogContent.setText("你在在期末考试中获得了:【   "+Integer.toString(Game.score*2>100?100:Game.score*2)+" 】分<br>");
-    		}
-    		StartButton.setText("回宿舍");
-    		StartButton.setFont(new Font("TimesRoman", Font.BOLD, 24));
-    		this.add(StartButton);
-    		StartButton.addActionListener(new EnderListener(Game.dataPackage,Game.mainGame));
+    		
     	}
     	
         super.paintComponent(g);
@@ -115,10 +107,25 @@ public class ExamPanel extends JPanel implements Runnable {
 
         if (game.gameover) {
         	if(game.revive>0)
+        	{
         		notifi+="<br>按R再来一次";
+        		dialogContent.setText(notifi);
+        	}
         	else
-        		notifi+="<br>考试结束了";
-        	 dialogContent.setText(notifi);
+        	{
+        		if(Game.score<60) {
+        			dialogContent.setText("你挂科了，等待你的将是审判");
+        			dataPackage.choiceA="Fail";
+        		}
+        		else {
+        			dialogContent.setText("你在在期末考试中获得了:【   "+Integer.toString(Game.score*2>100?100:Game.score*2)+" 】分<br>");
+        		}
+        		StartButton.setText("回宿舍");
+        		StartButton.setFont(new Font("TimesRoman", Font.BOLD, 24));
+        		this.add(StartButton);
+        		StartButton.addActionListener(new EnderListener(Game.dataPackage,Game.mainGame));
+        		//notifi+="<br>考试结束了";
+        	}
         	}
        
     	
