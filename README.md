@@ -31,3 +31,5 @@
 
 - mac: 点击start.command
 - win: 点击start.bat
+
+![1](https://user-images.githubusercontent.com/33993639/111057657-238f9180-84c4-11eb-85c0-5685031ae520.gif)
